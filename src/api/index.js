@@ -1,10 +1,10 @@
 import axios from 'axios'
+import Config from 'react-native-config'
 
-// FIXME: Keep this as config somewhere else.
-const API_URL = 'http://10.0.2.2:3000'
+console.log(Config)
 
 export function getDocumentsRequest() {
-  return axios.get(API_URL + '/documents')
+  return axios.get(Config.API_URL + '/documents')
     .then(response => {
       return response.data
     })
