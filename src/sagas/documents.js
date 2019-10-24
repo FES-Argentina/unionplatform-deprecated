@@ -1,15 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
 
 import { FETCH_DOCUMENTS } from '../constants';
 import { getDocuments } from '../actions/documents';
 import { getDocumentsRequest } from '../api';
 
-export function* documentsWatcher() {
-  yield takeLatest(FETCH_DOCUMENTS, documentsWorker);
-}
-
-function* documentsWorker(action) {
+function* documentsWorker() {
   try {
     const documents = yield call(getDocumentsRequest);
 
@@ -18,4 +13,8 @@ function* documentsWorker(action) {
   } catch (e) {
     console.log('EXCEPTION', e);
   }
+}
+
+export function* documentsWatcher() {
+  yield takeLatest(FETCH_DOCUMENTS, documentsWorker);
 }

@@ -1,44 +1,48 @@
-import React from 'react'
+import React from 'react';
 import {
   FlatList,
   SafeAreaView,
   Text,
   TouchableHighlight,
   View,
-} from 'react-native'
-import {connect} from 'react-redux'
+} from 'react-native';
+import { connect } from 'react-redux';
 
-import {fetchDocuments} from '../actions/documents'
+import { fetchDocuments } from '../actions/documents';
 
 class DocumentList extends React.Component {
   componentDidMount = () => {
-    this.props.dispatch(fetchDocuments())
+    this.props.loadDocuments();
   }
 
   render() {
+    const { title, data } = this.props;
     return (
       <SafeAreaView>
-        <Text>{this.props.title}</Text>
+        <Text>{title}</Text>
         <FlatList
-          data={this.props.data}
+          data={data}
           extraData={this.state}
-          keyExtractor={item => item.id}
-          renderItem={({item, index, separators}) => (
-            <TouchableHighlight onPress={() => this._onPress(item)}>
-              <View style={{backgroundColor: 'gray'}}>
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableHighlight>
+              <View style={{ backgroundColor: 'gray' }}>
                 <Text>{item.title}</Text>
               </View>
             </TouchableHighlight>
           )}
         />
       </SafeAreaView>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.documents.list,
-})
+});
 
-export default connect(mapStateToProps)(DocumentList)
+const mapDispatchToProps = (dispatch) => ({
+  loadDocuments: () => dispatch(fetchDocuments()),
+});
 
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentList);
