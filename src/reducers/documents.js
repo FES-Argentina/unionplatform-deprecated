@@ -1,8 +1,8 @@
-import {GET_DOCUMENTS} from '../constants'
+import { GET_DOCUMENTS } from '../constants';
 
 const initialState = {
   list: [],
-}
+};
 
 const documentsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,11 +10,11 @@ const documentsReducer = (state = initialState, action) => {
       return {
         ...state,
         list: [...state.list, ...action.payload],
-      }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default documentsReducer
+export default documentsReducer;
