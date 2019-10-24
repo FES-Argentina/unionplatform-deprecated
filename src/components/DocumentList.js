@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchDocuments } from '../actions/documents';
 
@@ -36,6 +37,16 @@ class DocumentList extends React.Component {
     );
   }
 }
+
+DocumentList.propTypes = {
+  title: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  loadDocuments: PropTypes.func.isRequired,
+};
+
+DocumentList.defaultProps = {
+  data: [],
+};
 
 const mapStateToProps = (state) => ({
   data: state.documents.list,
