@@ -4,6 +4,7 @@ module.exports = {
   parser: 'babel-eslint',
   rules: {
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/destructuring-assignment": [1, "always", { "ignoreClassFields": true }]
+    "global-require": 0,
+    "react/forbid-prop-types": 0
   },
 };
