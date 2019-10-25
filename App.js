@@ -1,10 +1,10 @@
 import React from 'react';
 
-import DocumentList from './src/components/DocumentList';
+import Nav from './src/navigation/authenticated/Navigators';
 
 class App extends React.Component {
   render() {
-    return <DocumentList title="Documentos" />;
+    return <Nav />;
   }
 }
 
