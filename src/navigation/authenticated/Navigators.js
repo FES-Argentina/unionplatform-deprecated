@@ -19,9 +19,13 @@ import styles from './styles';
 
 import Home from '../../components/home/Home';
 import Generic from '../../components/generic/Generic';
-import DocumentList from '../../components/DocumentList';
+import DocumentList from '../../components/itemList/DocumentList';
+import Notifications from '../../components/notifications/Notifications';
+import Profile from '../../components/profile/Profile';
 
-const Doc = () => (<DocumentList title="Docs" />);
+const Docs = ({ navigation }) => (<DocumentList navigation={navigation} />);
+const NotificationsList = ({ navigation }) => (<Notifications navigation={navigation} />);
+const User = () => (<Profile />);
 
 class NavigationDrawerStructure extends React.Component {
   render() {
@@ -41,7 +45,7 @@ class NavigationDrawerStructure extends React.Component {
 }
 
 const TabStackNavigator = createStackNavigator({
-  First: {
+  TabFirst: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
       title: 'Sindicato App',
@@ -54,7 +58,7 @@ const TabStackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
-  Second: {
+  TabSecond: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
       title: 'Sindicato App',
@@ -67,7 +71,7 @@ const TabStackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
-  Third: {
+  TabThird: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
       title: 'Sindicato App',
@@ -83,8 +87,8 @@ const TabStackNavigator = createStackNavigator({
 });
 
 const ProfileStackNavigator = createStackNavigator({
-  First: {
-    screen: Generic,
+  Profile: {
+    screen: User,
     navigationOptions: ({ navigation }) => ({
       title: 'Perfil',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
@@ -99,7 +103,7 @@ const ProfileStackNavigator = createStackNavigator({
 });
 
 const ComplaintsStackNavigator = createStackNavigator({
-  First: {
+  Complaints: {
     screen: Generic,
     navigationOptions: ({ navigation }) => ({
       title: 'Denuncias',
@@ -115,10 +119,26 @@ const ComplaintsStackNavigator = createStackNavigator({
 });
 
 const DocumentListStackNavigator = createStackNavigator({
-  First: {
-    screen: Doc,
+  DocumentList: {
+    screen: Docs,
     navigationOptions: ({ navigation }) => ({
       title: 'Documentos',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
+const NotificationsStackNavigator = createStackNavigator({
+  Notifications: {
+    screen: NotificationsList,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Notificaciones',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -171,6 +191,16 @@ const DrawerNavigator = createDrawerNavigator({
     },
   },
 
+  Screen5: {
+    screen: NotificationsStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Notificaciones',
+      drawerIcon: () => (
+        <FontAwesome5 name="bell" solid size={15} />
+      ),
+    },
+  },
+
 
 });
 
@@ -178,6 +208,17 @@ NavigationDrawerStructure.propTypes = {
   navigationProps: PropTypes.object.isRequired,
 };
 
+Docs.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+NotificationsList.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const nav = createAppContainer(DrawerNavigator);
 

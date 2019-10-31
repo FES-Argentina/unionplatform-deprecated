@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   bars: {
-     marginLeft: 15
-  }
+    marginLeft: 15,
+  },
 
 });
 
