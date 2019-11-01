@@ -8,3 +8,9 @@ export function getDocumentsRequest() {
       console.log('ERROR', error);
     });
 }
+
+export function login(username, password) {
+  return axios.post(`${Config.API_URL}/login`, { username, password })
+    .then((response) => response.data)
+    .catch((error) => error);
+}
