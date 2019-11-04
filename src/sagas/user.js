@@ -21,10 +21,8 @@ export function* authorize({ username, password }) {
   yield put(sendingRequest(true));
   try {
     const result = yield call(login, username, password);
-    console.log('RESULT', result);
     yield put(setAuth(result.token));
   } catch (error) {
-    console.log('ERROR en authorize', error);
     yield put(requestError(error.message));
   } finally {
     yield put(sendingRequest(false));
@@ -36,15 +34,12 @@ export function* authorize({ username, password }) {
  */
 export function* loginFlow() {
   while (true) {
-    console.log('WATCHING', LOGIN_REQUEST);
     const request = yield take(LOGIN_REQUEST);
-    console.log('GOT', LOGIN_REQUEST);
     const { username, password } = request.data;
 
     const winner = yield race({
       auth: call(authorize, { username, password }),
       logout: take(LOGOUT),
     });
-    console.log('WINNER', winner);
   }
 }
