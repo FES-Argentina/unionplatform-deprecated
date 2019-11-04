@@ -22,6 +22,7 @@ import Generic from '../../components/generic/Generic';
 import DocumentList from '../../components/itemList/DocumentList';
 import Notifications from '../../components/notifications/Notifications';
 import Profile from '../../components/profile/Profile';
+import Slideshow from '../../components/slideshow/Slideshow';
 
 const Docs = ({ navigation }) => (<DocumentList navigation={navigation} />);
 const NotificationsList = ({ navigation }) => (<Notifications navigation={navigation} />);
@@ -150,6 +151,22 @@ const NotificationsStackNavigator = createStackNavigator({
   },
 });
 
+const SlideshowStackNavigator = createStackNavigator({
+  Slideshow: {
+    screen: Slideshow,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Slideshow',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const DrawerNavigator = createDrawerNavigator({
   Screen1: {
     screen: TabStackNavigator,
@@ -197,6 +214,16 @@ const DrawerNavigator = createDrawerNavigator({
       drawerLabel: 'Notificaciones',
       drawerIcon: () => (
         <FontAwesome5 name="bell" solid size={15} />
+      ),
+    },
+  },
+
+  Screen6: {
+    screen: SlideshowStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Slideshow',
+      drawerIcon: () => (
+        <FontAwesome5 name="meteor" solid size={15} />
       ),
     },
   },
