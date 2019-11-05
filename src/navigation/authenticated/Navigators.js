@@ -26,7 +26,7 @@ import Slideshow from '../../components/slideshow/Slideshow';
 
 const Docs = ({ navigation }) => (<DocumentList navigation={navigation} />);
 const NotificationsList = ({ navigation }) => (<Notifications navigation={navigation} />);
-const User = () => (<Profile />);
+const User = ({ navigation }) => (<Profile navigation={navigation} />);
 
 class NavigationDrawerStructure extends React.Component {
   render() {
@@ -242,6 +242,12 @@ Docs.propTypes = {
 };
 
 NotificationsList.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+User.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,

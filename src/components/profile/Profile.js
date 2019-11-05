@@ -4,6 +4,8 @@ import {
   View,
   Text,
   Image,
+  FlatList,
+  TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -18,9 +20,14 @@ class Profile extends React.Component {
     loadDocuments();
   }
 
+  itemView = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Complaints');
+  }
+
   render() {
     const {
-      id, name, avatar, subtitle, email, workemail,
+      id, name, avatar, subtitle, email, workemail, data,
     } = this.props;
 
     return (
@@ -46,12 +53,26 @@ class Profile extends React.Component {
           <Text style={styles.itemSubTitleText}>Trabajo</Text>
         </View>
         <Text style={styles.itemSubTitle}>{workemail}</Text>
+        <Text style={styles.Complaint}>Ultimas denuncias</Text>
+        <FlatList
+          data={data.slice(0, 2)}
+          extraData={this.state}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableHighlight onPress={this.itemView}>
+              <View style={styles.itemNameNotification}>
+                <Text style={styles.itemComplaint}>{item.title}</Text>
+              </View>
+            </TouchableHighlight>
+          )}
+        />
       </SafeAreaView>
     );
   }
 }
 
 Profile.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
   id: PropTypes.string,
   name: PropTypes.string,
   subtitle: PropTypes.string,
@@ -59,9 +80,13 @@ Profile.propTypes = {
   email: PropTypes.string,
   workemail: PropTypes.string,
   loadDocuments: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 Profile.defaultProps = {
+  data: [],
   id: '123123',
   name: 'Juana Gomez',
   subtitle: 'Empresa',

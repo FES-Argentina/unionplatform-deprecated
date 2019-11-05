@@ -53,6 +53,16 @@ const styles = StyleSheet.create({
   icon: {
     paddingLeft: 30,
   },
+  Complaint: {
+    paddingTop: 40,
+    paddingLeft: 30,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  itemComplaint: {
+    paddingTop: 20,
+    paddingLeft: 30,
+  },
 });
 
 export default styles;
