@@ -1,35 +1,71 @@
 import React, { PureComponent } from 'react';
 import {
-  Text, View,
+  Text, View, TouchableHighlight, ImageBackground,
 } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchDocuments } from '../../actions/documents';
 import styles from './styles';
 
-export default class Slideshow extends PureComponent {
+class Slideshow extends PureComponent {
+  componentDidMount = () => {
+    const { loadDocuments } = this.props;
+    loadDocuments();
+  }
+
+  itemView = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Complaints');
+  }
+
   render() {
+    const { data } = this.props;
+
     return (
-      <View style={styles.container}>
+      <View>
         <SwiperFlatList
+          horizontal
           autoplay
           autoplayDelay={2}
           autoplayLoop
           index={2}
           showPagination
-        >
-          <View style={styles.child1}>
-            <Text style={styles.text}>1</Text>
-          </View>
-          <View style={styles.child2}>
-            <Text style={styles.text}>2</Text>
-          </View>
-          <View style={styles.child3}>
-            <Text style={styles.text}>3</Text>
-          </View>
-          <View style={styles.child}>
-            <Text style={styles.text}>4</Text>
-          </View>
-        </SwiperFlatList>
+          data={data.slice(0, 5)}
+          renderItem={({ item }) => (
+            <TouchableHighlight onPress={this.itemView}>
+              <View style={styles.slide}>
+                <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
+                  <Text style={styles.slideTextTitle}>Noticia</Text>
+                  <Text style={styles.slideText}>{item.title}</Text>
+                </ImageBackground>
+              </View>
+            </TouchableHighlight>
+          )}
+        />
       </View>
     );
   }
 }
+
+Slideshow.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  loadDocuments: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+Slideshow.defaultProps = {
+  data: [],
+};
+
+const mapStateToProps = (state) => ({
+  data: state.documents.list,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadDocuments: () => dispatch(fetchDocuments()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Slideshow);

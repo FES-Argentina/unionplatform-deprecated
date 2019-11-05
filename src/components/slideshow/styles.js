@@ -10,35 +10,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  child: {
+  slide: {
+    flexDirection: 'column',
     height: height * 1,
     width,
     justifyContent: 'center',
-    backgroundColor: 'tomato',
   },
-  child1: {
-    height: height * 1,
-    width,
-    justifyContent: 'center',
-    backgroundColor: 'pink',
-  },
-  child2: {
-    height: height * 1,
-    width,
-    justifyContent: 'center',
-    backgroundColor: 'yellow',
-  },
-  child3: {
-    height: height * 1,
-    width,
-    justifyContent: 'center',
-    backgroundColor: 'orange',
-  },
-  text: {
-    fontSize: width * 0.5,
+  slideText: {
+    fontSize: 18,
     textAlign: 'center',
   },
-
+  slideTextTitle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.7,
+  },
 });
 
 export default styles;
