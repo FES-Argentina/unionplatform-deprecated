@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import NavigationService from '../../navigation/navigationService';
 import styles from './styles';
 
 import { fetchDocuments } from '../../actions/documents';
@@ -20,8 +21,7 @@ class Notifications extends React.Component {
   }
 
   itemView = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Complaints');
+    NavigationService.navigate('Complaints');
   }
 
   render() {

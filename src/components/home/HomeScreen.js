@@ -6,7 +6,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={[styles.homeScreen]}>
-        <Text>Pantalla</Text>
+        <Text>Pantalla CHAT</Text>
       </View>
     );
   }

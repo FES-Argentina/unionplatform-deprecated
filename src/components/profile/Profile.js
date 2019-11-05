@@ -10,6 +10,8 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import NavigationService from '../../navigation/navigationService';
+
 import styles from './styles';
 
 import { fetchDocuments } from '../../actions/documents';
@@ -21,8 +23,7 @@ class Profile extends React.Component {
   }
 
   itemView = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Complaints');
+    NavigationService.navigate('Complaints');
   }
 
   render() {

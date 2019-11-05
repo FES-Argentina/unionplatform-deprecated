@@ -6,6 +6,8 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchDocuments } from '../../actions/documents';
+import NavigationService from '../../navigation/navigationService';
+
 import styles from './styles';
 
 class Slideshow extends PureComponent {
@@ -15,8 +17,7 @@ class Slideshow extends PureComponent {
   }
 
   itemView = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Complaints');
+    NavigationService.navigate('Complaints');
   }
 
   render() {

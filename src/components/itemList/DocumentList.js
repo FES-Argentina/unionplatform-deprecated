@@ -6,11 +6,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styles from './styles';
-
+import { connect } from 'react-redux';
 import { fetchDocuments } from '../../actions/documents';
+import NavigationService from '../../navigation/navigationService';
+import styles from './styles';
 
 class DocumentList extends React.Component {
   componentDidMount = () => {
@@ -19,8 +19,7 @@ class DocumentList extends React.Component {
   }
 
   itemView = () => {
-    const { navigation } = this.props;
-    navigation.navigate('Complaints');
+    NavigationService.navigate('Complaints');
   }
 
   render() {

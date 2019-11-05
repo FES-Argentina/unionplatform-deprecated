@@ -10,11 +10,13 @@ import {
 
 // Import all the screens for Tab
 import HomeScreen from './HomeScreen';
+import DocumentList from '../itemList/DocumentList';
+import Notifications from '../notifications/Notifications';
 
 const TabScreen = createMaterialTopTabNavigator(
   {
-    Noticias: { screen: HomeScreen },
-    Alertas: { screen: HomeScreen },
+    Noticias: { screen: DocumentList },
+    Alertas: { screen: Notifications },
     Chat: { screen: HomeScreen },
   },
   {
