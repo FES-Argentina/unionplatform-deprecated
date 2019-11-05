@@ -9,6 +9,15 @@ import { LOGIN_REQUEST, LOGOUT } from '../constants';
 import { requestError, sendingRequest } from '../actions';
 import { setAuth } from '../actions/user';
 import { login } from '../api';
+import NavigationService from '../navigation/navigationService';
+
+
+/**
+ * Effect to redirect the user after logging in.
+ */
+function* redirectLogin() {
+  NavigationService.navigate('Authenticated');
+}
 
 /**
  * Effect to handle authorization.
@@ -22,6 +31,7 @@ export function* authorize({ username, password }) {
   try {
     const result = yield call(login, username, password);
     yield put(setAuth(result.token));
+    yield call(redirectLogin);
   } catch (error) {
     yield put(requestError(error.message));
   } finally {
