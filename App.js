@@ -1,11 +1,11 @@
 import React from 'react';
 import NavigationService from './src/navigation/navigationService';
-import Nav from './src/navigation/authenticated/Navigators';
+import Switcher from './src/navigation/loading/Switcher';
 
 class App extends React.Component {
   render() {
     return (
-      <Nav ref={(navigatorRef) => {
+      <Switcher ref={(navigatorRef) => {
         NavigationService.setTopLevelNavigator(navigatorRef);
       }}
       />
