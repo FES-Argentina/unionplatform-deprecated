@@ -30,7 +30,6 @@ class Slideshow extends PureComponent {
           autoplay
           autoplayDelay={2}
           autoplayLoop
-          index={2}
           showPagination
           data={data.slice(0, 5)}
           renderItem={({ item }) => (
