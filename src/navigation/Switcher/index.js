@@ -2,18 +2,18 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import AuthLoadingScreen from './AuthLoadingScreen';
-import Nav from '../authenticated/Navigators';
-import GuestStackNavigator from '../guest/Navigation';
+import AuthenticatedNavigation from '../Authenticated';
+import GuestNavigation from '../Guest';
 
 const Switcher = createSwitchNavigator({
   Loading: {
     screen: AuthLoadingScreen,
   },
   Authenticated: {
-    screen: Nav,
+    screen: AuthenticatedNavigation,
   },
   Guest: {
-    screen: GuestStackNavigator,
+    screen: GuestNavigation,
   }
 });
 
