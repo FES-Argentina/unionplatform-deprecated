@@ -1,6 +1,6 @@
 import React from 'react';
-import NavigationService from './src/navigation/navigationService';
-import Switcher from './src/navigation/loading/Switcher';
+import NavigationService from './src/navigation/NavigationService';
+import Switcher from './src/navigation/Switcher';
 
 class App extends React.Component {
   render() {
