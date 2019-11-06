@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import NavigationService from '../../navigation/navigationService';
+import NavigationService from '../../navigation/NavigationService';
 import styles from './styles';
 
 import { fetchDocuments } from '../../actions/documents';

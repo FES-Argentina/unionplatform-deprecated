@@ -6,7 +6,7 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchDocuments } from '../../actions/documents';
-import NavigationService from '../../navigation/navigationService';
+import NavigationService from '../../navigation/NavigationService';
 
 import styles from './styles';
 

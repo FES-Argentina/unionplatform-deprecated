@@ -9,7 +9,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDocuments } from '../../actions/documents';
-import NavigationService from '../../navigation/navigationService';
+import NavigationService from '../../navigation/NavigationService';
 import styles from './styles';
 
 class DocumentList extends React.Component {
