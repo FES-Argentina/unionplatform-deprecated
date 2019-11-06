@@ -9,7 +9,7 @@ import { LOGIN_REQUEST, LOGOUT } from '../constants';
 import { requestError, sendingRequest } from '../actions';
 import { setAuth } from '../actions/user';
 import { login } from '../api';
-import NavigationService from '../navigation/navigationService';
+import NavigationService from '../navigation/NavigationService';
 
 
 /**
