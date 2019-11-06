@@ -21,7 +21,6 @@ import Home from '../../components/home/Home';
 import DocumentList from '../../components/itemList/DocumentList';
 import Notifications from '../../components/notifications/Notifications';
 import Profile from '../../components/profile/Profile';
-import Slideshow from '../../components/slideshow/Slideshow';
 
 
 class NavigationDrawerStructure extends React.Component {
@@ -147,22 +146,6 @@ const NotificationsStackNavigator = createStackNavigator({
   },
 });
 
-const SlideshowStackNavigator = createStackNavigator({
-  Slideshow: {
-    screen: Slideshow,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Slideshow',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#f50057',
-        shadowOpacity: 0,
-        elevation: 0,
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
-
 const DrawerNavigator = createDrawerNavigator({
   Tabs: {
     screen: TabStackNavigator,
@@ -213,17 +196,6 @@ const DrawerNavigator = createDrawerNavigator({
       ),
     },
   },
-
-  Slideshow: {
-    screen: SlideshowStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Slideshow',
-      drawerIcon: () => (
-        <FontAwesome5 name="meteor" solid size={15} />
-      ),
-    },
-  },
-
 
 });
 
