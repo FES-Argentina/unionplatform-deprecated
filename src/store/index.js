@@ -1,4 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import SecureStorage from 'react-native-secure-storage';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import documentsReducer from '../reducers/documents';
@@ -12,8 +14,17 @@ const rootReducer = combineReducers({
   user: userReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+const persistConfig = {
+  key: 'root',
+  storage: SecureStorage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+
+let persistor = persistStore(store)
 
 sagaMiddleware.run(rootSaga);
 
-export default store;
+export { store, persistor };
