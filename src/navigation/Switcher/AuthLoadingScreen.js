@@ -9,19 +9,24 @@ class AuthLoadingScreen extends React.Component {
   }
 
   _bootstrapAsync = async () => {
-    const { authenticatedScreen, guestScreen, user, navigation } = this.props;
+    const { user, navigation } = this.props;
     navigation.navigate(user.authToken ? 'Authenticated' : 'Guest');
   }
 
   render() {
     return (
-      <View>
-        <ActivityIndicator />
-        <Text h3>Cargando...</Text>
-        <StatusBar style='default' />
+      <View style={style}>
+        <Text h4>Cargando...</Text>
+        <ActivityIndicator size="large" color="#f50057"/>
       </View>
     )
   }
+}
+
+const style = {
+  flex: 1,
+  justifyContent: 'space-around',
+  alignItems: 'center',
 }
 
 const mapStateToProps = (state) => ({
