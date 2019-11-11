@@ -40,8 +40,18 @@ const GuestStackNavigator = createStackNavigator(
       headerTintColor: '#fff',
       headerRight: () => (
         <>
-          <Button title='Afiliate' onPress={() => { navigation.navigate('Join') }} />
-          <Button title='Login'  onPress={() => { navigation.navigate('Login') }} />
+          <Button
+            title='Afiliate'
+            onPress={() => { navigation.navigate('Join') }}
+            type='clear'
+            titleStyle={{color: 'white'}}
+          />
+          <Button
+            title='Login'
+            onPress={() => { navigation.navigate('Login') }}
+            type='clear'
+            titleStyle={{color: 'white'}}
+          />
         </>
       ),
     }),
