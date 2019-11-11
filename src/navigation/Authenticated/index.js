@@ -9,6 +9,7 @@ import {
 } from 'react-navigation';
 import {
   createDrawerNavigator,
+  DrawerItems,
 } from 'react-navigation-drawer';
 import {
   createStackNavigator,
@@ -16,6 +17,7 @@ import {
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import LogoutButton from '../../components/LogoutButton';
 
 import Home from '../../components/Home';
 import DocumentList from '../../components/DocumentList';
@@ -187,16 +189,16 @@ const DrawerNavigator = createDrawerNavigator({
     },
   },
 
-  Notifications: {
-    screen: NotificationsStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Notificaciones',
-      drawerIcon: () => (
-        <FontAwesome5 name="bell" solid size={15} />
-      ),
-    },
-  },
-
+},
+{
+  contentComponent: (props) => (
+    <View style={styles.drawerContent}>
+      <SafeAreaView forceInset={{ horizontal: 'never' }}>
+        <DrawerItems {...props} />
+        <LogoutButton />
+      </SafeAreaView>
+    </View>
+  )
 });
 
 NavigationDrawerStructure.propTypes = {

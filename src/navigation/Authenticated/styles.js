@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
   bars: {
     marginLeft: 15,
   },
+  drawerContent: {
+    flex: 1,
+  }
 
 });
 

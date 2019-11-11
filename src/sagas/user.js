@@ -5,7 +5,7 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT } from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST} from '../constants';
 import { requestError, sendingRequest } from '../actions';
 import { setAuth } from '../actions/user';
 import { login } from '../api';
@@ -13,10 +13,10 @@ import NavigationService from '../navigation/NavigationService';
 
 
 /**
- * Effect to redirect the user after logging in.
+ * Effect to redirect the user after logging in or out.
  */
-function* redirectLogin() {
-  NavigationService.navigate('Authenticated');
+function* redirectAuth() {
+  NavigationService.navigate('Loading');
 }
 
 /**
@@ -31,7 +31,8 @@ export function* authorize({ username, password }) {
   try {
     const result = yield call(login, username, password);
     yield put(setAuth(result.token));
-    yield call(redirectLogin);
+    // TODO: This should be done on the log in saga after authorize is succesful.
+    yield call(redirectAuth);
   } catch (error) {
     yield put(requestError(error.message));
   } finally {
@@ -49,7 +50,19 @@ export function* loginFlow() {
 
     const winner = yield race({
       auth: call(authorize, { username, password }),
-      logout: take(LOGOUT),
+      logout: take(LOGOUT_REQUEST),
     });
+  }
+}
+
+/**
+ * Log out saga, watching for a LOGOUT_REQUEST.
+ */
+export function* logoutFlow() {
+  while (true) {
+    yield take(LOGOUT_REQUEST);
+    yield put(setAuth(null));
+    // TODO: Should we also close the session in the backend?
+    yield call(redirectAuth);
   }
 }
