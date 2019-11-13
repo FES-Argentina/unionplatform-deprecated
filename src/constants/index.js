@@ -14,6 +14,6 @@ export const REQUEST_ERROR = 'REQUEST_ERROR';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 
-export const LOGOUT = 'LOGOUT';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 export const SET_AUTH = 'SET_AUTH';
