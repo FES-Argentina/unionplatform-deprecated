@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     borderRadius: 5,
     height: 200,
+    backgroundColor: '#ff5252',
   },
   backgroundImage: {
     flex: 1,

@@ -21,6 +21,8 @@ import LogoutButton from '../../components/LogoutButton';
 
 import Home from '../../components/Home';
 import DocumentList from '../../components/DocumentList';
+import DocumentDetail from '../../components/DocumentDetail';
+
 import Notifications from '../../components/Notifications';
 import Profile from '../../components/Profile';
 
@@ -130,6 +132,20 @@ const DocumentListStackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
+  DocumentDetail: {
+    screen: DocumentDetail,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Documento',
+      headerLeft: (<FontAwesome5 name="arrow-left" style={[styles.bars]} size={20} onPress={() => navigation.goBack()} />),
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+
+      },
+      headerTintColor: '#fff',
+    }),
+  },
 });
 
 const NotificationsStackNavigator = createStackNavigator({
@@ -198,7 +214,7 @@ const DrawerNavigator = createDrawerNavigator({
         <LogoutButton />
       </SafeAreaView>
     </View>
-  )
+  ),
 });
 
 NavigationDrawerStructure.propTypes = {

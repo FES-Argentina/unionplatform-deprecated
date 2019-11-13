@@ -5,7 +5,7 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST} from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST } from '../constants';
 import { requestError, sendingRequest } from '../actions';
 import { setAuth } from '../actions/user';
 import { login } from '../api';

@@ -18,8 +18,8 @@ class DocumentList extends React.Component {
     loadDocuments();
   }
 
-  itemView = () => {
-    NavigationService.navigate('Complaints');
+  itemView = (id) => {
+    NavigationService.navigate('DocumentDetail', { id });
   }
 
   render() {
@@ -33,8 +33,8 @@ class DocumentList extends React.Component {
         extraData={this.state}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableHighlight onPress={this.itemView}>
-            <View style={[styles.itemContainerGrid, { backgroundColor: '#ff5252' }]}>
+          <TouchableHighlight onPress={() => this.itemView(item.id)}>
+            <View style={styles.itemContainerGrid}>
               <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
                 <Text style={styles.itemTitleGrid}>{item.title}</Text>
                 <Text style={styles.itemNameGrid}>{item.summary}</Text>

@@ -10,8 +10,8 @@ class Generic extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <View style={[styles.container]}>
-        <Text style={[styles.text]}>{title}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>{title}</Text>
       </View>
     );
   }

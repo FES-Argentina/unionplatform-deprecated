@@ -9,6 +9,14 @@ export function getDocumentsRequest() {
     });
 }
 
+export function getDocumentRequest(id) {
+  return axios.get(`${Config.API_URL}/documents/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}
+
 export function login(username, password) {
   return axios.post(`${Config.API_URL}/login`, { username, password })
     .then((response) => response.data)

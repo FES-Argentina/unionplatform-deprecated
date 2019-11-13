@@ -17,13 +17,13 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage: SecureStorage,
-}
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
-let persistor = persistStore(store)
+const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
 
