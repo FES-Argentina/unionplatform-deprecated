@@ -26,10 +26,7 @@ class Slideshow extends PureComponent {
     return (
       <View>
         <SwiperFlatList
-          horizontal
-          autoplay
-          autoplayDelay={2}
-          autoplayLoop
+          horizontal    
           showPagination
           data={data.slice(0, 5)}
           renderItem={({ item }) => (

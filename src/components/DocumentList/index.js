@@ -19,7 +19,7 @@ class DocumentList extends React.Component {
   }
 
   itemView = (id) => {
-    NavigationService.navigate('DocumentDetail', { id });
+    NavigationService.navigate('DocumentDetail', {id} );
   }
 
   render() {
@@ -30,11 +30,10 @@ class DocumentList extends React.Component {
         itemDimension={300}
         items={data}
         style={styles.gridView}
-        extraData={this.state}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableHighlight onPress={() => this.itemView(item.id)}>
-            <View style={styles.itemContainerGrid}>
+            <View style={[styles.itemContainerGrid, { backgroundColor: '#ff5252' }]}>
               <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
                 <Text style={styles.itemTitleGrid}>{item.title}</Text>
                 <Text style={styles.itemNameGrid}>{item.summary}</Text>

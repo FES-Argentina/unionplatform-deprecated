@@ -20,8 +20,8 @@ class Notifications extends React.Component {
     loadDocuments();
   }
 
-  itemView = () => {
-    NavigationService.navigate('Complaints');
+  itemView = (id) => {
+    NavigationService.navigate('DocumentDetail', {id} );
   }
 
   render() {
@@ -31,10 +31,9 @@ class Notifications extends React.Component {
       <SafeAreaView>
         <FlatList
           data={data}
-          extraData={this.state}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={this.itemView}>
+            <TouchableHighlight onPress={() => this.itemView(item.id)}>
               <View style={styles.itemNameNotification}>
                 <Text style={styles.titleItem}>{item.title}</Text>
                 <Image
