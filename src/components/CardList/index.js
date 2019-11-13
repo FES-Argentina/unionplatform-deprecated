@@ -12,14 +12,14 @@ import { fetchDocuments } from '../../actions/documents';
 import NavigationService from '../../navigation/NavigationService';
 import styles from './styles';
 
-class DocumentList extends React.Component {
+class CardList extends React.Component {
   componentDidMount = () => {
     const { loadDocuments } = this.props;
     loadDocuments();
   }
 
   itemView = (id) => {
-    NavigationService.navigate('DocumentDetail', {id} );
+    NavigationService.navigate('NewsDetail', {id} );
   }
 
   render() {
@@ -46,7 +46,7 @@ class DocumentList extends React.Component {
   }
 }
 
-DocumentList.propTypes = {
+CardList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   loadDocuments: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
@@ -54,7 +54,7 @@ DocumentList.propTypes = {
   }).isRequired,
 };
 
-DocumentList.defaultProps = {
+CardList.defaultProps = {
   data: [],
 };
 
@@ -66,4 +66,4 @@ const mapDispatchToProps = (dispatch) => ({
   loadDocuments: () => dispatch(fetchDocuments()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DocumentList);
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);

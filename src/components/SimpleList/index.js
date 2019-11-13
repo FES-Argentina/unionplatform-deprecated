@@ -14,14 +14,14 @@ import styles from './styles';
 
 import { fetchDocuments } from '../../actions/documents';
 
-class Notifications extends React.Component {
+class SimpleList extends React.Component {
   componentDidMount = () => {
     const { loadDocuments } = this.props;
     loadDocuments();
   }
 
   itemView = (id) => {
-    NavigationService.navigate('DocumentDetail', {id} );
+    NavigationService.navigate('NewsDetail', {id} );
   }
 
   render() {
@@ -49,7 +49,7 @@ class Notifications extends React.Component {
   }
 }
 
-Notifications.propTypes = {
+SimpleList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   loadDocuments: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
@@ -57,7 +57,7 @@ Notifications.propTypes = {
   }).isRequired,
 };
 
-Notifications.defaultProps = {
+SimpleList.defaultProps = {
   data: [],
 };
 
@@ -69,4 +69,4 @@ const mapDispatchToProps = (dispatch) => ({
   loadDocuments: () => dispatch(fetchDocuments()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleList);

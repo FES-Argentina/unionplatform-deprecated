@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { fetchDocument } from '../../actions/documents';
 import styles from './styles';
 
-class DocumentDetail extends React.Component {
+class NewsDetail extends React.Component {
   componentDidMount = () => {
     const { loadDocument } = this.props;
     loadDocument(this.props.navigation.state.params.id);
@@ -34,7 +34,7 @@ class DocumentDetail extends React.Component {
   }
 }
 
-DocumentDetail.propTypes = {
+NewsDetail.propTypes = {
   data: PropTypes.object,
   loadDocument: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
@@ -42,7 +42,7 @@ DocumentDetail.propTypes = {
   }).isRequired,
 };
 
-DocumentDetail.defaultProps = {
+NewsDetail.defaultProps = {
   data: {},
 };
 
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(DocumentDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsDetail);

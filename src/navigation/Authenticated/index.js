@@ -20,10 +20,10 @@ import styles from './styles';
 import LogoutButton from '../../components/LogoutButton';
 
 import Home from '../../components/Home';
-import DocumentList from '../../components/DocumentList';
-import DocumentDetail from '../../components/DocumentDetail';
+import CardList from '../../components/CardList';
+import NewsDetail from '../../components/NewsDetail';
 
-import Notifications from '../../components/Notifications';
+import SimpleList from '../../components/SimpleList';
 import Profile from '../../components/Profile';
 
 
@@ -104,7 +104,7 @@ const ProfileStackNavigator = createStackNavigator({
 
 const ComplaintsStackNavigator = createStackNavigator({
   Complaints: {
-    screen: Notifications,
+    screen: SimpleList,
     navigationOptions: ({ navigation }) => ({
       title: 'Denuncias',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
@@ -118,9 +118,9 @@ const ComplaintsStackNavigator = createStackNavigator({
   },
 });
 
-const DocumentListStackNavigator = createStackNavigator({
-  DocumentList: {
-    screen: DocumentList,
+const ListStackNavigator = createStackNavigator({
+  CardList: {
+    screen: CardList,
     navigationOptions: ({ navigation }) => ({
       title: 'Documentos',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
@@ -132,8 +132,8 @@ const DocumentListStackNavigator = createStackNavigator({
       headerTintColor: '#fff',
     }),
   },
-  DocumentDetail: {
-    screen: DocumentDetail,
+  NewsDetail: {
+    screen: NewsDetail,
     navigationOptions: ({ navigation }) => ({
       title: 'Documento',
       headerStyle: {
@@ -147,8 +147,8 @@ const DocumentListStackNavigator = createStackNavigator({
 });
 
 const NotificationsStackNavigator = createStackNavigator({
-  Notifications: {
-    screen: Notifications,
+  SimpleList: {
+    screen: SimpleList,
     navigationOptions: ({ navigation }) => ({
       title: 'Notificaciones',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
@@ -193,8 +193,8 @@ const DrawerNavigator = createDrawerNavigator({
     },
   },
 
-  DocumentList: {
-    screen: DocumentListStackNavigator,
+  CardList: {
+    screen: ListStackNavigator,
     navigationOptions: {
       drawerLabel: 'Documentos',
       drawerIcon: () => (
@@ -219,13 +219,13 @@ NavigationDrawerStructure.propTypes = {
   navigationProps: PropTypes.object.isRequired,
 };
 
-DocumentList.propTypes = {
+CardList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-Notifications.propTypes = {
+SimpleList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
