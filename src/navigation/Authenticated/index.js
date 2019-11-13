@@ -136,12 +136,10 @@ const DocumentListStackNavigator = createStackNavigator({
     screen: DocumentDetail,
     navigationOptions: ({ navigation }) => ({
       title: 'Documento',
-      headerLeft: (<FontAwesome5 name="arrow-left" style={[styles.bars]} size={20} onPress={() => navigation.goBack()} />),
       headerStyle: {
         backgroundColor: '#f50057',
         shadowOpacity: 0,
         elevation: 0,
-
       },
       headerTintColor: '#fff',
     }),
