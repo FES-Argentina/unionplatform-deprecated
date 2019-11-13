@@ -12,6 +12,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
   },
+  itemPhoto: {
+    height: 200,
+    width: 200,
+  }
 
 });
 
