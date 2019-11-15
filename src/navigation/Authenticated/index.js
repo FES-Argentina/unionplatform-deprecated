@@ -22,6 +22,7 @@ import LogoutButton from '../../components/LogoutButton';
 import Home from '../../components/Home';
 import CardList from '../../components/CardList';
 import NewsDetail from '../../components/NewsDetail';
+import Complaint from '../../components/Complaint';
 
 import SimpleList from '../../components/SimpleList';
 import Profile from '../../components/Profile';
@@ -104,9 +105,9 @@ const ProfileStackNavigator = createStackNavigator({
 
 const ComplaintsStackNavigator = createStackNavigator({
   Complaints: {
-    screen: SimpleList,
+    screen: Complaint,
     navigationOptions: ({ navigation }) => ({
-      title: 'Denuncias',
+      title: 'Cargar denuncia',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -186,7 +187,7 @@ const DrawerNavigator = createDrawerNavigator({
   Complaints: {
     screen: ComplaintsStackNavigator,
     navigationOptions: {
-      drawerLabel: 'Denuncias',
+      drawerLabel: 'Cargar denuncia',
       drawerIcon: () => (
         <FontAwesome5 name="burn" solid size={15} />
       ),
