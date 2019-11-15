@@ -16,8 +16,8 @@ class Slideshow extends PureComponent {
     loadDocuments();
   }
 
-  itemView = () => {
-    NavigationService.navigate('Complaints');
+  itemView = (id) => {
+    NavigationService.navigate('NewsDetail', {id} );
   }
 
   render() {
@@ -26,11 +26,11 @@ class Slideshow extends PureComponent {
     return (
       <View>
         <SwiperFlatList
-          horizontal    
+          horizontal
           showPagination
           data={data.slice(0, 5)}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={this.itemView}>
+            <TouchableHighlight onPress={() => this.itemView(item.id)}>
               <View style={styles.slide}>
                 <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
                   <Text style={styles.slideTextTitle}>Noticia</Text>
