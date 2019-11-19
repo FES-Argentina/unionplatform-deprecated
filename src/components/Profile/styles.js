@@ -58,11 +58,51 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     fontWeight: 'bold',
     fontSize: 16,
+    
   },
   itemComplaint: {
-    paddingTop: 20,
     paddingLeft: 30,
+    paddingBottom: 10,
+    paddingRight: 30,
+
   },
+  complaint: {
+    paddingLeft: 30,
+    fontWeight: 'bold',
+    fontSize: 24,
+    paddingTop: 30,
+    paddingRight: 30,
+
+  },
+  complaintTitle: {
+    paddingLeft: 30,
+    fontWeight: 'bold',
+    paddingRight: 30,
+
+  },
+  complaintDate: {
+    paddingLeft: 30,
+    fontWeight: 'bold',
+    color: 'grey',
+    paddingRight: 30,
+
+  },
+  itemComplaintDate: {
+    paddingLeft: 30,
+    paddingBottom: 10,
+    color: 'grey',
+    paddingRight: 30,
+
+  },
+  itemNameNotification: {
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1,
+    paddingTop: 30,
+    paddingBottom: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+
+  }
 });
 
 export default styles;

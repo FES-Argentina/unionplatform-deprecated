@@ -6,6 +6,9 @@ import {
   Image,
   FlatList,
   TouchableHighlight,
+  ScrollView,
+  Share,
+  Button,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,10 +20,26 @@ import styles from './styles';
 import { fetchDocuments } from '../../actions/documents';
 
 class Profile extends React.Component {
-  componentDidMount = () => {
-    const { loadDocuments } = this.props;
-    loadDocuments();
-  }
+  onShare = async () => {
+      try {
+        const result = await Share.share({
+          message:
+            'React Native | A framework for building native apps using React',
+        });
+
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    };
 
   itemView = () => {
     NavigationService.navigate('Complaints');
@@ -28,20 +47,15 @@ class Profile extends React.Component {
 
   render() {
     const {
-      id, name, avatar, subtitle, email, workemail, data,
+      id, name, avatar, subtitle, email, workemail, complaints,
     } = this.props;
 
     return (
       <SafeAreaView>
+        <ScrollView>
         <Text style={styles.itemIDTitle}>ID</Text>
         <Text style={styles.itemID}>{id}</Text>
-        <View style={styles.itemContainer}>
-          <Text style={styles.itemTitle}>{name}</Text>
-          <Image
-            source={{ uri: avatar }}
-            style={styles.images}
-          />
-        </View>
+        <Text style={styles.itemID}>{name}</Text>
         <Text style={styles.itemSubTitle}>Empleado</Text>
         <Text style={styles.item}>{subtitle}</Text>
         <View style={styles.itemContainerData}>
@@ -54,46 +68,78 @@ class Profile extends React.Component {
           <Text style={styles.itemSubTitleText}>Trabajo</Text>
         </View>
         <Text style={styles.itemSubTitle}>{workemail}</Text>
-        <Text style={styles.Complaint}>Ultimas denuncias</Text>
+        <Text style={styles.complaint}>Ultimas denuncias</Text>
         <FlatList
-          data={data.slice(0, 2)}
-          extraData={this.state}
+          data={complaints.slice(0, 2)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableHighlight onPress={this.itemView}>
               <View style={styles.itemNameNotification}>
-                <Text style={styles.itemComplaint}>{item.title}</Text>
+                <Text style={styles.complaintTitle}>Denuncia</Text>
+                <Text style={styles.itemComplaint}>{item.id}</Text>
+                <Text style={styles.complaintTitle}>Problemas</Text>
+                <Text style={styles.itemComplaint}>{item.problems}</Text>
+                <Text style={styles.complaintTitle}>Empresa</Text>
+                <Text style={styles.itemComplaint}>{item.companies}</Text>
+                <Text style={styles.complaintTitle}>Descripcion</Text>
+                <Text style={styles.itemComplaint}>{item.summary}</Text>
+                <Text style={styles.complaintTitle}>Fecha</Text>
+                <Text style={styles.itemComplaint}>{item.date}</Text>
+                <Button onPress={this.onShare} title="Compartir" />
               </View>
             </TouchableHighlight>
           )}
         />
+    </ScrollView>
+
       </SafeAreaView>
     );
   }
 }
 
 Profile.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object),
   id: PropTypes.string,
   name: PropTypes.string,
   subtitle: PropTypes.string,
   avatar: PropTypes.string,
   email: PropTypes.string,
   workemail: PropTypes.string,
-  loadDocuments: PropTypes.func.isRequired,
+  complaints: PropTypes.arrayOf(PropTypes.object),
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
 Profile.defaultProps = {
-  data: [],
-  id: '123123',
-  name: 'Juana Gomez',
+  id: '123ABC',
+  name: 'Nombre Apellido',
   subtitle: 'Empresa',
   avatar: 'https://via.placeholder.com/600/56a8c2',
-  email: 'example@gmail.com',
-  workemail: 'example@gmail.com',
+  email: 'mail@example.com',
+  workemail: 'mail@example.com',
+  complaints: [{
+      id:	"CZffc",
+      photo:	"https://via.placeholder.com/600/771796",
+      summary: "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur",
+      problems:	"Accidente",
+      seniority:	"3 anios",
+      city:	"CABA",
+      tasks:	"Reparto",
+      companies:	"Rappi",
+      date: '2019/08/08'
+    },
+    {
+      id:	"CZff2",
+      photo:	"https://via.placeholder.com/600/771796",
+      summary: "Id tempor sed orci tortor ipsum consectetur",
+      problems:	"Robo",
+      seniority:	"1 anio",
+      city:	"CABA",
+      tasks:	"Reparto",
+      companies:	"Glovo",
+      date: '2019/10/10'
+    },
+  ],
 };
 
 const mapStateToProps = (state) => ({

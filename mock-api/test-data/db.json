@@ -158,7 +158,8 @@
                 "seniority": "3 anios",
                 "city": "CABA",
                 "tasks": "Reparto",
-                "companies": "Rappi"
+                "companies": "Rappi",
+                "date": "2019/10/10",
             },
             {
                 "id": "CZfsd",
@@ -168,7 +169,8 @@
                 "seniority": "1 anios",
                 "city": "CABA",
                 "tasks": "Reparto",
-                "companies": "Glovo"
+                "companies": "Glovo",
+                "date": "2019/08/08",
             }
           ]
         },
