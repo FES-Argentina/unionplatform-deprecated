@@ -159,7 +159,7 @@
                 "city": "CABA",
                 "tasks": "Reparto",
                 "companies": "Rappi",
-                "date": "2019/10/10",
+                "date": "2019/10/10"
             },
             {
                 "id": "CZfsd",
@@ -170,7 +170,7 @@
                 "city": "CABA",
                 "tasks": "Reparto",
                 "companies": "Glovo",
-                "date": "2019/08/08",
+                "date": "2019/08/08"
             }
           ]
         },
