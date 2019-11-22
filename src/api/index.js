@@ -19,6 +19,5 @@ export function getDocumentRequest(id) {
 
 export function login(username, password) {
   return axios.post(`${Config.API_URL}/login`, { username, password })
-    .then((response) => response.data)
-    .catch((error) => error);
+    .then((response) => response.data);
 }

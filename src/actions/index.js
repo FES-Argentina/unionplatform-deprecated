@@ -1,4 +1,4 @@
-import { REQUEST_ERROR, SENDING_REQUEST } from '../constants';
+import { CLEAR_ERRORS, REQUEST_ERROR, SENDING_REQUEST } from '../constants';
 
 /**
  * Action creator for SENDING_REQUEST.
@@ -21,5 +21,14 @@ export function requestError(msg) {
   return {
     type: REQUEST_ERROR,
     message: msg,
+  };
+}
+
+/**
+ * Action creator for CLEAR_ERRORS.
+ */
+export function clearErrors() {
+  return {
+    type: CLEAR_ERRORS,
   };
 }

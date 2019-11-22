@@ -9,7 +9,10 @@ import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import { loginRequest } from '../../actions/user';
+import { clearErrors } from '../../actions';
 import styles from './styles';
+
+import Message from '../Message';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -30,7 +33,15 @@ class Login extends React.Component {
     dispatch(loginRequest(email, password));
   }
 
+  handleCloseMessage = () => {
+    const { dispatch } = this.props;
+    dispatch(clearErrors());
+  }
+
   render() {
+    const { error } = this.props;
+    const show = error.message ? true : false;
+
     return (
       <Formik
         initialValues={{ email: '', password: '' }}
@@ -78,6 +89,12 @@ class Login extends React.Component {
               disabled={!isValid}
               onPress={handleSubmit}
             />
+            <Message
+              title="Error"
+              message={error.message}
+              show={show}
+              handleClose={this.handleCloseMessage}
+            />
           </View>
         )}
       </Formik>
@@ -87,11 +104,18 @@ class Login extends React.Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  error: PropTypes.object,
 };
 
+Login.defaultProps = {
+  error: {
+    message: null,
+  },
+};
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  error: state.error,
 });
 
 export default connect(mapStateToProps)(Login);

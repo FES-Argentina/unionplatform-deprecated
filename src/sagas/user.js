@@ -30,11 +30,10 @@ export function* authorize({ username, password }) {
   yield put(sendingRequest(true));
   try {
     const result = yield call(login, username, password);
-    yield put(setAuth(result.token));
-    // TODO: This should be done on the log in saga after authorize is succesful.
-    yield call(redirectAuth);
+    return result;
   } catch (error) {
     yield put(requestError(error.message));
+    return false;
   } finally {
     yield put(sendingRequest(false));
   }
@@ -52,6 +51,11 @@ export function* loginFlow() {
       auth: call(authorize, { username, password }),
       logout: take(LOGOUT_REQUEST),
     });
+
+    if (winner.auth) {
+      yield put(setAuth(winner.auth.token));
+      yield call(redirectAuth);
+    }
   }
 }
 

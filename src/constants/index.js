@@ -12,6 +12,8 @@ export const SENDING_REQUEST = 'SENDING_REQUEST';
 
 export const REQUEST_ERROR = 'REQUEST_ERROR';
 
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';

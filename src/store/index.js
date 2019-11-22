@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import documentsReducer from '../reducers/documents';
 import userReducer from '../reducers/user';
+import errorReducer from '../reducers/errors';
 import rootSaga from '../sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -12,6 +13,7 @@ const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
   documents: documentsReducer,
   user: userReducer,
+  error: errorReducer,
 });
 
 const persistConfig = {
