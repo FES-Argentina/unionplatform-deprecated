@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationService from '../../navigation/NavigationService';
+import ComplaintSmall from '../Complaint/ComplaintSmall';
 
 import styles from './styles';
 
@@ -69,27 +70,9 @@ class Profile extends React.Component {
         </View>
         <Text style={styles.itemSubTitle}>{workemail}</Text>
         <Text style={styles.complaint}>Ultimas denuncias</Text>
-        <FlatList
-          data={complaints.slice(0, 2)}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableHighlight onPress={this.itemView}>
-              <View style={styles.itemNameNotification}>
-                <Text style={styles.complaintTitle}>Denuncia</Text>
-                <Text style={styles.itemComplaint}>{item.id}</Text>
-                <Text style={styles.complaintTitle}>Problemas</Text>
-                <Text style={styles.itemComplaint}>{item.problems}</Text>
-                <Text style={styles.complaintTitle}>Empresa</Text>
-                <Text style={styles.itemComplaint}>{item.companies}</Text>
-                <Text style={styles.complaintTitle}>Descripcion</Text>
-                <Text style={styles.itemComplaint}>{item.summary}</Text>
-                <Text style={styles.complaintTitle}>Fecha</Text>
-                <Text style={styles.itemComplaint}>{item.date}</Text>
-                <Button onPress={this.onShare} title="Compartir" />
-              </View>
-            </TouchableHighlight>
-          )}
-        />
+        {
+          complaints.slice(0, 2).map((item) => <ComplaintSmall item={item} />)
+        }
     </ScrollView>
 
       </SafeAreaView>
