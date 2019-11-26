@@ -21,3 +21,8 @@ export function login(username, password) {
   return axios.post(`${Config.API_URL}/login`, { username, password })
     .then((response) => response.data);
 }
+
+export function updateUser(id, data) {
+  return axios.put(`${Config.API_URL}/users/${id}`, { user: data })
+    .then((response) => response.data);
+}

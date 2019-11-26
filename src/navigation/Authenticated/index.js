@@ -15,6 +15,8 @@ import {
   createStackNavigator,
 } from 'react-navigation-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Button } from 'react-native-elements';
+
 import PropTypes from 'prop-types';
 import styles from './styles';
 import LogoutButton from '../../components/LogoutButton';
@@ -26,6 +28,7 @@ import Complaint from '../../components/Complaint';
 
 import SimpleList from '../../components/SimpleList';
 import Profile from '../../components/Profile';
+import ProfileEdit from '../../components/ProfileEdit';
 
 
 class NavigationDrawerStructure extends React.Component {
@@ -93,6 +96,28 @@ const ProfileStackNavigator = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       title: 'Perfil',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+      headerRight: () => (
+        <>
+          <Button
+            title="Editar"
+            onPress={() => { navigation.navigate('ProfileEdit'); }}
+            type="clear"
+            titleStyle={{ color: 'white' }}
+          />
+        </>
+      ),
+    }),
+  },
+  ProfileEdit: {
+    screen: ProfileEdit,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Editar datos de perfil',
       headerStyle: {
         backgroundColor: '#f50057',
         shadowOpacity: 0,

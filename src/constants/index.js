@@ -19,3 +19,6 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 export const SET_AUTH = 'SET_AUTH';
+
+export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";

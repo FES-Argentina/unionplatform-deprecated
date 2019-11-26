@@ -5,10 +5,10 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST } from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER } from '../constants';
 import { requestError, sendingRequest } from '../actions';
-import { setAuth } from '../actions/user';
-import { login } from '../api';
+import { setAuth, updateUserSuccessAction } from '../actions/user';
+import { login, updateUser } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
 
@@ -68,5 +68,34 @@ export function* logoutFlow() {
     yield put(setAuth(null));
     // TODO: Should we also close the session in the backend?
     yield call(redirectAuth);
+  }
+}
+
+/**
+ * UPDATE_USER
+ */
+function* updateUserWorker(id, newValues) {
+  try {
+    const data = yield call(updateUser, id, newValues);
+    if (data) {
+      // TODO: que tenemos que pasarle al updateUserAction
+      yield put(updateUserSuccessAction(newValues));
+      NavigationService.navigate('Profile');
+    }
+  } catch (e) {
+    console.warn('error updateUserWorker:', e);
+  }
+}
+
+export function* updateUserWatcher() {
+  while (true) {
+    const { data } = yield take(UPDATE_USER);
+    const { id, newValues } = data;
+
+    try {
+      yield call(updateUserWorker, id, newValues);
+    } catch (e) {
+      console.warn('error updateUserWatcher:', e);
+    }
   }
 }
