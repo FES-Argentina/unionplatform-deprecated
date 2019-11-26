@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input, CheckBox } from 'react-native-elements';
-import CheckboxContainer from './CheckboxContainer';
+import { Select } from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import styles from './styles';
@@ -223,11 +223,8 @@ class Complaint extends React.Component {
               )}
             />
 
-            <Text style={styles.text}>Empresa</Text>
-              <CheckboxContainer checkboxes={companies} />
-
-            <Text style={styles.text}>Problema</Text>
-              <CheckboxContainer checkboxes={problems} />
+          <Select options={companies} label="Empresa" />
+          <Select options={problems} label="Problema" />
 
             <Button
               title="Enviar"
