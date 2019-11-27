@@ -14,24 +14,9 @@ class Generic extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <Onboarding
-        onSkip={() => NavigationService.navigate('Welcome')}
-        onDone={() => NavigationService.navigate('Welcome')}
-        pages={[
-          {
-            backgroundColor: 'yellow',
-            image: <Image source={require('../../assets/images/menu.png')} style={styles.itemPhoto}/>,
-            title: 'Onboarding',
-            subtitle: 'Done with React Native Onboarding Swiper',
-          },
-          {
-            backgroundColor: 'orange',
-            image: <Image source={require('../../assets/images/menu.png')} style={styles.itemPhoto}/>,
-            title: 'Onboarding',
-            subtitle: 'Done with React Native Onboarding Swiper',
-          },
-        ]}
-      />
+      <View style={styles.container}>
+        <Text style={styles.text}>{title}</Text>
+      </View>
     );
   }
 }

@@ -15,7 +15,7 @@ import NavigationService from '../navigation/NavigationService';
 /**
  * Effect to redirect the user after logging in or out.
  */
-function* redirectAuth() {
+function redirectAuth() {
   NavigationService.navigate('Loading');
 }
 

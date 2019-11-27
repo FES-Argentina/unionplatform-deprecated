@@ -17,7 +17,11 @@ const styles = StyleSheet.create({
   },
   drawerContent: {
     flex: 1,
-  }
+  },
+  itemPhoto: {
+    height: 200,
+    width: 'auto',
+  },
 
 });
 

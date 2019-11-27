@@ -5,6 +5,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../../components/Login';
 import Slideshow from '../../components/Slideshow';
 import Generic from '../../components/Generic';
+import Onboarding from '../../components/Onboarding';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import styles from './styles';
 
 
 const JoinPlaceholder = () => (<Generic title="Afiliate" />);
@@ -27,6 +30,12 @@ const GuestStackNavigator = createStackNavigator(
       screen: Login,
       navigationOptions: {
         title: 'Login',
+      },
+    },
+    Help: {
+      screen: Onboarding,
+      navigationOptions: {
+        title: 'Ayuda',
       },
     },
   },
@@ -56,6 +65,10 @@ const GuestStackNavigator = createStackNavigator(
             titleStyle={{ color: 'white' }}
           />
           )}
+          <FontAwesome5 name="question" size={15} style={[styles.question]}
+            onPress={() => { navigation.navigate('Onboarding'); }}
+            type="clear"
+          />
         </>
       ),
     }),

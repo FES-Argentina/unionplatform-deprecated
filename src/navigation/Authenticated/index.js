@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   View,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {
   createAppContainer,
@@ -29,6 +30,7 @@ import Complaint from '../../components/Complaint';
 import SimpleList from '../../components/SimpleList';
 import Profile from '../../components/Profile';
 import ProfileEdit from '../../components/ProfileEdit';
+import Onboarding from '../../components/Onboarding';
 
 
 class NavigationDrawerStructure extends React.Component {
@@ -172,11 +174,11 @@ const ListStackNavigator = createStackNavigator({
   },
 });
 
-const NotificationsStackNavigator = createStackNavigator({
-  SimpleList: {
-    screen: SimpleList,
+const OnboardingStackNavigator = createStackNavigator({
+  Onboarding: {
+    screen: Onboarding,
     navigationOptions: ({ navigation }) => ({
-      title: 'Notificaciones',
+      title: 'Ayuda',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -229,11 +231,22 @@ const DrawerNavigator = createDrawerNavigator({
     },
   },
 
+  Onboarding: {
+    screen: OnboardingStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Ayuda',
+      drawerIcon: () => (
+        <FontAwesome5 name="question" solid size={15} />
+      ),
+    },
+  },
+
 },
 {
   contentComponent: (props) => (
     <View style={styles.drawerContent}>
       <SafeAreaView forceInset={{ horizontal: 'never' }}>
+        <Image source={require('../../assets/images/app.jpg')} style={styles.itemPhoto}/>
         <DrawerItems {...props} />
         <LogoutButton />
       </SafeAreaView>

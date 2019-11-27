@@ -21,7 +21,7 @@ class Profile extends React.Component {
   componentDidMount = () => {
     const { loadUser } = this.props;
     //FIX id user
-    const data = loadUser('IhK');
+    loadUser('IhK');
   }
 
 
