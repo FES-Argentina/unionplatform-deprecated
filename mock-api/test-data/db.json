@@ -150,6 +150,7 @@
       "workemail": "b@fmail.org",
       "username": "COwlett",
       "pass": "zDMM5mrp",
+      "companies":  ["Glovo", "Rappi"],
       "complaints": [
         {
           "id": "dQ",

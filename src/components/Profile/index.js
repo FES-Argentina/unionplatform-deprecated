@@ -21,6 +21,7 @@ class Profile extends React.Component {
     const { loadUser } = this.props;
     //FIX id user
     const data = loadUser('IhK');
+    console.warn(data);
   }
 
 
@@ -47,7 +48,7 @@ class Profile extends React.Component {
 
   render() {
     const {
-      id, username, firstname, email, workemail, complaints
+      id, email, workemail, complaints, companies
     } = this.props.data;
 
     return (
@@ -55,8 +56,14 @@ class Profile extends React.Component {
         <ScrollView>
           <Text style={styles.itemIDTitle}>ID</Text>
           <Text style={styles.itemID}>{id}</Text>
-          <Text style={styles.itemSubTitle}>Empleado</Text>
-          <Text style={styles.item}>{username}</Text>
+          <Text style={styles.itemSubTitle}>Empresa</Text>
+          <View style={styles.item}>
+              {companies.map((item) =>
+                <Text>
+                  {item}
+                </Text>
+              )}
+          </View>
           <View style={styles.itemContainerData}>
             <FontAwesome5 name="envelope" solid size={15} style={styles.icon} />
             <Text style={styles.itemSubTitleText}>Personal</Text>
@@ -84,6 +91,7 @@ Profile.propTypes = {
   lastname: PropTypes.string,
   email: PropTypes.string,
   workemail: PropTypes.string,
+  companies: PropTypes.arrayOf(PropTypes.string),
   complaints: PropTypes.arrayOf(PropTypes.object),
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
