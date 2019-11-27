@@ -13,6 +13,7 @@ import { fetchUser } from '../../actions/user';
 
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 import styles from './styles';
 
@@ -21,7 +22,6 @@ class Profile extends React.Component {
     const { loadUser } = this.props;
     //FIX id user
     const data = loadUser('IhK');
-    console.warn(data);
   }
 
 
@@ -47,6 +47,10 @@ class Profile extends React.Component {
   };
 
   render() {
+    if (!this.props.data.id) {
+      return <LoadingIndicator />;
+    }
+
     const {
       id, email, workemail, complaints, companies
     } = this.props.data;
