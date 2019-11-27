@@ -1,7 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
@@ -15,10 +15,7 @@ class AuthLoadingScreen extends React.Component {
 
   render() {
     return (
-      <View style={style}>
-        <Text h4>Cargando...</Text>
-        <ActivityIndicator size="large" color="#f50057"/>
-      </View>
+      <LoadingIndicator />
     )
   }
 }
