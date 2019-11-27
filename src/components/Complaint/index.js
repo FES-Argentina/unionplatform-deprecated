@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input, CheckBox } from 'react-native-elements';
-import { Select } from '../form/Select';
+import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import styles from './styles';
