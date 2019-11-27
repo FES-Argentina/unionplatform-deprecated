@@ -5,10 +5,10 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER } from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, FETCH_USER } from '../constants';
 import { requestError, sendingRequest } from '../actions';
-import { setAuth, updateUserSuccessAction } from '../actions/user';
-import { login, updateUser } from '../api';
+import { setAuth, updateUserSuccessAction, getUser } from '../actions/user';
+import { login, updateUser, getUserRequest } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
 
@@ -96,6 +96,24 @@ export function* updateUserWatcher() {
       yield call(updateUserWorker, id, newValues);
     } catch (e) {
       console.warn('error updateUserWatcher:', e);
+    }
+  }
+}
+
+/**
+ * GET_USER
+ */
+export function* userWatcher() {
+  while (true) {
+    const { id } = yield take(FETCH_USER);
+
+    try {
+      const user = yield call(getUserRequest, id);
+
+      // Dispatch the getUser action to the store.
+      yield put(getUser(user));
+    } catch (e) {
+      console.log('EXCEPTION', e);
     }
   }
 }

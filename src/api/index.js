@@ -26,3 +26,11 @@ export function updateUser(id, data) {
   return axios.put(`${Config.API_URL}/users/${id}`, { user: data })
     .then((response) => response.data);
 }
+
+export function getUserRequest(id) {
+  return axios.get(`${Config.API_URL}/users/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}

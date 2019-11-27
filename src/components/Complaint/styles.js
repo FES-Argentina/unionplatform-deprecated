@@ -14,7 +14,12 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 10,
-  }
+  },
+  complaintSmall: {
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 30,
+  },
 
 });
 

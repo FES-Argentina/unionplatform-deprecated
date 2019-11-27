@@ -1,5 +1,5 @@
 import {
-  LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS,
+  LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, FETCH_USER
 } from '../constants';
 
 export function loginRequest(username, password) {
@@ -33,5 +33,19 @@ export function updateUserSuccessAction(user) {
   return {
     type: UPDATE_USER_SUCCESS,
     user,
+  };
+}
+
+export function fetchUser(id) {
+  return {
+    type: FETCH_USER,
+    id,
+  };
+}
+
+export function getUser(user) {
+  return {
+    type: GET_USER,
+    payload: user,
   };
 }

@@ -18,14 +18,14 @@ class ComplaintSmall extends React.Component {
   render() {
     const { item } = this.props;
     return (
-      <TouchableHighlight onPress={this.itemView}>
+      <TouchableHighlight onPress={this.itemView}  style={styles.complaintSmall}>
         <View style={styles.itemNameNotification}>
           <Field label="Denuncia" value={item.id} />
           <Field label="Problemas" value={item.problems} />
           <Field label="Empresa" value={item.companies} />
           <Field label="Descripcion" value={item.summary} />
           <Field label="Fecha" value={item.date} />
-          <Button onPress={this.onShare} title="Compartir" />
+          <Button onPress={this.onShare} title="Compartir"/>
         </View>
       </TouchableHighlight>
     );
