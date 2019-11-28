@@ -19,16 +19,16 @@ class Onboarding extends React.Component {
         onDone={() => NavigationService.navigate('Loading')}
         pages={[
           {
-            backgroundColor: 'yellow',
-            image: <Image source={require('../../assets/images/menu.png')} style={styles.itemPhoto}/>,
-            title: 'Onboarding',
-            subtitle: 'Done with React Native Onboarding Swiper',
+            backgroundColor: 'mintcream',
+            image: <Image source={require('../../assets/images/folder.png')} style={styles.itemPhoto}/>,
+            title: 'Cargá y compartí tus denuncias',
+            subtitle: 'Guardalas como PDFs certificados con BFA',
           },
           {
-            backgroundColor: 'orange',
-            image: <Image source={require('../../assets/images/menu.png')} style={styles.itemPhoto}/>,
-            title: 'Onboarding',
-            subtitle: 'Done with React Native Onboarding Swiper',
+            backgroundColor: 'linen',
+            image: <Image source={require('../../assets/images/padlock.png')} style={styles.itemPhoto}/>,
+          title: 'Protegé tus datos sensibles',
+            subtitle: 'Garantizamos la seguridad de la información',
           },
         ]}
       />
