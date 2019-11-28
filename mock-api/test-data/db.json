@@ -150,7 +150,10 @@
       "workemail": "b@fmail.org",
       "username": "COwlett",
       "pass": "zDMM5mrp",
-      "companies":  ["Glovo", "Rappi"],
+      "companies": [
+        "Glovo",
+        "Rappi"
+      ],
       "complaints": [
         {
           "id": "dQ",
@@ -192,10 +195,10 @@
     },
     {
       "user": {
-        "company": "Rappi",
+        "company": "Glovo",
         "workemail": "b@mail.com",
         "email": "a@mail.com",
-        "username": "Alias",
+        "username": "alias",
         "id": "efd"
       },
       "id": "efd"

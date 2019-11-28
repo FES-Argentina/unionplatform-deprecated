@@ -5,9 +5,9 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, FETCH_USER } from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER } from '../constants';
 import { requestError, sendingRequest } from '../actions';
-import { setAuth, updateUserSuccessAction, getUser } from '../actions/user';
+import { setAuth, updateUserSuccess, getUserSuccess } from '../actions/user';
 import { login, updateUser, getUserRequest } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
@@ -79,7 +79,7 @@ function* updateUserWorker(id, newValues) {
     const data = yield call(updateUser, id, newValues);
     if (data) {
       // TODO: que tenemos que pasarle al updateUserAction
-      yield put(updateUserSuccessAction(newValues));
+      yield put(updateUserSuccess(newValues));
       NavigationService.navigate('Profile');
     }
   } catch (e) {
@@ -105,13 +105,13 @@ export function* updateUserWatcher() {
  */
 export function* userWatcher() {
   while (true) {
-    const { id } = yield take(FETCH_USER);
+    const { id } = yield take(GET_USER);
 
     try {
       const user = yield call(getUserRequest, id);
 
       // Dispatch the getUser action to the store.
-      yield put(getUser(user));
+      yield put(getUserSuccess(user));
     } catch (e) {
       console.log('EXCEPTION', e);
     }

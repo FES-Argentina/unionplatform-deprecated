@@ -23,5 +23,5 @@ export const SET_AUTH = 'SET_AUTH';
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 
-export const FETCH_USER = 'FETCH_USER';
 export const GET_USER = 'GET_USER';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';

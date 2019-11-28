@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { fetchUser } from '../../actions/user';
+import { getUser } from '../../actions/user';
 
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
@@ -156,7 +156,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadUser: (id) => dispatch(fetchUser(id)),
+  loadUser: (id) => dispatch(getUser(id)),
 });
 
 
