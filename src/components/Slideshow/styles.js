@@ -14,23 +14,22 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: height * 1,
     width,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   slideText: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
+    paddingHorizontal: 30,
   },
   slideTextTitle: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 26,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
   },
-  backgroundImage: {
-    flex: 1,
-    width: '100%',
-    height: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-    opacity: 0.7,
+  itemPhoto: {
+    height: 400,
+    width: 'auto',
   },
 });
 

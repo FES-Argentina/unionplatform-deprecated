@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Text, View, TouchableHighlight, ImageBackground,
+  Text, View, TouchableHighlight, Image,
 } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { connect } from 'react-redux';
@@ -32,10 +32,9 @@ class Slideshow extends PureComponent {
           renderItem={({ item }) => (
             <TouchableHighlight onPress={() => this.itemView(item.id)}>
               <View style={styles.slide}>
-                <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
-                  <Text style={styles.slideTextTitle}>Noticia</Text>
-                  <Text style={styles.slideText}>{item.title}</Text>
-                </ImageBackground>
+                <Image source={{ uri: item.photo }} style={styles.itemPhoto}/>
+                <Text style={styles.slideTextTitle}>Noticia</Text>
+                <Text style={styles.slideText}>{item.title}</Text>
               </View>
             </TouchableHighlight>
           )}
