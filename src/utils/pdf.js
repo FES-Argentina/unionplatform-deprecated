@@ -21,7 +21,6 @@ export const createPdf = async (complaint) => {
   const options = {
     html: complaintHtml(complaint),
     fileName: `denuncia-${complaint.id}`,
-    directory: 'docs',
   };
 
   const file = await RNHTMLtoPDF.convert(options);

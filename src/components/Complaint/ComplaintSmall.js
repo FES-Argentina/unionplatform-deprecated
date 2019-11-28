@@ -15,12 +15,7 @@ class ComplaintSmall extends React.Component {
 
   onShare = async () => {
     const { item } = this.props;
-    if (await requestStoragePermission()) {
-      const file = await createPdf(item);
-    }
-    else {
-      Alert.alert('Almacenamiento', 'La aplicación necesita permisos para acceder al almacenamiento para generar el PDF de la denuncia.');
-    }
+    const file = await createPdf(item);
   }
 
   render() {
