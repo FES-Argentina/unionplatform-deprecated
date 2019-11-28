@@ -4,6 +4,8 @@ import { Button } from 'react-native-elements';
 import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import Field from '../Field';
+import { createPdf } from '../../utils/pdf';
+import { requestStoragePermission } from '../../utils/permissions';
 import styles from '../styles';
 
 class ComplaintSmall extends React.Component {
@@ -11,8 +13,14 @@ class ComplaintSmall extends React.Component {
     Alert.alert('Item view');
   }
 
-  onShare = () => {
-    Alert.alert('On share');
+  onShare = async () => {
+    const { item } = this.props;
+    if (await requestStoragePermission()) {
+      const file = await createPdf(item);
+    }
+    else {
+      Alert.alert('Almacenamiento', 'La aplicación necesita permisos para acceder al almacenamiento para generar el PDF de la denuncia.');
+    }
   }
 
   render() {
