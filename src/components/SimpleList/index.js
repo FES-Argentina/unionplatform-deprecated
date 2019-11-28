@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavigationService from '../../navigation/NavigationService';
-import styles from './styles';
+import styles from '../styles';
 
 import { getDocuments } from '../../actions/documents';
 
@@ -21,7 +21,7 @@ class SimpleList extends React.Component {
   }
 
   itemView = (id) => {
-    NavigationService.navigate('NewsDetail', {id} );
+    NavigationService.navigate('DocumentDetail', {id} );
   }
 
   render() {
@@ -34,11 +34,11 @@ class SimpleList extends React.Component {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableHighlight onPress={() => this.itemView(item.id)}>
-              <View style={styles.itemNameNotification}>
-                <Text style={styles.titleItem}>{item.title}</Text>
+              <View style={styles.itemNameNotificationList}>
+                <Text style={styles.titleItemList}>{item.title}</Text>
                 <Image
                   source={{ uri: item.photo }}
-                  style={styles.images}
+                  style={styles.imagesList}
                 />
               </View>
             </TouchableHighlight>

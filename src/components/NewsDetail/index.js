@@ -8,7 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getNew } from '../../actions/news';
-import styles from './styles';
+import styles from '../styles';
 
 class NewsDetail extends React.Component {
   componentDidMount = () => {
@@ -21,12 +21,12 @@ class NewsDetail extends React.Component {
 
     return (
       <SafeAreaView>
-        <View style={styles.container}>
-          <Text style={styles.itemTitle}>{data.title}</Text>
-          <Text style={styles.itemName}>{data.summary}</Text>
+        <View style={styles.containerNews}>
+          <Text style={styles.itemTitleNews}>{data.title}</Text>
+          <Text style={styles.itemNameNews}>{data.summary}</Text>
           <Image
             source={{ uri: data.photo }}
-            style={styles.itemPhoto}
+            style={styles.itemPhotoNews}
           />
         </View>
       </SafeAreaView>

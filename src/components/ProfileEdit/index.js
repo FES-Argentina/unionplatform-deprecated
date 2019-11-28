@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import styles from './styles';
+import styles from '../styles';
 
 import { updateUserAction } from '../../actions/user';
 
@@ -53,7 +53,7 @@ class ProfileEdit extends React.Component {
         {({
           values, handleChange, isValid,
         }) => (
-          <View style={styles.homeScreen}>
+          <View style={styles.homeScreenEditProfile}>
             <Input
               label="Alias"
               mode="outlined"

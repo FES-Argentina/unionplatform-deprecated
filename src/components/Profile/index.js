@@ -15,7 +15,7 @@ import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
-import styles from './styles';
+import styles from '../styles';
 
 class Profile extends React.Component {
   componentDidMount = () => {
@@ -58,27 +58,27 @@ class Profile extends React.Component {
     return (
       <SafeAreaView>
         <ScrollView>
-          <Text style={styles.itemIDTitle}>ID</Text>
-          <Text style={styles.itemID}>{id}</Text>
-          <Text style={styles.itemSubTitle}>Empresa</Text>
-          <View style={styles.item}>
+          <Text style={styles.itemIDTitleProfile}>ID</Text>
+          <Text style={styles.itemIDProfile}>{id}</Text>
+          <Text style={styles.itemSubTitleProfile}>Empresa</Text>
+          <View style={styles.itemProfile}>
               {companies.map((item) =>
                 <Text>
                   {item}
                 </Text>
               )}
           </View>
-          <View style={styles.itemContainerData}>
-            <FontAwesome5 name="envelope" solid size={15} style={styles.icon} />
-            <Text style={styles.itemSubTitleText}>Personal</Text>
+          <View style={styles.itemContainerDataProfile}>
+            <FontAwesome5 name="envelope" solid size={15} style={styles.iconProfile} />
+            <Text style={styles.itemSubTitleTextProfile}>Personal</Text>
           </View>
-          <Text style={styles.itemSubTitle}>{email}</Text>
-          <View style={styles.itemContainerData}>
-            <FontAwesome5 name="envelope" solid size={15} style={styles.icon} />
-            <Text style={styles.itemSubTitleText}>Trabajo</Text>
+          <Text style={styles.itemSubTitleProfile}>{email}</Text>
+          <View style={styles.itemContainerDataProfile}>
+            <FontAwesome5 name="envelope" solid size={15} style={styles.iconProfile} />
+            <Text style={styles.itemSubTitleTextProfile}>Trabajo</Text>
           </View>
-          <Text style={styles.itemSubTitle}>{workemail}</Text>
-          <Text style={styles.complaint}>Ultimas denuncias</Text>
+          <Text style={styles.itemSubTitleProfile}>{workemail}</Text>
+          <Text style={styles.complaintProfile}>Ultimas denuncias</Text>
             {
               complaints.slice(0, 2).map((item) => <ComplaintSmall item={item} />)
             }

@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import { loginRequest } from '../../actions/user';
 import { clearErrors } from '../../actions';
-import styles from './styles';
+import styles from '../styles';
 
 import Message from '../Message';
 
@@ -52,7 +52,7 @@ class Login extends React.Component {
         {({
           values, handleChange, handleBlur, handleSubmit, isValid,
         }) => (
-          <View style={styles.homeScreen}>
+          <View style={styles.homeScreenLogin}>
             <Input
               label="E-mail"
               mode="outlined"

@@ -2,12 +2,8 @@ import React from 'react';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { logoutRequest } from '../../actions/user';
+import styles from '../styles';
 
-const theme = {
-  colors: {
-    primary: 'black'
-  }
-}
 
 class LogoutButton extends React.Component {
   signOut = () => {
@@ -18,7 +14,7 @@ class LogoutButton extends React.Component {
   render() {
     return (
       <Button
-        theme={theme}
+        style={styles.buttonLogout}
         type="outline"
         title="Logout"
         onPress={this.signOut}

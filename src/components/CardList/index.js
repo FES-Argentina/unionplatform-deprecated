@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getNews } from '../../actions/news';
 import NavigationService from '../../navigation/NavigationService';
-import styles from './styles';
+import styles from '../styles';
 
 class CardList extends React.Component {
   componentDidMount = () => {

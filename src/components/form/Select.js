@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Picker, Text, View } from 'react-native';
+import styles from '../styles';
 
 class Select extends React.Component {
   constructor() {
@@ -20,7 +21,7 @@ class Select extends React.Component {
 
     return (
       <View>
-        <Text>{label}</Text>
+        <Text style={styles.text}>{label}</Text>
         <Picker
           selectedValue={selectedValue}
           onValueChange={this.updateValue}
@@ -38,4 +39,3 @@ Select.propTypes = {
 };
 
 export default Select;
-

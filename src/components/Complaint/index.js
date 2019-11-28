@@ -9,7 +9,7 @@ import { Button, Input, CheckBox } from 'react-native-elements';
 import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import styles from '../styles';
 
 const validationSchema = yup.object().shape({
   firstname: yup
@@ -115,7 +115,7 @@ class Complaint extends React.Component {
         {({
           values, handleChange, handleBlur, handleSubmit, isValid,
         }) => (
-          <ScrollView style={styles.homeScreen}>
+          <ScrollView>
             <Text style={styles.text}>Sobre vos</Text>
             <Input
               label="Nombre"

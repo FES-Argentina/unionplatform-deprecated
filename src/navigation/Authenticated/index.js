@@ -25,6 +25,7 @@ import LogoutButton from '../../components/LogoutButton';
 import Home from '../../components/Home';
 import CardList from '../../components/CardList';
 import NewsDetail from '../../components/NewsDetail';
+import DocumentDetail from '../../components/DocumentDetail';
 import Complaint from '../../components/Complaint';
 
 import SimpleList from '../../components/SimpleList';

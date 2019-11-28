@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
-import styles from './styles';
+import styles from '../styles';
 
 class Message extends React.Component {
   closeMessage = () => {
