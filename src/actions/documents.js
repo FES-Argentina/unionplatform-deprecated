@@ -1,30 +1,30 @@
 import {
-  FETCH_DOCUMENTS, GET_DOCUMENTS, FETCH_DOCUMENT, GET_DOCUMENT,
+  GET_DOCUMENTS, GET_DOCUMENTS_SUCCESS, GET_DOCUMENT, GET_DOCUMENT_SUCCESS,
 } from '../constants';
 
-export function fetchDocuments() {
+export function getDocuments() {
   return {
-    type: FETCH_DOCUMENTS,
+    type: GET_DOCUMENTS,
   };
 }
 
-export function getDocuments(docs) {
+export function getDocumentsSuccess(docs) {
   return {
-    type: GET_DOCUMENTS,
+    type: GET_DOCUMENTS_SUCCESS,
     payload: docs,
   };
 }
 
-export function fetchDocument(id) {
+export function getDocument(id) {
   return {
-    type: FETCH_DOCUMENT,
+    type: GET_DOCUMENT,
     id,
   };
 }
 
-export function getDocument(doc) {
+export function getDocumentSuccess(doc) {
   return {
-    type: GET_DOCUMENT,
+    type: GET_DOCUMENT_SUCCESS,
     payload: doc,
   };
 }

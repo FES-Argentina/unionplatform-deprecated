@@ -1,12 +1,12 @@
 // Action: Get a list of documents.
+export const GET_DOCUMENTS_SUCCESS = 'GET_DOCUMENTS_SUCCESS';
+
+export const GET_DOCUMENT_SUCCESS = 'GET_DOCUMENT_SUCCESS';
+
+// Action: Fetch documents from the backend.
 export const GET_DOCUMENTS = 'GET_DOCUMENTS';
 
 export const GET_DOCUMENT = 'GET_DOCUMENT';
-
-// Action: Fetch documents from the backend.
-export const FETCH_DOCUMENTS = 'FETCH_DOCUMENTS';
-
-export const FETCH_DOCUMENT = 'FETCH_DOCUMENT';
 
 export const SENDING_REQUEST = 'SENDING_REQUEST';
 

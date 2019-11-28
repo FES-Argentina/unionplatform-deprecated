@@ -8,7 +8,7 @@ import {
 import { FlatGrid } from 'react-native-super-grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDocuments } from '../../actions/documents';
+import { getDocuments } from '../../actions/documents';
 import NavigationService from '../../navigation/NavigationService';
 import styles from './styles';
 
@@ -63,7 +63,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocuments: () => dispatch(fetchDocuments()),
+  loadDocuments: () => dispatch(getDocuments()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);

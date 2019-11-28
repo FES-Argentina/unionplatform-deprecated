@@ -2,8 +2,8 @@ import {
   call, put, takeLatest, take,
 } from 'redux-saga/effects';
 
-import { FETCH_DOCUMENTS, FETCH_DOCUMENT } from '../constants';
-import { getDocuments, getDocument } from '../actions/documents';
+import { GET_DOCUMENTS, GET_DOCUMENT } from '../constants';
+import { getDocumentsSuccess, getDocumentSuccess } from '../actions/documents';
 import { getDocumentsRequest, getDocumentRequest } from '../api';
 
 function* documentsWorker() {
@@ -11,26 +11,26 @@ function* documentsWorker() {
     const documents = yield call(getDocumentsRequest);
 
     // Dispatch the getDocuments actions to the store.
-    yield put(getDocuments(documents));
+    yield put(getDocumentsSuccess(documents));
   } catch (e) {
     console.log('EXCEPTION', e);
   }
 }
 
 export function* documentsWatcher() {
-  yield takeLatest(FETCH_DOCUMENTS, documentsWorker);
+  yield takeLatest(GET_DOCUMENTS, documentsWorker);
 }
 
 export function* documentWatcher() {
   while (true) {
-    const { id } = yield take(FETCH_DOCUMENT);
+    const { id } = yield take(GET_DOCUMENT);
 
     try {
       const document = yield call(getDocumentRequest, id);
       console.warn(document);
 
       // Dispatch the getDocument action to the store.
-      yield put(getDocument(document));
+      yield put(getDocumentSuccess(document));
     } catch (e) {
       console.log('EXCEPTION', e);
     }

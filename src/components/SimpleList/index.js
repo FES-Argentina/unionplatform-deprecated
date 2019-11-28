@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import NavigationService from '../../navigation/NavigationService';
 import styles from './styles';
 
-import { fetchDocuments } from '../../actions/documents';
+import { getDocuments } from '../../actions/documents';
 
 class SimpleList extends React.Component {
   componentDidMount = () => {
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocuments: () => dispatch(fetchDocuments()),
+  loadDocuments: () => dispatch(getDocuments()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SimpleList);

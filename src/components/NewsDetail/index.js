@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDocument } from '../../actions/documents';
+import { getDocument } from '../../actions/documents';
 import styles from './styles';
 
 class NewsDetail extends React.Component {
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocument: (id) => dispatch(fetchDocument(id)),
+  loadDocument: (id) => dispatch(getDocument(id)),
 });
 
 

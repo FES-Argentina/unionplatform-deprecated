@@ -5,7 +5,7 @@ import {
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchDocuments } from '../../actions/documents';
+import { getDocuments } from '../../actions/documents';
 import NavigationService from '../../navigation/NavigationService';
 
 import styles from './styles';
@@ -62,7 +62,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocuments: () => dispatch(fetchDocuments()),
+  loadDocuments: () => dispatch(getDocuments()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Slideshow);

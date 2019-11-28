@@ -1,4 +1,4 @@
-import { GET_DOCUMENTS, GET_DOCUMENT } from '../constants';
+import { GET_DOCUMENTS_SUCCESS, GET_DOCUMENT_SUCCESS } from '../constants';
 
 const initialState = {
   list: [],
@@ -7,13 +7,13 @@ const initialState = {
 
 const documentsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DOCUMENTS:
+    case GET_DOCUMENTS_SUCCESS:
       return {
         ...state,
         list: action.payload,
       };
 
-    case GET_DOCUMENT:
+    case GET_DOCUMENT_SUCCESS:
       return {
         ...state,
         item: action.payload,
