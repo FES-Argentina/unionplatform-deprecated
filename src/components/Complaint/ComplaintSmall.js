@@ -3,6 +3,7 @@ import { TouchableHighlight, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
+import Share from 'react-native-share';
 import Field from '../Field';
 import { createPdf } from '../../utils/pdf';
 import styles from '../styles';
@@ -15,6 +16,14 @@ class ComplaintSmall extends React.Component {
   onShare = async () => {
     const { item } = this.props;
     const file = await createPdf(item);
+    if (file.filePath) {
+      Share.open({
+        title: 'Compartir denuncia',
+        url: `file://${file.filePath}`,
+        subject: `[SindicAPP] Denuncia ${item.id}`,
+        message: 'Denuncia reportada a través de SindicAPP.',
+      });
+    }
   }
 
   render() {
