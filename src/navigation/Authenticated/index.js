@@ -150,7 +150,7 @@ const ListStackNavigator = createStackNavigator({
   CardList: {
     screen: CardList,
     navigationOptions: ({ navigation }) => ({
-      title: 'Documentos',
+      title: 'Noticias',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -163,7 +163,7 @@ const ListStackNavigator = createStackNavigator({
   NewsDetail: {
     screen: NewsDetail,
     navigationOptions: ({ navigation }) => ({
-      title: 'Documento',
+      title: 'Noticia',
       headerStyle: {
         backgroundColor: '#f50057',
         shadowOpacity: 0,
@@ -224,7 +224,7 @@ const DrawerNavigator = createDrawerNavigator({
   CardList: {
     screen: ListStackNavigator,
     navigationOptions: {
-      drawerLabel: 'Documentos',
+      drawerLabel: 'Noticias',
       drawerIcon: () => (
         <FontAwesome5 name="file" solid size={15} />
       ),

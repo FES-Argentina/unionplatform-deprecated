@@ -34,3 +34,19 @@ export function getUserRequest(id) {
       console.log('ERROR', error);
     });
 }
+
+export function getNewsRequest() {
+  return axios.get(`${Config.API_URL}/news`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}
+
+export function getNewRequest(id) {
+  return axios.get(`${Config.API_URL}/news/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}

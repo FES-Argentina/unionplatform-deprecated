@@ -231,5 +231,56 @@
       "problems": "Accidente con la bicicleta",
       "date": "2019/08/08"
     }
+  ],
+  "news": [
+    {
+      "title": "Massa sagittis adipiscing massa",
+      "description": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur orci massa morbi pretium molestie nunc massa egestas porttitor massa in massa non magna placerat",
+      "id": "rGJ2123",
+      "photo": "https://via.placeholder.com/600/4e556c",
+      "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur"
+    },
+    {
+      "title": "Pharetra tincidunt consectetur dolor",
+      "description": "Tortor aliquam sollicitudin elementum orci velit lectus tincidunt placerat pulvinar tincidunt ante sed nec sed non non at vitae placerat mi magna lectus sed et curabitur at lacus",
+      "id": "ALGQ123",
+      "photo": "https://via.placeholder.com/600/4e555c",
+      "summary": "Id amet ante dolor velit tempor tincidunt placerat pulvinar tincidunt"
+    },
+    {
+      "title": "Consectetur sapien placerat tincidunt",
+      "description": "Molestie sapien velit egestas at nec sollicitudin hendrerit nec sit quis placerat quis porttitor vel dolor mi dolor adipiscing massa mi consectetur dolor consectetur sed mattis sollicitudin vestibulum",
+      "id": "5HFw123",
+      "photo": "https://via.placeholder.com/600/4e554c",
+      "summary": "Id amet ante dolor velit tempor magna tempor"
+    },
+    {
+      "title": "Molestie porta massa porta",
+      "description": "Morbi amet vel tortor sed odio lacus vestibulum vitae tortor convallis quis massa amet vitae ipsum curabitur tincidunt pulvinar sagittis velit lacus tincidunt nunc at sagittis convallis ipsum",
+      "id": "wa4R123",
+      "photo": "https://via.placeholder.com/600/4e557c",
+      "summary": "Id sed orci tortor ipsum consectetur "
+    },
+    {
+      "title": "Sed sagittis tortor magna",
+      "description": "Eros sagittis sed libero nec ipsum nullam consequat consectetur odio amet ac lectus porta pretium odio sit mattis porttitor orci nunc vitae magna sollicitudin turpis et sed aenean",
+      "id": "aSMd123",
+      "photo": "https://via.placeholder.com/600/4e567c",
+      "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur"
+    },
+    {
+      "title": "Adipiscing placerat sapien sed",
+      "description": "Adipiscing turpis sed ac velit etiam aliquam dolor lectus massa sollicitudin lectus eros sed libero dolor vitae magna mattis mattis in vitae suspendisse aliquam massa dui odio fringilla",
+      "id": "SEUN123",
+      "photo": "https://via.placeholder.com/600/4e577c",
+      "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur"
+    },
+    {
+      "title": "Vitae at sapien nec",
+      "description": "Mi morbi amet consectetur donec pharetra porta sapien nunc morbi massa ipsum etiam nec vitae consequat tempor fringilla dolor tortor sed ac sit ac dolor id pretium mattis",
+      "id": "IuL8123",
+      "photo": "https://via.placeholder.com/600/4e557e",
+      "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur"
+    }
   ]
 }
