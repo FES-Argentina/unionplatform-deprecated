@@ -5,7 +5,6 @@ import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import Field from '../Field';
 import { createPdf } from '../../utils/pdf';
-import { requestStoragePermission } from '../../utils/permissions';
 import styles from '../styles';
 
 class ComplaintSmall extends React.Component {
