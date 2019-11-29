@@ -107,7 +107,7 @@ class Complaint extends React.Component {
 
     return (
       <Formik
-        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: '', companies: [], problems: [] }}
+        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: '', companies: '', problems: '' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ email: '' }}
@@ -116,7 +116,7 @@ class Complaint extends React.Component {
           values, handleChange, handleBlur, handleSubmit, isValid,
         }) => (
           <ScrollView>
-            <Text style={styles.text}>Sobre vos</Text>
+            <Text style={styles.formTitles}>Sobre vos</Text>
             <Input
               label="Nombre"
               mode="outlined"
@@ -124,6 +124,7 @@ class Complaint extends React.Component {
               onChangeText={handleChange('firstname')}
               onBlur={handleBlur('firstname')}
               placeholder="Ingrese su nombre"
+              style={styles.inputs}
               leftIcon={(
                 <Icon
                   name="user"
@@ -139,6 +140,8 @@ class Complaint extends React.Component {
               onChangeText={handleChange('lastname')}
               onBlur={handleBlur('namlastnamee')}
               placeholder="Ingrese su apellido"
+              style={styles.inputs}
+
               leftIcon={(
                 <Icon
                   name="user"
@@ -154,6 +157,8 @@ class Complaint extends React.Component {
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               placeholder="Ingrese su e-mail"
+              style={styles.inputs}
+
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -190,7 +195,7 @@ class Complaint extends React.Component {
                 />
               )}
             />
-          <Text style={styles.text}>Sobre tu trabajo</Text>
+          <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Input
               label="Antigüedad"
               mode="outlined"

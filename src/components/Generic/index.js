@@ -14,8 +14,8 @@ class Generic extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <View style={styles.containerGeneric}>
-        <Text style={styles.textGeneric}>{title}</Text>
+      <View style={styles.containerFlex}>
+        <Text>{title}</Text>
       </View>
     );
   }

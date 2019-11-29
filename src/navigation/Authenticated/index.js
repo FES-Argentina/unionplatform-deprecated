@@ -25,10 +25,10 @@ import LogoutButton from '../../components/LogoutButton';
 import Home from '../../components/Home';
 import CardList from '../../components/CardList';
 import NewsDetail from '../../components/NewsDetail';
-import DocumentDetail from '../../components/DocumentDetail';
 import Complaint from '../../components/Complaint';
 
 import SimpleList from '../../components/SimpleList';
+import DocumentDetail from '../../components/DocumentDetail';
 import Profile from '../../components/Profile';
 import ProfileEdit from '../../components/ProfileEdit';
 import Onboarding from '../../components/Onboarding';
@@ -41,9 +41,9 @@ class NavigationDrawerStructure extends React.Component {
       <SafeAreaView
         forceInset={{ top: 'always', horizontal: 'never' }}
       >
-        <View style={[styles.viewFlexRow]}>
+        <View >
           <TouchableOpacity onPress={navigationProps.toggleDrawer}>
-            <FontAwesome5 name="bars" style={[styles.bars]} size={22} />
+            <FontAwesome5 name="bars" style={styles.bars} size={22} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -175,6 +175,34 @@ const ListStackNavigator = createStackNavigator({
   },
 });
 
+const DocListStackNavigator = createStackNavigator({
+  SimpleList: {
+    screen: SimpleList,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Documentos',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+  DocumentDetail: {
+    screen: DocumentDetail,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Documento',
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const OnboardingStackNavigator = createStackNavigator({
   Onboarding: {
     screen: Onboarding,
@@ -227,6 +255,16 @@ const DrawerNavigator = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'Noticias',
       drawerIcon: () => (
+        <FontAwesome5 name="flag" solid size={15} />
+      ),
+    },
+  },
+
+  SimpleList: {
+    screen: DocListStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Documentos',
+      drawerIcon: () => (
         <FontAwesome5 name="file" solid size={15} />
       ),
     },
@@ -245,7 +283,7 @@ const DrawerNavigator = createDrawerNavigator({
 },
 {
   contentComponent: (props) => (
-    <View style={styles.drawerContent}>
+    <View>
       <SafeAreaView forceInset={{ horizontal: 'never' }}>
         <Image source={require('../../assets/images/app.jpg')} style={styles.itemPhoto}/>
         <DrawerItems {...props} />

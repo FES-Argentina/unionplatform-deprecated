@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
@@ -53,7 +53,9 @@ class ProfileEdit extends React.Component {
         {({
           values, handleChange, isValid,
         }) => (
-          <View style={styles.homeScreenEditProfile}>
+          <View>
+            <Text style={styles.formTitles}>Perfil</Text>
+
             <Input
               label="Alias"
               mode="outlined"

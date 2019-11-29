@@ -29,14 +29,15 @@ class CardList extends React.Component {
       <FlatGrid
         itemDimension={300}
         items={data}
-        style={styles.gridView}
+        style={styles.containerStandar}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableHighlight onPress={() => this.itemView(item.id)}>
-            <View style={[styles.itemContainerGrid, { backgroundColor: '#ff5252' }]}>
+            <View style={styles.itemCardlist}>
               <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
-                <Text style={styles.itemTitleGrid}>{item.title}</Text>
-                <Text style={styles.itemNameGrid}>{item.summary}</Text>
+                <View style={styles.overlay} />
+                <Text style={styles.titleCardlist}>{item.title}</Text>
+                <Text style={styles.summaryCardlist}>{item.summary}</Text>
               </ImageBackground>
             </View>
           </TouchableHighlight>

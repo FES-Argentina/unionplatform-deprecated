@@ -34,8 +34,8 @@ class SimpleList extends React.Component {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableHighlight onPress={() => this.itemView(item.id)}>
-              <View style={styles.itemNameNotificationList}>
-                <Text style={styles.titleItemList}>{item.title}</Text>
+              <View style={styles.itemList}>
+                <Text style={styles.titleList}>{item.title}</Text>
                 <Image
                   source={{ uri: item.photo }}
                   style={styles.imagesList}

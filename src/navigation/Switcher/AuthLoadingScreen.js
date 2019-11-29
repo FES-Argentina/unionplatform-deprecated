@@ -20,12 +20,6 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
-const style = {
-  flex: 1,
-  justifyContent: 'space-around',
-  alignItems: 'center',
-}
-
 const mapStateToProps = (state) => ({
   user: state.user,
 });

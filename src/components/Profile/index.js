@@ -24,28 +24,6 @@ class Profile extends React.Component {
     loadUser('IhK');
   }
 
-
-  onShare = async () => {
-    try {
-      const result = await Share.share({
-        message:
-            'React Native | A framework for building native apps using React',
-      });
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   render() {
     if (!this.props.data.id) {
       return <LoadingIndicator />;
@@ -56,34 +34,34 @@ class Profile extends React.Component {
     } = this.props.data;
 
     return (
-      <SafeAreaView>
         <ScrollView>
-          <Text style={styles.itemIDTitleProfile}>ID</Text>
-          <Text style={styles.itemIDProfile}>{id}</Text>
-          <Text style={styles.itemSubTitleProfile}>Empresa</Text>
-          <View style={styles.itemProfile}>
+          <SafeAreaView style={styles.containerStandar}>
+          <Text style={styles.titleNews}>ID</Text>
+          <Text style={styles.summaryText}>{id}</Text>
+          <Text style={styles.detailProfile}>Empresa</Text>
+          <View style={styles.summaryText}>
               {companies.map((item) =>
                 <Text>
                   {item}
                 </Text>
               )}
           </View>
-          <View style={styles.itemContainerDataProfile}>
+          <View style={styles.mailsProfile}>
             <FontAwesome5 name="envelope" solid size={15} style={styles.iconProfile} />
-            <Text style={styles.itemSubTitleTextProfile}>Personal</Text>
+            <Text style={styles.detailProfile}>Personal</Text>
           </View>
-          <Text style={styles.itemSubTitleProfile}>{email}</Text>
-          <View style={styles.itemContainerDataProfile}>
+          <Text style={styles.summaryText}>{email}</Text>
+          <View style={styles.mailsProfile}>
             <FontAwesome5 name="envelope" solid size={15} style={styles.iconProfile} />
-            <Text style={styles.itemSubTitleTextProfile}>Trabajo</Text>
+            <Text style={styles.detailProfile}>Trabajo</Text>
           </View>
-          <Text style={styles.itemSubTitleProfile}>{workemail}</Text>
-          <Text style={styles.complaintProfile}>Ultimas denuncias</Text>
+          <Text style={styles.summaryText}>{workemail}</Text>
+          <Text style={styles.detailProfile}>Últimas denuncias</Text>
             {
               complaints.slice(0, 2).map((item) => <ComplaintSmall item={item} />)
             }
+          </SafeAreaView>
         </ScrollView>
-      </SafeAreaView>
     );
   }
 }

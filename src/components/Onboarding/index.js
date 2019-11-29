@@ -20,13 +20,13 @@ class Onboarding extends React.Component {
         pages={[
           {
             backgroundColor: 'mintcream',
-            image: <Image source={require('../../assets/images/folder.png')} style={styles.itemPhotoOnboarding}/>,
+            image: <Image source={require('../../assets/images/folder.png')} style={styles.photoOnboarding}/>,
             title: 'Cargá y compartí tus denuncias',
             subtitle: 'Guardalas como PDFs certificados con BFA',
           },
           {
             backgroundColor: 'linen',
-            image: <Image source={require('../../assets/images/padlock.png')} style={styles.itemPhotoOnboarding}/>,
+            image: <Image source={require('../../assets/images/padlock.png')} style={styles.photoOnboarding}/>,
             title: 'Protegé tus datos sensibles',
             subtitle: 'Garantizamos la seguridad de la información',
           },

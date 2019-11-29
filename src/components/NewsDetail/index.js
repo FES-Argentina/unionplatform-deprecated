@@ -2,12 +2,16 @@ import React from 'react';
 import {
   Text,
   View,
-  SafeAreaView,
+  ScrollView,
   Image,
 } from 'react-native';
+import { Button } from 'react-native-elements';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getNew } from '../../actions/news';
+import { Alert } from 'react-native';
+
 import styles from '../styles';
 
 class NewsDetail extends React.Component {
@@ -16,20 +20,25 @@ class NewsDetail extends React.Component {
     loadDocument(this.props.navigation.state.params.id);
   }
 
+  onShare = () => {
+    Alert.alert('On share');
+  }
+
   render() {
     const { data } = this.props;
 
     return (
-      <SafeAreaView>
-        <View style={styles.containerNews}>
-          <Text style={styles.itemTitleNews}>{data.title}</Text>
-          <Text style={styles.itemNameNews}>{data.summary}</Text>
+      <ScrollView>
+        <View style={styles.containerStandar}>
+          <Text style={styles.titleNews}>{data.title}</Text>
+          <Text style={styles.summaryText}>{data.summary}</Text>
           <Image
             source={{ uri: data.photo }}
-            style={styles.itemPhotoNews}
+            style={styles.photoNews}
           />
+        <Button onPress={this.onShare} title="Compartir"/>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     );
   }
 }

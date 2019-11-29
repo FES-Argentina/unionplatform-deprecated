@@ -21,10 +21,11 @@ class Select extends React.Component {
 
     return (
       <View>
-        <Text style={styles.text}>{label}</Text>
+        <Text style={styles.formTitles}>{label}</Text>
         <Picker
           selectedValue={selectedValue}
           onValueChange={this.updateValue}
+          style={styles.inputs}
           prompt={label}
         >
           {options.map((item) => <Picker.Item label={item.name} value={item.key} />)}

@@ -10,8 +10,8 @@ class Field extends React.Component {
 
     return (
       <View>
-        <Text style={styles.label}>{label}</Text>
-        <Text style={styles.value}>{value}</Text>
+        <Text style={styles.detailProfile}>{label}</Text>
+        <Text style={styles.summaryText}>{value}</Text>
       </View>
     );
   }

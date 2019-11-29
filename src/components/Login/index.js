@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View,
+  View, Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
@@ -52,7 +52,8 @@ class Login extends React.Component {
         {({
           values, handleChange, handleBlur, handleSubmit, isValid,
         }) => (
-          <View style={styles.homeScreenLogin}>
+          <View style={styles.containers}>
+            <Text style={styles.presentation}>Sindicato APP</Text>
             <Input
               label="E-mail"
               mode="outlined"
@@ -84,6 +85,7 @@ class Login extends React.Component {
               )}
             />
             <Button
+              style={styles.homeScreenLogin}
               title="Ingresar"
               type="outline"
               disabled={!isValid}

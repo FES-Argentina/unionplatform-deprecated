@@ -1,18 +1,23 @@
 import {
   StyleSheet,
+  Dimensions,
 } from 'react-native';
+
+export const { width, height } = Dimensions.get('window');
+
 
 const styles = StyleSheet.create({
   // cardlist
-  gridView: {
+  containerStandar: {
     marginTop: 20,
     flex: 1,
   },
-  itemContainerGrid: {
+  itemCardlist: {
     justifyContent: 'flex-end',
     borderRadius: 5,
     height: 200,
     backgroundColor: '#ff5252',
+    width: width - 20,
   },
   backgroundImage: {
     flex: 1,
@@ -20,22 +25,32 @@ const styles = StyleSheet.create({
     height: 'auto',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    opacity: 0.7,
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  itemTitleGrid: {
+  overlay: {
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    opacity: 0.6,
+    backgroundColor: 'black',
+    width: width - 20,
+    height: 200,
+  },
+  titleCardlist: {
     fontSize: 24,
     color: '#fff',
     fontWeight: '600',
     padding: 15,
   },
-  itemNameGrid: {
+  summaryCardlist: {
     fontSize: 16,
     color: '#fff',
     fontWeight: '600',
     padding: 15,
   },
-  // complaint
-  text: {
+  // complaints
+  formTitles: {
     fontSize: 24,
     alignSelf: 'flex-start',
     paddingTop: 20,
@@ -44,88 +59,35 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontWeight: 'bold',
   },
-  input: {
-    marginTop: 10,
+  inputs: {
+    paddingTop: 20,
+    marginTop: 20,
+    paddingVertical: 10,
   },
-  // complaint & form
+  // login
+  containers: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  presentation: {
+    fontSize: 40,
+    alignSelf: 'center',
+    paddingHorizontal: 10,
+    color: '#f50057',
+    fontWeight: 'bold',
+    paddingVertical: 60,
+  },
+  // complaintSmall
   complaintSmall: {
     marginTop: 10,
     marginBottom: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
   },
-  itemNameNotification: {
-    marginTop: 10,
-    marginBottom: 10,
-    paddingHorizontal: 30,
-  },
-  // Field
-  label: {
-    fontWeight: 'bold',
-    paddingLeft: 30,
-    paddingRight: 30,
-  },
-  value: {
-    paddingLeft: 30,
-    paddingBottom: 10,
-    paddingRight: 30,
-  },
-  // generic
-  containerGeneric: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textGeneric: {
-    fontSize: 16,
-  },
-  itemPhoto: {
-    height: 200,
-    width: 200,
-  },
-  // homeScreen
-  containerHome: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textHome: {
-    fontSize: 16,
-  },
-  homeScreen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  // loading
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  // login
-  containerLogin: {
-    flex: 100,
-  },
-  textLogin: {
-    fontSize: 16,
-  },
-  homeScreenLogin: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  // logout
-  buttonLogout: {
-    color: 'black',
-  },
-
   // message
-  message: {
-  },
-  title: {
-    fontSize: 16,
+  titles: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingHorizontal: 15,
   },
   body: {
     fontSize: 14,
@@ -135,156 +97,63 @@ const styles = StyleSheet.create({
     right: 10,
     top: 10,
   },
-  // news
-  containerNews: {
-    flex: 1,
-  },
-  itemTitleNews: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    padding: 15,
-  },
-  itemNameNews: {
-    fontSize: 16,
-    padding: 15,
-  },
-  itemPhotoNews: {
-    height: 200,
-    width: 'auto',
-  },
-  // onboarding
-  containerOnboarding: {
+  // generic & loadingIndicator
+  containerFlex: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textOnboarding: {
-    fontSize: 16,
+  // logout
+  logout: {
+    color: 'black',
+    fontSize: 14,
   },
-  itemPhotoOnboarding: {
+  logoutContainer: {
+    justifyContent: 'flex-start',
+    marginLeft: 15,
+  },
+  logoutIcon: {
+    color: 'grey',
+    marginRight: 35,
+  },
+  // news
+  titleNews: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingHorizontal: 15,
+  },
+  summaryText: {
+    fontSize: 16,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+  },
+  photoNews: {
+    height: height,
+    width: 'auto',
+  },
+  // onboarding
+  photoOnboarding: {
     height: 200,
     width: 200,
   },
   // profile
-  itemContainerProfile: {
-    marginVertical: 1,
-    paddingHorizontal: 15,
-    paddingBottom: 5,
-    paddingTop: 5,
+  mailsProfile: {
+    paddingTop: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingRight: 30,
+    paddingLeft: 15,
   },
-  itemIDProfile: {
-    fontSize: 24,
-    paddingHorizontal: 30,
-    paddingBottom: 30,
-  },
-  itemIDTitleProfile: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    paddingHorizontal: 30,
-    paddingTop: 30,
-  },
-  itemTitleProfile: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    padding: 15,
-  },
-  itemSubTitleProfile: {
-    fontSize: 18,
-    paddingHorizontal: 30,
-  },
-  itemSubTitleTextProfile: {
+  detailProfile: {
     fontSize: 16,
     paddingLeft: 10,
     fontWeight: 'bold',
   },
-  itemProfile: {
-    fontSize: 16,
-    paddingLeft: 30,
-  },
-  imagesProfile: {
-    width: 80,
-    height: 80,
-    borderRadius: 80 / 2,
-  },
-  itemContainerDataProfile: {
-    paddingTop: 20,
-    flexDirection: 'row',
-  },
-  iconProfile: {
-    paddingLeft: 30,
-  },
-  ComplaintProfile: {
-    paddingTop: 40,
-    paddingLeft: 30,
-    fontWeight: 'bold',
-    fontSize: 16,
-
-  },
-  itemComplaintProfile: {
-    paddingLeft: 30,
-    paddingBottom: 10,
-    paddingRight: 30,
-
-  },
-  complaintProfile: {
-    paddingLeft: 30,
-    fontWeight: 'bold',
-    fontSize: 24,
-    paddingTop: 30,
-    paddingRight: 30,
-
-  },
-  complaintTitleProfile: {
-    paddingLeft: 30,
-    fontWeight: 'bold',
-    paddingRight: 30,
-
-  },
-  complaintDateProfile: {
-    paddingLeft: 30,
-    fontWeight: 'bold',
-    color: 'grey',
-    paddingRight: 30,
-
-  },
-  itemComplaintDateProfile: {
-    paddingLeft: 30,
-    paddingBottom: 10,
-    color: 'grey',
-    paddingRight: 30,
-
-  },
-  itemNameNotificationProfile: {
-    borderBottomColor: 'lightgrey',
-    borderBottomWidth: 1,
-    paddingTop: 30,
-    paddingBottom: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
-  },
-  // edit profile
-  homeScreenEditProfile: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   // simplelist
-  itemTitleList: {
-    fontSize: 24,
-    color: '#fff',
-    fontWeight: '600',
-    padding: 15,
-  },
   imagesList: {
     width: 80,
     height: 80,
-    borderRadius: 80 / 2,
+    borderRadius: 12,
   },
-  itemNameNotificationList: {
+  itemList: {
     fontSize: 16,
     color: '#fff',
     backgroundColor: '#f8f8ff',
@@ -296,11 +165,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  titleItemList: {
+  titleList: {
+    flex: 2,
     fontSize: 16,
-    alignSelf: 'center',
+    paddingRight: 15,
+    paddingVertical: 10,
   },
-
 });
 
 export default styles;

@@ -7,7 +7,7 @@ import styles from '../styles';
 class LoadingIndicator extends React.Component {
   render() {
     return (
-      <View style={styles.loading}>
+      <View style={styles.containerFlex}>
         <BarIndicator color="#f50057" count={5} />
       </View>
     );
