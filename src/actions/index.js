@@ -1,14 +1,14 @@
-import { CLEAR_ERRORS, REQUEST_ERROR, SENDING_REQUEST } from '../constants';
+import { CLEAR_ERRORS, PROCESSING, REQUEST_ERROR } from '../constants';
 
 /**
- * Action creator for SENDING_REQUEST.
+ * Action creator for PROCESSING.
  *
- * @param {boolean} sending Wether the request is starting (true) or finishing (false).
+ * @param {boolean} status Wether the process is starting (true) or finishing (false).
  */
-export function sendingRequest(sending) {
+export function processing(status) {
   return {
-    type: SENDING_REQUEST,
-    isSending: sending,
+    type: PROCESSING,
+    status: status,
   };
 }
 

@@ -7,6 +7,7 @@ import documentsReducer from '../reducers/documents';
 import userReducer from '../reducers/user';
 import newsReducer from '../reducers/news';
 import errorReducer from '../reducers/errors';
+import uiReducer from '../reducers/ui';
 import rootSaga from '../sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   error: errorReducer,
   news: newsReducer,
+  ui: uiReducer,
 });
 
 const persistConfig = {

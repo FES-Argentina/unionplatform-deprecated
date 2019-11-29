@@ -6,7 +6,7 @@ import {
 } from 'redux-saga/effects';
 
 import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER } from '../constants';
-import { requestError, sendingRequest } from '../actions';
+import { requestError, processing } from '../actions';
 import { setAuth, updateUserSuccess, getUserSuccess } from '../actions/user';
 import { login, updateUser, getUserRequest } from '../api';
 import NavigationService from '../navigation/NavigationService';
@@ -27,7 +27,7 @@ function redirectAuth() {
  */
 export function* authorize({ username, password }) {
   // Let the app know we a re sending a request.
-  yield put(sendingRequest(true));
+  yield put(processing(true));
   try {
     const result = yield call(login, username, password);
     return result;
@@ -35,7 +35,7 @@ export function* authorize({ username, password }) {
     yield put(requestError(error.message));
     return false;
   } finally {
-    yield put(sendingRequest(false));
+    yield put(processing(false));
   }
 }
 
@@ -108,12 +108,15 @@ export function* userWatcher() {
     const { id } = yield take(GET_USER);
 
     try {
+      yield put(processing(true));
       const user = yield call(getUserRequest, id);
 
       // Dispatch the getUser action to the store.
       yield put(getUserSuccess(user));
     } catch (e) {
       console.log('EXCEPTION', e);
+    } finally {
+      yield put(processing(false));
     }
   }
 }

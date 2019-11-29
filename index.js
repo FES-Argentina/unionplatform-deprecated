@@ -6,11 +6,13 @@ import App from './App';
 import { name as appName } from './app.json';
 
 import { store, persistor } from './src/store';
+import LoadingOverlay from './src/components/LoadingOverlay';
 
 const AppWrapper = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <App />
+      <LoadingOverlay />
     </PersistGate>
   </Provider>
 );

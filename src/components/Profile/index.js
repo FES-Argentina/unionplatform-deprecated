@@ -26,7 +26,7 @@ class Profile extends React.Component {
 
   render() {
     if (!this.props.data.id) {
-      return <LoadingIndicator />;
+      return null;
     }
 
     const {
