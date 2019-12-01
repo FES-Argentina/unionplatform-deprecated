@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { getUser } from '../../actions/user';
-
+import { processing } from '../../actions';
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
 import Share from 'react-native-share';
@@ -25,14 +25,22 @@ class Profile extends React.Component {
   }
 
   shareComplaint = async (item) => {
-    const file = await createPdf(item);
-    if (file.filePath) {
-      Share.open({
-        title: 'Compartir denuncia',
-        url: `file://${file.filePath}`,
-        subject: `[SindicAPP] Denuncia ${item.id}`,
-        message: 'Denuncia reportada a través de SindicAPP.',
-      });
+    const { showProcessing } = this.props;
+    try {
+      showProcessing(true);
+      const file = await createPdf(item);
+      if (file.filePath) {
+        Share.open({
+          title: 'Compartir denuncia',
+          url: `file://${file.filePath}`,
+          subject: `[SindicAPP] Denuncia ${item.id}`,
+          message: 'Denuncia reportada a través de SindicAPP.',
+        });
+      }
+    } catch (e) {
+      console.log('ERROR', e);
+    } finally {
+      showProcessing(false);
     }
   }
 
@@ -147,6 +155,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadUser: (id) => dispatch(getUser(id)),
+  showProcessing: (status) => dispatch(processing(status)),
 });
 
 
