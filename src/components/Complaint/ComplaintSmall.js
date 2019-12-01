@@ -1,33 +1,18 @@
 import React from 'react';
-import { TouchableHighlight, View } from 'react-native';
+import { Alert, TouchableHighlight, View } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
-import Share from 'react-native-share';
 import Field from '../Field';
-import { createPdf } from '../../utils/pdf';
 import styles from '../styles';
 
 class ComplaintSmall extends React.Component {
   itemView = () => {
+    // TODO: Implement item view.
     Alert.alert('Item view');
   }
 
-  onShare = async () => {
-    const { item } = this.props;
-    const file = await createPdf(item);
-    if (file.filePath) {
-      Share.open({
-        title: 'Compartir denuncia',
-        url: `file://${file.filePath}`,
-        subject: `[SindicAPP] Denuncia ${item.id}`,
-        message: 'Denuncia reportada a través de SindicAPP.',
-      });
-    }
-  }
-
   render() {
-    const { item } = this.props;
+    const { item, onShare } = this.props;
     return (
       <TouchableHighlight onPress={this.itemView} style={styles.complaintSmall}>
         <View>
@@ -36,7 +21,7 @@ class ComplaintSmall extends React.Component {
           <Field label="Empresa" value={item.companies} />
           <Field label="Descripcion" value={item.summary} />
           <Field label="Fecha" value={item.date} />
-          <Button onPress={this.onShare} title="Compartir"/>
+          <Button onPress={() => onShare(this)} title="Compartir" />
         </View>
       </TouchableHighlight>
     );
@@ -44,7 +29,8 @@ class ComplaintSmall extends React.Component {
 }
 
 ComplaintSmall.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
+  onShare: PropTypes.func.isRequired,
 };
 
 export default ComplaintSmall;

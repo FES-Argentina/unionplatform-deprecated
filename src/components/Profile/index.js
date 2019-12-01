@@ -4,7 +4,6 @@ import {
   View,
   Text,
   ScrollView,
-  Share,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +12,8 @@ import { getUser } from '../../actions/user';
 
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
-import LoadingIndicator from '../../components/LoadingIndicator';
+import Share from 'react-native-share';
+import { createPdf } from '../../utils/pdf';
 
 import styles from '../styles';
 
@@ -22,6 +22,18 @@ class Profile extends React.Component {
     const { loadUser } = this.props;
     //FIX id user
     loadUser('IhK');
+  }
+
+  shareComplaint = async (item) => {
+    const file = await createPdf(item);
+    if (file.filePath) {
+      Share.open({
+        title: 'Compartir denuncia',
+        url: `file://${file.filePath}`,
+        subject: `[SindicAPP] Denuncia ${item.id}`,
+        message: 'Denuncia reportada a través de SindicAPP.',
+      });
+    }
   }
 
   render() {
@@ -58,7 +70,7 @@ class Profile extends React.Component {
           <Text style={styles.summaryText}>{workemail}</Text>
           <Text style={styles.detailProfile}>Últimas denuncias</Text>
             {
-              complaints.slice(0, 2).map((item) => <ComplaintSmall item={item} />)
+              complaints.slice(0, 2).map((item) => <ComplaintSmall item={item} onShare={this.shareComplaint} />)
             }
           </SafeAreaView>
         </ScrollView>
