@@ -6,6 +6,7 @@ import Login from '../../components/Login';
 import Slideshow from '../../components/Slideshow';
 import Generic from '../../components/Generic';
 import Onboarding from '../../components/Onboarding';
+import Enrollment from '../../components/Enrollment';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 
@@ -21,7 +22,7 @@ const GuestStackNavigator = createStackNavigator(
       },
     },
     Join: {
-      screen: JoinPlaceholder,
+      screen: Enrollment,
       navigationOptions: {
         title: 'Afiliate',
       },

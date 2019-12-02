@@ -20,6 +20,10 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Apellido')
     .required(),
+  nationality: yup
+    .string()
+    .label('Nacionalidad')
+    .required(),
   email: yup
     .string()
     .label('E-mail')
@@ -29,13 +33,37 @@ const validationSchema = yup.object().shape({
     .number()
     .label('Telefono')
     .required(),
+  dni: yup
+    .number()
+    .label('DNI')
+    .required(),
+  birthdate: yup
+    .date()
+    .label('Fecha de nacimiento')
+    .required(),
+  cuit: yup
+    .number()
+    .label('CUIT/CUIL')
+    .required(),
+  postalcode: yup
+    .number()
+    .label('Codigo postal')
+    .required(),
+  street: yup
+    .string()
+    .label('Calle')
+    .required(),
   city: yup
     .string()
     .label('Localidad')
     .required(),
-  seniority: yup
+  province: yup
     .string()
-    .label('Antigüedad')
+    .label('Provincia')
+    .required(),
+  country: yup
+    .string()
+    .label('Pais')
     .required(),
   tasks: yup
     .string()
@@ -43,13 +71,11 @@ const validationSchema = yup.object().shape({
     .required(),
   companies: yup
     .boolean().oneOf([true], 'Please check at least one'),
-  problems: yup
-    .boolean().oneOf([true], 'Please check at least one')
 });
 
-class Complaint extends React.Component {
+class Enrollment extends React.Component {
   onSubmit = (values) => {
-    const { firstname, lastname, email, phonenumber, city, seniority, tasks, companies, problems } = values;
+    const { firstname, lastname, nationality, birthdate, cuit, dni, email, phonenumber, street, postalcode, city, province, country, tasks, companies } = values;
   }
 
   render() {
@@ -73,41 +99,9 @@ class Complaint extends React.Component {
       },
     ];
 
-    const problems = [
-      {
-        name: 'Tuve un accidente',
-        key: 'accidente',
-      },
-      {
-        name: 'Me bloquearon',
-        key: 'bloqueo',
-      },
-      {
-        name: 'Me multaron',
-        key: 'Multa',
-      },
-      {
-        name: 'Me suspendieron',
-        key: 'Suspension',
-      },
-      {
-        name: 'La tasa de aceptación cayó sin motivos',
-        key: 'Tasa',
-      },
-      {
-        name: 'Me robaron mientras trabajaba',
-        key: 'Robo',
-      },
-      {
-        name: 'Otros',
-        key: 'Otros',
-      },
-    ];
-
-
     return (
       <Formik
-        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: '', companies: '', problems: '' }}
+        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '',  tasks: '', companies: '', nationality: '', birthdate: '', cuit: '', dni: '', street: '', postalcode: '', province: '', country: ''  }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ email: '' }}
@@ -181,37 +175,141 @@ class Complaint extends React.Component {
               )}
             />
             <Input
-              label="Localidad"
+              label="Fecha de nacimiento"
               mode="outlined"
-              value={values.city}
-              onChangeText={handleChange('city')}
-              placeholder="Ingrese la localidad"
+              value={values.birthdate}
+              onChangeText={handleChange('birthdate')}
+              placeholder="Ingrese su fecha de nacimiento"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
-                  name="building"
+                  name="birthday-cake"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="CUIT/CUIL"
+              mode="outlined"
+              value={values.cuit}
+              onChangeText={handleChange('cuit')}
+              placeholder="Ingrese su CUIT/CUIL"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="DNI"
+              mode="outlined"
+              value={values.dni}
+              onChangeText={handleChange('dni')}
+              placeholder="Ingrese su DNI"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="Nacionalidad"
+              mode="outlined"
+              value={values.nationality}
+              onChangeText={handleChange('nationality')}
+              placeholder="Ingrese la nacionalidad"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="Calle"
+              mode="outlined"
+              value={values.street}
+              onChangeText={handleChange('street')}
+              placeholder="Ingrese la calle"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="Codigo postal"
+              mode="outlined"
+              value={values.postalcode}
+              onChangeText={handleChange('postalcode')}
+              placeholder="Ingrese su codigo postal"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="Ciudad"
+              mode="outlined"
+              value={values.city}
+              onChangeText={handleChange('city')}
+              placeholder="Ingrese la ciudad"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="Provincia"
+              mode="outlined"
+              value={values.province}
+              onChangeText={handleChange('province')}
+              placeholder="Ingrese la provincia"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
+                  size={12}
+                  color="grey"
+                />
+              )}
+            />
+            <Input
+              label="Pais"
+              mode="outlined"
+              value={values.country}
+              onChangeText={handleChange('country')}
+              placeholder="Ingrese el pais"
+              labelStyle={styles.inputslabel}
+              leftIcon={(
+                <Icon
+                  name="address-card"
                   size={12}
                   color="grey"
                 />
               )}
             />
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Input
-              label="Antigüedad"
-              mode="outlined"
-              value={values.seniority}
-              onChangeText={handleChange('seniority')}
-              onBlur={handleBlur('seniority')}
-              placeholder="Ingrese su antigüedad"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="star"
-                  size={12}
-                  color="grey"
-                />
-              )}
-            />
             <Input
               label="Tareas"
               mode="outlined"
@@ -231,7 +329,6 @@ class Complaint extends React.Component {
             />
 
           <Select options={companies} label="Empresa" />
-          <Select options={problems} label="Problema" />
 
             <Button
               title="Enviar"
@@ -246,7 +343,7 @@ class Complaint extends React.Component {
   }
 }
 
-Complaint.propTypes = {
+Enrollment.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -256,7 +353,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveComplaint: () => dispatch(setComplaint()),
+  saveEnrollment: () => dispatch(setEnrollment()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Complaint);
+export default connect(mapStateToProps, mapDispatchToProps)(Enrollment);

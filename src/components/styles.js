@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 15,
   },
-  // complaints
+  // complaints & enrollment
   formTitles: {
     fontSize: 24,
     alignSelf: 'flex-start',
@@ -59,10 +59,9 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontWeight: 'bold',
   },
-  inputs: {
-    paddingTop: 20,
-    marginTop: 20,
-    paddingVertical: 10,
+  inputslabel: {
+    marginTop: 10,
+    paddingVertical: 5,
   },
   // login
   containers: {
