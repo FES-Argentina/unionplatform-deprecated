@@ -335,6 +335,7 @@ class Enrollment extends React.Component {
               type="outline"
               disabled={!isValid}
               onPress={handleSubmit}
+              buttonStyle={styles.submitButton}
             />
           </ScrollView>
         )}

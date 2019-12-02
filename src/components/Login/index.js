@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text,
+  ScrollView, Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
@@ -52,7 +52,7 @@ class Login extends React.Component {
         {({
           values, handleChange, handleBlur, handleSubmit, isValid,
         }) => (
-          <View style={styles.containers}>
+          <ScrollView>
             <Text style={styles.presentation}>Sindicato APP</Text>
             <Input
               label="E-mail"
@@ -61,6 +61,7 @@ class Login extends React.Component {
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               placeholder="E-mail"
+              labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -76,6 +77,7 @@ class Login extends React.Component {
               onChangeText={handleChange('password')}
               placeholder="Contraseña"
               secureTextEntry
+              labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
                   name="key"
@@ -85,11 +87,11 @@ class Login extends React.Component {
               )}
             />
             <Button
-              style={styles.homeScreenLogin}
-              title="Ingresar"
+              title="Enviar"
               type="outline"
               disabled={!isValid}
               onPress={handleSubmit}
+              buttonStyle={styles.submitButton}
             />
             <Message
               title="Error"
@@ -97,7 +99,7 @@ class Login extends React.Component {
               show={show}
               handleClose={this.handleCloseMessage}
             />
-          </View>
+        </ScrollView>
         )}
       </Formik>
     );

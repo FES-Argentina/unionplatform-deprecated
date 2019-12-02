@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingVertical: 60,
   },
+  submitButton: {
+    marginTop: 30,
+  },
   // complaintSmall
   complaintSmall: {
     marginTop: 10,

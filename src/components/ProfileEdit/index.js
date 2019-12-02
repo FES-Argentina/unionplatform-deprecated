@@ -62,6 +62,7 @@ class ProfileEdit extends React.Component {
               value={values.username}
               onChangeText={handleChange('username')}
               placeholder="Alias"
+              labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
                   name="user"
@@ -76,6 +77,7 @@ class ProfileEdit extends React.Component {
               value={values.company}
               onChangeText={handleChange('company')}
               placeholder="Empresa"
+              labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
                   name="building"
@@ -90,6 +92,7 @@ class ProfileEdit extends React.Component {
               value={values.email}
               onChangeText={handleChange('email')}
               placeholder="Email"
+              labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -104,6 +107,7 @@ class ProfileEdit extends React.Component {
               value={values.workemail}
               onChangeText={handleChange('workemail')}
               placeholder="Email"
+              labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -115,6 +119,7 @@ class ProfileEdit extends React.Component {
             <Button
               title="Guardar"
               type="outline"
+              buttonStyle={styles.submitButton}
               disabled={!isValid}
               onPress={() => this.onSubmit(values)}
             />
