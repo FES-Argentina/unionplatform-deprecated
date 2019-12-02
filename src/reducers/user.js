@@ -1,9 +1,10 @@
-import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS } from '../constants';
+import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS } from '../constants';
 
 const initialState = {
   authToken: null,
   user: {},
   item: {},
+  enrollments: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         item: action.payload,
+      };
+    case SET_ENROLLMENT_SUCCESS:
+      return {
+        ...state,
+        enrollments: action.payload,
       };
     case LOGOUT_REQUEST:
       return {

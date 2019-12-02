@@ -50,3 +50,11 @@ export function getNewRequest(id) {
       console.log('ERROR', error);
     });
 }
+
+export function setEnrollmentRequest(values) {
+  return axios.post(`${Config.API_URL}/enrollments`, { enrollment: values })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}

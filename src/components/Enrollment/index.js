@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { Button, Input, CheckBox } from 'react-native-elements';
 import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { setEnrollment } from '../../actions/user';
 import PropTypes from 'prop-types';
 import styles from '../styles';
 
@@ -69,6 +70,7 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Tareas')
     .required(),
+  // FIX value companies
   companies: yup
     .boolean().oneOf([true], 'Please check at least one'),
 });
@@ -76,6 +78,8 @@ const validationSchema = yup.object().shape({
 class Enrollment extends React.Component {
   onSubmit = (values) => {
     const { firstname, lastname, nationality, birthdate, cuit, dni, email, phonenumber, street, postalcode, city, province, country, tasks, companies } = values;
+    const { saveEnrollment } = this.props;
+    saveEnrollment(values);
   }
 
   render() {
@@ -354,7 +358,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveEnrollment: () => dispatch(setEnrollment()),
+  saveEnrollment: (values) => {
+    dispatch(setEnrollment(values));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Enrollment);

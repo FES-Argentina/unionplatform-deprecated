@@ -5,10 +5,10 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER } from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT } from '../constants';
 import { requestError, processing } from '../actions';
-import { setAuth, updateUserSuccess, getUserSuccess } from '../actions/user';
-import { login, updateUser, getUserRequest } from '../api';
+import { setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess } from '../actions/user';
+import { login, updateUser, getUserRequest, setEnrollmentRequest } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
 
@@ -111,12 +111,38 @@ export function* userWatcher() {
       yield put(processing(true));
       const user = yield call(getUserRequest, id);
 
-      // Dispatch the getUser action to the store.
       yield put(getUserSuccess(user));
     } catch (e) {
       console.log('EXCEPTION', e);
     } finally {
       yield put(processing(false));
+    }
+  }
+}
+
+/**
+ * SET_ENROLLMENT
+ */
+function* setEnrollmentWorker(values) {
+  try {
+    const data = yield call(setEnrollmentRequest, values);
+    if (data) {
+      // TODO: que tenemos que pasarle al setEnrollmentSuccess
+      yield put(setEnrollmentSuccess(values));
+      NavigationService.navigate('Welcome');
+    }
+  } catch (e) {
+    console.warn('error setEnrollmentWorker:', e);
+  }
+}
+
+export function* setEnrollmentWatcher() {
+  while (true) {
+    const { data } = yield take(SET_ENROLLMENT);
+    try {
+      yield call(setEnrollmentWorker, data);
+    } catch (e) {
+      console.warn('error setEnrollmentWatcher:', e);
     }
   }
 }

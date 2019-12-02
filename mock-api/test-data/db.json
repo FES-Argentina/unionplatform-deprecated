@@ -282,5 +282,47 @@
       "photo": "https://picsum.photos/id/637/200/300",
       "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur"
     }
+  ],
+  "enrollments": [
+    {
+      "enrollment": {
+        "firstname": "Nombre",
+        "lastname": "Apellido",
+        "email": "mail@mail.com",
+        "phonenumber": "123123123",
+        "city": "CABA",
+        "tasks": "Repartos",
+        "companies": "",
+        "nationality": "Argentina",
+        "birthdate": "12/12/1980",
+        "cuit": "271231231232",
+        "dni": "23456789",
+        "street": "La pampa 234",
+        "postalcode": "1471",
+        "province": "Bs As",
+        "country": "Argentina"
+      },
+      "id": 1
+    },
+    {
+      "enrollment": {
+        "firstname": "Nombre",
+        "lastname": "Apellido",
+        "email": "mail@mail.com",
+        "phonenumber": "123123123",
+        "city": "CABA",
+        "tasks": "Envios",
+        "companies": "",
+        "nationality": "Argentina",
+        "birthdate": "12/12/12",
+        "cuit": "123456789",
+        "dni": "12345678",
+        "street": "Mariano Acha 123",
+        "postalcode": "1478",
+        "province": "Bs As",
+        "country": "Argentina"
+      },
+      "id": 2
+    }
   ]
 }
