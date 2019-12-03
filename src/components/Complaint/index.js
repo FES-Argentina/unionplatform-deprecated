@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { Button, Input, CheckBox } from 'react-native-elements';
 import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { setComplaint } from '../../actions/user';
 import PropTypes from 'prop-types';
 import styles from '../styles';
 
@@ -50,6 +51,8 @@ const validationSchema = yup.object().shape({
 class Complaint extends React.Component {
   onSubmit = (values) => {
     const { firstname, lastname, email, phonenumber, city, seniority, tasks, companies, problems } = values;
+    const { saveComplaint } = this.props;
+    saveComplaint(values);
   }
 
   render() {
@@ -257,7 +260,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveComplaint: () => dispatch(setComplaint()),
+  saveComplaint: (values) => {
+    dispatch(setComplaint(values));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Complaint);

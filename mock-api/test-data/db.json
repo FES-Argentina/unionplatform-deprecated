@@ -230,6 +230,20 @@
       ],
       "problems": "Accidente con la bicicleta",
       "date": "2019/08/08"
+    },
+    {
+      "complaint": {
+        "firstname": "A",
+        "lastname": "A",
+        "email": "mail@mail.com",
+        "phonenumber": "123",
+        "city": "cccc",
+        "seniority": "123",
+        "tasks": "repartos",
+        "companies": "",
+        "problems": ""
+      },
+      "id": "MTzst-x"
     }
   ],
   "news": [

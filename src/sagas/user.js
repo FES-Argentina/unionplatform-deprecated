@@ -5,10 +5,10 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT } from '../constants';
+import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT, SET_COMPLAINT } from '../constants';
 import { requestError, processing } from '../actions';
-import { setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess } from '../actions/user';
-import { login, updateUser, getUserRequest, setEnrollmentRequest } from '../api';
+import { setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess} from '../actions/user';
+import { login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
 
@@ -143,6 +143,33 @@ export function* setEnrollmentWatcher() {
       yield call(setEnrollmentWorker, data);
     } catch (e) {
       console.warn('error setEnrollmentWatcher:', e);
+    }
+  }
+}
+
+/**
+ * SET_COMPLAINT
+ */
+function* setComplaintWorker(values) {
+  try {
+    const data = yield call(setComplaintRequest, values);
+    if (data) {
+      // TODO: que tenemos que pasarle al setComplaintSuccess
+      yield put(setComplaintSuccess(values));
+      NavigationService.navigate('Welcome');
+    }
+  } catch (e) {
+    console.warn('error setComplaintWorker:', e);
+  }
+}
+
+export function* setComplaintWatcher() {
+  while (true) {
+    const { data } = yield take(SET_COMPLAINT);
+    try {
+      yield call(setComplaintWorker, data);
+    } catch (e) {
+      console.warn('error setComplaintWatcher:', e);
     }
   }
 }

@@ -1,10 +1,11 @@
-import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS } from '../constants';
+import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS, SET_COMPLAINT_SUCCESS } from '../constants';
 
 const initialState = {
   authToken: null,
   user: {},
   item: {},
   enrollments: [],
+  complaints: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         enrollments: action.payload,
+      };
+    case SET_COMPLAINT_SUCCESS:
+      return {
+        ...state,
+        complaints: action.payload,
       };
     case LOGOUT_REQUEST:
       return {

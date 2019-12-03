@@ -1,6 +1,6 @@
 import {
-  LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, GET_USER_SUCCESS, SET_ENROLLMENT, SET_ENROLLMENT_SUCCESS
-} from '../constants';
+  LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, GET_USER_SUCCESS, SET_ENROLLMENT, SET_ENROLLMENT_SUCCESS,
+  SET_COMPLAINT, SET_COMPLAINT_SUCCESS } from '../constants';
 
 export function loginRequest(username, password) {
   return {
@@ -61,5 +61,19 @@ export function setEnrollmentSuccess(enrollment) {
   return {
     type: SET_ENROLLMENT_SUCCESS,
     enrollments: enrollment,
+  };
+}
+
+export function setComplaint(values) {
+  return {
+    type: SET_COMPLAINT,
+    data: values,
+  };
+}
+
+export function setComplaintSuccess(complaint) {
+  return {
+    type: SET_COMPLAINT_SUCCESS,
+    complaints: complaint,
   };
 }

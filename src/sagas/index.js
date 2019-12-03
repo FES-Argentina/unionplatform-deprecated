@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import { documentsWatcher, documentWatcher } from './documents';
 import { newsWatcher, newWatcher } from './news';
-import { loginFlow, logoutFlow, updateUserWatcher, userWatcher, setEnrollmentWatcher } from './user';
+import { loginFlow, logoutFlow, updateUserWatcher, userWatcher, setEnrollmentWatcher, setComplaintWatcher } from './user';
 
 export default function* rootSaga() {
   yield all([
@@ -14,5 +14,6 @@ export default function* rootSaga() {
     updateUserWatcher(),
     userWatcher(),
     setEnrollmentWatcher(),
+    setComplaintWatcher(),
   ]);
 }

@@ -58,3 +58,11 @@ export function setEnrollmentRequest(values) {
       console.log('ERROR', error);
     });
 }
+
+export function setComplaintRequest(values) {
+  return axios.post(`${Config.API_URL}/complaints`, { complaint: values })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}
