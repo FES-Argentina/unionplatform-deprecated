@@ -83,9 +83,6 @@ const styles = StyleSheet.create({
   enrollButton: {
     marginTop: 10,
   },
-  resetButton: {
-    border: 'none', 
-  },
   enroll: {
     fontSize: 16,
     textAlign: 'center',
