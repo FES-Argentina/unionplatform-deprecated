@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   containers: {
     flex: 1,
     alignItems: 'center',
+    paddingVertical: 15,
   },
   presentation: {
     fontSize: 40,
@@ -74,10 +75,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: '#f50057',
     fontWeight: 'bold',
-    paddingVertical: 60,
+    paddingVertical: 40,
   },
   submitButton: {
     marginTop: 30,
+  },
+  enrollButton: {
+    marginTop: 10,
+  },
+  resetButton: {
+    border: 'none', 
+  },
+  enroll: {
+    fontSize: 16,
+    textAlign: 'center',
   },
   // complaintSmall
   complaintSmall: {

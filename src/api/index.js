@@ -66,3 +66,8 @@ export function setComplaintRequest(values) {
       console.log('ERROR', error);
     });
 }
+
+export function changeUserPass(id, data) {
+  return axios.put(`${Config.API_URL}/users/${id}`, { pass: data })
+    .then((response) => response.data);
+}

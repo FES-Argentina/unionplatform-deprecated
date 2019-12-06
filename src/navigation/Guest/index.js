@@ -3,6 +3,7 @@ import { Button } from 'react-native-elements';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../../components/Login';
+import ResetPass from '../../components/ResetPass';
 import Slideshow from '../../components/Slideshow';
 import Generic from '../../components/Generic';
 import Onboarding from '../../components/Onboarding';
@@ -31,6 +32,12 @@ const GuestStackNavigator = createStackNavigator(
       screen: Login,
       navigationOptions: {
         title: 'Login',
+      },
+    },
+    ResetPass: {
+      screen: ResetPass,
+      navigationOptions: {
+        title: 'Nueva pass',
       },
     },
     Help: {

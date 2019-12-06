@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ScrollView, Text,
+  ScrollView, Text, View
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
@@ -10,6 +10,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import { loginRequest } from '../../actions/user';
 import { clearErrors } from '../../actions';
+import NavigationService from '../../navigation/NavigationService';
+
 import styles from '../styles';
 
 import Message from '../Message';
@@ -38,13 +40,21 @@ class Login extends React.Component {
     dispatch(clearErrors());
   }
 
+  resetPass = (id) => {
+    NavigationService.navigate('ResetPass', {id} );
+  }
+
+  enroll = () => {
+    NavigationService.navigate('Join');
+  }
+
   render() {
     const { error } = this.props;
     const show = error.message ? true : false;
 
     return (
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: '', password: '', id: 'frs' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ email: '' }}
@@ -99,6 +109,23 @@ class Login extends React.Component {
               show={show}
               handleClose={this.handleCloseMessage}
             />
+
+          <View style={styles.containers}>
+            <Button
+              title="¿Olvidaste tu contraseña?"
+              type="clear"
+              onPress={() => this.resetPass(values.id)}
+              />
+            <Text style={styles.enroll}>Para crear una cuenta nueva</Text>
+            <Text style={styles.enroll}>necesitas estar afiliado</Text>
+            <Button
+              onPress={() => this.enroll()}
+              title="AFILIATE"
+              buttonStyle={styles.enrollButton}
+              type="outline"
+              />
+          </View>
+
         </ScrollView>
         )}
       </Formik>

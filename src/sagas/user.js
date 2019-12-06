@@ -5,10 +5,16 @@ import {
   take,
 } from 'redux-saga/effects';
 
-import { LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT, SET_COMPLAINT } from '../constants';
+import {
+  LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT, SET_COMPLAINT, CHANGE_USER_PASS,
+} from '../constants';
 import { requestError, processing } from '../actions';
-import { setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess} from '../actions/user';
-import { login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest } from '../api';
+import {
+  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, changeUserPassSuccess,
+} from '../actions/user';
+import {
+  login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass,
+} from '../api';
 import NavigationService from '../navigation/NavigationService';
 
 
@@ -170,6 +176,35 @@ export function* setComplaintWatcher() {
       yield call(setComplaintWorker, data);
     } catch (e) {
       console.warn('error setComplaintWatcher:', e);
+    }
+  }
+}
+
+/**
+ * CHANGE_USER_PASS_USER
+ */
+function* changeUserPassWorker(id, newValues) {
+  try {
+    const data = yield call(changeUserPass, id, newValues);
+    if (data) {
+      // TODO: que tenemos que pasarle al changeUserPass
+      yield put(changeUserPassSuccess(newValues));
+      NavigationService.navigate('Login');
+    }
+  } catch (e) {
+    console.warn('error changeUserPassWorker:', e);
+  }
+}
+
+export function* changeUserPassWatcher() {
+  while (true) {
+    const { data } = yield take(CHANGE_USER_PASS);
+    const { id, newValues } = data;
+
+    try {
+      yield call(changeUserPassWorker, id, newValues);
+    } catch (e) {
+      console.warn('error changeUserPassWatcher:', e);
     }
   }
 }

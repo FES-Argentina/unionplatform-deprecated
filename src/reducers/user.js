@@ -1,4 +1,4 @@
-import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS, SET_COMPLAINT_SUCCESS } from '../constants';
+import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS_SUCCESS } from '../constants';
 
 const initialState = {
   authToken: null,
@@ -41,6 +41,11 @@ const userReducer = (state = initialState, action) => {
         user: {},
         item: {},
       }
+    case CHANGE_USER_PASS_SUCCESS:
+      return {
+        ...state,
+        user: state.user,
+      };
     default:
       return state;
   }
