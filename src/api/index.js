@@ -71,3 +71,11 @@ export function changeUserPass(id, data) {
   return axios.put(`${Config.API_URL}/users/${id}`, { pass: data })
     .then((response) => response.data);
 }
+
+export function getComplaintsRequest() {
+  return axios.get(`${Config.API_URL}/complaints`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}

@@ -1,6 +1,6 @@
 import {
   LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, GET_USER_SUCCESS, SET_ENROLLMENT, SET_ENROLLMENT_SUCCESS,
-  SET_COMPLAINT, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS, CHANGE_USER_PASS_SUCCESS } from '../constants';
+  SET_COMPLAINT, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS, CHANGE_USER_PASS_SUCCESS, GET_COMPLAINTS, GET_COMPLAINTS_SUCCESS } from '../constants';
 
 export function loginRequest(username, password) {
   return {
@@ -90,5 +90,18 @@ export function changeUserPassSuccess(user) {
   return {
     type: CHANGE_USER_PASS_SUCCESS,
     user,
+  };
+}
+
+export function getComplaints() {
+  return {
+    type: GET_COMPLAINTS,
+  };
+}
+
+export function getComplaintsSuccess(complaints) {
+  return {
+    type: GET_COMPLAINTS_SUCCESS,
+    payload: complaints,
   };
 }

@@ -37,7 +37,7 @@ class ResetPass extends React.Component {
   }
 
   render() {
-    // FIX: user id value
+    // FIX: user id value, pass validation
     return (
       <Formik
         initialValues={{

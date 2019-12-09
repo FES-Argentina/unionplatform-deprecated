@@ -32,7 +32,7 @@ import DocumentDetail from '../../components/DocumentDetail';
 import Profile from '../../components/Profile';
 import ProfileEdit from '../../components/ProfileEdit';
 import Onboarding from '../../components/Onboarding';
-
+import ComplaintList from '../../components/ComplaintList';
 
 class NavigationDrawerStructure extends React.Component {
   render() {
@@ -144,6 +144,22 @@ const ComplaintsStackNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
     }),
+  }
+});
+
+const ComplaintListStackNavigator = createStackNavigator({
+  ComplaintList: {
+    screen: ComplaintList,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Mis denuncias',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
   },
 });
 
@@ -244,6 +260,16 @@ const DrawerNavigator = createDrawerNavigator({
     screen: ComplaintsStackNavigator,
     navigationOptions: {
       drawerLabel: 'Cargar denuncia',
+      drawerIcon: () => (
+        <FontAwesome5 name="burn" solid size={15} />
+      ),
+    },
+  },
+
+  ComplaintList: {
+    screen: ComplaintListStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Mis denuncia',
       drawerIcon: () => (
         <FontAwesome5 name="burn" solid size={15} />
       ),

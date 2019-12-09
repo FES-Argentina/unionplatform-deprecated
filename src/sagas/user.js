@@ -3,17 +3,18 @@ import {
   put,
   race,
   take,
+  takeLatest,
 } from 'redux-saga/effects';
 
 import {
-  LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT, SET_COMPLAINT, CHANGE_USER_PASS,
+  LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT, SET_COMPLAINT, CHANGE_USER_PASS, GET_COMPLAINTS,
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
-  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, changeUserPassSuccess,
+  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, getComplaintsSuccess, changeUserPassSuccess
 } from '../actions/user';
 import {
-  login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass,
+  login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest
 } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
@@ -207,4 +208,25 @@ export function* changeUserPassWatcher() {
       console.warn('error changeUserPassWatcher:', e);
     }
   }
+}
+
+/**
+ * GET_COMPLAINTS
+ */
+function* complaintsWorker() {
+  try {
+    yield put(processing(true));
+    const complaints = yield call(getComplaintsRequest);
+
+    // Dispatch the getComplaints actions to the store.
+    yield put(getComplaintsSuccess(complaints));
+  } catch (e) {
+    console.log('EXCEPTION', e);
+  } finally {
+    yield put(processing(false));
+  }
+}
+
+export function* complaintsWatcher() {
+  yield takeLatest(GET_COMPLAINTS, complaintsWorker);
 }

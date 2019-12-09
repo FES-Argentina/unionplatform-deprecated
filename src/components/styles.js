@@ -181,6 +181,34 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingVertical: 10,
   },
+  // complaintslist
+  complaints: {
+    fontSize: 16,
+    color: '#fff',
+    backgroundColor: '#f8f8ff',
+    fontWeight: '600',
+    marginVertical: 1,
+    paddingHorizontal: 15,
+    paddingBottom: 5,
+    paddingTop: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  complaintslist: {
+    flexDirection: 'column',
+  },
+  dateDetail: {
+    fontSize: 14,
+    paddingRight: 15,
+    paddingVertical: 5,
+  },
+  titleDetail: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingRight: 15,
+    paddingVertical: 10,
+  },
 });
 
 export default styles;
