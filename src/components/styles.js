@@ -209,6 +209,26 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingVertical: 10,
   },
+  // complaint detail
+  titlesDetail: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingHorizontal: 15,
+  },
+  bodyDetail: {
+    fontSize: 14,
+    paddingHorizontal: 15,
+    marginBottom: 10,
+  },
+  complaintTitles: {
+    fontSize: 24,
+    alignSelf: 'flex-start',
+    paddingTop: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 15,
+    color: 'grey',
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;

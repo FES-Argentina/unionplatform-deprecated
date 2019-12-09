@@ -225,11 +225,9 @@
       "phonenumber": "15326489",
       "city": "CABA",
       "seniority": "3 meses",
-      "companies": [
-        "Rappi",
-        "Glovo"
-      ],
+      "company": "Uber",
       "problems": "Accidente con la bicicleta",
+      "tasks": "Repartos",
       "date": "2019/08/08"
     },
     {
@@ -243,11 +241,9 @@
       "phonenumber": "15326489",
       "city": "CABA",
       "seniority": "3 meses",
-      "companies": [
-        "Rappi",
-        "Glovo"
-      ],
+      "company": "Glovo",
       "problems": "Accidente con la bicicleta",
+      "tasks": "Repartos",
       "date": "2019/08/08"
     },
     {
@@ -261,11 +257,9 @@
       "phonenumber": "15326489",
       "city": "CABA",
       "seniority": "3 meses",
-      "companies": [
-        "Rappi",
-        "Glovo"
-      ],
+      "company": "Glovo",
       "problems": "Accidente con la bicicleta",
+      "tasks": "Repartos",
       "date": "2019/08/08"
     }
 

@@ -29,6 +29,7 @@ import Complaint from '../../components/Complaint';
 
 import SimpleList from '../../components/SimpleList';
 import DocumentDetail from '../../components/DocumentDetail';
+import ComplaintDetail from '../../components/ComplaintDetail';
 import Profile from '../../components/Profile';
 import ProfileEdit from '../../components/ProfileEdit';
 import Onboarding from '../../components/Onboarding';
@@ -153,6 +154,18 @@ const ComplaintListStackNavigator = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       title: 'Mis denuncias',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+  ComplaintDetail: {
+    screen: ComplaintDetail,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Denuncia',
       headerStyle: {
         backgroundColor: '#f50057',
         shadowOpacity: 0,
