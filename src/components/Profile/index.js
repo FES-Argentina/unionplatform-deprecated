@@ -67,12 +67,12 @@ class Profile extends React.Component {
               )}
           </View>
           <View style={styles.mailsProfile}>
-            <FontAwesome5 name="envelope" solid size={15} style={styles.iconProfile} />
+            <FontAwesome5 name="envelope" solid size={15} />
             <Text style={styles.detailProfile}>Personal</Text>
           </View>
           <Text style={styles.summaryText}>{email}</Text>
           <View style={styles.mailsProfile}>
-            <FontAwesome5 name="envelope" solid size={15} style={styles.iconProfile} />
+            <FontAwesome5 name="envelope" solid size={15}/>
             <Text style={styles.detailProfile}>Trabajo</Text>
           </View>
           <Text style={styles.summaryText}>{workemail}</Text>
