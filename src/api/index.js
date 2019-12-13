@@ -79,3 +79,11 @@ export function getComplaintsRequest() {
       console.log('ERROR', error);
     });
 }
+
+export function getAlertsRequest() {
+  return axios.get(`${Config.API_URL}/alerts`)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}
