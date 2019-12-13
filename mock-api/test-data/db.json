@@ -356,5 +356,21 @@
       },
       "id": 2
     }
+  ],
+  "alerts": [
+    {
+      "lat": -34.575896,
+      "lon": -58.473656,
+      "title": "Corte por obras",
+      "description": "Sólo un carril habilitado, mucha demora.",
+      "type": "corte"
+    },
+    {
+      "lat": -34.571887,
+      "lon": -58.472553,
+      "title": "Accidente",
+      "description": "Demoras por choque entre dos autos.",
+      "type": "accidente"
+    }
   ]
 }
