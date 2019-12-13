@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import documentsReducer from '../reducers/documents';
 import userReducer from '../reducers/user';
 import newsReducer from '../reducers/news';
+import alertsReducer from '../reducers/alerts';
 import errorReducer from '../reducers/errors';
 import uiReducer from '../reducers/ui';
 import rootSaga from '../sagas';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   error: errorReducer,
   news: newsReducer,
+  alerts: alertsReducer,
   ui: uiReducer,
 });
 
