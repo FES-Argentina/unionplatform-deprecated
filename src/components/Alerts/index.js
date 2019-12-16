@@ -11,6 +11,14 @@ const LATITUDE = -34.606856;
 const LONGITUDE = -58.436293;
 const LATITUDE_DELTA = 0.28;
 const LONGITUDE_DELTA = LATITUDE_DELTA * (width / height);
+const PIN_COLOURS = {
+  accidente: "red",
+  corte: "orange",
+  problema_local: "yellow",
+  transito: "green",
+  robo: "blue",
+  otros: "violet",
+};
 
 class Alerts extends React.Component {
   componentDidMount = () => {
@@ -19,7 +27,7 @@ class Alerts extends React.Component {
   }
 
   render() {
-    const { alerts } = this.props;
+    const { alerts, colours } = this.props;
     return (
       <View style={styles.mapContainer}>
         <MapView
@@ -36,6 +44,8 @@ class Alerts extends React.Component {
               coordinate={{ latitude: marker.lat, longitude: marker.lon }}
               title={marker.title}
               description={marker.description}
+              flat={true}
+              pinColor={colours[marker.type]}
             />
           ))}
         </MapView>
@@ -46,11 +56,13 @@ class Alerts extends React.Component {
 
 Alerts.propTypes = {
   alerts: PropTypes.arrayOf(PropTypes.object),
+  icons: PropTypes.objectOf(PropTypes.string),
   loadAlerts: PropTypes.func.isRequired,
 };
 
 Alerts.defaultProps = {
   alerts: [],
+  colours: PIN_COLOURS,
 };
 
 const mapStateToProps = (state) => ({
