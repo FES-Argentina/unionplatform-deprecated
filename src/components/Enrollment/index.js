@@ -9,6 +9,7 @@ import { Button, Input, CheckBox } from 'react-native-elements';
 import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { setEnrollment } from '../../actions/user';
+import Selector from '../form/Selector';
 import PropTypes from 'prop-types';
 import styles from '../styles';
 
@@ -84,23 +85,11 @@ class Enrollment extends React.Component {
 
   render() {
 
-    const companies = [
-      {
-        name: 'Cabify',
-        key: 'Cabify',
-      },
-      {
-        name: 'Uber',
-        key: 'Uber',
-      },
-      {
-        name: 'Glovo',
-        key: 'Glovo',
-      },
-      {
-        name: 'Rappi',
-        key: 'Rappi',
-      },
+    const items = [
+      { id: 'Cabify', name: 'Cabify' },
+      { id: 'Uber', name: 'Uber' },
+      { id: 'Glovo', name: 'Glovo' },
+      { id: 'Rappi', name: 'Rappi' },
     ];
 
     return (
@@ -111,7 +100,7 @@ class Enrollment extends React.Component {
         initialErrors={{ email: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid,
+          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
@@ -332,7 +321,7 @@ class Enrollment extends React.Component {
               )}
             />
 
-          <Select options={companies} label="Empresa" />
+            <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
 
             <Button
               title="Enviar"
