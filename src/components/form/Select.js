@@ -4,30 +4,33 @@ import { Picker, Text, View } from 'react-native';
 import styles from '../styles';
 
 class Select extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      selectedValue: null,
+      selectedValue: 'null',
     };
   }
 
-  updateValue = (itemValue, itemIndex) => {
-    this.setState({selectedValue: itemValue});
+  updateValue = async (itemValue) => {
+    await this.setState({ selectedValue: itemValue });
+    this.props.setFieldValue(this.props.label, this.state.selectedValue);
   };
 
+
   render() {
-    const { options, label } = this.props;
+    const { options, label, setFieldValue } = this.props;
     const { selectedValue } = this.state;
 
     return (
       <View>
         <Text style={styles.formTitles}>{label}</Text>
         <Picker
-          selectedValue={selectedValue}
-          onValueChange={this.updateValue}
           style={styles.inputs}
           prompt={label}
+          selectedValue={this.state.selectedValue}
+          onValueChange={this.updateValue}
         >
+
           {options.map((item) => <Picker.Item label={item.name} value={item.key} />)}
         </Picker>
       </View>

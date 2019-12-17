@@ -87,3 +87,11 @@ export function getAlertsRequest() {
       console.log('ERROR', error);
     });
 }
+
+export function setAlertRequest(values) {
+  return axios.post(`${Config.API_URL}/alertsform`, { alert: values })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+}

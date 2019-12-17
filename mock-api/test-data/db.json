@@ -262,7 +262,6 @@
       "tasks": "Repartos",
       "date": "2019/08/08"
     }
-
   ],
   "news": [
     {
@@ -372,5 +371,8 @@
       "description": "Demoras por choque entre dos autos.",
       "type": "accidente"
     }
+  ],
+  "alertsform": [
+
   ]
 }

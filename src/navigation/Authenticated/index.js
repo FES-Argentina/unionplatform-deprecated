@@ -26,6 +26,7 @@ import Home from '../../components/Home';
 import CardList from '../../components/CardList';
 import NewsDetail from '../../components/NewsDetail';
 import Complaint from '../../components/Complaint';
+import AlertForm from '../../components/AlertForm';
 
 import SimpleList from '../../components/SimpleList';
 import DocumentDetail from '../../components/DocumentDetail';
@@ -248,6 +249,22 @@ const OnboardingStackNavigator = createStackNavigator({
   },
 });
 
+const AlertFormStackNavigator = createStackNavigator({
+  AlertForm: {
+    screen: AlertForm,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Nueva alerta',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const DrawerNavigator = createDrawerNavigator({
   Tabs: {
     screen: TabStackNavigator,
@@ -309,6 +326,16 @@ const DrawerNavigator = createDrawerNavigator({
     },
   },
 
+  AlertForm: {
+    screen: AlertFormStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Cargar alerta',
+      drawerIcon: () => (
+        <FontAwesome5 name="map" size={15} />
+      ),
+    },
+  },
+  
   Onboarding: {
     screen: OnboardingStackNavigator,
     navigationOptions: {

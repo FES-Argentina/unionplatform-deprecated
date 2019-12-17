@@ -11,10 +11,10 @@ import {
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
-  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, getComplaintsSuccess, changeUserPassSuccess
+  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, getComplaintsSuccess, changeUserPassSuccess,
 } from '../actions/user';
 import {
-  login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest
+  login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest,
 } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
