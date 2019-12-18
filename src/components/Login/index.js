@@ -29,6 +29,11 @@ const validationSchema = yup.object().shape({
 });
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.fields = {};
+  }
+
   onSubmit = (values) => {
     const { email, password } = values;
     const { dispatch } = this.props;
@@ -48,6 +53,10 @@ class Login extends React.Component {
     NavigationService.navigate('Join');
   }
 
+  focusNextField = (key) => {
+    this.fields[key].focus();
+  }
+
   render() {
     const { error } = this.props;
     const show = error.message ? true : false;
@@ -60,7 +69,7 @@ class Login extends React.Component {
         initialErrors={{ email: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid,
+          values, handleChange, handleBlur, handleSubmit, isValid, submitForm
         }) => (
           <ScrollView>
             <Text style={styles.presentation}>Sindicato APP</Text>
@@ -72,6 +81,9 @@ class Login extends React.Component {
               onBlur={handleBlur('email')}
               placeholder="E-mail"
               labelStyle={styles.inputslabel}
+              keyboardType="email-address"
+              returnKeyType="next"
+              autoCapitalize="none"
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -79,6 +91,13 @@ class Login extends React.Component {
                   color="grey"
                 />
               )}
+              ref={(input) => {
+                this.fields.mail = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('password');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Contraseña"
@@ -95,6 +114,14 @@ class Login extends React.Component {
                   color="grey"
                 />
               )}
+              ref={(input) => {
+                this.fields.password = input;
+              }}
+              blurOnSubmit={false}
+              onSubmitEditing={() => {
+                submitForm();
+              }}
+              returnKeyType="done"
             />
             <Button
               title="Enviar"
