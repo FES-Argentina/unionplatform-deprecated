@@ -7,8 +7,9 @@ class Select extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedValue: 'null',
+      selectedValue: this.props.options[0].name,
     };
+    this.props.setFieldValue(this.props.options[0].name, this.state.selectedValue);
   }
 
   updateValue = async (itemValue) => {
