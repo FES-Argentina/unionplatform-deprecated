@@ -11,7 +11,7 @@ import {
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
-  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, getComplaintsSuccess, changeUserPassSuccess,
+  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, getComplaintsSuccess, changeUserPassSuccess,
 } from '../actions/user';
 import {
   login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest,

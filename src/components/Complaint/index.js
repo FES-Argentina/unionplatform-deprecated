@@ -49,8 +49,15 @@ const validationSchema = yup.object().shape({
 });
 
 class Complaint extends React.Component {
+  constructor(props) {
+    super(props);
+    this.focusNextField = this.focusNextField.bind(this);
+    this.inputs = {};
+  }
+  focusNextField(id) {
+    this.inputs[id].focus();
+  }
   onSubmit = (values) => {
-    const { firstname, lastname, email, phonenumber, city, seniority, tasks, companies, problems } = values;
     const { saveComplaint } = this.props;
     saveComplaint(values);
   }
@@ -110,13 +117,13 @@ class Complaint extends React.Component {
 
     return (
       <Formik
-        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: '', companies: '', problems: '' }}
+        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: ''}}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ email: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid,
+          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue, submitForm
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
@@ -135,13 +142,21 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['firstname'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('lastname');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Apellido"
               mode="outlined"
               value={values.lastname}
               onChangeText={handleChange('lastname')}
-              onBlur={handleBlur('namlastnamee')}
+              onBlur={handleBlur('lastname')}
               placeholder="Ingrese su apellido"
               labelStyle={styles.inputslabel}
               leftIcon={(
@@ -151,6 +166,14 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['lastname'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('email');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="E-mail"
@@ -167,6 +190,16 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['email'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('phonenumber');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Número de teléfono"
@@ -182,6 +215,16 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="phone-pad"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['phonenumber'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('city');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Localidad"
@@ -197,6 +240,14 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['city'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('seniority');
+              }}
+              blurOnSubmit={false}
             />
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Input
@@ -214,11 +265,20 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['seniority'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('tasks');
+              }}
+              blurOnSubmit={false}
             />
+            <Select options={companies} label="Empresa" setFieldValue={setFieldValue}/>
+            <Select options={problems} label="Problema" setFieldValue={setFieldValue}/>
             <Input
               label="Tareas"
               mode="outlined"
-              multiline
               value={values.tasks}
               onChangeText={handleChange('tasks')}
               onBlur={handleBlur('tasks')}
@@ -231,10 +291,17 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="done"
+              ref={ input => {
+                this.inputs['tasks'] = input;
+              }}
+              onSubmitEditing={() => {
+                submitForm();
+              }}
+              blurOnSubmit={false}
             />
 
-          <Select options={companies} label="Empresa" />
-          <Select options={problems} label="Problema" />
+
 
             <Button
               title="Enviar"
