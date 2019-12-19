@@ -10,6 +10,7 @@ import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { setEnrollment } from '../../actions/user';
 import Selector from '../form/Selector';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 import styles from '../styles';
 
@@ -39,10 +40,6 @@ const validationSchema = yup.object().shape({
     .number()
     .label('DNI')
     .required(),
-  birthdate: yup
-    .date()
-    .label('Fecha de nacimiento')
-    .required(),
   cuit: yup
     .number()
     .label('CUIT/CUIL')
@@ -71,20 +68,50 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Tareas')
     .required(),
-  // FIX value companies
-  companies: yup
-    .boolean().oneOf([true], 'Please check at least one'),
 });
 
 class Enrollment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.focusNextField = this.focusNextField.bind(this);
+    this.inputs = {};
+
+    this.state  = {
+      date: new Date(1598051730000),
+      mode: 'date',
+      show: false,
+    }
+  }
+  focusNextField(id) {
+    this.inputs[id].focus();
+  }
   onSubmit = (values) => {
-    const { firstname, lastname, nationality, birthdate, cuit, dni, email, phonenumber, street, postalcode, city, province, country, tasks, companies } = values;
+    values.birthdate = this.state.date;
+    console.warn(values);
     const { saveEnrollment } = this.props;
     saveEnrollment(values);
   }
 
-  render() {
+  setDate = (event, date) => {
+    date = date || this.state.date;
 
+    this.setState({
+      show: Platform.OS === 'ios' ? true : false,
+      date,
+    });
+  }
+  show = mode => {
+    this.setState({
+      show: true,
+      mode,
+    });
+  }
+  datepicker = () => {
+    this.show('date');
+  }
+
+  render() {
+    const { show, date, mode } = this.state;
     const items = [
       { id: 'Cabify', name: 'Cabify' },
       { id: 'Uber', name: 'Uber' },
@@ -94,13 +121,13 @@ class Enrollment extends React.Component {
 
     return (
       <Formik
-        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '',  tasks: '', companies: '', nationality: '', birthdate: '', cuit: '', dni: '', street: '', postalcode: '', province: '', country: ''  }}
+        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '',  tasks: '', nationality: '', cuit: '', dni: '', street: '', postalcode: '', province: '', country: ''  }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ email: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue
+          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue, submitForm
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
@@ -119,6 +146,14 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['firstname'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('lastname');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Apellido"
@@ -135,6 +170,14 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['lastname'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('email');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="E-mail"
@@ -151,6 +194,16 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['email'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('phonenumber');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Número de teléfono"
@@ -166,22 +219,35 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="phone-pad"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['phonenumber'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('cuit');
+              }}
+              blurOnSubmit={false}
             />
-            <Input
-              label="Fecha de nacimiento"
-              mode="outlined"
-              value={values.birthdate}
-              onChangeText={handleChange('birthdate')}
-              placeholder="Ingrese su fecha de nacimiento"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="birthday-cake"
-                  size={12}
-                  color="grey"
+            <View>
+              <Text style={styles.date}>Elija su fecha de nacimiento</Text>
+              <Button
+                title="Fecha de nacimiento"
+                type="outline"
+                buttonStyle={styles.enrollButton}
+                testID="datePickerButton"
+                onPress={this.datepicker}
                 />
-              )}
-            />
+
+            { show && <DateTimePicker testID="dateTimePicker"
+              timeZoneOffsetInMinutes={0}
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={this.setDate} /> }
+            </View>
             <Input
               label="CUIT/CUIL"
               mode="outlined"
@@ -196,6 +262,16 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="numeric"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['cuit'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('dni');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="DNI"
@@ -211,6 +287,16 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="numeric"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['dni'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('nationality');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Nacionalidad"
@@ -226,6 +312,14 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['nationality'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('street');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Calle"
@@ -241,6 +335,14 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['street'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('postalcode');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Codigo postal"
@@ -256,6 +358,16 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              keyboardType="numeric"
+              autoCapitalize="none"
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['postalcode'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('city');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Ciudad"
@@ -271,6 +383,14 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['city'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('province');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Provincia"
@@ -286,6 +406,14 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['province'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('country');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Pais"
@@ -301,12 +429,20 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['country'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('tasks');
+              }}
+              blurOnSubmit={false}
             />
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
+            <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
             <Input
               label="Tareas"
               mode="outlined"
-              multiline
               value={values.tasks}
               onChangeText={handleChange('tasks')}
               onBlur={handleBlur('tasks')}
@@ -319,9 +455,17 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="done"
+              ref={ input => {
+                this.inputs['tasks'] = input;
+              }}
+              onSubmitEditing={() => {
+                submitForm();
+              }}
+              blurOnSubmit={false}
             />
 
-            <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
+
 
             <Button
               title="Enviar"

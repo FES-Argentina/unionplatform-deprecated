@@ -87,6 +87,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
+  date: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingHorizontal: 15,
+    marginTop: 15,
+    color: 'grey',
+  },
   // complaintSmall
   complaintSmall: {
     marginTop: 10,
