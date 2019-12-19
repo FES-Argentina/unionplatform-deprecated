@@ -22,14 +22,23 @@ const validationSchema = yup.object().shape({
 });
 
 class AlertForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.focusNextField = this.focusNextField.bind(this);
+    this.inputs = {};
+  }
 
 
-  //FIX userID
+  // FIXME userID
   onSubmit = (values) => {
     const { saveAlert } = this.props;
     saveAlert(values);
   }
 
+
+  focusNextField(id) {
+    this.inputs[id].focus();
+  }
 
 
     render() {
@@ -89,31 +98,47 @@ class AlertForm extends React.Component {
         initialErrors={{ direction: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue
+          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue, submitForm
         }) => (
           <ScrollView>
             <Select options={types} label="Tipo de alerta" setFieldValue={setFieldValue}/>
-
-            <Input
-              label="Descripcion"
-              mode="outlined"
-              multiline
-              value={values.description}
-              onChangeText={handleChange('description')}
-              onBlur={handleBlur('description')}
-              placeholder="Descripcion de la alerta"
-              labelStyle={styles.inputslabel}
-            />
-            <Input
-              label="Direccion"
-              mode="outlined"
-              value={values.direction}
-              onChangeText={handleChange('direction')}
-              placeholder="Ingrese la ubicacion"
-              labelStyle={styles.inputslabel}
-            />
-
             <Select options={companies} label="Empresa" setFieldValue={setFieldValue}/>
+
+              <Input
+                label="Descripcion"
+                mode="outlined"
+                value={values.description}
+                onChangeText={handleChange('description')}
+                onBlur={handleBlur('description')}
+                placeholder="Descripcion de la alerta"
+                labelStyle={styles.inputslabel}
+                returnKeyType="next"
+                ref={ input => {
+                  this.inputs['description'] = input;
+                }}
+                onSubmitEditing={() => {
+                  this.focusNextField('direction');
+                }}
+                blurOnSubmit={false}
+
+              />
+
+              <Input
+                label="Direccion"
+                mode="outlined"
+                value={values.direction}
+                onChangeText={handleChange('direction')}
+                placeholder="Ingrese la ubicacion"
+                labelStyle={styles.inputslabel}
+                blurOnSubmit={false}
+                returnKeyType="done"
+                ref={ (input) => {
+                  this.inputs['direction'] = input;
+                }}
+                onSubmitEditing={() => {
+                  submitForm();
+                }}
+              />
 
             <Button
               title="Guardar"
