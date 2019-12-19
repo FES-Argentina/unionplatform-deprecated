@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ScrollView, Text, View
+  ScrollView, Text, View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
@@ -46,7 +46,7 @@ class Login extends React.Component {
   }
 
   resetPass = (id) => {
-    NavigationService.navigate('ResetPass', {id} );
+    NavigationService.navigate('ResetPass', { id });
   }
 
   enroll = () => {
@@ -69,7 +69,7 @@ class Login extends React.Component {
         initialErrors={{ email: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, submitForm
+          values, handleChange, handleBlur, handleSubmit, isValid, submitForm,
         }) => (
           <ScrollView>
             <Text style={styles.presentation}>Sindicato APP</Text>
@@ -137,23 +137,22 @@ class Login extends React.Component {
               handleClose={this.handleCloseMessage}
             />
 
-          <View style={styles.containers}>
-            <Button
-              title="¿Olvidaste tu contraseña?"
-              type="clear"
-              onPress={() => this.resetPass(values.id)}
+            <View style={styles.containers}>
+              <Button
+                title="¿Olvidaste tu contraseña?"
+                type="clear"
+                onPress={() => this.resetPass(values.id)}
               />
-            <Text style={styles.enroll}>Para crear una cuenta nueva</Text>
-            <Text style={styles.enroll}>necesitas estar afiliado</Text>
-            <Button
-              onPress={() => this.enroll()}
-              title="AFILIATE"
-              buttonStyle={styles.enrollButton}
-              type="outline"
+              <Text style={styles.enroll}>Para crear una cuenta nueva</Text>
+              <Text style={styles.enroll}>necesitas estar afiliado</Text>
+              <Button
+                onPress={() => this.enroll()}
+                title="AFILIATE"
+                buttonStyle={styles.enrollButton}
+                type="outline"
               />
-          </View>
-
-        </ScrollView>
+            </View>
+          </ScrollView>
         )}
       </Formik>
     );
