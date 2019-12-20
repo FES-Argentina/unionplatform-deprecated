@@ -26,7 +26,6 @@ export default class Selector extends Component {
           <Text style={styles.formTitles}>{label}</Text>
           <View style={{ flex: 1, paddingHorizontal: 10}}>
             <MultiSelect
-              hideTags
               items={items}
               uniqueKey="id"
               ref={component => {
@@ -34,8 +33,8 @@ export default class Selector extends Component {
               }}
               onSelectedItemsChange={this.updateValue}
               selectedItems={selectedItems}
-              selectText="Selecciona la indicada"
-              searchInputPlaceholderText="Ingresa la opcion..."
+              selectText="Seleccionar"
+              searchInputPlaceholderText="Ingresa el valor..."
               tagRemoveIconColor="#CCC"
               tagBorderColor="#CCC"
               tagTextColor="#CCC"
