@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Selector from '../form/Selector';
 
 import styles from '../styles';
 
@@ -16,10 +17,6 @@ const validationSchema = yup.object().shape({
   username: yup
     .string()
     .label('Alias')
-    .required(),
-  company: yup
-    .string()
-    .label('Empresa')
     .required(),
   email: yup
     .string()
@@ -32,6 +29,14 @@ const validationSchema = yup.object().shape({
 });
 
 class ProfileEdit extends React.Component {
+  constructor(props) {
+    super(props);
+    this.focusNextField = this.focusNextField.bind(this);
+    this.inputs = {};
+  }
+  focusNextField(id) {
+    this.inputs[id].focus();
+  }
   onSubmit = (values) => {
     const { id } = values;
 
@@ -39,21 +44,31 @@ class ProfileEdit extends React.Component {
     onUpdateUserAction(id, values);
   }
 
+
   render() {
-    // FIX: user id value
+    const items = [
+      { id: 'Cabify', name: 'Cabify' },
+      { id: 'Uber', name: 'Uber' },
+      { id: 'Glovo', name: 'Glovo' },
+      { id: 'Rappi', name: 'Rappi' },
+    ];
+
+
+    // FIXME: user id value
     return (
       <Formik
         initialValues={{
-          company: '', workemail: '', email: '', username: '', id: 'efd',
+           workemail: '', email: '', username: '', id: 'efd',
         }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, isValid,
+          values, handleChange, isValid, setFieldValue, submitForm
         }) => (
-          <View>
+          <ScrollView>
+            <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
             <Text style={styles.formTitles}>Perfil</Text>
 
             <Input
@@ -70,22 +85,16 @@ class ProfileEdit extends React.Component {
                   color="grey"
                 />
               )}
+              returnKeyType="next"
+              ref={ input => {
+                this.inputs['username'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('email');
+              }}
+              blurOnSubmit={false}
             />
-            <Input
-              label="Empresa"
-              mode="outlined"
-              value={values.company}
-              onChangeText={handleChange('company')}
-              placeholder="Empresa"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="building"
-                  size={12}
-                  color="grey"
-                />
-              )}
-            />
+
             <Input
               label="Email personal"
               mode="outlined"
@@ -93,6 +102,9 @@ class ProfileEdit extends React.Component {
               onChangeText={handleChange('email')}
               placeholder="Email"
               labelStyle={styles.inputslabel}
+              keyboardType="email-address"
+              returnKeyType="next"
+              autoCapitalize="none"
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -100,6 +112,13 @@ class ProfileEdit extends React.Component {
                   color="grey"
                 />
               )}
+              ref={(input) => {
+                this.inputs['email'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('workemail');
+              }}
+              blurOnSubmit={false}
             />
             <Input
               label="Email del trabajo"
@@ -108,6 +127,9 @@ class ProfileEdit extends React.Component {
               onChangeText={handleChange('workemail')}
               placeholder="Email"
               labelStyle={styles.inputslabel}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              returnKeyType="done"
               leftIcon={(
                 <Icon
                   name="envelope"
@@ -115,7 +137,16 @@ class ProfileEdit extends React.Component {
                   color="grey"
                 />
               )}
+              ref={(input) => {
+                this.inputs['workemail'] = input;
+              }}
+              onSubmitEditing={() => {
+                submitForm();
+              }}
+              blurOnSubmit={false}
             />
+
+
             <Button
               title="Guardar"
               type="outline"
@@ -123,7 +154,7 @@ class ProfileEdit extends React.Component {
               disabled={!isValid}
               onPress={() => this.onSubmit(values)}
             />
-          </View>
+        </ScrollView>
         )}
       </Formik>
     );
