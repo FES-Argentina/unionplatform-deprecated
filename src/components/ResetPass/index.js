@@ -29,6 +29,14 @@ const validationSchema = yup.object().shape({
 });
 
 class ResetPass extends React.Component {
+  constructor(props) {
+    super(props);
+    this.focusNextField = this.focusNextField.bind(this);
+    this.inputs = {};
+  }
+  focusNextField(id) {
+    this.inputs[id].focus();
+  }
   onSubmit = (values) => {
     const { id } = values;
 
@@ -48,7 +56,7 @@ class ResetPass extends React.Component {
         initialErrors={{ email: '', password: '' }}
       >
         {({
-          values, handleChange, handleBlur, isValid,
+          values, handleChange, handleBlur, isValid, submitForm
         }) => (
           <View>
             <Text style={styles.formTitles}>Cambiar contraseña</Text>
@@ -61,6 +69,9 @@ class ResetPass extends React.Component {
                 onBlur={handleBlur('email')}
                 placeholder="E-mail"
                 labelStyle={styles.inputslabel}
+                keyboardType="email-address"
+                returnKeyType="next"
+                autoCapitalize="none"
                 leftIcon={(
                   <Icon
                     name="envelope"
@@ -68,6 +79,14 @@ class ResetPass extends React.Component {
                     color="grey"
                   />
                 )}
+                returnKeyType="next"
+                ref={ input => {
+                  this.inputs['email'] = input;
+                }}
+                onSubmitEditing={() => {
+                  this.focusNextField('password');
+                }}
+                blurOnSubmit={false}
               />
               <Input
                 label="Contraseña"
@@ -84,6 +103,14 @@ class ResetPass extends React.Component {
                     color="grey"
                   />
                 )}
+                ref={ input => {
+                  this.inputs['password'] = input;
+                }}
+                onSubmitEditing={() => {
+                  this.focusNextField('passwordConfirm');
+                }}
+                blurOnSubmit={false}
+                returnKeyType="next"
               />
               <Input
                 label="Confirmar contraseña"
@@ -100,6 +127,14 @@ class ResetPass extends React.Component {
                     color="grey"
                   />
                 )}
+                ref={ input => {
+                  this.inputs['passwordConfirm'] = input;
+                }}
+                onSubmitEditing={() => {
+                  submitForm();
+                }}
+                blurOnSubmit={false}
+                returnKeyType="done"
               />
 
             <Button
