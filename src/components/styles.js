@@ -9,22 +9,22 @@ export const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   // cardlist
   containerStandar: {
-    marginTop: 20,
     flex: 1,
   },
   itemCardlist: {
-    justifyContent: 'flex-end',
     borderRadius: 5,
     height: 200,
     backgroundColor: '#ff5252',
     width: width - 20,
   },
+  containerOverlay:  {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   backgroundImage: {
     flex: 1,
     width: '100%',
     height: 'auto',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   overlay: {
@@ -41,13 +41,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#fff',
     fontWeight: '600',
-    padding: 15,
+    paddingHorizontal: 15,
+    marginBottom: 5,
   },
   summaryCardlist: {
     fontSize: 16,
     color: '#fff',
     fontWeight: '600',
-    padding: 15,
+    paddingHorizontal: 15,
+    marginBottom: 15,
   },
   // complaints & enrollment
   formTitles: {
@@ -134,6 +136,10 @@ const styles = StyleSheet.create({
     marginRight: 35,
   },
   // news
+  containerMargin: {
+    flex: 1,
+    marginTop: 20,
+  },
   titleNews: {
     fontSize: 24,
     fontWeight: 'bold',

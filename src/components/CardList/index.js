@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getNews } from '../../actions/news';
 import NavigationService from '../../navigation/NavigationService';
+import LinearGradient from 'react-native-linear-gradient';
 import styles from '../styles';
 
 class CardList extends React.Component {
@@ -35,9 +36,10 @@ class CardList extends React.Component {
           <TouchableHighlight onPress={() => this.itemView(item.id)}>
             <View style={styles.itemCardlist}>
               <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
-                <View style={styles.overlay} />
+                <LinearGradient colors={["#ffffff00", "black"]} style={styles.containerOverlay}>
                 <Text style={styles.titleCardlist}>{item.title}</Text>
                 <Text style={styles.summaryCardlist}>{item.summary}</Text>
+                </LinearGradient>
               </ImageBackground>
             </View>
           </TouchableHighlight>
