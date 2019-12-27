@@ -7,6 +7,12 @@ export const { width, height } = Dimensions.get('window');
 
 
 const styles = StyleSheet.create({
+  //form
+  formError: {
+    color: 'red',
+    paddingHorizontal: 15,
+    marginTop: 5,
+  },
   // cardlist
   containerStandar: {
     flex: 1,

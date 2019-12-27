@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,16 +16,17 @@ const validationSchema = yup.object().shape({
   email: yup
     .string()
     .label('E-mail')
-    .email()
-    .required(),
+    .email("Ingrese un email válido")
+    .required("Campo obligatorio"),
   password: yup
     .string()
     .label('Contraseña')
-    .required(),
+    .required("Campo obligatorio"),
   passwordConfirm: yup
     .string()
     .label('Confirmar contraseña')
-    .required(),
+    .oneOf([yup.ref('password'), null], 'Las contraseñas no coinciden')
+    .required("Campo obligatorio"),
 });
 
 class ResetPass extends React.Component {
@@ -53,12 +54,12 @@ class ResetPass extends React.Component {
         }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ email: '', password: '' }}
+        initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, handleBlur, isValid, submitForm
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur
         }) => (
-          <View>
+          <ScrollView>
             <Text style={styles.formTitles}>Cambiar contraseña</Text>
 
               <Input
@@ -70,6 +71,8 @@ class ResetPass extends React.Component {
                 placeholder="E-mail"
                 labelStyle={styles.inputslabel}
                 keyboardType="email-address"
+                valid={touched.email && !errors.email}
+                error={touched.email && errors.email}
                 returnKeyType="next"
                 autoCapitalize="none"
                 leftIcon={(
@@ -88,6 +91,11 @@ class ResetPass extends React.Component {
                 }}
                 blurOnSubmit={false}
               />
+
+              {errors.email && (
+                  <Text style={styles.formError}>{errors.email}</Text>
+              )}
+
               <Input
                 label="Contraseña"
                 mode="outlined"
@@ -96,6 +104,8 @@ class ResetPass extends React.Component {
                 placeholder="Contraseña"
                 secureTextEntry
                 labelStyle={styles.inputslabel}
+                valid={touched.password && !errors.password}
+                error={touched.password && errors.password}
                 leftIcon={(
                   <Icon
                     name="key"
@@ -112,6 +122,11 @@ class ResetPass extends React.Component {
                 blurOnSubmit={false}
                 returnKeyType="next"
               />
+
+              {errors.password && (
+                  <Text style={styles.formError}>{errors.password}</Text>
+              )}
+
               <Input
                 label="Confirmar contraseña"
                 mode="outlined"
@@ -119,6 +134,8 @@ class ResetPass extends React.Component {
                 onChangeText={handleChange('passwordConfirm')}
                 placeholder="Confirmar contraseña"
                 secureTextEntry
+                valid={touched.passwordConfirm && !errors.passwordConfirm}
+                error={touched.passwordConfirm && errors.passwordConfirm}
                 labelStyle={styles.inputslabel}
                 leftIcon={(
                   <Icon
@@ -136,7 +153,9 @@ class ResetPass extends React.Component {
                 blurOnSubmit={false}
                 returnKeyType="done"
               />
-
+              {errors.passwordConfirm && (
+                  <Text style={styles.formError}>{errors.passwordConfirm}</Text>
+              )}
             <Button
               title="Guardar"
               type="outline"
@@ -144,7 +163,7 @@ class ResetPass extends React.Component {
               disabled={!isValid}
               onPress={() => this.onSubmit(values)}
             />
-          </View>
+          </ScrollView>
         )}
       </Formik>
     );

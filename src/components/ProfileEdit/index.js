@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -17,15 +17,18 @@ const validationSchema = yup.object().shape({
   username: yup
     .string()
     .label('Alias')
-    .required(),
+    .min(2, "El alias tener más de 2 caracteres")
+    .required("Campo obligatorio"),
   email: yup
     .string()
     .label('E-mail personal')
-    .email(),
+    .email("Ingrese un email válido")
+    .required("Campo obligatorio"),
   workemail: yup
     .string()
     .label('E-mail del trabajo')
-    .email(),
+    .email("Ingrese un email válido")
+    .required("Campo obligatorio"),
 });
 
 class ProfileEdit extends React.Component {
@@ -46,6 +49,7 @@ class ProfileEdit extends React.Component {
 
 
   render() {
+    // FIXME: companies values
     const items = [
       { id: 'Cabify', name: 'Cabify' },
       { id: 'Uber', name: 'Uber' },
@@ -65,7 +69,7 @@ class ProfileEdit extends React.Component {
         initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, isValid, setFieldValue, submitForm
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched,
         }) => (
           <ScrollView>
             <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
@@ -78,6 +82,8 @@ class ProfileEdit extends React.Component {
               onChangeText={handleChange('username')}
               placeholder="Alias"
               labelStyle={styles.inputslabel}
+              valid={touched.username && !errors.username}
+              error={touched.username && errors.username}
               leftIcon={(
                 <Icon
                   name="user"
@@ -95,6 +101,10 @@ class ProfileEdit extends React.Component {
               blurOnSubmit={false}
             />
 
+            {errors.username && (
+                <Text style={styles.formError}>{errors.username}</Text>
+            )}
+
             <Input
               label="Email personal"
               mode="outlined"
@@ -103,6 +113,8 @@ class ProfileEdit extends React.Component {
               placeholder="Email"
               labelStyle={styles.inputslabel}
               keyboardType="email-address"
+              valid={touched.email && !errors.email}
+              error={touched.email && errors.email}
               returnKeyType="next"
               autoCapitalize="none"
               leftIcon={(
@@ -120,12 +132,17 @@ class ProfileEdit extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.email && (
+                <Text style={styles.formError}>{errors.email}</Text>
+            )}
             <Input
               label="Email del trabajo"
               mode="outlined"
               value={values.workemail}
               onChangeText={handleChange('workemail')}
               placeholder="Email"
+              valid={touched.workemail && !errors.workemail}
+              error={touched.workemail && errors.workemail}
               labelStyle={styles.inputslabel}
               keyboardType="email-address"
               autoCapitalize="none"
@@ -145,7 +162,9 @@ class ProfileEdit extends React.Component {
               }}
               blurOnSubmit={false}
             />
-
+            {errors.workemail && (
+                <Text style={styles.formError}>{errors.workemail}</Text>
+            )}
 
             <Button
               title="Guardar"
