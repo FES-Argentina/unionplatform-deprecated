@@ -16,12 +16,12 @@ const validationSchema = yup.object().shape({
   firstname: yup
     .string()
     .label('Nombre')
-    .min(2, "El nombre tener más de 2 caracteres")
+    .min(2, "El nombre debe tener más de 2 caracteres")
     .required("Campo obligatorio"),
   lastname: yup
     .string()
     .label('Apellido')
-    .min(3, "El apellido tener más de 2 caracteres")
+    .min(2, "El apellido debe tener más de 2 caracteres")
     .required("Campo obligatorio"),
   email: yup
     .string()

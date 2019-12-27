@@ -15,10 +15,14 @@ import styles from '../styles';
 const validationSchema = yup.object().shape({
   description: yup
     .string()
-    .label('Descripcion'),
+    .label('Descripcion')
+    .min(2, "La descripción debe tener más de 2 caracteres")
+    .required("Campo obligatorio"),
   direction: yup
     .string()
-    .label('Direccion'),
+    .label('Direccion')
+    .min(2, "La direccion debe tener más de 2 caracteres")
+    .required("Campo obligatorio"),
 });
 
 class AlertForm extends React.Component {
@@ -42,6 +46,7 @@ class AlertForm extends React.Component {
 
 
     render() {
+    // FIXME companies-problems values
 
     const companies = [
       {
@@ -95,10 +100,10 @@ class AlertForm extends React.Component {
         initialValues={{ userId: 'fgt', description: '', direction: '' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ direction: '' }}
+        initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue, submitForm
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit
         }) => (
           <ScrollView>
             <Select options={types} label="Tipo de alerta" setFieldValue={setFieldValue}/>
@@ -111,6 +116,8 @@ class AlertForm extends React.Component {
                 onChangeText={handleChange('description')}
                 onBlur={handleBlur('description')}
                 placeholder="Descripcion de la alerta"
+                valid={touched.description && !errors.description}
+                error={touched.description && errors.description}
                 labelStyle={styles.inputslabel}
                 returnKeyType="next"
                 ref={ input => {
@@ -122,7 +129,9 @@ class AlertForm extends React.Component {
                 blurOnSubmit={false}
 
               />
-
+              {errors.description && (
+                  <Text style={styles.formError}>{errors.description}</Text>
+              )}
               <Input
                 label="Direccion"
                 mode="outlined"
@@ -130,6 +139,8 @@ class AlertForm extends React.Component {
                 onChangeText={handleChange('direction')}
                 placeholder="Ingrese la ubicacion"
                 labelStyle={styles.inputslabel}
+                valid={touched.direction && !errors.direction}
+                error={touched.direction && errors.direction}
                 blurOnSubmit={false}
                 returnKeyType="done"
                 ref={ (input) => {
@@ -139,7 +150,9 @@ class AlertForm extends React.Component {
                   submitForm();
                 }}
               />
-
+              {errors.direction && (
+                  <Text style={styles.formError}>{errors.direction}</Text>
+              )}
             <Button
               title="Guardar"
               type="outline"
