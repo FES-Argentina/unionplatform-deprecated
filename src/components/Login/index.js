@@ -20,12 +20,12 @@ const validationSchema = yup.object().shape({
   email: yup
     .string()
     .label('E-mail')
-    .email()
-    .required(),
+    .email("Ingrese un email válido")
+    .required("Campo obligatorio"),
   password: yup
     .string()
     .label('Contraseña')
-    .required(),
+    .required("Campo obligatorio"),
 });
 
 class Login extends React.Component {
@@ -66,10 +66,10 @@ class Login extends React.Component {
         initialValues={{ email: '', password: '', id: 'frs' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ email: '' }}
+        initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, submitForm,
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit
         }) => (
           <ScrollView>
             <Text style={styles.presentation}>Sindicato APP</Text>
@@ -82,6 +82,8 @@ class Login extends React.Component {
               placeholder="E-mail"
               labelStyle={styles.inputslabel}
               keyboardType="email-address"
+              valid={touched.email && !errors.email}
+              error={touched.email && errors.email}
               returnKeyType="next"
               autoCapitalize="none"
               leftIcon={(
@@ -99,6 +101,9 @@ class Login extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.email && (
+                <Text style={styles.formError}>{errors.email}</Text>
+            )}
             <Input
               label="Contraseña"
               mode="outlined"
@@ -106,6 +111,8 @@ class Login extends React.Component {
               onChangeText={handleChange('password')}
               placeholder="Contraseña"
               secureTextEntry
+              valid={touched.password && !errors.password}
+              error={touched.password && errors.password}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -123,6 +130,9 @@ class Login extends React.Component {
               }}
               returnKeyType="done"
             />
+            {errors.password && (
+                <Text style={styles.formError}>{errors.password}</Text>
+            )}
             <Button
               title="Enviar"
               type="outline"
