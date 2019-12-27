@@ -16,12 +16,12 @@ const validationSchema = yup.object().shape({
   firstname: yup
     .string()
     .label('Nombre')
-    .min(2, "El nombre debe tener más de 2 caracteres")
+    .min(2, "El nombre debe tener más de ${min} caracteres")
     .required("Campo obligatorio"),
   lastname: yup
     .string()
     .label('Apellido')
-    .min(2, "El apellido debe tener más de 2 caracteres")
+    .min(2, "El apellido debe tener más de ${min} caracteres")
     .required("Campo obligatorio"),
   email: yup
     .string()
@@ -29,7 +29,10 @@ const validationSchema = yup.object().shape({
     .email("Ingrese un email válido")
     .required("Campo obligatorio"),
   phonenumber: yup
-    .number("Ingrese un teléfono válido")
+    .number()
+    .min(8, 'El teléfono debe tener al menos ${min} caracteres')
+    .typeError('El teléfono debe estar expresado en números')
+    .positive('El teléfono debe ser mayor a 0')
     .label('Telefono')
     .required("Campo obligatorio"),
   city: yup
@@ -38,7 +41,10 @@ const validationSchema = yup.object().shape({
     .min(4, "Ingrese un valor válido")
     .required("Campo obligatorio"),
   seniority: yup
-    .string()
+    .number()
+    .min(1, 'La antigüedad debe tener al menos ${min} caracter')
+    .typeError('La antigüedad debe estar expresado en números')
+    .positive('La antigüedad debe ser mayor a 0')
     .label('Antigüedad')
     .required("Campo obligatorio"),
   tasks: yup
@@ -226,6 +232,7 @@ class Complaint extends React.Component {
               value={values.phonenumber}
               onChangeText={handleChange('phonenumber')}
               placeholder="Ingrese su teléfono"
+              maxLength={10}
               valid={touched.phonenumber && !errors.phonenumber}
               error={touched.phonenumber && errors.phonenumber}
               labelStyle={styles.inputslabel}
@@ -286,6 +293,7 @@ class Complaint extends React.Component {
               onChangeText={handleChange('seniority')}
               onBlur={handleBlur('seniority')}
               placeholder="Ingrese su antigüedad"
+              maxLength={8}
               labelStyle={styles.inputslabel}
               valid={touched.seniority && !errors.seniority}
               error={touched.seniority && errors.seniority}

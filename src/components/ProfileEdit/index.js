@@ -17,7 +17,7 @@ const validationSchema = yup.object().shape({
   username: yup
     .string()
     .label('Alias')
-    .min(2, "El alias debe tener más de 2 caracteres")
+    .min(2, "El alias debe tener más de ${min} caracteres")
     .required("Campo obligatorio"),
   email: yup
     .string()

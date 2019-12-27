@@ -16,12 +16,12 @@ const validationSchema = yup.object().shape({
   description: yup
     .string()
     .label('Descripcion')
-    .min(2, "La descripción debe tener más de 2 caracteres")
+    .min(2, "La descripción debe tener más de ${min} caracteres")
     .required("Campo obligatorio"),
   direction: yup
     .string()
     .label('Direccion')
-    .min(2, "La direccion debe tener más de 2 caracteres")
+    .min(2, "La direccion debe tener más de ${min} caracteres")
     .required("Campo obligatorio"),
 });
 

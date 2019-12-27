@@ -14,60 +14,83 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 import styles from '../styles';
 
+const regExp = /\b\d{5}\b/;
+
+
 const validationSchema = yup.object().shape({
   firstname: yup
     .string()
     .label('Nombre')
-    .required(),
+    .min(2, "El nombre debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   lastname: yup
     .string()
     .label('Apellido')
-    .required(),
+    .min(2, "El apellido debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   nationality: yup
     .string()
     .label('Nacionalidad')
-    .required(),
+    .min(2, "La nacionalidad debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   email: yup
     .string()
     .label('E-mail')
-    .email()
-    .required(),
+    .email("Ingrese un email válido")
+    .required("Campo obligatorio"),
   phonenumber: yup
     .number()
+    .min(8, 'El teléfono debe tener al menos ${min} caracteres')
+    .typeError('El teléfono debe estar expresado en números')
+    .positive('El teléfono debe ser mayor a 0')
     .label('Telefono')
-    .required(),
+    .required("Campo obligatorio"),
   dni: yup
     .number()
     .label('DNI')
-    .required(),
+    .min(7, 'El DNI debe tener al menos ${min} caracteres')
+    .typeError('El DNI debe estar expresado en números')
+    .positive('El DNI debe ser mayor a 0')
+    .required("Campo obligatorio"),
   cuit: yup
     .number()
+    .min(10, 'El CUIT/CUIL debe tener al menos ${min} caracteres')
+    .typeError('El CUIT/CUIL debe estar expresado en números')
+    .positive('El CUIT/CUIL debe ser mayor a 0')
     .label('CUIT/CUIL')
-    .required(),
+    .required("Campo obligatorio"),
   postalcode: yup
     .number()
-    .label('Codigo postal')
-    .required(),
+    .min(4, 'El código postal debe tener al menos ${min} caracteres')
+    .typeError('El código postal debe estar expresado en números')
+    .positive('El código postal debe ser mayor a 0')
+    .label('Código postal')
+    .required("Campo obligatorio"),
   street: yup
     .string()
     .label('Calle')
-    .required(),
+    .min(2, "La calle debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   city: yup
     .string()
     .label('Localidad')
-    .required(),
+    .min(2, "La localidad debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   province: yup
     .string()
     .label('Provincia')
-    .required(),
+    .min(2, "La provincia debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   country: yup
     .string()
-    .label('Pais')
-    .required(),
+    .label('País')
+    .min(2, "El país debe tener más de ${min} caracteres")
+    .required("Campo obligatorio"),
   tasks: yup
     .string()
     .label('Tareas')
-    .required(),
+    .min(2, "Ingrese valores correctos")
+    .required("Campo obligatorio"),
 });
 
 class Enrollment extends React.Component {
@@ -124,10 +147,10 @@ class Enrollment extends React.Component {
         initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '',  tasks: '', nationality: '', cuit: '', dni: '', street: '', postalcode: '', province: '', country: ''  }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ email: '' }}
+        initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue, submitForm
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
@@ -154,7 +177,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('lastname');
               }}
               blurOnSubmit={false}
+              valid={touched.firstname && !errors.firstname}
+              error={touched.firstname && errors.firstname}
             />
+            {errors.firstname && (
+                <Text style={styles.formError}>{errors.firstname}</Text>
+            )}
             <Input
               label="Apellido"
               mode="outlined"
@@ -178,7 +206,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('email');
               }}
               blurOnSubmit={false}
+              valid={touched.lastname && !errors.lastname}
+              error={touched.lastname && errors.lastname}
             />
+            {errors.lastname && (
+                <Text style={styles.formError}>{errors.lastname}</Text>
+            )}
             <Input
               label="E-mail"
               mode="outlined"
@@ -204,7 +237,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('phonenumber');
               }}
               blurOnSubmit={false}
+              valid={touched.email && !errors.email}
+              error={touched.email && errors.email}
             />
+            {errors.email && (
+                <Text style={styles.formError}>{errors.email}</Text>
+            )}
             <Input
               label="Número de teléfono"
               mode="outlined"
@@ -229,7 +267,13 @@ class Enrollment extends React.Component {
                 this.focusNextField('cuit');
               }}
               blurOnSubmit={false}
+              maxLength={10}
+              valid={touched.phonenumber && !errors.phonenumber}
+              error={touched.phonenumber && errors.phonenumber}
             />
+            {errors.phonenumber && (
+                <Text style={styles.formError}>{errors.phonenumber}</Text>
+            )}
             <View>
               <Text style={styles.date}>Elija su fecha de nacimiento</Text>
               <Button
@@ -255,6 +299,7 @@ class Enrollment extends React.Component {
               onChangeText={handleChange('cuit')}
               placeholder="Ingrese su CUIT/CUIL"
               labelStyle={styles.inputslabel}
+              maxLength={11}
               leftIcon={(
                 <Icon
                   name="address-card"
@@ -272,7 +317,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('dni');
               }}
               blurOnSubmit={false}
+              valid={touched.cuit && !errors.cuit}
+              error={touched.cuit && errors.cuit}
             />
+            {errors.cuit && (
+                <Text style={styles.formError}>{errors.cuit}</Text>
+            )}
             <Input
               label="DNI"
               mode="outlined"
@@ -290,6 +340,7 @@ class Enrollment extends React.Component {
               keyboardType="numeric"
               autoCapitalize="none"
               returnKeyType="next"
+              maxLength={8}
               ref={ input => {
                 this.inputs['dni'] = input;
               }}
@@ -297,7 +348,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('nationality');
               }}
               blurOnSubmit={false}
+              valid={touched.dni && !errors.dni}
+              error={touched.dni && errors.dni}
             />
+            {errors.dni && (
+                <Text style={styles.formError}>{errors.dni}</Text>
+            )}
             <Input
               label="Nacionalidad"
               mode="outlined"
@@ -320,7 +376,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('street');
               }}
               blurOnSubmit={false}
+              valid={touched.nationality && !errors.nationality}
+              error={touched.nationality && errors.nationality}
             />
+            {errors.nationality && (
+                <Text style={styles.formError}>{errors.nationality}</Text>
+            )}
             <Input
               label="Calle"
               mode="outlined"
@@ -343,7 +404,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('postalcode');
               }}
               blurOnSubmit={false}
+              valid={touched.street && !errors.street}
+              error={touched.street && errors.street}
             />
+            {errors.street && (
+                <Text style={styles.formError}>{errors.street}</Text>
+            )}
             <Input
               label="Codigo postal"
               mode="outlined"
@@ -351,6 +417,7 @@ class Enrollment extends React.Component {
               onChangeText={handleChange('postalcode')}
               placeholder="Ingrese su codigo postal"
               labelStyle={styles.inputslabel}
+              maxLength={6}
               leftIcon={(
                 <Icon
                   name="address-card"
@@ -368,7 +435,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('city');
               }}
               blurOnSubmit={false}
+              valid={touched.postalcode && !errors.postalcode}
+              error={touched.postalcode && errors.postalcode}
             />
+            {errors.postalcode && (
+                <Text style={styles.formError}>{errors.postalcode}</Text>
+            )}
             <Input
               label="Ciudad"
               mode="outlined"
@@ -391,7 +463,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('province');
               }}
               blurOnSubmit={false}
+              valid={touched.city && !errors.city}
+              error={touched.city && errors.city}
             />
+            {errors.city && (
+                <Text style={styles.formError}>{errors.city}</Text>
+            )}
             <Input
               label="Provincia"
               mode="outlined"
@@ -414,7 +491,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('country');
               }}
               blurOnSubmit={false}
+              valid={touched.province && !errors.province}
+              error={touched.province && errors.province}
             />
+            {errors.province && (
+                <Text style={styles.formError}>{errors.province}</Text>
+            )}
             <Input
               label="Pais"
               mode="outlined"
@@ -437,7 +519,12 @@ class Enrollment extends React.Component {
                 this.focusNextField('tasks');
               }}
               blurOnSubmit={false}
+              valid={touched.country && !errors.country}
+              error={touched.country && errors.country}
             />
+            {errors.country && (
+                <Text style={styles.formError}>{errors.country}</Text>
+            )}
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
             <Input
@@ -463,7 +550,12 @@ class Enrollment extends React.Component {
                 submitForm();
               }}
               blurOnSubmit={false}
+              valid={touched.tasks && !errors.tasks}
+              error={touched.tasks && errors.tasks}
             />
+            {errors.tasks && (
+                <Text style={styles.formError}>{errors.tasks}</Text>
+            )}
 
 
 
