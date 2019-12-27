@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
   containerStandar: {
     flex: 1,
   },
+  containerMargin: {
+    flex: 1,
+    marginTop: 20,
+  },
   itemCardlist: {
     borderRadius: 5,
     height: 200,

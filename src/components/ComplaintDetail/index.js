@@ -17,7 +17,7 @@ class ComplaintDetail extends React.Component {
 
     return (
       <ScrollView>
-        <View style={styles.containerStandar}>
+        <View style={styles.containerMargin}>
           <Text style={styles.titleNews}>{problems}</Text>
           <View>
             <Text style={styles.complaintTitles}>Detalle</Text>
