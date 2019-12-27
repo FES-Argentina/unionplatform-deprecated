@@ -16,36 +16,40 @@ const validationSchema = yup.object().shape({
   firstname: yup
     .string()
     .label('Nombre')
-    .required(),
+    .min(2, "El nombre tener más de 2 caracteres")
+    .required("Campo obligatorio"),
   lastname: yup
     .string()
     .label('Apellido')
-    .required(),
+    .min(3, "El apellido tener más de 2 caracteres")
+    .required("Campo obligatorio"),
   email: yup
     .string()
     .label('E-mail')
-    .email()
-    .required(),
+    .email("Ingrese un email válido")
+    .required("Campo obligatorio"),
   phonenumber: yup
-    .number()
+    .number("Ingrese un teléfono válido")
     .label('Telefono')
-    .required(),
+    .required("Campo obligatorio"),
   city: yup
     .string()
     .label('Localidad')
-    .required(),
+    .min(4, "Ingrese un valor válido")
+    .required("Campo obligatorio"),
   seniority: yup
     .string()
     .label('Antigüedad')
-    .required(),
+    .required("Campo obligatorio"),
   tasks: yup
     .string()
     .label('Tareas')
-    .required(),
+    .min(3, "Ingrese un valor válido")
+    .required("Campo obligatorio"),
   companies: yup
-    .boolean().oneOf([true], 'Please check at least one'),
+    .boolean().oneOf([true], 'Por favor elegir al menos una'),
   problems: yup
-    .boolean().oneOf([true], 'Please check at least one')
+    .boolean().oneOf([true], 'Por favor elegir al menos una')
 });
 
 class Complaint extends React.Component {
@@ -63,7 +67,7 @@ class Complaint extends React.Component {
   }
 
   render() {
-
+    // FIXME companies-problems values
     const companies = [
       {
         name: 'Cabify',
@@ -120,10 +124,10 @@ class Complaint extends React.Component {
         initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: ''}}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ email: '' }}
+        initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, handleBlur, handleSubmit, isValid, setFieldValue, submitForm
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
@@ -134,6 +138,8 @@ class Complaint extends React.Component {
               onChangeText={handleChange('firstname')}
               onBlur={handleBlur('firstname')}
               placeholder="Ingrese su nombre"
+              valid={touched.firstname && !errors.firstname}
+              error={touched.firstname && errors.firstname}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -151,6 +157,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.firstname && (
+                <Text style={styles.formError}>{errors.firstname}</Text>
+            )}
             <Input
               label="Apellido"
               mode="outlined"
@@ -158,6 +167,8 @@ class Complaint extends React.Component {
               onChangeText={handleChange('lastname')}
               onBlur={handleBlur('lastname')}
               placeholder="Ingrese su apellido"
+              valid={touched.lastname && !errors.lastname}
+              error={touched.lastname && errors.lastname}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -175,6 +186,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.lastname && (
+                <Text style={styles.formError}>{errors.lastname}</Text>
+            )}
             <Input
               label="E-mail"
               mode="outlined"
@@ -182,6 +196,8 @@ class Complaint extends React.Component {
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               placeholder="Ingrese su e-mail"
+              valid={touched.email && !errors.email}
+              error={touched.email && errors.email}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -201,12 +217,17 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.email && (
+                <Text style={styles.formError}>{errors.email}</Text>
+            )}
             <Input
               label="Número de teléfono"
               mode="outlined"
               value={values.phonenumber}
               onChangeText={handleChange('phonenumber')}
               placeholder="Ingrese su teléfono"
+              valid={touched.phonenumber && !errors.phonenumber}
+              error={touched.phonenumber && errors.phonenumber}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -226,12 +247,17 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.phonenumber && (
+                <Text style={styles.formError}>{errors.phonenumber}</Text>
+            )}
             <Input
               label="Localidad"
               mode="outlined"
               value={values.city}
               onChangeText={handleChange('city')}
               placeholder="Ingrese la localidad"
+              valid={touched.city && !errors.city}
+              error={touched.city && errors.city}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -249,6 +275,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.city && (
+                <Text style={styles.formError}>{errors.city}</Text>
+            )}
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Input
               label="Antigüedad"
@@ -258,6 +287,8 @@ class Complaint extends React.Component {
               onBlur={handleBlur('seniority')}
               placeholder="Ingrese su antigüedad"
               labelStyle={styles.inputslabel}
+              valid={touched.seniority && !errors.seniority}
+              error={touched.seniority && errors.seniority}
               leftIcon={(
                 <Icon
                   name="star"
@@ -274,6 +305,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
+            {errors.seniority && (
+                <Text style={styles.formError}>{errors.seniority}</Text>
+            )}
             <Select options={companies} label="Empresa" setFieldValue={setFieldValue}/>
             <Select options={problems} label="Problema" setFieldValue={setFieldValue}/>
             <Input
@@ -284,6 +318,8 @@ class Complaint extends React.Component {
               onBlur={handleBlur('tasks')}
               placeholder="Ingrese las tareas que realiza"
               labelStyle={styles.inputslabel}
+              valid={touched.tasks && !errors.tasks}
+              error={touched.tasks && errors.tasks}
               leftIcon={(
                 <Icon
                   name="tasks"
@@ -300,15 +336,17 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-
+            {errors.tasks && (
+                <Text style={styles.formError}>{errors.tasks}</Text>
+            )}
 
 
             <Button
-              title="Enviar"
+              title="Guardar"
               type="outline"
-              disabled={!isValid}
-              onPress={handleSubmit}
               buttonStyle={styles.submitButton}
+              disabled={!isValid}
+              onPress={() => this.onSubmit(values)}
             />
           </ScrollView>
         )}
