@@ -18,7 +18,7 @@ import Chat from '../Chat';
 const TabScreen = createMaterialTopTabNavigator(
   {
     Noticias: { screen: CardList },
-    Alertas: { screen: Alerts },
+    Mapa: { screen: Alerts },
     Chat: { screen: Chat },
   },
   {
