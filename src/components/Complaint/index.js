@@ -17,41 +17,41 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Nombre')
     .min(2, "El nombre debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   lastname: yup
     .string()
     .label('Apellido')
     .min(2, "El apellido debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   email: yup
     .string()
     .label('E-mail')
     .email("Ingrese un email válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   phonenumber: yup
     .number()
     .min(8, 'El teléfono debe tener al menos ${min} caracteres')
     .typeError('El teléfono debe estar expresado en números')
     .positive('El teléfono debe ser mayor a 0')
     .label('Telefono')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   city: yup
     .string()
     .label('Localidad')
     .min(4, "Ingrese un valor válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   seniority: yup
     .number()
     .min(1, 'La antigüedad debe tener al menos ${min} caracter')
     .typeError('La antigüedad debe estar expresado en números')
     .positive('La antigüedad debe ser mayor a 0')
     .label('Antigüedad')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   tasks: yup
     .string()
     .label('Tareas')
     .min(3, "Ingrese un valor válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   companies: yup
     .boolean().oneOf([true], 'Por favor elegir al menos una'),
   problems: yup
@@ -163,9 +163,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-            {errors.firstname && (
+          {errors.firstname && touched.firstname ? (
                 <Text style={styles.formError}>{errors.firstname}</Text>
-            )}
+            ) : null }
             <Input
               label="Apellido"
               mode="outlined"
@@ -192,9 +192,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-            {errors.lastname && (
+          {errors.lastname && touched.lastname ? (
                 <Text style={styles.formError}>{errors.lastname}</Text>
-            )}
+            ) : null }
             <Input
               label="E-mail"
               mode="outlined"
@@ -223,18 +223,16 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-            {errors.email && (
+            {errors.email && touched.email ? (
                 <Text style={styles.formError}>{errors.email}</Text>
-            )}
+            ) : null }
             <Input
-              label="Número de teléfono"
+              label="Teléfono"
               mode="outlined"
               value={values.phonenumber}
               onChangeText={handleChange('phonenumber')}
+              onBlur={handleBlur('phonenumber')}
               placeholder="Ingrese su teléfono"
-              maxLength={10}
-              valid={touched.phonenumber && !errors.phonenumber}
-              error={touched.phonenumber && errors.phonenumber}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -253,22 +251,23 @@ class Complaint extends React.Component {
                 this.focusNextField('city');
               }}
               blurOnSubmit={false}
+              valid={touched.phonenumber && !errors.phonenumber}
+              error={touched.phonenumber && errors.phonenumber}
             />
-            {errors.phonenumber && (
+            {errors.phonenumber && touched.phonenumber ? (
                 <Text style={styles.formError}>{errors.phonenumber}</Text>
-            )}
+            ) : null }
             <Input
               label="Localidad"
               mode="outlined"
               value={values.city}
               onChangeText={handleChange('city')}
-              placeholder="Ingrese la localidad"
-              valid={touched.city && !errors.city}
-              error={touched.city && errors.city}
+              onBlur={handleBlur('city')}
+              placeholder="Ingrese su ciudad"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
-                  name="building"
+                  name="address-card"
                   size={12}
                   color="grey"
                 />
@@ -281,10 +280,12 @@ class Complaint extends React.Component {
                 this.focusNextField('seniority');
               }}
               blurOnSubmit={false}
+              valid={touched.city && !errors.city}
+              error={touched.city && errors.city}
             />
-            {errors.city && (
+          {errors.city && touched.city ? (
                 <Text style={styles.formError}>{errors.city}</Text>
-            )}
+            ) : null }
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Input
               label="Antigüedad"
@@ -293,10 +294,7 @@ class Complaint extends React.Component {
               onChangeText={handleChange('seniority')}
               onBlur={handleBlur('seniority')}
               placeholder="Ingrese su antigüedad"
-              maxLength={8}
               labelStyle={styles.inputslabel}
-              valid={touched.seniority && !errors.seniority}
-              error={touched.seniority && errors.seniority}
               leftIcon={(
                 <Icon
                   name="star"
@@ -312,10 +310,12 @@ class Complaint extends React.Component {
                 this.focusNextField('tasks');
               }}
               blurOnSubmit={false}
+              valid={touched.seniority && !errors.seniority}
+              error={touched.seniority && errors.seniority}
             />
-            {errors.seniority && (
+          {errors.seniority && touched.seniority ? (
                 <Text style={styles.formError}>{errors.seniority}</Text>
-            )}
+            ) : null }
             <Select options={companies} label="Empresa" setFieldValue={setFieldValue}/>
             <Select options={problems} label="Problema" setFieldValue={setFieldValue}/>
             <Input
@@ -344,9 +344,9 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-            {errors.tasks && (
+          {errors.tasks && touched.tasks ? (
                 <Text style={styles.formError}>{errors.tasks}</Text>
-            )}
+            ) : null }
 
 
             <Button

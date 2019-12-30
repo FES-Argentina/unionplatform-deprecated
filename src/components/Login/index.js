@@ -21,11 +21,11 @@ const validationSchema = yup.object().shape({
     .string()
     .label('E-mail')
     .email("Ingrese un email válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   password: yup
     .string()
     .label('Contraseña')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
 });
 
 class Login extends React.Component {
@@ -101,9 +101,9 @@ class Login extends React.Component {
               }}
               blurOnSubmit={false}
             />
-            {errors.email && (
+            {errors.email && touched.email ? (
                 <Text style={styles.formError}>{errors.email}</Text>
-            )}
+            ) : null }
             <Input
               label="Contraseña"
               mode="outlined"
@@ -130,9 +130,9 @@ class Login extends React.Component {
               }}
               returnKeyType="done"
             />
-            {errors.password && (
+          {errors.password && touched.password ? (
                 <Text style={styles.formError}>{errors.password}</Text>
-            )}
+            ) : null }
             <Button
               title="Enviar"
               type="outline"

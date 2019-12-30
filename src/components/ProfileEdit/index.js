@@ -18,17 +18,17 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Alias')
     .min(2, "El alias debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   email: yup
     .string()
     .label('E-mail personal')
     .email("Ingrese un email válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   workemail: yup
     .string()
     .label('E-mail del trabajo')
     .email("Ingrese un email válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
 });
 
 class ProfileEdit extends React.Component {
@@ -69,102 +69,103 @@ class ProfileEdit extends React.Component {
         initialErrors={{ name: '' }}
       >
         {({
-          values, handleChange, isValid, setFieldValue, submitForm, errors, touched,
+          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur
         }) => (
           <ScrollView>
             <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
             <Text style={styles.formTitles}>Perfil</Text>
 
-            <Input
-              label="Alias"
-              mode="outlined"
-              value={values.username}
-              onChangeText={handleChange('username')}
-              placeholder="Alias"
-              labelStyle={styles.inputslabel}
-              valid={touched.username && !errors.username}
-              error={touched.username && errors.username}
-              leftIcon={(
-                <Icon
-                  name="user"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['username'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('email');
-              }}
-              blurOnSubmit={false}
-            />
+              <Input
+                label="Alias"
+                mode="outlined"
+                value={values.username}
+                onChangeText={handleChange('username')}
+                onBlur={handleBlur('username')}
+                placeholder="Ingrese su alias"
+                labelStyle={styles.inputslabel}
+                leftIcon={(
+                  <Icon
+                    name="user"
+                    size={12}
+                    color="grey"
+                  />
+                )}
+                returnKeyType="next"
+                ref={ input => {
+                  this.inputs['username'] = input;
+                }}
+                onSubmitEditing={() => {
+                  this.focusNextField('email');
+                }}
+                blurOnSubmit={false}
+                valid={touched.username && !errors.username}
+                error={touched.username && errors.username}
+              />
+            {errors.username && touched.username ? (
+                  <Text style={styles.formError}>{errors.username}</Text>
+              ) : null }
 
-            {errors.username && (
-                <Text style={styles.formError}>{errors.username}</Text>
-            )}
-
-            <Input
-              label="Email personal"
-              mode="outlined"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              placeholder="Email"
-              labelStyle={styles.inputslabel}
-              keyboardType="email-address"
-              valid={touched.email && !errors.email}
-              error={touched.email && errors.email}
-              returnKeyType="next"
-              autoCapitalize="none"
-              leftIcon={(
-                <Icon
-                  name="envelope"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              ref={(input) => {
-                this.inputs['email'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('workemail');
-              }}
-              blurOnSubmit={false}
-            />
-            {errors.email && (
-                <Text style={styles.formError}>{errors.email}</Text>
-            )}
-            <Input
-              label="Email del trabajo"
-              mode="outlined"
-              value={values.workemail}
-              onChangeText={handleChange('workemail')}
-              placeholder="Email"
-              valid={touched.workemail && !errors.workemail}
-              error={touched.workemail && errors.workemail}
-              labelStyle={styles.inputslabel}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              returnKeyType="done"
-              leftIcon={(
-                <Icon
-                  name="envelope"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              ref={(input) => {
-                this.inputs['workemail'] = input;
-              }}
-              onSubmitEditing={() => {
-                submitForm();
-              }}
-              blurOnSubmit={false}
-            />
-            {errors.workemail && (
-                <Text style={styles.formError}>{errors.workemail}</Text>
-            )}
+              <Input
+                label="E-mail"
+                mode="outlined"
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                placeholder="E-mail"
+                labelStyle={styles.inputslabel}
+                keyboardType="email-address"
+                valid={touched.email && !errors.email}
+                error={touched.email && errors.email}
+                returnKeyType="next"
+                autoCapitalize="none"
+                leftIcon={(
+                  <Icon
+                    name="envelope"
+                    size={12}
+                    color="grey"
+                  />
+                )}
+                ref={ input => {
+                  this.inputs['email'] = input;
+                }}
+                onSubmitEditing={() => {
+                  this.focusNextField('workemail');
+                }}
+                blurOnSubmit={false}
+              />
+              {errors.email && touched.email ? (
+                  <Text style={styles.formError}>{errors.email}</Text>
+              ) : null }
+              <Input
+                label="E-mail del trabajo"
+                mode="outlined"
+                value={values.workemail}
+                onChangeText={handleChange('workemail')}
+                onBlur={handleBlur('workemail')}
+                placeholder="E-mail del trabajo"
+                labelStyle={styles.inputslabel}
+                keyboardType="email-address"
+                valid={touched.workemail && !errors.workemail}
+                error={touched.workemail && errors.workemail}
+                returnKeyType="done"
+                leftIcon={(
+                  <Icon
+                    name="envelope"
+                    size={12}
+                    color="grey"
+                  />
+                )}
+                ref={ input => {
+                  this.inputs['workemail'] = input;
+                }}
+                onSubmitEditing={() => {
+                  submitForm();
+                }}
+                blurOnSubmit={false}
+              />
+              {errors.workemail && touched.workemail ? (
+                  <Text style={styles.formError}>{errors.workemail}</Text>
+              ) : null }
 
             <Button
               title="Guardar"

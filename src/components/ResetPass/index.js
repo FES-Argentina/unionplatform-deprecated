@@ -17,16 +17,16 @@ const validationSchema = yup.object().shape({
     .string()
     .label('E-mail')
     .email("Ingrese un email válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   password: yup
     .string()
     .label('Contraseña')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   passwordConfirm: yup
     .string()
     .label('Confirmar contraseña')
     .oneOf([yup.ref('password'), null], 'Las contraseñas no coinciden')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
 });
 
 class ResetPass extends React.Component {
@@ -92,20 +92,19 @@ class ResetPass extends React.Component {
                 blurOnSubmit={false}
               />
 
-              {errors.email && (
+              {errors.email && touched.email ? (
                   <Text style={styles.formError}>{errors.email}</Text>
-              )}
+              ) : null }
 
               <Input
                 label="Contraseña"
                 mode="outlined"
                 value={values.password}
                 onChangeText={handleChange('password')}
-                placeholder="Contraseña"
+                onBlur={handleBlur('password')}
                 secureTextEntry
+                placeholder="Ingrese su password"
                 labelStyle={styles.inputslabel}
-                valid={touched.password && !errors.password}
-                error={touched.password && errors.password}
                 leftIcon={(
                   <Icon
                     name="key"
@@ -113,6 +112,7 @@ class ResetPass extends React.Component {
                     color="grey"
                   />
                 )}
+                returnKeyType="next"
                 ref={ input => {
                   this.inputs['password'] = input;
                 }}
@@ -120,22 +120,21 @@ class ResetPass extends React.Component {
                   this.focusNextField('passwordConfirm');
                 }}
                 blurOnSubmit={false}
-                returnKeyType="next"
+                valid={touched.password && !errors.password}
+                error={touched.password && errors.password}
               />
-
-              {errors.password && (
+            {errors.password && touched.password ? (
                   <Text style={styles.formError}>{errors.password}</Text>
-              )}
+              ) : null }
 
               <Input
                 label="Confirmar contraseña"
                 mode="outlined"
                 value={values.passwordConfirm}
                 onChangeText={handleChange('passwordConfirm')}
-                placeholder="Confirmar contraseña"
+                onBlur={handleBlur('passwordConfirm')}
                 secureTextEntry
-                valid={touched.passwordConfirm && !errors.passwordConfirm}
-                error={touched.passwordConfirm && errors.passwordConfirm}
+                placeholder="Reingrese su password"
                 labelStyle={styles.inputslabel}
                 leftIcon={(
                   <Icon
@@ -144,6 +143,7 @@ class ResetPass extends React.Component {
                     color="grey"
                   />
                 )}
+                returnKeyType="next"
                 ref={ input => {
                   this.inputs['passwordConfirm'] = input;
                 }}
@@ -151,11 +151,12 @@ class ResetPass extends React.Component {
                   submitForm();
                 }}
                 blurOnSubmit={false}
-                returnKeyType="done"
+                valid={touched.passwordConfirm && !errors.passwordConfirm}
+                error={touched.passwordConfirm && errors.passwordConfirm}
               />
-              {errors.passwordConfirm && (
+            {errors.passwordConfirm && touched.passwordConfirm ? (
                   <Text style={styles.formError}>{errors.passwordConfirm}</Text>
-              )}
+              ) : null }
             <Button
               title="Guardar"
               type="outline"

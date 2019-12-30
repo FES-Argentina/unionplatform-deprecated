@@ -22,75 +22,75 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Nombre')
     .min(2, "El nombre debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   lastname: yup
     .string()
     .label('Apellido')
     .min(2, "El apellido debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   nationality: yup
     .string()
     .label('Nacionalidad')
     .min(2, "La nacionalidad debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   email: yup
     .string()
     .label('E-mail')
     .email("Ingrese un email válido")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   phonenumber: yup
     .number()
     .min(8, 'El teléfono debe tener al menos ${min} caracteres')
     .typeError('El teléfono debe estar expresado en números')
     .positive('El teléfono debe ser mayor a 0')
     .label('Telefono')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   dni: yup
     .number()
     .label('DNI')
     .min(7, 'El DNI debe tener al menos ${min} caracteres')
     .typeError('El DNI debe estar expresado en números')
     .positive('El DNI debe ser mayor a 0')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   cuit: yup
     .number()
     .min(10, 'El CUIT/CUIL debe tener al menos ${min} caracteres')
     .typeError('El CUIT/CUIL debe estar expresado en números')
     .positive('El CUIT/CUIL debe ser mayor a 0')
     .label('CUIT/CUIL')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   postalcode: yup
     .number()
     .min(4, 'El código postal debe tener al menos ${min} caracteres')
     .typeError('El código postal debe estar expresado en números')
     .positive('El código postal debe ser mayor a 0')
     .label('Código postal')
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   street: yup
     .string()
     .label('Calle')
     .min(2, "La calle debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   city: yup
     .string()
     .label('Localidad')
     .min(2, "La localidad debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   province: yup
     .string()
     .label('Provincia')
     .min(2, "La provincia debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   country: yup
     .string()
     .label('País')
     .min(2, "El país debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   tasks: yup
     .string()
     .label('Tareas')
     .min(2, "Ingrese valores correctos")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
 });
 
 class Enrollment extends React.Component {
@@ -180,15 +180,15 @@ class Enrollment extends React.Component {
               valid={touched.firstname && !errors.firstname}
               error={touched.firstname && errors.firstname}
             />
-            {errors.firstname && (
+          {errors.firstname && touched.firstname ? (
                 <Text style={styles.formError}>{errors.firstname}</Text>
-            )}
+            ) : null }
             <Input
               label="Apellido"
               mode="outlined"
               value={values.lastname}
               onChangeText={handleChange('lastname')}
-              onBlur={handleBlur('namlastnamee')}
+              onBlur={handleBlur('lastname')}
               placeholder="Ingrese su apellido"
               labelStyle={styles.inputslabel}
               leftIcon={(
@@ -209,9 +209,9 @@ class Enrollment extends React.Component {
               valid={touched.lastname && !errors.lastname}
               error={touched.lastname && errors.lastname}
             />
-            {errors.lastname && (
+          {errors.lastname && touched.lastname ? (
                 <Text style={styles.formError}>{errors.lastname}</Text>
-            )}
+            ) : null }
             <Input
               label="E-mail"
               mode="outlined"
@@ -240,14 +240,15 @@ class Enrollment extends React.Component {
               valid={touched.email && !errors.email}
               error={touched.email && errors.email}
             />
-            {errors.email && (
+            {errors.email && touched.email ? (
                 <Text style={styles.formError}>{errors.email}</Text>
-            )}
+            ) : null }
             <Input
-              label="Número de teléfono"
+              label="Teléfono"
               mode="outlined"
               value={values.phonenumber}
               onChangeText={handleChange('phonenumber')}
+              onBlur={handleBlur('phonenumber')}
               placeholder="Ingrese su teléfono"
               labelStyle={styles.inputslabel}
               leftIcon={(
@@ -267,13 +268,13 @@ class Enrollment extends React.Component {
                 this.focusNextField('cuit');
               }}
               blurOnSubmit={false}
-              maxLength={10}
               valid={touched.phonenumber && !errors.phonenumber}
               error={touched.phonenumber && errors.phonenumber}
             />
-            {errors.phonenumber && (
+            {errors.phonenumber && touched.phonenumber ? (
                 <Text style={styles.formError}>{errors.phonenumber}</Text>
-            )}
+            ) : null }
+
             <View>
               <Text style={styles.date}>Elija su fecha de nacimiento</Text>
               <Button
@@ -293,13 +294,13 @@ class Enrollment extends React.Component {
               onChange={this.setDate} /> }
             </View>
             <Input
-              label="CUIT/CUIL"
+              label="Cuit"
               mode="outlined"
               value={values.cuit}
               onChangeText={handleChange('cuit')}
-              placeholder="Ingrese su CUIT/CUIL"
+              onBlur={handleBlur('cuit')}
+              placeholder="Ingrese su teléfono"
               labelStyle={styles.inputslabel}
-              maxLength={11}
               leftIcon={(
                 <Icon
                   name="address-card"
@@ -307,7 +308,7 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
-              keyboardType="numeric"
+              keyboardType="phone-pad"
               autoCapitalize="none"
               returnKeyType="next"
               ref={ input => {
@@ -320,15 +321,16 @@ class Enrollment extends React.Component {
               valid={touched.cuit && !errors.cuit}
               error={touched.cuit && errors.cuit}
             />
-            {errors.cuit && (
+          {errors.cuit && touched.cuit ? (
                 <Text style={styles.formError}>{errors.cuit}</Text>
-            )}
+            ) : null }
             <Input
               label="DNI"
               mode="outlined"
               value={values.dni}
               onChangeText={handleChange('dni')}
-              placeholder="Ingrese su DNI"
+              onBlur={handleBlur('dni')}
+              placeholder="Ingrese su dni"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -337,10 +339,9 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
-              keyboardType="numeric"
+              keyboardType="phone-pad"
               autoCapitalize="none"
               returnKeyType="next"
-              maxLength={8}
               ref={ input => {
                 this.inputs['dni'] = input;
               }}
@@ -351,15 +352,16 @@ class Enrollment extends React.Component {
               valid={touched.dni && !errors.dni}
               error={touched.dni && errors.dni}
             />
-            {errors.dni && (
+          {errors.dni && touched.dni ? (
                 <Text style={styles.formError}>{errors.dni}</Text>
-            )}
+            ) : null }
             <Input
               label="Nacionalidad"
               mode="outlined"
               value={values.nationality}
               onChangeText={handleChange('nationality')}
-              placeholder="Ingrese la nacionalidad"
+              onBlur={handleBlur('nationality')}
+              placeholder="Ingrese su nacionalidad"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -379,15 +381,16 @@ class Enrollment extends React.Component {
               valid={touched.nationality && !errors.nationality}
               error={touched.nationality && errors.nationality}
             />
-            {errors.nationality && (
+          {errors.nationality && touched.nationality ? (
                 <Text style={styles.formError}>{errors.nationality}</Text>
-            )}
+            ) : null }
             <Input
               label="Calle"
               mode="outlined"
               value={values.street}
               onChangeText={handleChange('street')}
-              placeholder="Ingrese la calle"
+              onBlur={handleBlur('street')}
+              placeholder="Ingrese su direccion"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -407,17 +410,17 @@ class Enrollment extends React.Component {
               valid={touched.street && !errors.street}
               error={touched.street && errors.street}
             />
-            {errors.street && (
+          {errors.street && touched.street ? (
                 <Text style={styles.formError}>{errors.street}</Text>
-            )}
+            ) : null }
             <Input
-              label="Codigo postal"
+              label="Código postal"
               mode="outlined"
               value={values.postalcode}
               onChangeText={handleChange('postalcode')}
-              placeholder="Ingrese su codigo postal"
+              onBlur={handleBlur('postalcode')}
+              placeholder="Ingrese su código postal"
               labelStyle={styles.inputslabel}
-              maxLength={6}
               leftIcon={(
                 <Icon
                   name="address-card"
@@ -425,7 +428,7 @@ class Enrollment extends React.Component {
                   color="grey"
                 />
               )}
-              keyboardType="numeric"
+              keyboardType="phone-pad"
               autoCapitalize="none"
               returnKeyType="next"
               ref={ input => {
@@ -438,15 +441,16 @@ class Enrollment extends React.Component {
               valid={touched.postalcode && !errors.postalcode}
               error={touched.postalcode && errors.postalcode}
             />
-            {errors.postalcode && (
+          {errors.postalcode && touched.postalcode ? (
                 <Text style={styles.formError}>{errors.postalcode}</Text>
-            )}
+            ) : null }
             <Input
               label="Ciudad"
               mode="outlined"
               value={values.city}
               onChangeText={handleChange('city')}
-              placeholder="Ingrese la ciudad"
+              onBlur={handleBlur('city')}
+              placeholder="Ingrese su ciudad"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -466,15 +470,16 @@ class Enrollment extends React.Component {
               valid={touched.city && !errors.city}
               error={touched.city && errors.city}
             />
-            {errors.city && (
+          {errors.city && touched.city ? (
                 <Text style={styles.formError}>{errors.city}</Text>
-            )}
+            ) : null }
             <Input
-              label="Provincia"
+              label="Prinvincia"
               mode="outlined"
               value={values.province}
               onChangeText={handleChange('province')}
-              placeholder="Ingrese la provincia"
+              onBlur={handleBlur('province')}
+              placeholder="Ingrese su provincia"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -494,15 +499,16 @@ class Enrollment extends React.Component {
               valid={touched.province && !errors.province}
               error={touched.province && errors.province}
             />
-            {errors.province && (
+          {errors.province && touched.province ? (
                 <Text style={styles.formError}>{errors.province}</Text>
-            )}
+            ) : null }
             <Input
-              label="Pais"
+              label="País"
               mode="outlined"
               value={values.country}
               onChangeText={handleChange('country')}
-              placeholder="Ingrese el pais"
+              onBlur={handleBlur('country')}
+              placeholder="Ingrese el país"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -522,40 +528,40 @@ class Enrollment extends React.Component {
               valid={touched.country && !errors.country}
               error={touched.country && errors.country}
             />
-            {errors.country && (
+          {errors.country && touched.country ? (
                 <Text style={styles.formError}>{errors.country}</Text>
-            )}
+            ) : null }
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
-            <Input
-              label="Tareas"
-              mode="outlined"
-              value={values.tasks}
-              onChangeText={handleChange('tasks')}
-              onBlur={handleBlur('tasks')}
-              placeholder="Ingrese las tareas que realiza"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="tasks"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="done"
-              ref={ input => {
-                this.inputs['tasks'] = input;
-              }}
-              onSubmitEditing={() => {
-                submitForm();
-              }}
-              blurOnSubmit={false}
-              valid={touched.tasks && !errors.tasks}
-              error={touched.tasks && errors.tasks}
-            />
-            {errors.tasks && (
-                <Text style={styles.formError}>{errors.tasks}</Text>
-            )}
+              <Input
+                label="Tareas"
+                mode="outlined"
+                value={values.tasks}
+                onChangeText={handleChange('tasks')}
+                onBlur={handleBlur('tasks')}
+                placeholder="Ingrese sus tareas"
+                labelStyle={styles.inputslabel}
+                leftIcon={(
+                  <Icon
+                    name="address-card"
+                    size={12}
+                    color="grey"
+                  />
+                )}
+                returnKeyType="done"
+                ref={ input => {
+                  this.inputs['tasks'] = input;
+                }}
+                onSubmitEditing={() => {
+                  submitForm();
+                }}
+                blurOnSubmit={false}
+                valid={touched.tasks && !errors.tasks}
+                error={touched.tasks && errors.tasks}
+              />
+            {errors.tasks && touched.tasks ? (
+                  <Text style={styles.formError}>{errors.tasks}</Text>
+              ) : null }
 
 
 

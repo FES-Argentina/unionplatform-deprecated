@@ -17,12 +17,12 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Descripcion')
     .min(2, "La descripción debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
   direction: yup
     .string()
     .label('Direccion')
     .min(2, "La direccion debe tener más de ${min} caracteres")
-    .required("Campo obligatorio"),
+    .required("Campo requerido"),
 });
 
 class AlertForm extends React.Component {
@@ -129,30 +129,31 @@ class AlertForm extends React.Component {
                 blurOnSubmit={false}
 
               />
-              {errors.description && (
+            {errors.description && touched.description ? (
                   <Text style={styles.formError}>{errors.description}</Text>
-              )}
+              ) : null }
               <Input
-                label="Direccion"
+                label="Dirección"
                 mode="outlined"
                 value={values.direction}
                 onChangeText={handleChange('direction')}
-                placeholder="Ingrese la ubicacion"
-                labelStyle={styles.inputslabel}
+                onBlur={handleBlur('direction')}
+                placeholder="Dirección de la alerta"
                 valid={touched.direction && !errors.direction}
                 error={touched.direction && errors.direction}
-                blurOnSubmit={false}
-                returnKeyType="done"
-                ref={ (input) => {
+                labelStyle={styles.inputslabel}
+                returnKeyType="next"
+                ref={ input => {
                   this.inputs['direction'] = input;
                 }}
                 onSubmitEditing={() => {
                   submitForm();
                 }}
+                blurOnSubmit={false}
               />
-              {errors.direction && (
+            {errors.direction && touched.direction ? (
                   <Text style={styles.formError}>{errors.direction}</Text>
-              )}
+              ) : null }
             <Button
               title="Guardar"
               type="outline"
