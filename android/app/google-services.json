@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "25989718090",
+    "firebase_url": "https://sindicatoapp-db723.firebaseio.com",
+    "project_id": "sindicatoapp-db723",
+    "storage_bucket": "sindicatoapp-db723.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25989718090:android:0248816ca7d4754bb586b3",
+        "android_client_info": {
+          "package_name": "com.sindicapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25989718090-ua6ig9hmbafv9qn3i13b7trumomcdujk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1cWdtJaXWqXX3lJq2z1ZzxeSB0g4PX2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25989718090-ua6ig9hmbafv9qn3i13b7trumomcdujk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
