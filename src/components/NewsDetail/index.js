@@ -6,6 +6,7 @@ import {
   Image,
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import SafeAreaViewDecider from '../SafeAreaViewDecider'
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -29,6 +30,8 @@ class NewsDetail extends React.Component {
 
     return (
       <ScrollView>
+        <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
+
         <View style={styles.containerMargin}>
           <Text style={styles.titleNews}>{data.title}</Text>
           <Text style={styles.summaryText}>{data.summary}</Text>

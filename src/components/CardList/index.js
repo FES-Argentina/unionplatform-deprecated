@@ -4,6 +4,7 @@ import {
   View,
   ImageBackground,
   TouchableHighlight,
+  ScrollView
 } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import PropTypes from 'prop-types';
@@ -11,6 +12,8 @@ import { connect } from 'react-redux';
 import { getNews } from '../../actions/news';
 import NavigationService from '../../navigation/NavigationService';
 import LinearGradient from 'react-native-linear-gradient';
+import SafeAreaViewDecider from '../SafeAreaViewDecider'
+
 import styles from '../styles';
 
 class CardList extends React.Component {
@@ -27,6 +30,9 @@ class CardList extends React.Component {
     const { data } = this.props;
 
     return (
+      <ScrollView>
+        <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
+
       <FlatGrid
         itemDimension={300}
         items={data}
@@ -45,6 +51,8 @@ class CardList extends React.Component {
           </TouchableHighlight>
         )}
       />
+  </ScrollView>
+
     );
   }
 }

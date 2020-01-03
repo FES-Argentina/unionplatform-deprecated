@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavigationService from '../../navigation/NavigationService';
 import styles from '../styles';
+import SafeAreaViewDecider from '../SafeAreaViewDecider'
 
 import { getDocuments } from '../../actions/documents';
 
@@ -29,6 +30,8 @@ class SimpleList extends React.Component {
 
     return (
       <SafeAreaView>
+        <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
+
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}

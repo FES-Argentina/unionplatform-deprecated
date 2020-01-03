@@ -5939,6 +5939,11 @@ react-native-config@^0.11.7:
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.11.7.tgz#a2b323f2ecd76a4df88cbb6bc86eaa2ef9febee7"
   integrity sha512-dn5s+zhwLyE25vRT/vaEtLk/j8ZL1UZKvejORNDWakSwpOnLmFurFeaZV83IqkPlfWHXHFdsYe2IRYG1WN4WkQ==
 
+react-native-device-info@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.4.0.tgz#c837afdfc7947eef0a09c1bf2f3beb127d31458b"
+  integrity sha512-57IZQ7IavRlNZvI1cKypMkjRPa7nmLK6jYVSrvPMYX2VrCszmgJKlP90cZZaX0FObtNt1yYuKAOkBqyjkNrTIA==
+
 react-native-elements@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.7.tgz#1eca2db715c41722aeb67aea62bd2a4621adb134"
@@ -6055,6 +6060,11 @@ react-native-share@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-2.0.0.tgz#4543a746013e0d8fa9f765fb8937007cfbcffcf7"
   integrity sha512-J8Xl3mq0L9KDFtSYtKsQDAnZWw/niZIpAD1PRiNfZFHo44Rc+oS2bEIhskNnoQXKEgBNdPzCl/DenMXYAHXRYg==
+
+react-native-smart-statusbar@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-smart-statusbar/-/react-native-smart-statusbar-1.0.8.tgz#e04362e42d7f7a658ada738a64a5363f1a7bc95f"
+  integrity sha512-ri+41iAmmAT2sX2USrS7JtD3vVbA7VLrhhnBCOj5P5HyFlUriudpZSqKDjGhJ3FB/jVGF3sgZQmAum61HlOZGQ==
 
 react-native-splash-screen@^3.2.0:
   version "3.2.0"

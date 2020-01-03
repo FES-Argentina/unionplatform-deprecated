@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getNews } from '../../actions/news';
 import NavigationService from '../../navigation/NavigationService';
+import LinearGradient from 'react-native-linear-gradient';
+import SafeAreaViewDecider from '../SafeAreaViewDecider'
 
 import styles from './styles';
 
@@ -25,6 +27,8 @@ class Slideshow extends PureComponent {
 
     return (
       <View>
+        <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
+
         <SwiperFlatList
           horizontal
           showPagination
@@ -43,6 +47,10 @@ class Slideshow extends PureComponent {
     );
   }
 }
+
+
+
+
 
 Slideshow.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
