@@ -17,15 +17,14 @@ import styles from '../styles';
 import Message from '../Message';
 
 const validationSchema = yup.object().shape({
-  email: yup
+  name: yup
     .string()
-    .label('E-mail')
-    .email("Ingrese un email válido")
-    .required("Campo requerido"),
+    .label('Usuarix')
+    .required(),
   password: yup
     .string()
     .label('Contraseña')
-    .required("Campo requerido"),
+    .required(),
 });
 
 class Login extends React.Component {
@@ -35,9 +34,9 @@ class Login extends React.Component {
   }
 
   onSubmit = (values) => {
-    const { email, password } = values;
+    const { name, password } = values;
     const { dispatch } = this.props;
-    dispatch(loginRequest(email, password));
+    dispatch(loginRequest(name, password));
   }
 
   handleCloseMessage = () => {
@@ -63,7 +62,7 @@ class Login extends React.Component {
 
     return (
       <Formik
-        initialValues={{ email: '', password: '', id: 'frs' }}
+        initialValues={{ name: '', password: '', id: 'frs' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
@@ -74,16 +73,16 @@ class Login extends React.Component {
           <ScrollView>
             <Text style={styles.presentation}>Sindicato APP</Text>
             <Input
-              label="E-mail"
+              label="Usuarix"
               mode="outlined"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              placeholder="E-mail"
+              value={values.name}
+              onChangeText={handleChange('name')}
+              onBlur={handleBlur('name')}
+              placeholder="Nombre de usuarix"
               labelStyle={styles.inputslabel}
               keyboardType="email-address"
-              valid={touched.email && !errors.email}
-              error={touched.email && errors.email}
+              valid={touched.name && !errors.name}
+              error={touched.name && errors.name}
               returnKeyType="next"
               autoCapitalize="none"
               leftIcon={(
@@ -101,8 +100,8 @@ class Login extends React.Component {
               }}
               blurOnSubmit={false}
             />
-            {errors.email && touched.email ? (
-                <Text style={styles.formError}>{errors.email}</Text>
+            {errors.name && touched.name ? (
+                <Text style={styles.formError}>{errors.name}</Text>
             ) : null }
             <Input
               label="Contraseña"

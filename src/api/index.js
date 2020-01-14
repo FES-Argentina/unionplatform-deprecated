@@ -1,8 +1,24 @@
 import axios from 'axios';
 import Config from 'react-native-config';
+import SetCookieParser from 'set-cookie-parser';
+import { store } from '../store';
+
+const api = axios.create({
+  withCredentials: false,
+})
+
+/**
+ * Returns an object with headers for api requests.
+ */
+function buildHeaders() {
+  const state = store.getState();
+  return {
+    Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
+  };
+}
 
 export function getDocumentsRequest() {
-  return axios.get(`${Config.API_URL}/documents`)
+  return api.get(`${Config.API_URL}/documents`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -10,7 +26,7 @@ export function getDocumentsRequest() {
 }
 
 export function getDocumentRequest(id) {
-  return axios.get(`${Config.API_URL}/documents/${id}`)
+  return api.get(`${Config.API_URL}/documents/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -18,17 +34,29 @@ export function getDocumentRequest(id) {
 }
 
 export function login(username, password) {
-  return axios.post(`${Config.API_URL}/login`, { username, password })
+  return api.post(`${Config.API_URL}/user/login?_format=json`, { name: username, pass: password })
+    .then((response) => {
+      var cookie = SetCookieParser(response.headers['set-cookie'], {decodeValues: true});
+      return {
+        data: response.data,
+        cookie,
+      };
+    });
+}
+
+export function loginStatus() {
+  const headers = buildHeaders();
+  return api.get(`${Config.API_URL}/user/login_status?_format=json`, { headers })
     .then((response) => response.data);
 }
 
 export function updateUser(id, data) {
-  return axios.put(`${Config.API_URL}/users/${id}`, { user: data })
+  return api.put(`${Config.API_URL}/users/${id}`, { user: data })
     .then((response) => response.data);
 }
 
 export function getUserRequest(id) {
-  return axios.get(`${Config.API_URL}/users/${id}`)
+  return api.get(`${Config.API_URL}/users/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -36,7 +64,7 @@ export function getUserRequest(id) {
 }
 
 export function getNewsRequest() {
-  return axios.get(`${Config.API_URL}/news`)
+  return api.get(`${Config.API_URL}/news`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -44,7 +72,7 @@ export function getNewsRequest() {
 }
 
 export function getNewRequest(id) {
-  return axios.get(`${Config.API_URL}/news/${id}`)
+  return api.get(`${Config.API_URL}/news/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -52,7 +80,7 @@ export function getNewRequest(id) {
 }
 
 export function setEnrollmentRequest(values) {
-  return axios.post(`${Config.API_URL}/enrollments`, { enrollment: values })
+  return api.post(`${Config.API_URL}/enrollments`, { enrollment: values })
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -60,7 +88,7 @@ export function setEnrollmentRequest(values) {
 }
 
 export function setComplaintRequest(values) {
-  return axios.post(`${Config.API_URL}/complaints`, { complaint: values })
+  return api.post(`${Config.API_URL}/complaints`, { complaint: values })
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -68,12 +96,12 @@ export function setComplaintRequest(values) {
 }
 
 export function changeUserPass(id, data) {
-  return axios.put(`${Config.API_URL}/users/${id}`, { pass: data })
+  return api.put(`${Config.API_URL}/users/${id}`, { pass: data })
     .then((response) => response.data);
 }
 
 export function getComplaintsRequest() {
-  return axios.get(`${Config.API_URL}/complaints`)
+  return api.get(`${Config.API_URL}/complaints`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -81,7 +109,7 @@ export function getComplaintsRequest() {
 }
 
 export function getAlertsRequest() {
-  return axios.get(`${Config.API_URL}/alerts`)
+  return api.get(`${Config.API_URL}/alerts`)
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);
@@ -89,7 +117,7 @@ export function getAlertsRequest() {
 }
 
 export function setAlertRequest(values) {
-  return axios.post(`${Config.API_URL}/alertsform`, { alert: values })
+  return api.post(`${Config.API_URL}/alertsform`, { alert: values })
     .then((response) => response.data)
     .catch((error) => {
       console.log('ERROR', error);

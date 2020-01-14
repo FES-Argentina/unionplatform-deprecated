@@ -2,6 +2,8 @@ import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_EN
 
 const initialState = {
   authToken: null,
+  logoutToken: null,
+  cookie: null,
   user: {},
   item: {},
   enrollments: [],
@@ -13,7 +15,9 @@ const userReducer = (state = initialState, action) => {
     case SET_AUTH:
       return {
         ...state,
-        authToken: action.authToken,
+        authToken: action.tokens.csrf,
+        logoutToken: action.tokens.logout,
+        cookie: action.cookie,
       };
     case UPDATE_USER_SUCCESS:
       return {

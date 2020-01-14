@@ -15,10 +15,25 @@ export function logoutRequest(username, password) {
   };
 }
 
-export function setAuth(token) {
+export function setAuth(response) {
   return {
     type: SET_AUTH,
-    authToken: token,
+    tokens: {
+      csrf: response.data.csrf_token,
+      logout: response.data.logout_token,
+    },
+    cookie: response.cookie[0],
+  };
+}
+
+export function setLogout() {
+  return {
+    type: SET_AUTH,
+    tokens: {
+      csrf: null,
+      logout: null,
+    },
+    cookie: null,
   };
 }
 

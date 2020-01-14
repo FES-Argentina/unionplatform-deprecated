@@ -11,7 +11,7 @@ import {
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
-  setAuth, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, getComplaintsSuccess, changeUserPassSuccess,
+  setAuth, setLogout, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, getComplaintsSuccess, changeUserPassSuccess,
 } from '../actions/user';
 import {
   login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest,
@@ -60,7 +60,7 @@ export function* loginFlow() {
     });
 
     if (winner.auth) {
-      yield put(setAuth(winner.auth.token));
+      yield put(setAuth(winner.auth));
       yield call(redirectAuth);
     }
   }
@@ -72,7 +72,7 @@ export function* loginFlow() {
 export function* logoutFlow() {
   while (true) {
     yield take(LOGOUT_REQUEST);
-    yield put(setAuth(null));
+    yield put(setLogout(null));
     // TODO: Should we also close the session in the backend?
     yield call(redirectAuth);
   }
