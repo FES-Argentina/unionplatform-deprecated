@@ -24,7 +24,14 @@ function buildHeaders() {
   const state = store.getState();
   return {
     Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
+    'Content-Type': 'application/json',
   };
+}
+
+function getTokens() {
+  const state = store.getState();
+  const { authToken, logoutToken } = state.user;
+  return { authToken, logoutToken };
 }
 
 export function getDocumentsRequest() {
@@ -57,6 +64,15 @@ export function login(username, password) {
           cookie,
         };
       });
+  });
+}
+
+export function logout() {
+  return clearCookies().then(() => {
+    const headers = buildHeaders();
+    const { logoutToken } = getTokens();
+    return api.post(`${Config.API_URL}/user/logout?_format=json&token=${logoutToken}`, null, { headers })
+      .then((response) => response);
   });
 }
 

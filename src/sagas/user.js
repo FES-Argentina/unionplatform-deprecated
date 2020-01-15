@@ -14,7 +14,7 @@ import {
   setAuth, setLogout, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, getComplaintsSuccess, changeUserPassSuccess,
 } from '../actions/user';
 import {
-  login, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest,
+  login, logout, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest,
 } from '../api';
 import NavigationService from '../navigation/NavigationService';
 
@@ -72,8 +72,8 @@ export function* loginFlow() {
 export function* logoutFlow() {
   while (true) {
     yield take(LOGOUT_REQUEST);
+    yield call(logout);
     yield put(setLogout(null));
-    // TODO: Should we also close the session in the backend?
     yield call(redirectAuth);
   }
 }
