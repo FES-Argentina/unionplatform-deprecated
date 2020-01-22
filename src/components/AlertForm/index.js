@@ -106,8 +106,8 @@ class AlertForm extends React.Component {
           values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit,
         }) => (
           <ScrollView>
-            <Select options={types} label="Tipo de alerta" setFieldValue={setFieldValue} />
-            <Select options={companies} label="Empresa" setFieldValue={setFieldValue} />
+            <Select options={types} name="type" label="Tipo de alerta" setFieldValue={setFieldValue} />
+            <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
 
             <Input
               label="Descripcion"

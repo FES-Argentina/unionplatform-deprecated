@@ -6,15 +6,17 @@ import styles from '../styles';
 class Select extends React.Component {
   constructor(props) {
     super(props);
+    const { name, options } = this.props;
     this.state = {
-      selectedValue: this.props.options[0].name,
+      selectedValue: options[0].name,
     };
-    this.props.setFieldValue(this.props.label, this.state.selectedValue);
+    this.props.setFieldValue(name, this.state.selectedValue);
   }
 
   updateValue = async (itemValue) => {
+    const { name } = this.props;
     await this.setState({ selectedValue: itemValue });
-    this.props.setFieldValue(this.props.label, this.state.selectedValue);
+    this.props.setFieldValue(name, this.state.selectedValue);
   };
 
 

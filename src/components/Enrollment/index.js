@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input, CheckBox } from 'react-native-elements';
-import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { setEnrollment } from '../../actions/user';
 import Selector from '../form/Selector';
@@ -96,7 +95,6 @@ const validationSchema = yup.object().shape({
 class Enrollment extends React.Component {
   constructor(props) {
     super(props);
-    this.focusNextField = this.focusNextField.bind(this);
     this.inputs = {};
 
     this.state  = {
@@ -105,9 +103,11 @@ class Enrollment extends React.Component {
       show: false,
     }
   }
-  focusNextField(id) {
+
+  focusNextField = (id) => {
     this.inputs[id].focus();
   }
+
   onSubmit = (values) => {
     values.birthdate = this.state.date;
     console.warn(values);
@@ -532,7 +532,7 @@ class Enrollment extends React.Component {
                 <Text style={styles.formError}>{errors.country}</Text>
             ) : null }
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
+            <Selector items={items} name="company" label="Empresa" setFieldValue={setFieldValue}/>
               <Input
                 label="Tareas"
                 mode="outlined"

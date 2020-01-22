@@ -34,12 +34,13 @@ const validationSchema = yup.object().shape({
 class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
-    this.focusNextField = this.focusNextField.bind(this);
     this.inputs = {};
   }
-  focusNextField(id) {
+
+  focusNextField = (id) => {
     this.inputs[id].focus();
   }
+
   onSubmit = (values) => {
     const { id } = values;
 
@@ -72,7 +73,7 @@ class ProfileEdit extends React.Component {
           values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur
         }) => (
           <ScrollView>
-            <Selector items={items} label="Empresa" setFieldValue={setFieldValue}/>
+            <Selector items={items} name="company" label="Empresa" setFieldValue={setFieldValue}/>
             <Text style={styles.formTitles}>Perfil</Text>
 
               <Input

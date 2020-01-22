@@ -61,12 +61,13 @@ const validationSchema = yup.object().shape({
 class Complaint extends React.Component {
   constructor(props) {
     super(props);
-    this.focusNextField = this.focusNextField.bind(this);
     this.inputs = {};
   }
-  focusNextField(id) {
+
+  focusNextField = (id) => {
     this.inputs[id].focus();
   }
+
   onSubmit = (values) => {
     const { saveComplaint } = this.props;
     saveComplaint(values);
@@ -316,8 +317,8 @@ class Complaint extends React.Component {
           {errors.seniority && touched.seniority ? (
                 <Text style={styles.formError}>{errors.seniority}</Text>
             ) : null }
-            <Select options={companies} label="Empresa" setFieldValue={setFieldValue}/>
-            <Select options={problems} label="Problema" setFieldValue={setFieldValue}/>
+            <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue}/>
+            <Select options={problems} name="problem" label="Problema" setFieldValue={setFieldValue}/>
             <Input
               label="Tareas"
               mode="outlined"

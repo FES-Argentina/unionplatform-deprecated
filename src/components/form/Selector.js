@@ -13,13 +13,13 @@ export default class Selector extends Component {
 
   updateValue = async (itemValue) => {
     await this.setState({ selectedItems: itemValue });
-    this.props.setFieldValue(this.props.label, this.state.selectedItems);
-    console.warn(this.state.selectedItems);
+    const { name } = this.props;
+    this.props.setFieldValue(name, this.state.selectedItems);
   };
 
   render() {
     const { selectedItems } = this.state;
-    const { items, label, setFieldValue } = this.props;
+    const { items, label } = this.props;
 
     return (
         <View>
