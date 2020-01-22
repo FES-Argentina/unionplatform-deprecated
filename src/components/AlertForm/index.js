@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  View, Text, ScrollView,
-} from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Button, Input, CheckBox } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import PropTypes from 'prop-types';
+import { Button, Input } from 'react-native-elements';
 import Select from '../form/Select';
 import { setAlert } from '../../actions/alerts';
 import styles from '../styles';
@@ -18,7 +14,7 @@ const validationSchema = yup.object().shape({
     .label('Descripcion')
     .min(2, 'La descripción debe tener más de ${min} caracteres')
     .required('Campo requerido'),
-  direction: yup
+  address: yup
     .string()
     .label('Direccion')
     .min(2, 'La direccion debe tener más de ${min} caracteres')
@@ -28,19 +24,16 @@ const validationSchema = yup.object().shape({
 class AlertForm extends React.Component {
   constructor(props) {
     super(props);
-    this.focusNextField = this.focusNextField.bind(this);
     this.inputs = {};
   }
 
-
-  // FIXME userID
   onSubmit = (values) => {
     const { saveAlert } = this.props;
     saveAlert(values);
   }
 
 
-  focusNextField(id) {
+  focusNextField = (id) => {
     this.inputs[id].focus();
   }
 
@@ -51,53 +44,53 @@ class AlertForm extends React.Component {
     const companies = [
       {
         name: 'Cabify',
-        key: 'Cabify',
+        key: 'cabify',
       },
       {
         name: 'Uber',
-        key: 'Uber',
+        key: 'uber',
       },
       {
         name: 'Glovo',
-        key: 'Glovo',
+        key: 'glovo',
       },
       {
         name: 'Rappi',
-        key: 'Rappi',
+        key: 'rappi',
       },
     ];
 
     const types = [
       {
         name: 'Accidente',
-        key: 'accidente',
+        key: 'accident',
       },
       {
         name: 'Choque',
-        key: 'Choque',
+        key: 'crash',
       },
       {
         name: 'Problema con un local',
-        key: 'Local',
+        key: 'store',
       },
       {
         name: 'Problema de tránsito',
-        key: 'Transito',
+        key: 'traffic',
       },
       {
         name: 'Me robaron mientras trabajaba',
-        key: 'Robo',
+        key: 'theft',
       },
       {
         name: 'Otros',
-        key: 'Otros',
+        key: 'other',
       },
     ];
 
 
     return (
       <Formik
-        initialValues={{ userId: 'fgt', description: '', direction: '' }}
+        initialValues={{ description: '', address: '' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
@@ -124,7 +117,7 @@ class AlertForm extends React.Component {
                 this.inputs.description = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('direction');
+                this.focusNextField('address');
               }}
               blurOnSubmit={false}
             />
@@ -134,24 +127,24 @@ class AlertForm extends React.Component {
             <Input
               label="Dirección"
               mode="outlined"
-              value={values.direction}
-              onChangeText={handleChange('direction')}
-              onBlur={handleBlur('direction')}
+              value={values.address}
+              onChangeText={handleChange('address')}
+              onBlur={handleBlur('address')}
               placeholder="Dirección de la alerta"
-              valid={touched.direction && !errors.direction}
-              error={touched.direction && errors.direction}
+              valid={touched.address && !errors.address}
+              error={touched.address && errors.address}
               labelStyle={styles.inputslabel}
               returnKeyType="next"
               ref={(input) => {
-                this.inputs.direction = input;
+                this.inputs.address = input;
               }}
               onSubmitEditing={() => {
                 submitForm();
               }}
               blurOnSubmit={false}
             />
-            {errors.direction && touched.direction ? (
-              <Text style={styles.formError}>{errors.direction}</Text>
+            {errors.address && touched.address ? (
+              <Text style={styles.formError}>{errors.address}</Text>
             ) : null }
             <Button
               title="Guardar"

@@ -19,13 +19,24 @@ function clearCookies() {
 
 /**
  * Returns an object with headers for api requests.
+ *
+ * If post is true build the headers for post request, using
+ * application/hal+json and adding the csrf_token.
  */
-function buildHeaders() {
+function buildHeaders(post = false) {
   const state = store.getState();
-  return {
+  var headers = {
     Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
     'Content-Type': 'application/json',
   };
+
+  if (post) {
+    headers['Content-Type'] = 'application/hal+json';
+    const { authToken } = getTokens();
+    headers['X-CSRF-Token'] = authToken;
+  }
+
+  return headers;
 }
 
 function getTokens() {
@@ -169,8 +180,23 @@ export function getAlertsRequest() {
 }
 
 export function setAlertRequest(values) {
+  const data = {
+    _links: {
+      type: {
+        href: `http://appsindical.org.ar:9988/rest/type/node/alerts`
+      }
+    },
+    type: [{target_id:"alerts"}],
+    title: [{value: 'Example node title'}],
+    body: [{value: values.description}],
+    field_address: [{value: values.address}],
+    field_alert_type: [{value: values.type}],
+    field_company: [{value: values.company}],
+  }
+
+  const headers = buildHeaders(true);
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/alertsform`, { alert: values })
+    return api.post(`${Config.API_URL}/node?_format=hal_json`, data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
