@@ -183,11 +183,11 @@ export function setAlertRequest(values) {
   const data = {
     _links: {
       type: {
-        href: `http://appsindical.org.ar:9988/rest/type/node/alerts`
-      }
+        href: `${Config.API_URL}/rest/type/node/alerts`,
+      },
     },
-    type: [{target_id:"alerts"}],
-    title: [{value: 'Example node title'}],
+    type: [{target_id: 'alerts'}],
+    title: [{value: 'Alert'}],
     body: [{value: values.description}],
     field_address: [{value: values.address}],
     field_alert_type: [{value: values.type}],
