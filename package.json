@@ -37,6 +37,7 @@
     "react-native-screens": "^1.0.0-alpha.23",
     "react-native-secure-storage": "^0.1.2",
     "react-native-share": "^2.0.0",
+    "react-native-simple-toast": "^1.0.0",
     "react-native-smart-statusbar": "^1.0.8",
     "react-native-splash-screen": "^3.2.0",
     "react-native-super-grid": "^3.1.1",

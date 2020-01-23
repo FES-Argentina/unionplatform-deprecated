@@ -6,7 +6,7 @@ import { getAlertsSuccess, setAlertSuccess } from '../actions/alerts';
 import { processing } from '../actions';
 import { getAlertsRequest, setAlertRequest } from '../api';
 import NavigationService from '../navigation/NavigationService';
-
+import Toast from 'react-native-simple-toast';
 
 function* alertsWorker() {
   try {
@@ -34,6 +34,7 @@ function* setAlertWorker(values) {
       // TODO: que tenemos que pasarle al setAlertSuccess
       yield put(setAlertSuccess(values));
       NavigationService.navigate('Loading');
+      Toast.show('Gracias! Tu alerta fue cargada.', Toast.LONG);
     }
   } catch (e) {
     console.warn('error setAlertWorker:', e);
