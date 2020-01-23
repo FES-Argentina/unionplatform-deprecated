@@ -8,7 +8,7 @@ class Select extends React.Component {
     super(props);
     const { name, options } = this.props;
     this.state = {
-      selectedValue: options[0].name,
+      selectedValue: options[0].key,
     };
     this.props.setFieldValue(name, this.state.selectedValue);
   }
