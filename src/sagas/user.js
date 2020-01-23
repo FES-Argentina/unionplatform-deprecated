@@ -136,7 +136,7 @@ function* setEnrollmentWorker(values) {
     if (data) {
       // TODO: que tenemos que pasarle al setEnrollmentSuccess
       yield put(setEnrollmentSuccess(values));
-      NavigationService.navigate('Welcome');
+      NavigationService.navigate('Loading');
     }
   } catch (e) {
     console.warn('error setEnrollmentWorker:', e);
@@ -163,7 +163,7 @@ function* setComplaintWorker(values) {
     if (data) {
       // TODO: que tenemos que pasarle al setComplaintSuccess
       yield put(setComplaintSuccess(values));
-      NavigationService.navigate('Welcome');
+      NavigationService.navigate('Loading');
     }
   } catch (e) {
     console.warn('error setComplaintWorker:', e);

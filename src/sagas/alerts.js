@@ -33,7 +33,7 @@ function* setAlertWorker(values) {
     if (data) {
       // TODO: que tenemos que pasarle al setAlertSuccess
       yield put(setAlertSuccess(values));
-      NavigationService.navigate('Welcome');
+      NavigationService.navigate('Loading');
     }
   } catch (e) {
     console.warn('error setAlertWorker:', e);
