@@ -189,9 +189,9 @@ export function setAlertRequest(values) {
     type: [{target_id: 'alerts'}],
     title: [{value: 'Alert'}],
     body: [{value: values.description}],
-    field_address: [{value: values.address}],
     field_alert_type: [{value: values.type}],
     field_company: [{value: values.company}],
+    field_location: [{lat: values.location.latitude, lng: values.location.longitude}],
   }
 
   const headers = buildHeaders(true);

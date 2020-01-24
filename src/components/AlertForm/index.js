@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
+import MapPicker from 'react-native-map-picker';
 import Select from '../form/Select';
 import { setAlert } from '../../actions/alerts';
 import styles from '../styles';
@@ -14,11 +15,10 @@ const validationSchema = yup.object().shape({
     .label('Descripcion')
     .min(2, 'La descripción debe tener más de ${min} caracteres')
     .required('Campo requerido'),
-  address: yup
-    .string()
-    .label('Direccion')
-    .min(2, 'La direccion debe tener más de ${min} caracteres')
-    .required('Campo requerido'),
+  location: yup
+    .object()
+    .label('Ubicación')
+    .required('Por favor seleccioná la ubicación'),
 });
 
 class AlertForm extends React.Component {
@@ -90,7 +90,7 @@ class AlertForm extends React.Component {
 
     return (
       <Formik
-        initialValues={{ description: '', address: '' }}
+        initialValues={{ description: '' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
@@ -99,6 +99,15 @@ class AlertForm extends React.Component {
           values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit,
         }) => (
           <ScrollView>
+            <View style={{flex: 1, height: 400}}>
+              <MapPicker
+                buttonText="Seleccionar ubicación"
+                onLocationSelect={({latitude, longitude}) => {
+                  setFieldValue('location', {latitude, longitude});
+                }}
+                minZoomLevel={0}
+              />
+            </View>
             <Select options={types} name="type" label="Tipo de alerta" setFieldValue={setFieldValue} />
             <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
 
@@ -117,34 +126,12 @@ class AlertForm extends React.Component {
                 this.inputs.description = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('address');
+                submitForm();
               }}
               blurOnSubmit={false}
             />
             {errors.description && touched.description ? (
               <Text style={styles.formError}>{errors.description}</Text>
-            ) : null }
-            <Input
-              label="Dirección"
-              mode="outlined"
-              value={values.address}
-              onChangeText={handleChange('address')}
-              onBlur={handleBlur('address')}
-              placeholder="Dirección de la alerta"
-              valid={touched.address && !errors.address}
-              error={touched.address && errors.address}
-              labelStyle={styles.inputslabel}
-              returnKeyType="next"
-              ref={(input) => {
-                this.inputs.address = input;
-              }}
-              onSubmitEditing={() => {
-                submitForm();
-              }}
-              blurOnSubmit={false}
-            />
-            {errors.address && touched.address ? (
-              <Text style={styles.formError}>{errors.address}</Text>
             ) : null }
             <Button
               title="Guardar"
