@@ -12,12 +12,12 @@ const LONGITUDE = -58.436293;
 const LATITUDE_DELTA = 0.28;
 const LONGITUDE_DELTA = LATITUDE_DELTA * (width / height);
 const PIN_COLOURS = {
-  accidente: "red",
-  corte: "orange",
-  problema_local: "yellow",
-  transito: "green",
-  robo: "blue",
-  otros: "violet",
+  accident: "red",
+  crash: "orange",
+  store: "yellow",
+  traffic: "green",
+  theft: "blue",
+  other: "violet",
 };
 
 class Alerts extends React.Component {
