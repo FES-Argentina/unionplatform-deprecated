@@ -41,7 +41,7 @@ class Alerts extends React.Component {
         >
           {alerts.map((marker) => (
             <Marker
-              coordinate={{ latitude: marker.lat, longitude: marker.lon }}
+              coordinate={{ latitude: parseFloat(marker.latitude), longitude: parseFloat(marker.longitude) }}
               title={marker.title}
               description={marker.description}
               flat={true}
