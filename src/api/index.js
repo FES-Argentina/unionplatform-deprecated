@@ -160,8 +160,9 @@ export function changeUserPass(id, data) {
 }
 
 export function getComplaintsRequest() {
+  const headers = buildHeaders(false);
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/complaints`)
+    return api.get(`${Config.API_URL}/complaints`. { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -170,8 +171,9 @@ export function getComplaintsRequest() {
 }
 
 export function getAlertsRequest() {
+  const headers = buildHeaders(false);
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/alerts`)
+    return api.get(`${Config.API_URL}/alerts`, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
