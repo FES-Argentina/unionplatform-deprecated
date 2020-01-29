@@ -35,7 +35,7 @@ const validationSchema = yup.object().shape({
     .positive('El teléfono debe ser mayor a 0')
     .label('Telefono')
     .required("Campo requerido"),
-  city: yup
+  address: yup
     .string()
     .label('Localidad')
     .min(4, "Ingrese un valor válido")
@@ -128,7 +128,7 @@ class Complaint extends React.Component {
 
     return (
       <Formik
-        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '', seniority: '', tasks: ''}}
+        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', address: '', seniority: '', tasks: ''}}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
@@ -249,7 +249,7 @@ class Complaint extends React.Component {
                 this.inputs['phonenumber'] = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('city');
+                this.focusNextField('address');
               }}
               blurOnSubmit={false}
               valid={touched.phonenumber && !errors.phonenumber}
@@ -259,12 +259,12 @@ class Complaint extends React.Component {
                 <Text style={styles.formError}>{errors.phonenumber}</Text>
             ) : null }
             <Input
-              label="Localidad"
+              label="Dirección"
               mode="outlined"
-              value={values.city}
-              onChangeText={handleChange('city')}
-              onBlur={handleBlur('city')}
-              placeholder="Ingrese su ciudad"
+              value={values.address}
+              onChangeText={handleChange('address')}
+              onBlur={handleBlur('address')}
+              placeholder="Ingrese dirección"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -275,17 +275,17 @@ class Complaint extends React.Component {
               )}
               returnKeyType="next"
               ref={ input => {
-                this.inputs['city'] = input;
+                this.inputs['address'] = input;
               }}
               onSubmitEditing={() => {
                 this.focusNextField('seniority');
               }}
               blurOnSubmit={false}
-              valid={touched.city && !errors.city}
-              error={touched.city && errors.city}
+              valid={touched.address && !errors.address}
+              error={touched.address && errors.address}
             />
-          {errors.city && touched.city ? (
-                <Text style={styles.formError}>{errors.city}</Text>
+          {errors.address && touched.address ? (
+                <Text style={styles.formError}>{errors.address}</Text>
             ) : null }
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Input
