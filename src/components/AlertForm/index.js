@@ -8,6 +8,7 @@ import MapPicker from 'react-native-map-picker';
 import Select from '../form/Select';
 import { setAlert } from '../../actions/alerts';
 import styles from '../styles';
+import { companies, alertTypes } from '../../utils/values';
 
 const validationSchema = yup.object().shape({
   description: yup
@@ -39,55 +40,6 @@ class AlertForm extends React.Component {
 
 
   render() {
-    // FIXME companies-problems values
-
-    const companies = [
-      {
-        name: 'Cabify',
-        key: 'cabify',
-      },
-      {
-        name: 'Uber',
-        key: 'uber',
-      },
-      {
-        name: 'Glovo',
-        key: 'glovo',
-      },
-      {
-        name: 'Rappi',
-        key: 'rappi',
-      },
-    ];
-
-    const types = [
-      {
-        name: 'Accidente',
-        key: 'accident',
-      },
-      {
-        name: 'Choque',
-        key: 'crash',
-      },
-      {
-        name: 'Problema con un local',
-        key: 'store',
-      },
-      {
-        name: 'Problema de tránsito',
-        key: 'traffic',
-      },
-      {
-        name: 'Me robaron mientras trabajaba',
-        key: 'theft',
-      },
-      {
-        name: 'Otros',
-        key: 'other',
-      },
-    ];
-
-
     return (
       <Formik
         initialValues={{ description: '' }}
@@ -108,7 +60,7 @@ class AlertForm extends React.Component {
                 minZoomLevel={0}
               />
             </View>
-            <Select options={types} name="type" label="Tipo de alerta" setFieldValue={setFieldValue} />
+            <Select options={alertTypes} name="type" label="Tipo de alerta" setFieldValue={setFieldValue} />
             <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
 
             <Input

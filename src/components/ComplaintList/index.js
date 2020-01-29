@@ -13,6 +13,7 @@ import NavigationService from '../../navigation/NavigationService';
 import { createPdf } from '../../utils/pdf';
 import Share from 'react-native-share';
 import { processing } from '../../actions';
+import { getProblemLabel } from '../../utils/values';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -62,7 +63,7 @@ class ComplaintList extends React.Component {
               <View style={styles.complaints}>
                   <TouchableHighlight onPress={() => this.itemView(item)}>
                   <View style={styles.complaintslist}>
-                    <Text style={styles.titleDetail}>{item.problem}</Text>
+                    <Text style={styles.titleDetail}>{getProblemLabel(item.problem)}</Text>
                     <Text style={styles.dateDetail}>{item.date}</Text>
                   </View>
                 </TouchableHighlight>

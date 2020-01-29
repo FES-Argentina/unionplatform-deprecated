@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import Field from '../Field';
 import styles from '../styles';
+import { getProblemLabel, getCompanyLabel } from '../../utils/values';
 
 class ComplaintDetail extends React.Component {
 
@@ -19,13 +20,13 @@ class ComplaintDetail extends React.Component {
     return (
       <ScrollView>
         <View style={styles.containerMargin}>
-          <Text style={styles.titleNews}>{item.problems}</Text>
+          <Text style={styles.titleNews}>{getProblemLabel(item.problem)}</Text>
           <View>
             <Text style={styles.complaintTitles}>Detalle</Text>
             <Text style={styles.bodyDetail}>{item.description}</Text>
             <Field label="Fecha" value={item.date} />
             <Field label="Dirección" value={item.address} />
-            <Field label="Empresa" value={item.company} />
+            <Field label="Empresa" value={getCompanyLabel(item.company)} />
             <Field label="ID de la denuncia" value={item.id} />
           </View>
           <View>

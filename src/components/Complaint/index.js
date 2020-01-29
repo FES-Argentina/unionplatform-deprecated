@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { setComplaint } from '../../actions/user';
 import PropTypes from 'prop-types';
 import styles from '../styles';
+import { companies, problemTypes } from '../../utils/values';
 
 const validationSchema = yup.object().shape({
   firstname: yup
@@ -74,58 +75,6 @@ class Complaint extends React.Component {
   }
 
   render() {
-    // FIXME companies-problems values
-    const companies = [
-      {
-        name: 'Cabify',
-        key: 'cabify',
-      },
-      {
-        name: 'Uber',
-        key: 'uber',
-      },
-      {
-        name: 'Glovo',
-        key: 'glovo',
-      },
-      {
-        name: 'Rappi',
-        key: 'rappi',
-      },
-    ];
-
-    const problems = [
-      {
-        name: 'Tuve un accidente',
-        key: 'accident',
-      },
-      {
-        name: 'Me bloquearon',
-        key: 'block',
-      },
-      {
-        name: 'Me multaron',
-        key: 'fine',
-      },
-      {
-        name: 'Me suspendieron',
-        key: 'suspension',
-      },
-      {
-        name: 'La tasa de aceptación cayó sin motivos',
-        key: 'rate_drop',
-      },
-      {
-        name: 'Me robaron mientras trabajaba',
-        key: 'theft',
-      },
-      {
-        name: 'Otros',
-        key: 'other',
-      },
-    ];
-
-
     return (
       <Formik
         initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', address: '', seniority: '', tasks: ''}}
@@ -323,7 +272,7 @@ class Complaint extends React.Component {
               <Text style={styles.formError}>{errors.seniority}</Text>
             ) : null }
             <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue}/>
-            <Select options={problems} name="problem" label="Problema" setFieldValue={setFieldValue}/>
+            <Select options={problemTypes} name="problem" label="Problema" setFieldValue={setFieldValue}/>
 
             <Input
               label="Tareas"
