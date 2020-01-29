@@ -36,13 +36,15 @@ class ComplaintDetail extends React.Component {
             <Field label="Antigüedad" value={item.seniority} />
             <Field label="Tareas" value={item.tasks} />
           </View>
-          <View>
-            <Text style={styles.complaintTitles}>Archivos adjuntos</Text>
+          {item.photo ? (
+            <View>
+              <Text style={styles.complaintTitles}>Archivos adjuntos</Text>
               <Image
                 source={{ uri: item.photo }}
                 style={styles.photoNews}
               />
-          </View>
+            </View>
+          ) : null }
         </View>
       </ScrollView>
     );
