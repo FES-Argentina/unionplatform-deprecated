@@ -164,9 +164,10 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-          {errors.firstname && touched.firstname ? (
-                <Text style={styles.formError}>{errors.firstname}</Text>
+            {errors.firstname && touched.firstname ? (
+              <Text style={styles.formError}>{errors.firstname}</Text>
             ) : null }
+
             <Input
               label="Apellido"
               mode="outlined"
@@ -193,9 +194,10 @@ class Complaint extends React.Component {
               }}
               blurOnSubmit={false}
             />
-          {errors.lastname && touched.lastname ? (
-                <Text style={styles.formError}>{errors.lastname}</Text>
+            {errors.lastname && touched.lastname ? (
+              <Text style={styles.formError}>{errors.lastname}</Text>
             ) : null }
+
             <Input
               label="E-mail"
               mode="outlined"
@@ -225,8 +227,9 @@ class Complaint extends React.Component {
               blurOnSubmit={false}
             />
             {errors.email && touched.email ? (
-                <Text style={styles.formError}>{errors.email}</Text>
+              <Text style={styles.formError}>{errors.email}</Text>
             ) : null }
+
             <Input
               label="Teléfono"
               mode="outlined"
@@ -256,8 +259,9 @@ class Complaint extends React.Component {
               error={touched.phonenumber && errors.phonenumber}
             />
             {errors.phonenumber && touched.phonenumber ? (
-                <Text style={styles.formError}>{errors.phonenumber}</Text>
+              <Text style={styles.formError}>{errors.phonenumber}</Text>
             ) : null }
+
             <Input
               label="Dirección"
               mode="outlined"
@@ -284,10 +288,11 @@ class Complaint extends React.Component {
               valid={touched.address && !errors.address}
               error={touched.address && errors.address}
             />
-          {errors.address && touched.address ? (
-                <Text style={styles.formError}>{errors.address}</Text>
+            {errors.address && touched.address ? (
+              <Text style={styles.formError}>{errors.address}</Text>
             ) : null }
-          <Text style={styles.formTitles}>Sobre tu trabajo</Text>
+
+            <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Input
               label="Antigüedad"
               mode="outlined"
@@ -314,11 +319,12 @@ class Complaint extends React.Component {
               valid={touched.seniority && !errors.seniority}
               error={touched.seniority && errors.seniority}
             />
-          {errors.seniority && touched.seniority ? (
-                <Text style={styles.formError}>{errors.seniority}</Text>
+            {errors.seniority && touched.seniority ? (
+              <Text style={styles.formError}>{errors.seniority}</Text>
             ) : null }
             <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue}/>
             <Select options={problems} name="problem" label="Problema" setFieldValue={setFieldValue}/>
+
             <Input
               label="Tareas"
               mode="outlined"

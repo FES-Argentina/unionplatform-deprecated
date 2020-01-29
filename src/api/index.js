@@ -144,22 +144,22 @@ export function setEnrollmentRequest(values) {
 
 export function setComplaintRequest(values) {
   const data = {
-    _links : {
-      type : {
-        href : `${Config.API_URL}/rest/type/node/complaints`
+    _links: {
+      type: {
+        href: `${Config.API_URL}/rest/type/node/complaints`
       }
     },
-    type : [{ target_id : 'complaints' }],
-    title : [{ value : "Complaint PRUEBA" }],
-    field_address_complaint : [{ value : values.address }],
-    field_company_complaint : [{ value : values.company }],
-    field_tasks : [{ value : values.tasks }],
-    field_firstname : [{ value : values.firstname }],
-    field_lastname : [{ value : values.lastname }],
-    field_email : [{ value : values.email }],
-    field_phonenumber : [{ value : values.phonenumber }],
-    field_problem : [{ value : values.problem }],
-    field_seniority : [{ value : values.seniority }],
+    type: [{ target_id: 'complaints' }],
+    title: [{ value: "Complaint PRUEBA" }],
+    field_address_complaint: [{ value: values.address }],
+    field_company_complaint: [{ value: values.company }],
+    field_tasks: [{ value: values.tasks }],
+    field_firstname: [{ value: values.firstname }],
+    field_lastname: [{ value: values.lastname }],
+    field_email: [{ value: values.email }],
+    field_phonenumber: [{ value: values.phonenumber }],
+    field_problem: [{ value: values.problem }],
+    field_seniority: [{ value: values.seniority }],
     field_description: [{ value: values.description }],
   };
 
