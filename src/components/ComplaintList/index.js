@@ -62,7 +62,7 @@ class ComplaintList extends React.Component {
               <View style={styles.complaints}>
                   <TouchableHighlight onPress={() => this.itemView(item)}>
                   <View style={styles.complaintslist}>
-                    <Text style={styles.titleDetail}>{item.problems}</Text>
+                    <Text style={styles.titleDetail}>{item.problem}</Text>
                     <Text style={styles.dateDetail}>{item.date}</Text>
                   </View>
                 </TouchableHighlight>

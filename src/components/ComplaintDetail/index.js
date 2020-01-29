@@ -12,7 +12,7 @@ class ComplaintDetail extends React.Component {
 
 
   render() {
-    const { id, firstname, lastname, email, photo, summary, phonenumber, city, seniority, problems, date, company, tasks } = this.props.navigation.state.params.item;
+    const { id, firstname, lastname, email, photo, description, phonenumber, address, seniority, problems, date, company, tasks } = this.props.navigation.state.params.item;
     const { shareComplaint } = this.props;
 
     return (
@@ -21,11 +21,11 @@ class ComplaintDetail extends React.Component {
           <Text style={styles.titleNews}>{problems}</Text>
           <View>
             <Text style={styles.complaintTitles}>Detalle</Text>
-            <Text style={styles.bodyDetail}>{summary}</Text>
+            <Text style={styles.bodyDetail}>{description}</Text>
             <Text style={styles.titlesDetail}>Fecha</Text>
             <Text style={styles.bodyDetail}>{date}</Text>
-            <Text style={styles.titlesDetail}>Ciudad</Text>
-            <Text style={styles.bodyDetail}>{city}</Text>
+            <Text style={styles.titlesDetail}>Dirección</Text>
+            <Text style={styles.bodyDetail}>{address}</Text>
             <Text style={styles.titlesDetail}>Empresa</Text>
             <Text style={styles.bodyDetail}>{company}</Text>
             <Text style={styles.titlesDetail}>ID de la denuncia</Text>
