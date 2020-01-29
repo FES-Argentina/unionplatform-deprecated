@@ -78,50 +78,50 @@ class Complaint extends React.Component {
     const companies = [
       {
         name: 'Cabify',
-        key: 'Cabify',
+        key: 'cabify',
       },
       {
         name: 'Uber',
-        key: 'Uber',
+        key: 'uber',
       },
       {
         name: 'Glovo',
-        key: 'Glovo',
+        key: 'glovo',
       },
       {
         name: 'Rappi',
-        key: 'Rappi',
+        key: 'rappi',
       },
     ];
 
     const problems = [
       {
         name: 'Tuve un accidente',
-        key: 'accidente',
+        key: 'accident',
       },
       {
         name: 'Me bloquearon',
-        key: 'bloqueo',
+        key: 'block',
       },
       {
         name: 'Me multaron',
-        key: 'Multa',
+        key: 'fine',
       },
       {
         name: 'Me suspendieron',
-        key: 'Suspension',
+        key: 'suspension',
       },
       {
         name: 'La tasa de aceptación cayó sin motivos',
-        key: 'Tasa',
+        key: 'rate_drop',
       },
       {
         name: 'Me robaron mientras trabajaba',
-        key: 'Robo',
+        key: 'theft',
       },
       {
         name: 'Otros',
-        key: 'Otros',
+        key: 'other',
       },
     ];
 

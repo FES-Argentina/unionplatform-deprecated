@@ -143,8 +143,29 @@ export function setEnrollmentRequest(values) {
 }
 
 export function setComplaintRequest(values) {
+  const data = {
+    _links : {
+      type : {
+        href : `${Config.API_URL}/rest/type/node/complaints`
+      }
+    },
+    type : [{ target_id : 'complaints' }],
+    title : [{ value : "Complaint PRUEBA" }],
+    field_address_complaint : [{ value : values.address }],
+    field_company_complaint : [{ value : values.company }],
+    field_tasks : [{ value : values.tasks }],
+    field_firstname : [{ value : values.firstname }],
+    field_lastname : [{ value : values.lastname }],
+    field_email : [{ value : values.email }],
+    field_phonenumber : [{ value : values.phonenumber }],
+    field_problem : [{ value : values.problem }],
+    field_seniority : [{ value : values.seniority }],
+    field_description : [{ value : "Descripcion de la denuncia" }],
+  };
+
+  const headers = buildHeaders(true);
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/complaints`, { complaint: values })
+    return api.post(`${Config.API_URL}/node?_format=hal_json`, data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -162,7 +183,7 @@ export function changeUserPass(id, data) {
 export function getComplaintsRequest() {
   const headers = buildHeaders(false);
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/complaints`. { headers })
+    return api.get(`${Config.API_URL}/complaints`, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
