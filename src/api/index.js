@@ -160,7 +160,7 @@ export function setComplaintRequest(values) {
     field_phonenumber : [{ value : values.phonenumber }],
     field_problem : [{ value : values.problem }],
     field_seniority : [{ value : values.seniority }],
-    field_description : [{ value : "Descripcion de la denuncia" }],
+    field_description: [{ value: values.description }],
   };
 
   const headers = buildHeaders(true);

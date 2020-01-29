@@ -336,17 +336,40 @@ class Complaint extends React.Component {
                   color="grey"
                 />
               )}
-              returnKeyType="done"
+              returnKeyType="next"
               ref={ input => {
                 this.inputs['tasks'] = input;
+              }}
+              onSubmitEditing={() => {
+                this.focusNextField('description');
+              }}
+              blurOnSubmit={false}
+            />
+            {errors.tasks && touched.tasks ? (
+              <Text style={styles.formError}>{errors.tasks}</Text>
+            ) : null }
+
+            <Input
+              label="Observaciones"
+              mode="outlined"
+              value={values.description}
+              onChangeText={handleChange('description')}
+              onBlur={handleBlur('description')}
+              placeholder="Ingrese las observaciones necesarias"
+              labelStyle={styles.inputslabel}
+              valid={touched.description && !errors.description}
+              error={touched.description && errors.description}
+              returnKeyType="done"
+              ref={ input => {
+                this.inputs['description'] = input;
               }}
               onSubmitEditing={() => {
                 submitForm();
               }}
               blurOnSubmit={false}
             />
-          {errors.tasks && touched.tasks ? (
-                <Text style={styles.formError}>{errors.tasks}</Text>
+            {errors.description && touched.description ? (
+              <Text style={styles.formError}>{errors.description}</Text>
             ) : null }
 
 
