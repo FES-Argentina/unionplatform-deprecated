@@ -37,33 +37,28 @@ p{
     <p class="isotipo">Asociación de Personal de Plataformas</p>
   </div>
   <h4 class="mt">Sistema de Autogestión Electrónico de Denuncias</h4>
-  <p><strong>Denuncia: </strong> ${complaint.problems}</p>
-  <p>${complaint.summary}</p>
+  <p><strong>Denuncia: </strong> ${complaint.problem}</p>
+  <p>${complaint.description}</p>
   <table class="mt">
     <tr>
       <th>Item</th>
       <th>Descripcion</th>
-      <th>Pais</th>
     </tr>
     <tr>
       <td>Fecha</td>
       <td>${complaint.date}</td>
-      <td>Argentina</td>
     </tr>
     <tr>
-      <td>Ciudad</td>
-      <td>${complaint.city}</td>
-      <td>Argentina</td>
+      <td>Dirección</td>
+      <td>${complaint.address}</td>
     </tr>
     <tr>
       <td>Empresa</td>
       <td>${complaint.company}</td>
-      <td>Argentina</td>
     </tr>
     <tr>
       <td>Id</td>
       <td>${complaint.id}</td>
-      <td>Argentina</td>
     </tr>
   </table>
   <h4 class="mt">Sobre el usuario</h4>
@@ -71,27 +66,22 @@ p{
     <tr>
       <th>Item</th>
       <th>Descripcion</th>
-      <th>Pais</th>
     </tr>
     <tr>
       <td>Nombre y apellido</td>
       <td>${complaint.firstname} ${complaint.lastname}</td>
-      <td>Argentina</td>
     </tr>
     <tr>
       <td>Teléfono</td>
       <td>${complaint.phonenumber} </td>
-      <td>Argentina</td>
     </tr>
     <tr>
       <td>Antigüedad</td>
       <td>${complaint.seniority}</td>
-      <td>Argentina</td>
     </tr>
     <tr>
       <td>Tareas</td>
       <td>${complaint.tasks}</td>
-      <td>Argentina</td>
     </tr>
   </table>
   <p class="mt legal">Legales:  Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae tempor turpis, sed interdum dolor. Sed sem elit, euismod fringilla dignissim ac, egestas non augue. Vivamus tempus aliquam nibh quis molestie. Sed in neque aliquet, blandit massa quis, pretium dui. Fusce vitae tortor vel nulla vehicula lobortis.
@@ -108,6 +98,5 @@ export const createPdf = async (complaint, images) => {
   };
 
   const file = await RNHTMLtoPDF.convert(options);
-  //alert(file.filePath);
   return file;
 };
