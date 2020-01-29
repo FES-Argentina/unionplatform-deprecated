@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   View,
   TouchableOpacity,
   Image,
@@ -349,13 +350,13 @@ const DrawerNavigator = createDrawerNavigator({
 },
 {
   contentComponent: (props) => (
-    <View>
+    <ScrollView>
       <SafeAreaView forceInset={{ horizontal: 'never' }}>
         <Image source={require('../../assets/images/app.jpg')} style={styles.itemPhoto}/>
         <DrawerItems {...props} />
         <LogoutButton />
       </SafeAreaView>
-    </View>
+    </ScrollView>
   ),
 });
 
