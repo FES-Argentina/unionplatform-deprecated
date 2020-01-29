@@ -6,46 +6,39 @@ import {
   Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Field from '../Field';
 import styles from '../styles';
 
 class ComplaintDetail extends React.Component {
 
 
   render() {
-    const { id, firstname, lastname, email, photo, description, phonenumber, address, seniority, problems, date, company, tasks } = this.props.navigation.state.params.item;
+    const { item } = this.props.navigation.state.params
     const { shareComplaint } = this.props;
 
     return (
       <ScrollView>
         <View style={styles.containerMargin}>
-          <Text style={styles.titleNews}>{problems}</Text>
+          <Text style={styles.titleNews}>{item.problems}</Text>
           <View>
             <Text style={styles.complaintTitles}>Detalle</Text>
-            <Text style={styles.bodyDetail}>{description}</Text>
-            <Text style={styles.titlesDetail}>Fecha</Text>
-            <Text style={styles.bodyDetail}>{date}</Text>
-            <Text style={styles.titlesDetail}>Dirección</Text>
-            <Text style={styles.bodyDetail}>{address}</Text>
-            <Text style={styles.titlesDetail}>Empresa</Text>
-            <Text style={styles.bodyDetail}>{company}</Text>
-            <Text style={styles.titlesDetail}>ID de la denuncia</Text>
-            <Text style={styles.bodyDetail}>{id}</Text>
+            <Text style={styles.bodyDetail}>{item.description}</Text>
+            <Field label="Fecha" value={item.date} />
+            <Field label="Dirección" value={item.address} />
+            <Field label="Empresa" value={item.company} />
+            <Field label="ID de la denuncia" value={item.id} />
           </View>
           <View>
             <Text style={styles.complaintTitles}>Sobre el usuario</Text>
-            <Text style={styles.titlesDetail}>Nombre y apellido</Text>
-            <Text style={styles.bodyDetail}>{firstname} {lastname}</Text>
-            <Text style={styles.titlesDetail}>Teléfono</Text>
-            <Text style={styles.bodyDetail}>{phonenumber}</Text>
-            <Text style={styles.titlesDetail}>Antiguedad</Text>
-            <Text style={styles.bodyDetail}>{seniority}</Text>
-            <Text style={styles.titlesDetail}>Tareas</Text>
-            <Text style={styles.bodyDetail}>{tasks}</Text>
+            <Field label="Nombre y apellido" value={`${item.firstname} ${item.lastname}`} />
+            <Field label="Teléfono" value={item.phonenumber} />
+            <Field label="Antigüedad" value={item.seniority} />
+            <Field label="Tareas" value={item.tasks} />
           </View>
           <View>
             <Text style={styles.complaintTitles}>Archivos adjuntos</Text>
               <Image
-                source={{ uri: photo }}
+                source={{ uri: item.photo }}
                 style={styles.photoNews}
               />
           </View>
