@@ -31,7 +31,9 @@ class ComplaintList extends React.Component {
   }
 
   shareComplaint = async (item) => {
+    const { showProcessing } = this.props;
     try {
+      const { showProcessing } = this.props;
       const file = await createPdf(item);
       if (file.filePath) {
         Share.open({
@@ -93,6 +95,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadComplaints: () => dispatch(getComplaints()),
+  showProcessing: (status) => dispatch(processing(status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComplaintList);
