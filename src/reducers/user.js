@@ -1,10 +1,10 @@
-import { GET_USER_SUCCESS, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS_SUCCESS, GET_COMPLAINTS_SUCCESS } from '../constants';
+import { GET_USER_SUCCESS, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS_SUCCESS, GET_COMPLAINTS_SUCCESS } from '../constants';
 
 const initialState = {
   authToken: null,
   logoutToken: null,
   cookie: null,
-  user: {},
+  profile: {},
   item: {},
   enrollments: [],
   complaints: [],
@@ -18,6 +18,7 @@ const userReducer = (state = initialState, action) => {
         authToken: action.tokens.csrf,
         logoutToken: action.tokens.logout,
         cookie: action.cookie,
+        profile: action.current_user,
       };
     case UPDATE_USER_SUCCESS:
       return {
@@ -39,12 +40,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         complaints: action.payload,
       };
-    case LOGOUT_REQUEST:
-      return {
-        ...state,
-        user: {},
-        item: {},
-      }
     case CHANGE_USER_PASS_SUCCESS:
       return {
         ...state,
