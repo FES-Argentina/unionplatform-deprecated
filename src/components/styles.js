@@ -170,15 +170,16 @@ const styles = StyleSheet.create({
     width: 200,
   },
   // profile
-  mailsProfile: {
-    paddingTop: 20,
-    flexDirection: 'row',
-    paddingLeft: 15,
-  },
-  detailProfile: {
-    fontSize: 16,
-    paddingLeft: 10,
+  profileName: {
+    fontSize: 24,
     fontWeight: 'bold',
+    paddingHorizontal: 15,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  profileAddress: {
+    paddingLeft: 15,
+    marginBottom: 10,
   },
   // simplelist
   imagesList: {
@@ -270,6 +271,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  // Address
+  addressCity: {
+    flexDirection: 'row',
+  }
 });
 
 export default styles;

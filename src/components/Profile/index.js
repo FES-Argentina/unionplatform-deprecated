@@ -7,21 +7,22 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Share from 'react-native-share';
+import moment from 'moment';
 import { getUser } from '../../actions/user';
 import { processing } from '../../actions';
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
-import Share from 'react-native-share';
 import { createPdf } from '../../utils/pdf';
+import Field from '../Field';
+import Address from '../Address';
 
 import styles from '../styles';
 
 class Profile extends React.Component {
   componentDidMount = () => {
-    const { loadUser } = this.props;
-    //FIX id user
-    loadUser('IhK');
+    const { loadUser, id } = this.props;
+    loadUser(id);
   }
 
   shareComplaint = async (item) => {
@@ -45,41 +46,42 @@ class Profile extends React.Component {
   }
 
   render() {
-    if (!this.props.data.id) {
+    if (!this.props.id) {
       return null;
     }
 
-    const {
-      id, email, workemail, complaints, companies
-    } = this.props.data;
+    const { data } = this.props;
+    const fullname = (data.firstname && data.lastname) ? `${data.firstname} ${data.lastname}` : '-';
+    const date = moment(new Date(data.created));
+    var birthdate = moment.utc(new Date(data.birthdate));
 
     return (
         <ScrollView>
           <SafeAreaView style={styles.containerStandar}>
-          <Text style={styles.titleNews}>ID</Text>
-          <Text style={styles.summaryText}>{id}</Text>
-          <Text style={styles.detailProfile}>Empresa</Text>
-          <View style={styles.summaryText}>
-              {companies.map((item) =>
-                <Text>
-                  {item}
-                </Text>
-              )}
-          </View>
-          <View style={styles.mailsProfile}>
-            <FontAwesome5 name="envelope" solid size={15} />
-            <Text style={styles.detailProfile}>Personal</Text>
-          </View>
-          <Text style={styles.summaryText}>{email}</Text>
-          <View style={styles.mailsProfile}>
-            <FontAwesome5 name="envelope" solid size={15}/>
-            <Text style={styles.detailProfile}>Trabajo</Text>
-          </View>
-          <Text style={styles.summaryText}>{workemail}</Text>
-          <Text style={styles.detailProfile}>Últimas denuncias</Text>
-            {
-              complaints.slice(0, 2).map((item) => <ComplaintSmall item={item} onShare={this.shareComplaint} />)
-            }
+            <Text style={styles.profileName}>{fullname}</Text>
+            <Field label="Usuarix" value={data.username} />
+            <Field label="Miembrx desde" value={date.format('DD/MM/YYYY')} />
+            <Field label="Correo electrónico" value={data.mail} />
+            <Field label="CUIT" value={data.cuit} />
+            <Field label="DNI" value={data.dni} />
+            <Field label="Teléfono" value={data.phonenumber} />
+            <Field label="Fecha de nacimiento" value={birthdate.format('DD/MM/YYYY')} />
+            <Field label="Nacionalidad" value={data.nationality} />
+
+            <Text style={styles.titlesDetail}>Dirección</Text>
+            <View style={styles.profileAddress}>
+              <Address
+                address={data.address}
+                city={data.city}
+                province={data.province}
+                postalcode={data.postalcode}
+                country={data.country}
+              />
+            </View>
+
+            <Field label="Empresa" value={data.companies.join(', ')} />
+            <Field label="Tareas" value={data.tasks} />
+
           </SafeAreaView>
         </ScrollView>
     );
@@ -87,70 +89,34 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  id: PropTypes.string,
-  username: PropTypes.string,
-  firstname: PropTypes.string,
-  lastname: PropTypes.string,
-  email: PropTypes.string,
-  workemail: PropTypes.string,
-  companies: PropTypes.arrayOf(PropTypes.string),
-  complaints: PropTypes.arrayOf(PropTypes.object),
+  id: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
+    companies: PropTypes.string.isRequired,
+    created: PropTypes.string,
+    birthdate: PropTypes.string,
+    mail: PropTypes.string,
+    cuit: PropTypes.string,
+    dni: PropTypes.string,
+    phonenumber: PropTypes.string,
+    address: PropTypes.string,
+    city: PropTypes.string,
+    province: PropTypes.string,
+    postalcode: PropTypes.string,
+    country: PropTypes.string,
+    tasks: PropTypes.string,
+    nationality: PropTypes.string,
+  }).isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-Profile.defaultProps = {
-  "firstname": "rutrum",
-  "lastname": "dolor",
-  "id": "123123",
-  "email": "SDeskins@gilla.org",
-  "workemail": "asdas@frina.org",
-  "username": "COwlett",
-  "pass": "zDMM5mrp",
-  "complaints": [
-    {
-      "id": "dQ",
-      "photo": "https://via.placeholder.com/600/771796",
-      "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur",
-      "firstname": "ohnk",
-      "lastname": "sit",
-      "email": "JPoer@velit.io",
-      "username": "WRamsey",
-      "phonenumber": "15326489",
-      "city": "CABA",
-      "seniority": "3 meses",
-      "companies": [
-        "Rappi",
-        "Glovo"
-      ],
-      "problems": "Accidente con la bicicleta",
-      "date": "2019/08/08"
-    },
-    {
-      "id": "dQ",
-      "photo": "https://via.placeholder.com/600/771796",
-      "summary": "Id amet ante dolor velit tempor magna tempor sed orci tortor ipsum consectetur",
-      "firstname": "ohnk",
-      "lastname": "sit",
-      "email": "JPoer@velit.io",
-      "username": "WRamsey",
-      "phonenumber": "15326489",
-      "city": "CABA",
-      "seniority": "6 meses",
-      "companies": [
-        "Rappi",
-        "Glovo"
-      ],
-      "problems": "Accidente con la bicicleta",
-      "date": "2019/10/08"
-    }
-  ]
-};
-
-
 const mapStateToProps = (state) => ({
-  data: state.user.item,
+  id: state.user.id,
+  data: state.user.profile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
