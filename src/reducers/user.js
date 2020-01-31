@@ -1,9 +1,19 @@
-import { GET_USER_SUCCESS, SET_AUTH, UPDATE_USER_SUCCESS, SET_ENROLLMENT_SUCCESS, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS_SUCCESS, GET_COMPLAINTS_SUCCESS } from '../constants';
+import {
+  GET_USER_SUCCESS,
+  SET_AUTH,
+  UPDATE_USER_SUCCESS,
+  SET_ENROLLMENT_SUCCESS,
+  SET_COMPLAINT_SUCCESS,
+  CHANGE_USER_PASS_SUCCESS,
+  GET_COMPLAINTS_SUCCESS,
+} from '../constants';
+import { userFields } from '../api/mappings';
 
 const initialState = {
   authToken: null,
   logoutToken: null,
   cookie: null,
+  id: null,
   profile: {},
   item: {},
   enrollments: [],
@@ -18,7 +28,7 @@ const userReducer = (state = initialState, action) => {
         authToken: action.tokens.csrf,
         logoutToken: action.tokens.logout,
         cookie: action.cookie,
-        profile: action.current_user,
+        id: action.current_user ? action.current_user.id : null,
       };
     case UPDATE_USER_SUCCESS:
       return {
@@ -26,9 +36,30 @@ const userReducer = (state = initialState, action) => {
         user: state.user,
       };
     case GET_USER_SUCCESS:
+      let profile = {};
+      const data = action.payload;
+      // Flatten the returned data structure before storing.
+      for (let [key, info] of Object.entries(userFields)) {
+        if (data[key]) {
+          if (data[key] && data[key].length && data[key][0][info.externalKey]) {
+            if (data[key].length > 1) {
+              profile[info.fieldName] = [];
+              for (i = 0; i < data[key].length; i++) {
+                profile[info.fieldName][i] = data[key][i][info.externalKey];
+              }
+            }
+            else {
+              profile[info.fieldName] = data[key][0][info.externalKey];
+            }
+          }
+          else {
+            profile[info.fieldName] = null;
+          }
+        }
+      }
       return {
         ...state,
-        item: action.payload,
+        profile: profile,
       };
     case SET_ENROLLMENT_SUCCESS:
       return {

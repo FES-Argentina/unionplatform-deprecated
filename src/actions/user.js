@@ -24,7 +24,7 @@ export function setAuth(response) {
     },
     cookie: response.cookie[0],
     current_user: {
-      name: response.data.current_user.name,
+      username: response.data.current_user.name,
       id: response.data.current_user.uid,
     },
   };

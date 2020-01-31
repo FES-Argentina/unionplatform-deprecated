@@ -73,7 +73,7 @@ export function* logoutFlow() {
   while (true) {
     yield take(LOGOUT_REQUEST);
     yield call(logout);
-    yield put(setLogout(null));
+    yield put(setLogout());
     yield call(redirectAuth);
   }
 }

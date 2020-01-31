@@ -103,8 +103,9 @@ export function updateUser(id, data) {
 }
 
 export function getUserRequest(id) {
+  const headers = buildHeaders(false);
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/users/${id}`)
+    return api.get(`${Config.API_URL}/user/${id}?_format=json`, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
