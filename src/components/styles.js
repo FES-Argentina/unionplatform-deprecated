@@ -271,6 +271,14 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  // Field
+  fieldIcon: {
+    paddingLeft: 10,
+    marginTop: 5,
+  },
+  fieldLabel: {
+    flexDirection: 'row',
+  },
   // Address
   addressCity: {
     flexDirection: 'row',
