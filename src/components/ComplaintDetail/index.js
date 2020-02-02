@@ -8,7 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import Field from '../Field';
 import styles from '../styles';
-import { getProblemLabel, getCompanyLabel } from '../../utils/values';
+import { getProblemLabel, getCompanyLabel, getSeniorityLabel } from '../../utils/values';
 
 class ComplaintDetail extends React.Component {
 
@@ -33,7 +33,7 @@ class ComplaintDetail extends React.Component {
             <Text style={styles.complaintTitles}>Sobre el usuario</Text>
             <Field label="Nombre y apellido" value={`${item.firstname} ${item.lastname}`} />
             <Field label="Teléfono" value={item.phonenumber} />
-            <Field label="Antigüedad" value={item.seniority} />
+            <Field label="Antigüedad" value={getSeniorityLabel(item.seniority)} />
             <Field label="Tareas" value={item.tasks} />
           </View>
           {item.photo ? (

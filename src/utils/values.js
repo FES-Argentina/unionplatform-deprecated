@@ -75,6 +75,21 @@ export const problemTypes = [
   },
 ];
 
+export const seniorities = [
+  {
+    name: 'Menos de 3 meses',
+    key: 'less_than_3',
+  },
+  {
+    name: 'Más de 3 meses',
+    key: 'more_than_3',
+  },
+  {
+    name: 'Más de un año',
+    key: 'year',
+  }
+];
+
 const getName = (list, key) => {
   const item = list.find((item) => {
     if (item.key == key) {
@@ -87,6 +102,10 @@ const getName = (list, key) => {
   }
 }
 
+export const getKeys = (list) => {
+  return list.map(e => e.key)
+}
+
 export const getCompanyLabel = (key) => {
   return getName(companies, key);
 }
@@ -97,4 +116,8 @@ export const getProblemLabel = (key) => {
 
 export const getAlertLabel = (key) => {
   return getName(alertTypes, key);
+}
+
+export const getSeniorityLabel = (key) => {
+  return getName(seniorities, key);
 }

@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { setComplaint } from '../../actions/user';
 import PropTypes from 'prop-types';
 import styles from '../styles';
-import { companies, problemTypes } from '../../utils/values';
+import { companies, problemTypes, seniorities, getKeys } from '../../utils/values';
 
 const validationSchema = yup.object().shape({
   firstname: yup
@@ -41,22 +41,17 @@ const validationSchema = yup.object().shape({
     .label('Localidad')
     .min(4, "Ingrese un valor válido")
     .required("Campo requerido"),
-  seniority: yup
-    .number()
-    .min(1, 'La antigüedad debe tener al menos ${min} caracter')
-    .typeError('La antigüedad debe estar expresado en números')
-    .positive('La antigüedad debe ser mayor a 0')
-    .label('Antigüedad')
-    .required("Campo requerido"),
   tasks: yup
     .string()
     .label('Tareas')
     .min(3, "Ingrese un valor válido")
     .required("Campo requerido"),
+  seniorities: yup
+    .string().isRequired,
   companies: yup
-    .boolean().oneOf([true], 'Por favor elegir al menos una'),
+    .string().isRequired,
   problems: yup
-    .boolean().oneOf([true], 'Por favor elegir al menos una')
+    .string().isRequired,
 });
 
 class Complaint extends React.Component {
@@ -242,37 +237,9 @@ class Complaint extends React.Component {
             ) : null }
 
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Input
-              label="Antigüedad"
-              mode="outlined"
-              value={values.seniority}
-              onChangeText={handleChange('seniority')}
-              onBlur={handleBlur('seniority')}
-              placeholder="Ingrese su antigüedad"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="star"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['seniority'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('tasks');
-              }}
-              blurOnSubmit={false}
-              valid={touched.seniority && !errors.seniority}
-              error={touched.seniority && errors.seniority}
-            />
-            {errors.seniority && touched.seniority ? (
-              <Text style={styles.formError}>{errors.seniority}</Text>
-            ) : null }
-            <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue}/>
-            <Select options={problemTypes} name="problem" label="Problema" setFieldValue={setFieldValue}/>
+            <Select options={seniorities} name="seniority" label="Antigüedad" setFieldValue={setFieldValue} />
+            <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
+            <Select options={problemTypes} name="problem" label="Problema" setFieldValue={setFieldValue} />
 
             <Input
               label="Tareas"
