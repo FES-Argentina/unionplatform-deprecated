@@ -1,27 +1,24 @@
 import React from 'react';
-import { Alert, TouchableHighlight, View } from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { getProblemLabel, getCompanyLabel } from '../../utils/values';
+import NavigationService from '../../navigation/NavigationService';
 import Field from '../Field';
 import styles from '../styles';
 
 class ComplaintSmall extends React.Component {
-  itemView = () => {
-    // TODO: Implement item view.
-    Alert.alert('Item view');
+  itemView = (item) => {
+    NavigationService.navigate('ComplaintDetail', {item} );
   }
 
   render() {
     const { item, onShare } = this.props;
     return (
-      <TouchableHighlight onPress={this.itemView} style={styles.complaintSmall}>
+      <TouchableHighlight onPress={() => this.itemView(item)} style={styles.complaintSmall}>
         <View>
-          <Field label="Denuncia" value={item.id} />
-          <Field label="Problemas" value={item.problems} />
-          <Field label="Empresa" value={item.companies} />
-          <Field label="Descripcion" value={item.summary} />
-          <Field label="Fecha" value={item.date} />
-          <Button onPress={() => onShare(this)} title="Compartir" />
+          <Field label={getProblemLabel(item.problem)} value={`${item.date}, ${getCompanyLabel(item.company)}`} />
+          <Button onPress={() => onShare(item)} title="Compartir" />
         </View>
       </TouchableHighlight>
     );

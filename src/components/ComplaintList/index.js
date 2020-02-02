@@ -34,7 +34,7 @@ class ComplaintList extends React.Component {
   shareComplaint = async (item) => {
     const { showProcessing } = this.props;
     try {
-      const { showProcessing } = this.props;
+      showProcessing(true);
       const file = await createPdf(item);
       if (file.filePath) {
         Share.open({

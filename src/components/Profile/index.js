@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Share from 'react-native-share';
 import moment from 'moment';
-import { getUser } from '../../actions/user';
+import { getComplaints, getUser } from '../../actions/user';
 import { processing } from '../../actions';
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
@@ -21,8 +21,9 @@ import styles from '../styles';
 
 class Profile extends React.Component {
   componentDidMount = () => {
-    const { loadUser, id } = this.props;
+    const { loadComplaints, loadUser, id } = this.props;
     loadUser(id);
+    loadComplaints();
   }
 
   shareComplaint = async (item) => {
@@ -50,7 +51,7 @@ class Profile extends React.Component {
       return null;
     }
 
-    const { data } = this.props;
+    const { data, complaints } = this.props;
     const fullname = (data.firstname && data.lastname) ? `${data.firstname} ${data.lastname}` : '-';
     const date = moment(new Date(data.created));
     var birthdate = moment.utc(new Date(data.birthdate));
@@ -81,6 +82,12 @@ class Profile extends React.Component {
 
             <Field label="Empresa" value={data.companies.join(', ')} />
             <Field label="Tareas" value={data.tasks} />
+
+            <Text style={styles.titleNews}>Últimas denuncias</Text>
+            {complaints && complaints.length ?
+              complaints.slice(0,2).map((item) => <ComplaintSmall item={item} onShare={this.shareComplaint} />)
+                : <Text style={styles.bodyDetail}>No hay denuncias</Text>
+            }
 
           </SafeAreaView>
         </ScrollView>
@@ -117,10 +124,12 @@ Profile.propTypes = {
 const mapStateToProps = (state) => ({
   id: state.user.id,
   data: state.user.profile,
+  complaints: state.user.complaints,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadUser: (id) => dispatch(getUser(id)),
+  loadComplaints: () => dispatch(getComplaints()),
   showProcessing: (status) => dispatch(processing(status)),
 });
 
