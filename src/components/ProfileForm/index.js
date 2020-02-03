@@ -13,6 +13,11 @@ import styles from '../styles';
 import { companies } from '../../utils/values';
 
 const validationSchema = yup.object().shape({
+  username: yup
+    .string()
+    .label('Usuarix')
+    .min(3, 'El nombre de usuarix debe tener más de ${min} caracteres')
+    .required('Campo requerido'),
   firstname: yup
     .string()
     .label('Nombre')
@@ -144,6 +149,64 @@ class ProfileForm extends React.Component {
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
+
+            {!profile.username ? (
+              <>
+                <Input
+                  label="Usuarix"
+                  mode="outlined"
+                  value={values.username}
+                  onChangeText={handleChange('username')}
+                  onBlur={handleBlur('username')}
+                  placeholder="Ingrese un nombre de usuarix"
+                  labelStyle={styles.inputslabel}
+                  leftIcon={(
+                    <Icon name="user" size={12} color="grey" />
+                  )}
+                  returnKeyType="next"
+                  ref={(input) => {
+                    this.inputs.username = input;
+                  }}
+                  onSubmitEditing={() => {
+                    this.focusNextField('mail');
+                  }}
+                  blurOnSubmit={false}
+                  valid={touched.username && !errors.username}
+                  error={touched.username && errors.username}
+                />
+                {errors.username && touched.username ? (
+                  <Text style={styles.formError}>{errors.username}</Text>
+                ) : null }
+                <Input
+                  label="E-mail"
+                  mode="outlined"
+                  value={values.mail}
+                  onChangeText={handleChange('mail')}
+                  onBlur={handleBlur('mail')}
+                  placeholder="Ingrese su e-mail"
+                  labelStyle={styles.inputslabel}
+                  leftIcon={(
+                    <Icon name="envelope" size={12} color="grey" />
+                  )}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  returnKeyType="next"
+                  ref={(input) => {
+                    this.inputs.mail = input;
+                  }}
+                  onSubmitEditing={() => {
+                    this.focusNextField('firstname');
+                  }}
+                  blurOnSubmit={false}
+                  valid={touched.mail && !errors.mail}
+                  error={touched.mail && errors.mail}
+                />
+                {errors.mail && touched.mail ? (
+                  <Text style={styles.formError}>{errors.mail}</Text>
+                ) : null }
+              </>
+            ) : null }
+
             <Input
               label="Nombre"
               mode="outlined"
@@ -153,11 +216,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su nombre"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="user"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="user" size={12} color="grey" />
               )}
               returnKeyType="next"
               ref={(input) => {
@@ -182,18 +241,14 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su apellido"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="user"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="user" size={12} color="grey" />
               )}
               returnKeyType="next"
               ref={(input) => {
                 this.inputs.lastname = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('mail');
+                this.focusNextField('phonenumber');
               }}
               blurOnSubmit={false}
               valid={touched.lastname && !errors.lastname}
@@ -201,33 +256,6 @@ class ProfileForm extends React.Component {
             />
             {errors.lastname && touched.lastname ? (
               <Text style={styles.formError}>{errors.lastname}</Text>
-            ) : null }
-            <Input
-              label="E-mail"
-              mode="outlined"
-              value={values.mail}
-              onChangeText={handleChange('mail')}
-              onBlur={handleBlur('mail')}
-              placeholder="Ingrese su e-mail"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon name="envelope" size={12} color="grey" />
-              )}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              returnKeyType="next"
-              ref={(input) => {
-                this.inputs.mail = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('phonenumber');
-              }}
-              blurOnSubmit={false}
-              valid={touched.mail && !errors.mail}
-              error={touched.mail && errors.mail}
-            />
-            {errors.mail && touched.mail ? (
-              <Text style={styles.formError}>{errors.mail}</Text>
             ) : null }
             <Input
               label="Teléfono"
@@ -238,11 +266,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su teléfono"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="phone"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="phone" size={12} color="grey" />
               )}
               keyboardType="phone-pad"
               autoCapitalize="none"
@@ -292,11 +316,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su teléfono"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               keyboardType="phone-pad"
               autoCapitalize="none"
@@ -323,11 +343,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su dni"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               keyboardType="phone-pad"
               autoCapitalize="none"
@@ -354,11 +370,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su nacionalidad"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               returnKeyType="next"
               ref={(input) => {
@@ -383,11 +395,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su direccion"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               returnKeyType="next"
               ref={(input) => {
@@ -412,11 +420,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su código postal"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               keyboardType="phone-pad"
               autoCapitalize="none"
@@ -443,11 +447,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su ciudad"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               returnKeyType="next"
               ref={(input) => {
@@ -472,11 +472,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su provincia"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               returnKeyType="next"
               ref={(input) => {
@@ -501,11 +497,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese el país"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               returnKeyType="next"
               ref={(input) => {
@@ -532,11 +524,7 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese sus tareas"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="address-card" size={12} color="grey" />
             )}
               returnKeyType="done"
               ref={(input) => {
