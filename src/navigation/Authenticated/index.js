@@ -300,7 +300,7 @@ const DrawerNavigator = createDrawerNavigator({
   ComplaintList: {
     screen: ComplaintListStackNavigator,
     navigationOptions: {
-      drawerLabel: 'Mis denuncia',
+      drawerLabel: 'Mis denuncias',
       drawerIcon: () => (
         <FontAwesome5 name="burn" solid size={15} />
       ),
