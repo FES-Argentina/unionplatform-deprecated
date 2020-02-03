@@ -14,9 +14,9 @@ import { processing } from '../../actions';
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
 import { createPdf } from '../../utils/pdf';
+import { getCompanyLabel } from '../../utils/values';
 import Field from '../Field';
 import Address from '../Address';
-
 import styles from '../styles';
 
 class Profile extends React.Component {
@@ -54,7 +54,8 @@ class Profile extends React.Component {
     const { data, complaints } = this.props;
     const fullname = (data.firstname && data.lastname) ? `${data.firstname} ${data.lastname}` : '-';
     const date = moment(new Date(data.created));
-    var birthdate = moment.utc(new Date(data.birthdate));
+    let birthdate = moment.utc(new Date(data.birthdate));
+    let companies = (data.companies) ? data.companies.map(getCompanyLabel).join(', ') : 'N/D';
 
     return (
         <ScrollView>
@@ -80,7 +81,7 @@ class Profile extends React.Component {
               />
             </View>
 
-            <Field label="Empresa" value={data.companies.join(', ')} />
+            <Field label="Empresa" value={companies} />
             <Field label="Tareas" value={data.tasks} />
 
             <Text style={styles.titleNews}>Últimas denuncias</Text>

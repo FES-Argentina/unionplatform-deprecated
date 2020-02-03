@@ -6,15 +6,16 @@ import styles from '../styles';
 export default class Selector extends Component {
   constructor(props) {
     super(props);
+    const { defaultValue } = this.props;
     this.state = {
-      selectedItems: [],
+      selectedItems: (defaultValue) ? defaultValue : [],
     };
   }
 
   updateValue = async (itemValue) => {
     await this.setState({ selectedItems: itemValue });
     const { name } = this.props;
-    this.props.setFieldValue(name, this.state.selectedItems);
+    this.props.setFieldValue(name, itemValue);
   };
 
   render() {

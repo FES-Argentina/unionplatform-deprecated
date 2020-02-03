@@ -522,7 +522,7 @@ class ProfileForm extends React.Component {
               <Text style={styles.formError}>{errors.country}</Text>
             ) : null }
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Selector items={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
+            <Selector items={companies} name="company" defaultValue={profile.companies} label="Empresa" setFieldValue={setFieldValue} />
             <Input
               label="Tareas"
               mode="outlined"
