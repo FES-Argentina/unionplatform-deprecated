@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Selector from '../form/Selector';
-
+import { companies } from '../../utils/values';
 import styles from '../styles';
 
 import { updateUserAction } from '../../actions/user';
@@ -50,15 +50,6 @@ class ProfileEdit extends React.Component {
 
 
   render() {
-    // FIXME: companies values
-    const items = [
-      { id: 'Cabify', name: 'Cabify' },
-      { id: 'Uber', name: 'Uber' },
-      { id: 'Glovo', name: 'Glovo' },
-      { id: 'Rappi', name: 'Rappi' },
-    ];
-
-
     // FIXME: user id value
     return (
       <Formik
@@ -73,7 +64,7 @@ class ProfileEdit extends React.Component {
           values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur
         }) => (
           <ScrollView>
-            <Selector items={items} name="company" label="Empresa" setFieldValue={setFieldValue}/>
+            <Selector items={companies} name="company" label="Empresa" setFieldValue={setFieldValue}/>
             <Text style={styles.formTitles}>Perfil</Text>
 
               <Input

@@ -27,7 +27,7 @@ export default class Selector extends Component {
           <View style={{ flex: 1, paddingHorizontal: 10}}>
             <MultiSelect
               items={items}
-              uniqueKey="id"
+              uniqueKey="key"
               ref={component => {
                 this.multiSelect = component;
               }}

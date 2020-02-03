@@ -12,6 +12,7 @@ import Selector from '../form/Selector';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 import styles from '../styles';
+import { companies } from '../../utils/values';
 
 const regExp = /\b\d{5}\b/;
 
@@ -135,13 +136,6 @@ class Enrollment extends React.Component {
 
   render() {
     const { show, date, mode } = this.state;
-    const items = [
-      { id: 'Cabify', name: 'Cabify' },
-      { id: 'Uber', name: 'Uber' },
-      { id: 'Glovo', name: 'Glovo' },
-      { id: 'Rappi', name: 'Rappi' },
-    ];
-
     return (
       <Formik
         initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', city: '',  tasks: '', nationality: '', cuit: '', dni: '', street: '', postalcode: '', province: '', country: ''  }}
@@ -532,7 +526,7 @@ class Enrollment extends React.Component {
                 <Text style={styles.formError}>{errors.country}</Text>
             ) : null }
           <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Selector items={items} name="company" label="Empresa" setFieldValue={setFieldValue}/>
+            <Selector items={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
               <Input
                 label="Tareas"
                 mode="outlined"
