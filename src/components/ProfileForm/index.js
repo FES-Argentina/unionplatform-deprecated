@@ -1,17 +1,16 @@
 import React from 'react';
 import {
-  View, Text, ScrollView,
+  View, Text, ScrollView, Platform,
 } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Button, Input, CheckBox } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
-import { setEnrollment } from '../../actions/user';
 import Selector from '../form/Selector';
 import styles from '../styles';
-import { companies, seniorities } from '../../utils/values';
+import { companies } from '../../utils/values';
 
 const validationSchema = yup.object().shape({
   firstname: yup
@@ -106,18 +105,20 @@ class ProfileForm extends React.Component {
   }
 
   onSubmit = (values) => {
-    values.birthdate = this.state.date;
+    const { date } = this.state;
+    const profile = {
+      birthdate: date,
+      ...values,
+    };
     const { onSubmit } = this.props;
-    onSubmit(values);
+    onSubmit(profile);
   }
 
-  setDate = (event, date) => {
-    date = date || this.state.date;
-
-    this.setState({
+  setDate = (event, value) => {
+    this.setState((prevState) => ({
       show: Platform.OS === 'ios',
-      date,
-    });
+      date: value || prevState.date,
+    }));
   }
 
   show = (mode) => {
@@ -133,28 +134,11 @@ class ProfileForm extends React.Component {
 
   render() {
     const { show, date, mode } = this.state;
-    let initialValues = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      phonenumber: '',
-      city: '',
-      tasks: '',
-      nationality: '',
-      cuit: '',
-      dni: '',
-      street: '',
-      postalcode: '',
-      province: '',
-      country: '',
-    };
-    if (this.props.profile && this.props.profile.length) {
-      initialValues = this.props.profile;
-    }
+    const { profile } = this.props;
 
     return (
       <Formik
-        initialValues={initialValues}
+        initialValues={profile}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
@@ -592,7 +576,6 @@ class ProfileForm extends React.Component {
 }
 
 ProfileForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   profile: PropTypes.shape({
     username: PropTypes.string.isRequired,
@@ -613,6 +596,26 @@ ProfileForm.propTypes = {
     tasks: PropTypes.string,
     nationality: PropTypes.string,
   }),
+};
+
+ProfileForm.defaultProps = {
+  profile: {
+    firstname: '',
+    lastname: '',
+    email: '',
+    phonenumber: '',
+    city: '',
+    tasks: '',
+    nationality: '',
+    cuit: '',
+    dni: '',
+    street: '',
+    postalcode: '',
+    province: '',
+    country: '',
+    birthdate: null,
+    companies: [],
+  },
 };
 
 export default ProfileForm;
