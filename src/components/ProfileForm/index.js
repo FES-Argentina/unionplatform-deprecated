@@ -28,16 +28,13 @@ const validationSchema = yup.object().shape({
     .label('Nacionalidad')
     .min(2, 'La nacionalidad debe tener más de ${min} caracteres')
     .required('Campo requerido'),
-  email: yup
+  mail: yup
     .string()
     .label('E-mail')
     .email('Ingrese un email válido')
     .required('Campo requerido'),
   phonenumber: yup
-    .number()
-    .min(8, 'El teléfono debe tener al menos ${min} caracteres')
-    .typeError('El teléfono debe estar expresado en números')
-    .positive('El teléfono debe ser mayor a 0')
+    .string()
     .label('Telefono')
     .required('Campo requerido'),
   dni: yup
@@ -61,7 +58,7 @@ const validationSchema = yup.object().shape({
     .positive('El código postal debe ser mayor a 0')
     .label('Código postal')
     .required('Campo requerido'),
-  street: yup
+  address: yup
     .string()
     .label('Calle')
     .min(2, 'La calle debe tener más de ${min} caracteres')
@@ -141,7 +138,6 @@ class ProfileForm extends React.Component {
         initialValues={profile}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ name: '' }}
       >
         {({
           values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit,
@@ -197,7 +193,7 @@ class ProfileForm extends React.Component {
                 this.inputs.lastname = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('email');
+                this.focusNextField('mail');
               }}
               blurOnSubmit={false}
               valid={touched.lastname && !errors.lastname}
@@ -209,33 +205,29 @@ class ProfileForm extends React.Component {
             <Input
               label="E-mail"
               mode="outlined"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
+              value={values.mail}
+              onChangeText={handleChange('mail')}
+              onBlur={handleBlur('mail')}
               placeholder="Ingrese su e-mail"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon
-                  name="envelope"
-                  size={12}
-                  color="grey"
-                />
+                <Icon name="envelope" size={12} color="grey" />
               )}
               keyboardType="email-address"
               autoCapitalize="none"
               returnKeyType="next"
               ref={(input) => {
-                this.inputs.email = input;
+                this.inputs.mail = input;
               }}
               onSubmitEditing={() => {
                 this.focusNextField('phonenumber');
               }}
               blurOnSubmit={false}
-              valid={touched.email && !errors.email}
-              error={touched.email && errors.email}
+              valid={touched.mail && !errors.mail}
+              error={touched.mail && errors.mail}
             />
-            {errors.email && touched.email ? (
-              <Text style={styles.formError}>{errors.email}</Text>
+            {errors.mail && touched.mail ? (
+              <Text style={styles.formError}>{errors.mail}</Text>
             ) : null }
             <Input
               label="Teléfono"
@@ -373,7 +365,7 @@ class ProfileForm extends React.Component {
                 this.inputs.nationality = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('street');
+                this.focusNextField('address');
               }}
               blurOnSubmit={false}
               valid={touched.nationality && !errors.nationality}
@@ -383,11 +375,11 @@ class ProfileForm extends React.Component {
               <Text style={styles.formError}>{errors.nationality}</Text>
             ) : null }
             <Input
-              label="Calle"
+              label="Dirección"
               mode="outlined"
-              value={values.street}
-              onChangeText={handleChange('street')}
-              onBlur={handleBlur('street')}
+              value={values.address}
+              onChangeText={handleChange('address')}
+              onBlur={handleBlur('address')}
               placeholder="Ingrese su direccion"
               labelStyle={styles.inputslabel}
               leftIcon={(
@@ -399,17 +391,17 @@ class ProfileForm extends React.Component {
             )}
               returnKeyType="next"
               ref={(input) => {
-                this.inputs.street = input;
+                this.inputs.address = input;
               }}
               onSubmitEditing={() => {
                 this.focusNextField('postalcode');
               }}
               blurOnSubmit={false}
-              valid={touched.street && !errors.street}
-              error={touched.street && errors.street}
+              valid={touched.address && !errors.address}
+              error={touched.address && errors.address}
             />
-            {errors.street && touched.street ? (
-              <Text style={styles.formError}>{errors.street}</Text>
+            {errors.address && touched.address ? (
+              <Text style={styles.formError}>{errors.address}</Text>
             ) : null }
             <Input
               label="Código postal"
@@ -602,14 +594,14 @@ ProfileForm.defaultProps = {
   profile: {
     firstname: '',
     lastname: '',
-    email: '',
+    mail: '',
     phonenumber: '',
     city: '',
     tasks: '',
     nationality: '',
     cuit: '',
     dni: '',
-    street: '',
+    address: '',
     postalcode: '',
     province: '',
     country: '',
