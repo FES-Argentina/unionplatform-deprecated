@@ -95,9 +95,36 @@ export function loginStatus() {
   });
 }
 
-export function updateUser(id, data) {
+export function updateUser(id, values) {
+  const data = {
+    _links : {
+      type : {
+        href : `${Config.API_URL}/rest/type/user/user`,
+      },
+      self : {
+        href : `${Config.API_URL}/user/${id}?_format=hal_json`,
+      }
+    },
+    uid : [{ value: id }],
+    field_firstname : [{ value: values.firstname }],
+    field_lastname : [{ value: values.lastname }],
+    field_cuit : [{ value: values.cuit }],
+    field_dni : [{ value: values.dni }],
+    field_birthdate : [{ value: values.birthdate }],
+    field_nationality : [{ value: values.nationality }],
+    field_address : [{ value: values.address }],
+    field_city : [{ value: values.city }],
+    field_postalcode : [{ value: values.postalcode }],
+    field_province : [{ value: values.province }],
+    field_country : [{ value: values.country }],
+    field_phonenumber : [{ value: values.phonenumber }],
+    field_tasks : [{ value: values.tasks }],
+    field_companies : values.companies.map((i) => ({ value: i })),
+  };
+
+  const headers = buildHeaders(true);
   return clearCookies().then(() => {
-    return api.put(`${Config.API_URL}/users/${id}`, { user: data })
+    return api.patch(`${Config.API_URL}/user/${id}?_format=hal_json`, data, { headers })
       .then((response) => response.data);
   });
 }
