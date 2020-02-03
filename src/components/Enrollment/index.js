@@ -174,8 +174,8 @@ class Enrollment extends React.Component {
               valid={touched.firstname && !errors.firstname}
               error={touched.firstname && errors.firstname}
             />
-          {errors.firstname && touched.firstname ? (
-                <Text style={styles.formError}>{errors.firstname}</Text>
+            {errors.firstname && touched.firstname ? (
+              <Text style={styles.formError}>{errors.firstname}</Text>
             ) : null }
             <Input
               label="Apellido"
@@ -203,8 +203,8 @@ class Enrollment extends React.Component {
               valid={touched.lastname && !errors.lastname}
               error={touched.lastname && errors.lastname}
             />
-          {errors.lastname && touched.lastname ? (
-                <Text style={styles.formError}>{errors.lastname}</Text>
+            {errors.lastname && touched.lastname ? (
+              <Text style={styles.formError}>{errors.lastname}</Text>
             ) : null }
             <Input
               label="E-mail"
@@ -235,7 +235,7 @@ class Enrollment extends React.Component {
               error={touched.email && errors.email}
             />
             {errors.email && touched.email ? (
-                <Text style={styles.formError}>{errors.email}</Text>
+              <Text style={styles.formError}>{errors.email}</Text>
             ) : null }
             <Input
               label="Teléfono"
@@ -266,7 +266,7 @@ class Enrollment extends React.Component {
               error={touched.phonenumber && errors.phonenumber}
             />
             {errors.phonenumber && touched.phonenumber ? (
-                <Text style={styles.formError}>{errors.phonenumber}</Text>
+              <Text style={styles.formError}>{errors.phonenumber}</Text>
             ) : null }
 
             <View>
@@ -277,7 +277,7 @@ class Enrollment extends React.Component {
                 buttonStyle={styles.enrollButton}
                 testID="datePickerButton"
                 onPress={this.datepicker}
-                />
+              />
 
             { show && <DateTimePicker testID="dateTimePicker"
               timeZoneOffsetInMinutes={0}
@@ -286,287 +286,287 @@ class Enrollment extends React.Component {
               is24Hour={true}
               display="default"
               onChange={this.setDate} /> }
-            </View>
-            <Input
-              label="Cuit"
-              mode="outlined"
-              value={values.cuit}
-              onChangeText={handleChange('cuit')}
-              onBlur={handleBlur('cuit')}
-              placeholder="Ingrese su teléfono"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              keyboardType="phone-pad"
-              autoCapitalize="none"
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['cuit'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('dni');
-              }}
-              blurOnSubmit={false}
-              valid={touched.cuit && !errors.cuit}
-              error={touched.cuit && errors.cuit}
-            />
-          {errors.cuit && touched.cuit ? (
-                <Text style={styles.formError}>{errors.cuit}</Text>
-            ) : null }
-            <Input
-              label="DNI"
-              mode="outlined"
-              value={values.dni}
-              onChangeText={handleChange('dni')}
-              onBlur={handleBlur('dni')}
-              placeholder="Ingrese su dni"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              keyboardType="phone-pad"
-              autoCapitalize="none"
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['dni'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('nationality');
-              }}
-              blurOnSubmit={false}
-              valid={touched.dni && !errors.dni}
-              error={touched.dni && errors.dni}
-            />
-          {errors.dni && touched.dni ? (
-                <Text style={styles.formError}>{errors.dni}</Text>
-            ) : null }
-            <Input
-              label="Nacionalidad"
-              mode="outlined"
-              value={values.nationality}
-              onChangeText={handleChange('nationality')}
-              onBlur={handleBlur('nationality')}
-              placeholder="Ingrese su nacionalidad"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['nationality'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('street');
-              }}
-              blurOnSubmit={false}
-              valid={touched.nationality && !errors.nationality}
-              error={touched.nationality && errors.nationality}
-            />
-          {errors.nationality && touched.nationality ? (
-                <Text style={styles.formError}>{errors.nationality}</Text>
-            ) : null }
-            <Input
-              label="Calle"
-              mode="outlined"
-              value={values.street}
-              onChangeText={handleChange('street')}
-              onBlur={handleBlur('street')}
-              placeholder="Ingrese su direccion"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['street'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('postalcode');
-              }}
-              blurOnSubmit={false}
-              valid={touched.street && !errors.street}
-              error={touched.street && errors.street}
-            />
-          {errors.street && touched.street ? (
-                <Text style={styles.formError}>{errors.street}</Text>
-            ) : null }
-            <Input
-              label="Código postal"
-              mode="outlined"
-              value={values.postalcode}
-              onChangeText={handleChange('postalcode')}
-              onBlur={handleBlur('postalcode')}
-              placeholder="Ingrese su código postal"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              keyboardType="phone-pad"
-              autoCapitalize="none"
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['postalcode'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('city');
-              }}
-              blurOnSubmit={false}
-              valid={touched.postalcode && !errors.postalcode}
-              error={touched.postalcode && errors.postalcode}
-            />
-          {errors.postalcode && touched.postalcode ? (
-                <Text style={styles.formError}>{errors.postalcode}</Text>
-            ) : null }
-            <Input
-              label="Ciudad"
-              mode="outlined"
-              value={values.city}
-              onChangeText={handleChange('city')}
-              onBlur={handleBlur('city')}
-              placeholder="Ingrese su ciudad"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['city'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('province');
-              }}
-              blurOnSubmit={false}
-              valid={touched.city && !errors.city}
-              error={touched.city && errors.city}
-            />
-          {errors.city && touched.city ? (
-                <Text style={styles.formError}>{errors.city}</Text>
-            ) : null }
-            <Input
-              label="Prinvincia"
-              mode="outlined"
-              value={values.province}
-              onChangeText={handleChange('province')}
-              onBlur={handleBlur('province')}
-              placeholder="Ingrese su provincia"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['province'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('country');
-              }}
-              blurOnSubmit={false}
-              valid={touched.province && !errors.province}
-              error={touched.province && errors.province}
-            />
-          {errors.province && touched.province ? (
-                <Text style={styles.formError}>{errors.province}</Text>
-            ) : null }
-            <Input
-              label="País"
-              mode="outlined"
-              value={values.country}
-              onChangeText={handleChange('country')}
-              onBlur={handleBlur('country')}
-              placeholder="Ingrese el país"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon
-                  name="address-card"
-                  size={12}
-                  color="grey"
-                />
-              )}
-              returnKeyType="next"
-              ref={ input => {
-                this.inputs['country'] = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('tasks');
-              }}
-              blurOnSubmit={false}
-              valid={touched.country && !errors.country}
-              error={touched.country && errors.country}
-            />
-          {errors.country && touched.country ? (
-                <Text style={styles.formError}>{errors.country}</Text>
-            ) : null }
-          <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Selector items={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
-              <Input
-                label="Tareas"
-                mode="outlined"
-                value={values.tasks}
-                onChangeText={handleChange('tasks')}
-                onBlur={handleBlur('tasks')}
-                placeholder="Ingrese sus tareas"
-                labelStyle={styles.inputslabel}
-                leftIcon={(
-                  <Icon
-                    name="address-card"
-                    size={12}
-                    color="grey"
-                  />
-                )}
-                returnKeyType="done"
-                ref={ input => {
-                  this.inputs['tasks'] = input;
-                }}
-                onSubmitEditing={() => {
-                  submitForm();
-                }}
-                blurOnSubmit={false}
-                valid={touched.tasks && !errors.tasks}
-                error={touched.tasks && errors.tasks}
+          </View>
+          <Input
+            label="Cuit"
+            mode="outlined"
+            value={values.cuit}
+            onChangeText={handleChange('cuit')}
+            onBlur={handleBlur('cuit')}
+            placeholder="Ingrese su teléfono"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
               />
-            {errors.tasks && touched.tasks ? (
-                  <Text style={styles.formError}>{errors.tasks}</Text>
-              ) : null }
+            )}
+            keyboardType="phone-pad"
+            autoCapitalize="none"
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['cuit'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('dni');
+            }}
+            blurOnSubmit={false}
+            valid={touched.cuit && !errors.cuit}
+            error={touched.cuit && errors.cuit}
+          />
+          {errors.cuit && touched.cuit ? (
+            <Text style={styles.formError}>{errors.cuit}</Text>
+          ) : null }
+          <Input
+            label="DNI"
+            mode="outlined"
+            value={values.dni}
+            onChangeText={handleChange('dni')}
+            onBlur={handleBlur('dni')}
+            placeholder="Ingrese su dni"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            keyboardType="phone-pad"
+            autoCapitalize="none"
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['dni'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('nationality');
+            }}
+            blurOnSubmit={false}
+            valid={touched.dni && !errors.dni}
+            error={touched.dni && errors.dni}
+          />
+          {errors.dni && touched.dni ? (
+            <Text style={styles.formError}>{errors.dni}</Text>
+          ) : null }
+          <Input
+            label="Nacionalidad"
+            mode="outlined"
+            value={values.nationality}
+            onChangeText={handleChange('nationality')}
+            onBlur={handleBlur('nationality')}
+            placeholder="Ingrese su nacionalidad"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['nationality'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('street');
+            }}
+            blurOnSubmit={false}
+            valid={touched.nationality && !errors.nationality}
+            error={touched.nationality && errors.nationality}
+          />
+          {errors.nationality && touched.nationality ? (
+            <Text style={styles.formError}>{errors.nationality}</Text>
+          ) : null }
+          <Input
+            label="Calle"
+            mode="outlined"
+            value={values.street}
+            onChangeText={handleChange('street')}
+            onBlur={handleBlur('street')}
+            placeholder="Ingrese su direccion"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['street'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('postalcode');
+            }}
+            blurOnSubmit={false}
+            valid={touched.street && !errors.street}
+            error={touched.street && errors.street}
+          />
+          {errors.street && touched.street ? (
+            <Text style={styles.formError}>{errors.street}</Text>
+          ) : null }
+          <Input
+            label="Código postal"
+            mode="outlined"
+            value={values.postalcode}
+            onChangeText={handleChange('postalcode')}
+            onBlur={handleBlur('postalcode')}
+            placeholder="Ingrese su código postal"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            keyboardType="phone-pad"
+            autoCapitalize="none"
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['postalcode'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('city');
+            }}
+            blurOnSubmit={false}
+            valid={touched.postalcode && !errors.postalcode}
+            error={touched.postalcode && errors.postalcode}
+          />
+          {errors.postalcode && touched.postalcode ? (
+            <Text style={styles.formError}>{errors.postalcode}</Text>
+          ) : null }
+          <Input
+            label="Ciudad"
+            mode="outlined"
+            value={values.city}
+            onChangeText={handleChange('city')}
+            onBlur={handleBlur('city')}
+            placeholder="Ingrese su ciudad"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['city'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('province');
+            }}
+            blurOnSubmit={false}
+            valid={touched.city && !errors.city}
+            error={touched.city && errors.city}
+          />
+          {errors.city && touched.city ? (
+            <Text style={styles.formError}>{errors.city}</Text>
+          ) : null }
+          <Input
+            label="Prinvincia"
+            mode="outlined"
+            value={values.province}
+            onChangeText={handleChange('province')}
+            onBlur={handleBlur('province')}
+            placeholder="Ingrese su provincia"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['province'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('country');
+            }}
+            blurOnSubmit={false}
+            valid={touched.province && !errors.province}
+            error={touched.province && errors.province}
+          />
+          {errors.province && touched.province ? (
+            <Text style={styles.formError}>{errors.province}</Text>
+          ) : null }
+          <Input
+            label="País"
+            mode="outlined"
+            value={values.country}
+            onChangeText={handleChange('country')}
+            onBlur={handleBlur('country')}
+            placeholder="Ingrese el país"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            returnKeyType="next"
+            ref={ input => {
+              this.inputs['country'] = input;
+            }}
+            onSubmitEditing={() => {
+              this.focusNextField('tasks');
+            }}
+            blurOnSubmit={false}
+            valid={touched.country && !errors.country}
+            error={touched.country && errors.country}
+          />
+          {errors.country && touched.country ? (
+            <Text style={styles.formError}>{errors.country}</Text>
+          ) : null }
+          <Text style={styles.formTitles}>Sobre tu trabajo</Text>
+          <Selector items={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
+          <Input
+            label="Tareas"
+            mode="outlined"
+            value={values.tasks}
+            onChangeText={handleChange('tasks')}
+            onBlur={handleBlur('tasks')}
+            placeholder="Ingrese sus tareas"
+            labelStyle={styles.inputslabel}
+            leftIcon={(
+              <Icon
+                name="address-card"
+                size={12}
+                color="grey"
+              />
+            )}
+            returnKeyType="done"
+            ref={ input => {
+              this.inputs['tasks'] = input;
+            }}
+            onSubmitEditing={() => {
+              submitForm();
+            }}
+            blurOnSubmit={false}
+            valid={touched.tasks && !errors.tasks}
+            error={touched.tasks && errors.tasks}
+          />
+          {errors.tasks && touched.tasks ? (
+            <Text style={styles.formError}>{errors.tasks}</Text>
+          ) : null }
 
 
 
-            <Button
-              title="Enviar"
-              type="outline"
-              disabled={!isValid}
-              onPress={handleSubmit}
-              buttonStyle={styles.submitButton}
-            />
-          </ScrollView>
+          <Button
+            title="Enviar"
+            type="outline"
+            disabled={!isValid}
+            onPress={handleSubmit}
+            buttonStyle={styles.submitButton}
+          />
+        </ScrollView>
         )}
       </Formik>
     );
