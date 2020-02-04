@@ -282,7 +282,12 @@ const styles = StyleSheet.create({
   // Address
   addressCity: {
     flexDirection: 'row',
-  }
+  },
+  emptyListMessage: {
+    marginTop: 40,
+    marginLeft: 30,
+    fontSize: 18,
+  },
 });
 
 export default styles;

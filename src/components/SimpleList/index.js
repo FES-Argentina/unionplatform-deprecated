@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import NavigationService from '../../navigation/NavigationService';
 import styles from '../styles';
 import SafeAreaViewDecider from '../SafeAreaViewDecider'
+import EmptyListMessage from '../EmptyListMessage';
 
 import { getDocuments } from '../../actions/documents';
 
@@ -46,6 +47,7 @@ class SimpleList extends React.Component {
               </View>
             </TouchableHighlight>
           )}
+          ListEmptyComponent={<EmptyListMessage text="No hay documentos..." />}
         />
       </SafeAreaView>
     );

@@ -13,6 +13,7 @@ import { getNews } from '../../actions/news';
 import NavigationService from '../../navigation/NavigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import SafeAreaViewDecider from '../SafeAreaViewDecider'
+import EmptyListMessage from '../EmptyListMessage';
 
 import styles from '../styles';
 
@@ -50,6 +51,7 @@ class CardList extends React.Component {
             </View>
           </TouchableHighlight>
         )}
+        ListEmptyComponent={<EmptyListMessage text="No hay noticias..." />}
       />
   </ScrollView>
 
