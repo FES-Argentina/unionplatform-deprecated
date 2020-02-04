@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Config from 'react-native-config';
 import SetCookieParser from 'set-cookie-parser';
-import { store } from '../store';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
+import { store } from '../store';
 
 const api = axios.create({
   withCredentials: false,

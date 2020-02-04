@@ -8,6 +8,7 @@ import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Selector from '../form/Selector';
 import styles from '../styles';
 import { companies } from '../../utils/values';
@@ -108,11 +109,11 @@ class ProfileForm extends React.Component {
 
   onSubmit = (values) => {
     const { date } = this.state;
-    const profile = {
-      birthdate: date,
-      ...values,
-    };
     const { onSubmit } = this.props;
+    const profile = {
+      ...values,
+      birthdate: moment(date).format('YYYY-MM-DD'),
+    };
     onSubmit(profile);
   }
 
