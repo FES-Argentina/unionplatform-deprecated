@@ -41,7 +41,7 @@ class SimpleList extends React.Component {
               <View style={styles.itemList}>
                 <Text style={styles.titleList}>{item.title}</Text>
                 <Image
-                  source={{ uri: item.photo }}
+                  source={{ uri: item.image }}
                   style={styles.imagesList}
                 />
               </View>

@@ -42,7 +42,7 @@ class CardList extends React.Component {
         renderItem={({ item }) => (
           <TouchableHighlight onPress={() => this.itemView(item.id)}>
             <View style={styles.itemCardlist}>
-              <ImageBackground style={styles.backgroundImage} source={{ uri: item.photo }}>
+              <ImageBackground style={styles.backgroundImage} source={{ uri: item.image }}>
                 <LinearGradient colors={["#ffffff00", "black"]} style={styles.containerOverlay}>
                 <Text style={styles.titleCardlist}>{item.title}</Text>
                 <Text style={styles.summaryCardlist}>{item.summary}</Text>

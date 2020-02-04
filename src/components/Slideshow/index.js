@@ -36,7 +36,7 @@ class Slideshow extends PureComponent {
           renderItem={({ item }) => (
             <TouchableHighlight onPress={() => this.itemView(item.id)}>
               <View style={styles.slide}>
-                <Image source={{ uri: item.photo }} style={styles.itemPhoto}/>
+                <Image source={{ uri: item.image }} style={styles.itemPhoto}/>
                 <Text style={styles.slideTextTitle}>Noticia</Text>
                 <Text style={styles.slideText}>{item.title}</Text>
               </View>

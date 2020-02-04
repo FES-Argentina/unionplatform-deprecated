@@ -17,8 +17,8 @@ import styles from '../styles';
 
 class NewsDetail extends React.Component {
   componentDidMount = () => {
-    const { loadDocument } = this.props;
-    loadDocument(this.props.navigation.state.params.id);
+    const { loadDetail } = this.props;
+    loadDetail(this.props.navigation.state.params.id);
   }
 
   onShare = () => {
@@ -36,9 +36,10 @@ class NewsDetail extends React.Component {
           <Text style={styles.titleNews}>{data.title}</Text>
           <Text style={styles.summaryText}>{data.summary}</Text>
           <Image
-            source={{ uri: data.photo }}
+            source={{ uri: data.image }}
             style={styles.photoNews}
           />
+          <Text style={styles.newsBody}>{data.body}</Text>
         <Button onPress={this.onShare} title="Compartir"/>
         </View>
       </ScrollView>
@@ -48,7 +49,7 @@ class NewsDetail extends React.Component {
 
 NewsDetail.propTypes = {
   data: PropTypes.object,
-  loadDocument: PropTypes.func.isRequired,
+  loadDetail: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
@@ -63,7 +64,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocument: (id) => dispatch(getNew(id)),
+  loadDetail: (id) => dispatch(getNew(id)),
 });
 
 

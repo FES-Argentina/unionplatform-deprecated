@@ -160,6 +160,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 15,
   },
+  newsBody: {
+    fontSize: 14,
+    paddingHorizontal: 15,
+    marginBottom: 10,
+    marginTop: 10,
+  },
   photoNews: {
     height: height,
     width: 'auto',

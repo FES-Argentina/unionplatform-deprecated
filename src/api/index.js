@@ -153,7 +153,10 @@ export function getNewsRequest() {
 export function getNewRequest(id) {
   return clearCookies().then(() => {
     return api.get(`${Config.API_URL}/news/${id}`)
-      .then((response) => response.data)
+      .then((response) => {
+        const [item] = response.data;
+        return item;
+      })
       .catch((error) => {
         console.log('ERROR', error);
       });
