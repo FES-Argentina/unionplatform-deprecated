@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, ScrollView, Platform,
+  View, Text, TouchableOpacity, ScrollView, Platform,
 } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -96,8 +96,9 @@ class ProfileForm extends React.Component {
     super(props);
     this.inputs = {};
 
+    const { profile } = this.props;
     this.state = {
-      date: new Date(1990, 0, 1),
+      date: (profile.birthdate) ? new Date(profile.birthdate) : new Date(1990, 0, 1),
       mode: 'date',
       show: false,
     };
@@ -117,7 +118,7 @@ class ProfileForm extends React.Component {
     onSubmit(profile);
   }
 
-  setDate = (event, value) => {
+  setDate = (value) => {
     this.setState((prevState) => ({
       show: Platform.OS === 'ios',
       date: value || prevState.date,
@@ -286,17 +287,31 @@ class ProfileForm extends React.Component {
               <Text style={styles.formError}>{errors.phonenumber}</Text>
             ) : null }
 
-            <View>
-              <Text style={styles.date}>Elija su fecha de nacimiento</Text>
-              <Button
-                title="Fecha de nacimiento"
-                type="outline"
-                buttonStyle={styles.enrollButton}
-                testID="datePickerButton"
-                onPress={this.datepicker}
+            <TouchableOpacity onPress={this.datepicker}>
+              <Input
+                label="Fecha de nacimiento"
+                mode="outlined"
+                value={(values.birthdate) ? moment(values.birthdate).format('DD/MM/YYYY') : null}
+                onChangeText={handleChange('birthdate')}
+                onBlur={handleBlur('birthdate')}
+                placeholder="dd/mm/aaaa"
+                labelStyle={styles.inputslabel}
+                leftIcon={(
+                  <Icon name="calendar" size={12} color="grey" />
+                )}
+                ref={(input) => {
+                  this.inputs.phonenumber = input;
+                }}
+                onSubmitEditing={() => {
+                  this.focusNextField('cuit');
+                }}
+                blurOnSubmit={false}
+                onFocus={this.datepicker}
+                editable={false}
               />
+            </TouchableOpacity>
 
-              { show && (
+            { show && (
               <DateTimePicker
                 testID="dateTimePicker"
                 timeZoneOffsetInMinutes={0}
@@ -304,10 +319,15 @@ class ProfileForm extends React.Component {
                 mode={mode}
                 is24Hour
                 display="default"
-                onChange={this.setDate}
+                onChange={(event, value) => {
+                  if (event.type == 'set') {
+                    this.setDate(value);
+                    setFieldValue('birthdate', value);
+                  }
+                }}
               />
-              ) }
-            </View>
+            )}
+
             <Input
               label="Cuit"
               mode="outlined"
