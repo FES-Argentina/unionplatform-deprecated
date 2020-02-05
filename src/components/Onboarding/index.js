@@ -17,18 +17,20 @@ class Onboarding extends React.Component {
       <OnboardingScreen
         onSkip={() => NavigationService.navigate('Loading')}
         onDone={() => NavigationService.navigate('Loading')}
+        nextLabel="Siguiente"
+        skipLabel="Saltear"
         pages={[
           {
             backgroundColor: 'mintcream',
             image: <Image source={require('../../assets/images/folder.png')} style={styles.photoOnboarding}/>,
             title: 'Cargá y compartí tus denuncias',
-            subtitle: 'Guardalas como PDFs certificados con BFA',
+            subtitle: 'Cargá tus denuncias y exportalas como PDF.',
           },
           {
             backgroundColor: 'linen',
             image: <Image source={require('../../assets/images/padlock.png')} style={styles.photoOnboarding}/>,
             title: 'Protegé tus datos sensibles',
-            subtitle: 'Garantizamos la seguridad de la información',
+            subtitle: 'Garantizamos la seguridad de tu información.',
           },
         ]}
       />
