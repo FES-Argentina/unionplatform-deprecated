@@ -32,9 +32,6 @@ export function* newWatcher() {
     try {
       yield put(processing(true));
       const newItem = yield call(getNewRequest, id);
-      console.warn(newItem);
-
-      // Dispatch the getNew action to the store.
       yield put(getNewSuccess(newItem));
     } catch (e) {
       console.log('EXCEPTION', e);
