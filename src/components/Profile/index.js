@@ -60,7 +60,7 @@ class Profile extends React.Component {
             <Text style={styles.profileName}>{fullname}</Text>
             <Field label="Usuarix" value={profile.username} />
             <Field label="Miembrx desde" value={date.format('DD/MM/YYYY')} />
-            <Field label="Correo electrónico" value={profile.mail} icon="envelope" />
+            <Field label="Correo electrónico" value={profile.mail} />
             <Field label="CUIT" value={profile.cuit} />
             <Field label="DNI" value={profile.dni} />
             <Field label="Teléfono" value={profile.phonenumber} />
