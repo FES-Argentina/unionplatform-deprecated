@@ -12,6 +12,7 @@ import { setComplaint } from '../../actions/user';
 import PropTypes from 'prop-types';
 import styles from '../styles';
 import { companies, problemTypes, seniorities, getKeys } from '../../utils/values';
+import { defaultProfile } from '../../utils/defaults';
 
 const validationSchema = yup.object().shape({
   firstname: yup
@@ -24,7 +25,7 @@ const validationSchema = yup.object().shape({
     .label('Apellido')
     .min(2, "El apellido debe tener más de ${min} caracteres")
     .required("Campo requerido"),
-  email: yup
+  mail: yup
     .string()
     .label('E-mail')
     .email("Ingrese un email válido")
@@ -67,9 +68,10 @@ class Complaint extends React.Component {
   }
 
   render() {
+    const { profile } = this.props;
     return (
       <Formik
-        initialValues={{ firstname:'', lastname: '', email: '', phonenumber: '', address: '', seniority: '', tasks: ''}}
+        initialValues={profile}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
         initialErrors={{ name: '' }}
@@ -131,7 +133,7 @@ class Complaint extends React.Component {
                 this.inputs['lastname'] = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('email');
+                this.focusNextField('mail');
               }}
               blurOnSubmit={false}
             />
@@ -142,12 +144,12 @@ class Complaint extends React.Component {
             <Input
               label="E-mail"
               mode="outlined"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
+              value={values.mail}
+              onChangeText={handleChange('mail')}
+              onBlur={handleBlur('mail')}
               placeholder="Ingrese su e-mail"
-              valid={touched.email && !errors.email}
-              error={touched.email && errors.email}
+              valid={touched.mail && !errors.mail}
+              error={touched.mail && errors.mail}
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon
@@ -160,15 +162,15 @@ class Complaint extends React.Component {
               autoCapitalize="none"
               returnKeyType="next"
               ref={ input => {
-                this.inputs['email'] = input;
+                this.inputs['mail'] = input;
               }}
               onSubmitEditing={() => {
                 this.focusNextField('phonenumber');
               }}
               blurOnSubmit={false}
             />
-            {errors.email && touched.email ? (
-              <Text style={styles.formError}>{errors.email}</Text>
+            {errors.mail && touched.mail ? (
+              <Text style={styles.formError}>{errors.mail}</Text>
             ) : null }
 
             <Input
@@ -310,9 +312,8 @@ Complaint.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-
 const mapStateToProps = (state) => ({
-  user: state.user,
+  profile: (state.user.profile) ? state.user.profile : defaultProfile,
 });
 
 const mapDispatchToProps = (dispatch) => ({

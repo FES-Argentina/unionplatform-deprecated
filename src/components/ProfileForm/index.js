@@ -12,6 +12,7 @@ import moment from 'moment';
 import Selector from '../form/Selector';
 import styles from '../styles';
 import { companies } from '../../utils/values';
+import { defaultProfile } from '../../utils/defaults';
 
 const validationSchema = yup.object().shape({
   username: yup
@@ -41,7 +42,7 @@ const validationSchema = yup.object().shape({
     .required('Campo requerido'),
   phonenumber: yup
     .string()
-    .label('Telefono')
+    .label('Teléfono')
     .required('Campo requerido'),
   dni: yup
     .number()
@@ -600,23 +601,7 @@ ProfileForm.propTypes = {
 };
 
 ProfileForm.defaultProps = {
-  profile: {
-    firstname: '',
-    lastname: '',
-    mail: '',
-    phonenumber: '',
-    city: '',
-    tasks: '',
-    nationality: '',
-    cuit: '',
-    dni: '',
-    address: '',
-    postalcode: '',
-    province: '',
-    country: '',
-    birthdate: null,
-    companies: [],
-  },
+  profile: defaultProfile,
 };
 
 export default ProfileForm;
