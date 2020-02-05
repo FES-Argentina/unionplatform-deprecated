@@ -21,10 +21,6 @@ class NewsDetail extends React.Component {
     loadDetail(this.props.navigation.state.params.id);
   }
 
-  onShare = () => {
-    Alert.alert('On share');
-  }
-
   render() {
     const { data } = this.props;
 
@@ -35,12 +31,8 @@ class NewsDetail extends React.Component {
         <View style={styles.containerMargin}>
           <Text style={styles.titleNews}>{data.title}</Text>
           <Text style={styles.summaryText}>{data.summary}</Text>
-          <Image
-            source={{ uri: data.image }}
-            style={styles.photoNews}
-          />
+          <Image source={{ uri: data.image }} style={styles.photoNews} />
           <Text style={styles.newsBody}>{data.body}</Text>
-        <Button onPress={this.onShare} title="Compartir"/>
         </View>
       </ScrollView>
     );
