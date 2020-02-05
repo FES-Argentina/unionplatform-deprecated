@@ -189,6 +189,7 @@ function* setComplaintWorker(values) {
       yield put(setComplaintSuccess(values));
       NavigationService.navigate('Loading');
       Toast.show('Gracias! Tu denuncia fue creada.', Toast.LONG);
+      NavigationService.navigate('ComplaintList');
     }
   } catch (e) {
     console.warn('error setComplaintWorker:', e);
