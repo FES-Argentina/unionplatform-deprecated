@@ -1,22 +1,37 @@
+import { call, put, race, take, takeLatest } from 'redux-saga/effects';
 import {
-  call,
-  put,
-  race,
-  take,
-  takeLatest,
-} from 'redux-saga/effects';
-
-import {
-  LOGIN_REQUEST, LOGOUT_REQUEST, UPDATE_USER, GET_USER, SET_ENROLLMENT, SET_COMPLAINT, CHANGE_USER_PASS, GET_COMPLAINTS,
+  LOGIN_REQUEST,
+  LOGOUT_REQUEST,
+  UPDATE_USER,
+  GET_USER,
+  SET_ENROLLMENT,
+  SET_COMPLAINT,
+  CHANGE_USER_PASS,
+  GET_COMPLAINTS,
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
-  setAuth, setLogout, updateUserSuccess, getUserSuccess, setEnrollmentSuccess, setComplaintSuccess, getComplaintsSuccess, changeUserPassSuccess,
+  setAuth,
+  setLogout,
+  updateUserSuccess,
+  getUserSuccess,
+  setEnrollmentSuccess,
+  setComplaintSuccess,
+  getComplaintsSuccess,
+  changeUserPassSuccess,
 } from '../actions/user';
 import {
-  login, logout, updateUser, getUserRequest, setEnrollmentRequest, setComplaintRequest, changeUserPass, getComplaintsRequest,
+  login,
+  logout,
+  updateUser,
+  getUserRequest,
+  setEnrollmentRequest,
+  setComplaintRequest,
+  changeUserPass,
+  getComplaintsRequest,
 } from '../api';
 import NavigationService from '../navigation/NavigationService';
+import Toast from 'react-native-simple-toast';
 
 
 /**
@@ -83,14 +98,18 @@ export function* logoutFlow() {
  */
 function* updateUserWorker(id, newValues) {
   try {
+    yield put(processing(true));
     const data = yield call(updateUser, id, newValues);
     if (data) {
-      // TODO: que tenemos que pasarle al updateUserAction
       yield put(updateUserSuccess(newValues));
       NavigationService.navigate('Profile');
+      Toast.show('Gracias! Tu perfil fue actualizado.', Toast.LONG);
     }
   } catch (e) {
     console.warn('error updateUserWorker:', e);
+  }
+  finally {
+    yield put(processing(false));
   }
 }
 
@@ -132,14 +151,19 @@ export function* userWatcher() {
  */
 function* setEnrollmentWorker(values) {
   try {
+    yield put(processing(true));
     const data = yield call(setEnrollmentRequest, values);
     if (data) {
       // TODO: que tenemos que pasarle al setEnrollmentSuccess
       yield put(setEnrollmentSuccess(values));
       NavigationService.navigate('Loading');
+      Toast.show('Gracias por registrarte! Vas a recibir un correo cuando tu solicitud sea revisada.', Toast.LONG);
     }
   } catch (e) {
     console.warn('error setEnrollmentWorker:', e);
+  }
+  finally {
+    yield put(processing(false));
   }
 }
 
@@ -159,14 +183,18 @@ export function* setEnrollmentWatcher() {
  */
 function* setComplaintWorker(values) {
   try {
+    yield put(processing(true));
     const data = yield call(setComplaintRequest, values);
     if (data) {
-      // TODO: que tenemos que pasarle al setComplaintSuccess
       yield put(setComplaintSuccess(values));
       NavigationService.navigate('Loading');
+      Toast.show('Gracias! Tu denuncia fue creada.', Toast.LONG);
     }
   } catch (e) {
     console.warn('error setComplaintWorker:', e);
+  }
+  finally {
+    yield put(processing(false));
   }
 }
 
