@@ -47,42 +47,39 @@ class Profile extends React.Component {
   }
 
   render() {
-    if (!this.props.id) {
-      return null;
-    }
+    const { profile, complaints } = this.props;
 
-    const { data, complaints } = this.props;
-    const fullname = (data.firstname && data.lastname) ? `${data.firstname} ${data.lastname}` : '-';
-    const date = moment(new Date(data.created));
-    let birthdate = moment.utc(new Date(data.birthdate));
-    let companies = (data.companies) ? data.companies.map(getCompanyLabel).join(', ') : 'N/D';
+    const fullname = (profile.firstname && profile.lastname) ? `${profile.firstname} ${profile.lastname}` : '-';
+    const date = moment(new Date(profile.created));
+    let birthdate = moment.utc(new Date(profile.birthdate));
+    let companies = (profile.companies) ? profile.companies.map(getCompanyLabel).join(', ') : 'N/D';
 
     return (
         <ScrollView>
           <SafeAreaView style={styles.containerStandar}>
             <Text style={styles.profileName}>{fullname}</Text>
-            <Field label="Usuarix" value={data.username} />
+            <Field label="Usuarix" value={profile.username} />
             <Field label="Miembrx desde" value={date.format('DD/MM/YYYY')} />
-            <Field label="Correo electrónico" value={data.mail} icon="envelope" />
-            <Field label="CUIT" value={data.cuit} />
-            <Field label="DNI" value={data.dni} />
-            <Field label="Teléfono" value={data.phonenumber} />
+            <Field label="Correo electrónico" value={profile.mail} icon="envelope" />
+            <Field label="CUIT" value={profile.cuit} />
+            <Field label="DNI" value={profile.dni} />
+            <Field label="Teléfono" value={profile.phonenumber} />
             <Field label="Fecha de nacimiento" value={birthdate.format('DD/MM/YYYY')} />
-            <Field label="Nacionalidad" value={data.nationality} />
+            <Field label="Nacionalidad" value={profile.nationality} />
 
             <Text style={styles.titlesDetail}>Dirección</Text>
             <View style={styles.profileAddress}>
               <Address
-                address={data.address}
-                city={data.city}
-                province={data.province}
-                postalcode={data.postalcode}
-                country={data.country}
+                address={profile.address}
+                city={profile.city}
+                province={profile.province}
+                postalcode={profile.postalcode}
+                country={profile.country}
               />
             </View>
 
             <Field label="Empresa" value={companies} />
-            <Field label="Tareas" value={data.tasks} />
+            <Field label="Tareas" value={profile.tasks} />
 
             <Text style={styles.titleNews}>Últimas denuncias</Text>
             {complaints && complaints.length ?
@@ -98,7 +95,7 @@ class Profile extends React.Component {
 
 Profile.propTypes = {
   id: PropTypes.string.isRequired,
-  data: PropTypes.shape({
+  profile: PropTypes.shape({
     username: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
@@ -124,7 +121,7 @@ Profile.propTypes = {
 
 const mapStateToProps = (state) => ({
   id: state.user.id,
-  data: state.user.profile,
+  profile: state.user.profile,
   complaints: state.user.complaints,
 });
 
