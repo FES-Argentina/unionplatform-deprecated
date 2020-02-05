@@ -110,6 +110,7 @@ class Login extends React.Component {
               onChangeText={handleChange('password')}
               placeholder="Contraseña"
               secureTextEntry
+              autoCapitalize="none"
               valid={touched.password && !errors.password}
               error={touched.password && errors.password}
               labelStyle={styles.inputslabel}
