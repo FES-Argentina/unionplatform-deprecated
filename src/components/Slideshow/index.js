@@ -19,7 +19,7 @@ class Slideshow extends PureComponent {
   }
 
   itemView = (id) => {
-    NavigationService.navigate('NewsDetail', {id} );
+    NavigationService.navigate('NewsDetailGuest', {id} );
   }
 
   render() {
