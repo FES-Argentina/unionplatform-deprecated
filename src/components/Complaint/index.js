@@ -30,12 +30,9 @@ const validationSchema = yup.object().shape({
     .email("Ingrese un email válido")
     .required("Campo requerido"),
   phonenumber: yup
-    .number()
-    .min(8, 'El teléfono debe tener al menos ${min} caracteres')
-    .typeError('El teléfono debe estar expresado en números')
-    .positive('El teléfono debe ser mayor a 0')
-    .label('Telefono')
-    .required("Campo requerido"),
+    .string()
+    .label('Teléfono')
+    .required('Campo requerido'),
   address: yup
     .string()
     .label('Localidad')
