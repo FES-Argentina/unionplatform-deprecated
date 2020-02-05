@@ -8,13 +8,14 @@ import {
   GET_COMPLAINTS_SUCCESS,
 } from '../constants';
 import { userFields } from '../api/mappings';
+import { defaultProfile } from '../utils/defaults';
 
 const initialState = {
   authToken: null,
   logoutToken: null,
   cookie: null,
   id: null,
-  profile: {},
+  profile: defaultProfile,
   item: {},
   enrollments: [],
   complaints: [],

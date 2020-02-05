@@ -313,7 +313,7 @@ Complaint.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  profile: (state.user.profile) ? state.user.profile : defaultProfile,
+  profile: state.user.profile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
