@@ -30,6 +30,7 @@ const userReducer = (state = initialState, action) => {
         logoutToken: action.tokens.logout,
         cookie: action.cookie,
         id: action.current_user ? action.current_user.id : null,
+        profile: defaultProfile,
       };
     case UPDATE_USER_SUCCESS:
       return {
