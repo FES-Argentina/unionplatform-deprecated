@@ -9,7 +9,7 @@ export function loginRequest(username, password) {
   };
 }
 
-export function logoutRequest(username, password) {
+export function logoutRequest() {
   return {
     type: LOGOUT_REQUEST,
   };
