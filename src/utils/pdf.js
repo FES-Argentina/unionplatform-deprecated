@@ -1,5 +1,5 @@
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { getProblemLabel } from './values';
+import { getCompanyLabel, getProblemLabel, getSeniorityLabel } from './values';
 
 /**
  * Template for building the html string for a complaint.
@@ -55,7 +55,7 @@ p{
     </tr>
     <tr>
       <td>Empresa</td>
-      <td>${complaint.company}</td>
+      <td>${complaint.companyLabel}</td>
     </tr>
     <tr>
       <td>Id</td>
@@ -78,7 +78,7 @@ p{
     </tr>
     <tr>
       <td>Antigüedad</td>
-      <td>${complaint.seniority}</td>
+      <td>${complaint.seniorityLabel}</td>
     </tr>
     <tr>
       <td>Tareas</td>
@@ -94,6 +94,8 @@ p{
  */
 export const createPdf = async (complaint, images) => {
   complaint.problemLabel = getProblemLabel(complaint.problem);
+  complaint.seniorityLabel = getSeniorityLabel(complaint.seniority);
+  complaint.companyLabel = getCompanyLabel(complaint.company);
   const options = {
     html: complaintHtml(complaint, images),
     fileName: `denuncia-${complaint.id}`,
