@@ -35,7 +35,7 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_USER_SUCCESS:
       return {
         ...state,
-        user: state.user,
+        profile: action.profile,
       };
     case GET_USER_SUCCESS:
       let profile = {};

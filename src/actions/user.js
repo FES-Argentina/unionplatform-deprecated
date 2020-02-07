@@ -49,10 +49,10 @@ export function updateUserAction(id, newValues) {
   };
 }
 
-export function updateUserSuccess(user) {
+export function updateUserSuccess(profile) {
   return {
     type: UPDATE_USER_SUCCESS,
-    user,
+    profile,
   };
 }
 
