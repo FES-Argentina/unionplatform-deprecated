@@ -4,6 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAlerts } from '../../actions/alerts';
+import { getAlertLabel } from '../../utils/values';
 import styles from '../styles';
 
 const { height, width } = Dimensions.get('window');
@@ -42,7 +43,7 @@ class Alerts extends React.Component {
           {alerts.map((marker) => (
             <Marker
               coordinate={{ latitude: parseFloat(marker.latitude), longitude: parseFloat(marker.longitude) }}
-              title={marker.title}
+              title={getAlertLabel(marker.type)}
               description={marker.description}
               flat={true}
               pinColor={colours[marker.type]}
