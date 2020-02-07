@@ -81,7 +81,7 @@ const GuestStackNavigator = createStackNavigator(
           />
           )}
           <FontAwesome5 name="question" size={15} style={[styles.question]}
-            onPress={() => { navigation.navigate('Onboarding'); }}
+            onPress={() => { navigation.navigate('Help'); }}
             type="clear"
           />
         </>
