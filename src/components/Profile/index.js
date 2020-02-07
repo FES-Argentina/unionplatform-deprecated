@@ -35,7 +35,7 @@ class Profile extends React.Component {
         Share.open({
           title: 'Compartir denuncia',
           url: `file://${file.filePath}`,
-          subject: `[SindicAPP] Denuncia ${item.id}`,
+          subject: 'Mi denuncia en SindicAPP',
           message: 'Denuncia reportada a través de SindicAPP.',
         });
       }
