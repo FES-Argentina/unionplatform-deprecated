@@ -330,7 +330,7 @@ class ProfileForm extends React.Component {
             )}
 
             <Input
-              label="Cuit"
+              label="CUIT"
               mode="outlined"
               value={values.cuit}
               onChangeText={handleChange('cuit')}
