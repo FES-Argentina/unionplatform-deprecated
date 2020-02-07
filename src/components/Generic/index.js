@@ -5,7 +5,6 @@ import {
   Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import Onboarding from 'react-native-onboarding-swiper';
 import NavigationService from '../../navigation/NavigationService';
 
 import styles from '../styles';
