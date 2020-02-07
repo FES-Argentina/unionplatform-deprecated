@@ -24,13 +24,11 @@ class Onboarding extends React.Component {
             backgroundColor: 'mintcream',
             image: <Image source={require('../../assets/images/folder.png')} style={styles.photoOnboarding}/>,
             title: 'Cargá y compartí tus denuncias',
-            subtitle: 'Cargá tus denuncias y exportalas como PDF.',
           },
           {
             backgroundColor: 'linen',
             image: <Image source={require('../../assets/images/padlock.png')} style={styles.photoOnboarding}/>,
             title: 'Protegé tus datos sensibles',
-            subtitle: 'Garantizamos la seguridad de tu información.',
           },
         ]}
       />
