@@ -26,7 +26,7 @@ class Select extends React.Component {
 
     return (
       <View>
-        <Text style={styles.formTitles}>{label}</Text>
+        <Text style={styles.formLabel}>{label}</Text>
         <Picker
           style={styles.inputs}
           prompt={label}
