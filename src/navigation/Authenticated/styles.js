@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
     height: 200,
     width: 'auto',
   },
+  footerLogo: {
+    height: 50,
+    width: 'auto',
+    resizeMode: 'contain',
+    marginTop: 10,
+  },
 });
 
 export default styles;
