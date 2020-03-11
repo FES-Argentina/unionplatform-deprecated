@@ -36,6 +36,7 @@ import Profile from '../../components/Profile';
 import ProfileEdit from '../../components/ProfileEdit';
 import Onboarding from '../../components/Onboarding';
 import ComplaintList from '../../components/ComplaintList';
+import TermsAndConditions from '../../components/TermsAndConditions';
 
 class NavigationDrawerStructure extends React.Component {
   render() {
@@ -266,6 +267,22 @@ const AlertFormStackNavigator = createStackNavigator({
   },
 });
 
+const TermsStackNavigator = createStackNavigator({
+  TermsAndConditions: {
+    screen: TermsAndConditions,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Términos y condiciones',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  }
+});
+
 const DrawerNavigator = createDrawerNavigator({
   Tabs: {
     screen: TabStackNavigator,
@@ -341,6 +358,16 @@ const DrawerNavigator = createDrawerNavigator({
     screen: OnboardingStackNavigator,
     navigationOptions: {
       drawerLabel: 'Ayuda',
+      drawerIcon: () => (
+        <FontAwesome5 name="question" solid size={15} />
+      ),
+    },
+  },
+
+  TermsAndConditions: {
+    screen: TermsStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Términos y condiciones',
       drawerIcon: () => (
         <FontAwesome5 name="question" solid size={15} />
       ),
