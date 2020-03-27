@@ -44,8 +44,8 @@ class CardList extends React.Component {
             <View style={styles.itemCardlist}>
               <ImageBackground style={styles.backgroundImage} source={{ uri: item.image }}>
                 <LinearGradient colors={["#ffffff00", "black"]} style={styles.containerOverlay}>
-                <Text style={styles.titleCardlist}>{item.title}</Text>
-                <Text style={styles.summaryCardlist}>{item.summary}</Text>
+                <Text style={styles.titleCardlist} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
+                <Text style={styles.summaryCardlist} numberOfLines={2} ellipsizeMode={'tail'}>{item.summary}</Text>
                 </LinearGradient>
               </ImageBackground>
             </View>

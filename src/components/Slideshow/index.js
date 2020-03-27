@@ -37,8 +37,8 @@ class Slideshow extends PureComponent {
             <TouchableHighlight onPress={() => this.itemView(item.id)}>
               <View style={styles.slide}>
                 <Image source={{ uri: item.image }} style={styles.itemPhoto}/>
-                <Text style={styles.slideTextTitle}>Noticia</Text>
-                <Text style={styles.slideText}>{item.title}</Text>
+                <Text style={styles.slideTextTitle} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
+                <Text style={styles.slideText} numberOfLines={2} ellipsizeMode={'tail'}>{item.summary}</Text>
               </View>
             </TouchableHighlight>
           )}
