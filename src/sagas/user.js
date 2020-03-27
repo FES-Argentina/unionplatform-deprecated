@@ -1,4 +1,4 @@
-import { call, put, race, take, takeLatest } from 'redux-saga/effects';
+import { call, put, race, take, takeLatest, fork } from 'redux-saga/effects';
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
@@ -149,16 +149,13 @@ export function* userWatcher() {
 /**
  * SET_ENROLLMENT
  */
+
 function* setEnrollmentWorker(values) {
   try {
-    yield put(processing(true));
-    const data = yield call(setEnrollmentRequest, values);
-    if (data) {
-      // TODO: que tenemos que pasarle al setEnrollmentSuccess
-      yield put(setEnrollmentSuccess(values));
-      NavigationService.navigate('Loading');
-      Toast.show('Gracias por registrarte! Vas a recibir un correo cuando tu solicitud sea revisada.', Toast.LONG);
-    }
+    yield fork(setEnrollmentRequest, values);
+    yield put(processing(false));
+    Toast.show('Gracias por registrarte! Vas a recibir un correo cuando tu solicitud sea revisada.', Toast.LONG);
+    NavigationService.navigate('Welcome');
   } catch (e) {
     console.warn('error setEnrollmentWorker:', e);
   }
@@ -166,6 +163,7 @@ function* setEnrollmentWorker(values) {
     yield put(processing(false));
   }
 }
+
 
 export function* setEnrollmentWatcher() {
   while (true) {

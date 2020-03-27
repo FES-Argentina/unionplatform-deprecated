@@ -25,6 +25,7 @@ function clearCookies() {
  */
 function buildHeaders(post = false) {
   const state = store.getState();
+
   var headers = {
     Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
     'Content-Type': 'application/json',
@@ -34,6 +35,29 @@ function buildHeaders(post = false) {
     headers['Content-Type'] = 'application/hal+json';
     const { authToken } = getTokens();
     headers['X-CSRF-Token'] = authToken;
+  }
+
+  return headers;
+}
+
+function sessionToken(){
+  return api.get(`${Config.API_URL}/session/token`)
+  .then((response) => response.data)
+  .catch((error) => {
+    console.log('ERROR', error);
+  });
+}
+
+function registerBuildHeaders(post = false) {
+  var token = sessionToken();
+  var headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (post) {
+    headers['Content-Type'] = 'application/hal+json';
+    headers['X-CSRF-Token'] = token;
+
   }
 
   return headers;
@@ -164,14 +188,40 @@ export function getNewRequest(id) {
 }
 
 export function setEnrollmentRequest(values) {
+  const data = {
+    _links: {
+      type: {
+        href: `${Config.API_URL}/rest/type/user/user`
+      }
+    },
+    name : [{ value: values.username }],
+    field_firstname : [{ value: values.firstname }],
+    field_lastname : [{ value: values.lastname }],
+    mail : [{ value: values.mail }],
+    field_cuit : [{ value: values.cuit }],
+    field_dni : [{ value: values.dni }],
+    field_birthdate : [{ value: values.birthdate }],
+    field_nationality : [{ value: values.nationality }],
+    field_address : [{ value: values.address }],
+    field_city : [{ value: values.city }],
+    field_postalcode : [{ value: values.postalcode }],
+    field_province : [{ value: values.province }],
+    field_country : [{ value: values.country }],
+    field_phonenumber : [{ value: values.phonenumber }],
+    field_tasks : [{ value: values.tasks }],
+    field_companies : values.companies.map((i) => ({ value: i })),
+  };
+
+  const headers = registerBuildHeaders(true);
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/enrollments`, { enrollment: values })
+    return api.post(`${Config.API_URL}/user/register?_format=hal_json`, data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
       });
   });
 }
+
 
 export function setComplaintRequest(values) {
   const data = {
