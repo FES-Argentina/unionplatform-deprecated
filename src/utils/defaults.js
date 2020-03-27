@@ -1,4 +1,5 @@
 export const defaultProfile = {
+  username: '',
   firstname: '',
   lastname: '',
   mail: '',

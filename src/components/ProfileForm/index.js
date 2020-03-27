@@ -235,13 +235,14 @@ class ProfileForm extends React.Component {
             {errors.firstname && touched.firstname ? (
               <Text style={styles.formError}>{errors.firstname}</Text>
             ) : null }
+
             <Input
               label="Apellido"
               mode="outlined"
               value={values.lastname}
               onChangeText={handleChange('lastname')}
               onBlur={handleBlur('lastname')}
-              placeholder="Ingrese su apellido"
+              placeholder="Ingrese su nombre"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon name="user" size={12} color="grey" />
@@ -251,7 +252,7 @@ class ProfileForm extends React.Component {
                 this.inputs.lastname = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('phonenumber');
+                this.phoneInput.focus();
               }}
               blurOnSubmit={false}
               valid={touched.lastname && !errors.lastname}
@@ -260,6 +261,7 @@ class ProfileForm extends React.Component {
             {errors.lastname && touched.lastname ? (
               <Text style={styles.formError}>{errors.lastname}</Text>
             ) : null }
+
             <Input
               label="Teléfono"
               mode="outlined"
@@ -269,13 +271,13 @@ class ProfileForm extends React.Component {
               placeholder="Ingrese su teléfono"
               labelStyle={styles.inputslabel}
               leftIcon={(
-                <Icon name="phone" size={12} color="grey" />
-              )}
+                <Icon name="address-card" size={12} color="grey" />
+            )}
               keyboardType="phone-pad"
               autoCapitalize="none"
               returnKeyType="next"
-              ref={(input) => {
-                this.inputs.phonenumber = input;
+              ref={ref => {
+                this.phoneInput = ref;
               }}
               onSubmitEditing={() => {
                 this.focusNextField('cuit');
@@ -536,7 +538,8 @@ class ProfileForm extends React.Component {
               <Text style={styles.formError}>{errors.country}</Text>
             ) : null }
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Selector items={companies} name="company" defaultValue={profile.companies} label="Empresa" setFieldValue={setFieldValue} />
+            <Selector items={companies} name="companies" defaultValue={profile.companies} label="Empresa" setFieldValue={setFieldValue} />
+            <Text style={styles.bodyDetail}>Elegí al menos una opción</Text>
             <Input
               label="Tareas"
               mode="outlined"
@@ -583,7 +586,7 @@ ProfileForm.propTypes = {
     username: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
-    companies: PropTypes.string.isRequired,
+    companies: PropTypes.array.isRequired,
     created: PropTypes.string,
     birthdate: PropTypes.string,
     mail: PropTypes.string,
