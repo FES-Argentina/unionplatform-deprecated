@@ -136,6 +136,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        missingDimensionStrategy "RNNotifications.reactNativeVersion", "reactNative60"
     }
     splits {
         abi {
@@ -186,7 +187,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
-    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation project(':react-native-notifications');
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
