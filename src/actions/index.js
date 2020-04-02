@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS, PROCESSING, REQUEST_ERROR } from '../constants';
+import { CLEAR_ERRORS, PROCESSING, REQUEST_ERROR, SEND_FCM_TOKEN } from '../constants';
 
 /**
  * Action creator for PROCESSING.
@@ -30,5 +30,12 @@ export function requestError(msg) {
 export function clearErrors() {
   return {
     type: CLEAR_ERRORS,
+  };
+}
+
+export function postFCMToken(token) {
+  return {
+    type: SEND_FCM_TOKEN,
+    token,
   };
 }

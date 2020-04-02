@@ -3,10 +3,19 @@ import NavigationService from './src/navigation/NavigationService';
 import Switcher from './src/navigation/Switcher';
 import SplashScreen from 'react-native-splash-screen'
 import Config from 'react-native-config';
+import messaging from '@react-native-firebase/messaging';
+import { store } from './src/store';
+import { postFCMToken } from './src/actions';
 
 class App extends React.Component {
   componentDidMount() {
     SplashScreen.hide();
+
+    messaging().getToken()
+      .then((token) => {
+        store.dispatch(postFCMToken(token))
+      })
+      .catch((error) => console.error(error));
   }
 
   render() {

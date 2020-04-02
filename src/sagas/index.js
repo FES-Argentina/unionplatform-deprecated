@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects';
 import { documentsWatcher, documentWatcher } from './documents';
 import { newsWatcher, newWatcher } from './news';
 import { alertsWatcher, setAlertWatcher } from './alerts';
+import { setDeviceToken } from './notifications';
 import { complaintImagesWatcher } from './images';
 import {
   loginFlow,
@@ -36,6 +37,7 @@ export default function* rootSaga() {
     complaintImagesWatcher(),
     alertsWatcher(),
     setAlertWatcher(),
-    informationWatcher()
+    informationWatcher(),
+    setDeviceToken(),
   ]);
 }

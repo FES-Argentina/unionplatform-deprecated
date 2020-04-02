@@ -410,3 +410,8 @@ export function getInformationRequest() {
         });
   });
 }
+
+export function postDeviceToken(token) {
+  // TODO: We still don't have where to post this.
+  console.log('DEVICE TOKEN', token);
+}
