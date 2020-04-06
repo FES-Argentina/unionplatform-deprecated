@@ -13,6 +13,7 @@ import Selector from '../form/Selector';
 import styles from '../styles';
 import { companies } from '../../utils/values';
 import { defaultProfile } from '../../utils/defaults';
+import cuitValidator from 'cuit-validator';
 
 const validationSchema = yup.object().shape({
   username: yup
@@ -38,7 +39,7 @@ const validationSchema = yup.object().shape({
   mail: yup
     .string()
     .label('E-mail')
-    .email('Ingrese un email válido')
+    .email('Ingrese. un email válido')
     .required('Campo requerido'),
   phonenumber: yup
     .string()
@@ -53,6 +54,7 @@ const validationSchema = yup.object().shape({
     .required('Campo requerido'),
   cuit: yup
     .number()
+    .test('test-cuit', 'CUIT no válido', value => cuitValidator(value.toString()) == true )
     .min(10, 'El CUIT/CUIL debe tener al menos ${min} caracteres')
     .typeError('El CUIT/CUIL debe estar expresado en números')
     .positive('El CUIT/CUIL debe ser mayor a 0')
@@ -112,6 +114,7 @@ class ProfileForm extends React.Component {
   onSubmit = (values) => {
     const { date } = this.state;
     const { onSubmit } = this.props;
+
     const profile = {
       ...values,
       birthdate: moment(date).format('YYYY-MM-DD'),
@@ -242,7 +245,7 @@ class ProfileForm extends React.Component {
               value={values.lastname}
               onChangeText={handleChange('lastname')}
               onBlur={handleBlur('lastname')}
-              placeholder="Ingrese su nombre"
+              placeholder="Ingrese su apellido"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon name="user" size={12} color="grey" />
@@ -337,7 +340,7 @@ class ProfileForm extends React.Component {
               value={values.cuit}
               onChangeText={handleChange('cuit')}
               onBlur={handleBlur('cuit')}
-              placeholder="Ingrese su teléfono"
+              placeholder="Ingrese su CUIT"
               labelStyle={styles.inputslabel}
               leftIcon={(
                 <Icon name="address-card" size={12} color="grey" />
