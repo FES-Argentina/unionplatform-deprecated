@@ -68,7 +68,7 @@ class ComplaintList extends React.Component {
                   </View>
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => this.shareComplaint(item)}>
-                  <FontAwesome5 name="share" size={20} style={styles.downloadIcon}/>
+                  <FontAwesome5 name="share" size={15}/>
                 </TouchableHighlight>
               </View>
           )}

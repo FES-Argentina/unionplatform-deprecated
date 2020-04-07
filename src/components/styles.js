@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 5,
   },
-  // cardlist
+  // datepicker
   containerCenter: {
     flex: 1,
     alignItems: 'center',
@@ -224,6 +224,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 15,
     paddingVertical: 10,
+  },
+  // Share Complaint
+  shareComplaints: {
+    paddingRight: 10,
+    paddingBottom: 5,
+    paddingTop: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  shareComplaintTitles: {
+    fontSize: 24,
+    alignSelf: 'flex-start',
+    paddingTop: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 15,
+    color: 'grey',
+    fontWeight: 'bold',
+  },
+  downloadIcon: {
+    color: '#f50057',
   },
   // complaintslist
   complaints: {
