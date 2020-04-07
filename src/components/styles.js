@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   // cardlist
+  containerCenter: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  // cardlist
   containerStandar: {
     flex: 1,
   },

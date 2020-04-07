@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Selector from '../form/Selector';
@@ -102,8 +102,6 @@ class ProfileForm extends React.Component {
     const { profile } = this.props;
     this.state = {
       date: (profile.birthdate) ? new Date(profile.birthdate) : new Date(1990, 0, 1),
-      mode: 'date',
-      show: false,
     };
   }
 
@@ -114,7 +112,6 @@ class ProfileForm extends React.Component {
   onSubmit = (values) => {
     const { date } = this.state;
     const { onSubmit } = this.props;
-
     const profile = {
       ...values,
       birthdate: moment(date).format('YYYY-MM-DD'),
@@ -122,26 +119,9 @@ class ProfileForm extends React.Component {
     onSubmit(profile);
   }
 
-  setDate = (value) => {
-    this.setState((prevState) => ({
-      show: Platform.OS === 'ios',
-      date: value || prevState.date,
-    }));
-  }
-
-  show = (mode) => {
-    this.setState({
-      show: true,
-      mode,
-    });
-  }
-
-  datepicker = () => {
-    this.show('date');
-  }
 
   render() {
-    const { show, date, mode } = this.state;
+    const { date} = this.state;
     const { profile } = this.props;
 
     return (
@@ -293,46 +273,21 @@ class ProfileForm extends React.Component {
               <Text style={styles.formError}>{errors.phonenumber}</Text>
             ) : null }
 
-            <TouchableOpacity onPress={this.datepicker}>
-              <Input
-                label="Fecha de nacimiento"
-                mode="outlined"
-                value={(values.birthdate) ? moment(values.birthdate).format('DD/MM/YYYY') : null}
-                onChangeText={handleChange('birthdate')}
-                onBlur={handleBlur('birthdate')}
-                placeholder="dd/mm/aaaa"
-                labelStyle={styles.inputslabel}
-                leftIcon={(
-                  <Icon name="calendar" size={12} color="grey" />
-                )}
-                ref={(input) => {
-                  this.inputs.phonenumber = input;
-                }}
-                onSubmitEditing={() => {
-                  this.focusNextField('cuit');
-                }}
-                blurOnSubmit={false}
-                onFocus={this.datepicker}
-                editable={false}
-              />
-            </TouchableOpacity>
 
-            { show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                timeZoneOffsetInMinutes={0}
+            <Text style={styles.formLabel}>Fecha de nacimiento</Text>
+            <View style={styles.containerCenter}>
+              <DatePicker
+                locale = "es"
                 value={date}
-                mode={mode}
-                is24Hour
-                display="default"
-                onChange={(event, value) => {
-                  if (event.type == 'set') {
-                    this.setDate(value);
+                date={date}
+                mode="date"
+                onDateChange={(value) => {
+                    this.state.date = value;
                     setFieldValue('birthdate', value);
                   }
-                }}
+                }
               />
-            )}
+            </View>
 
             <Input
               label="CUIT"
