@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   createAppContainer,
 } from 'react-navigation';
@@ -11,13 +12,28 @@ import {
 // Import all the screens for Tab
 import HomeScreen from './HomeScreen';
 import CardList from '../CardList';
+import NewsDetail from '../NewsDetail';
 import Alerts from '../Alerts';
 import Chat from '../Chat';
 
+const ListStackNavigator = createStackNavigator({
+  CardList: {
+    screen: CardList,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  NewsDetail: {
+    screen: NewsDetail,
+    navigationOptions: {
+      header: null,
+    },
+  },
+});
 
 const TabScreen = createMaterialTopTabNavigator(
   {
-    Noticias: { screen: CardList },
+    Noticias: { screen: ListStackNavigator },
     Mapa: { screen: Alerts },
     Chat: { screen: Chat },
   },
