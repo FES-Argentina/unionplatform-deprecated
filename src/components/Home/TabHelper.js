@@ -12,14 +12,14 @@ import {
 import HomeScreen from './HomeScreen';
 import CardList from '../CardList';
 import Alerts from '../Alerts';
-import Chat from '../Chat';
+import Forum from '../Forum';
 
 
 const TabScreen = createMaterialTopTabNavigator(
   {
     Noticias: { screen: CardList },
     Mapa: { screen: Alerts },
-    Chat: { screen: Chat },
+    Forum: { screen: Forum },
   },
   {
     tabBarPosition: 'top',
