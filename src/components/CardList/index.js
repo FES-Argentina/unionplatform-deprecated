@@ -14,7 +14,6 @@ import NavigationService from '../../navigation/NavigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import SafeAreaViewDecider from '../SafeAreaViewDecider'
 import EmptyListMessage from '../EmptyListMessage';
-
 import styles from '../styles';
 
 class CardList extends React.Component {
@@ -24,7 +23,7 @@ class CardList extends React.Component {
   }
 
   itemView = (id) => {
-    NavigationService.navigate('NewsDetail', {id} );
+    this.props.navigation.navigate("NewsDetail" , {id});
   }
 
   render() {

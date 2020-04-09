@@ -76,6 +76,8 @@ export function* loginFlow() {
 
     if (winner.auth) {
       yield put(setAuth(winner.auth));
+      const user = yield call(getUserRequest, winner.auth.data.current_user.uid);
+      yield put(getUserSuccess(user));
       yield call(redirectAuth);
     }
   }

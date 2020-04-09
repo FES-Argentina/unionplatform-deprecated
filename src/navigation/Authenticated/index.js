@@ -24,11 +24,8 @@ import styles from './styles';
 import LogoutButton from '../../components/LogoutButton';
 
 import Home from '../../components/Home';
-import CardList from '../../components/CardList';
-import NewsDetail from '../../components/NewsDetail';
 import Complaint from '../../components/Complaint';
 import AlertForm from '../../components/AlertForm';
-
 import SimpleList from '../../components/SimpleList';
 import DocumentDetail from '../../components/DocumentDetail';
 import ComplaintDetail from '../../components/ComplaintDetail';
@@ -179,33 +176,7 @@ const ComplaintListStackNavigator = createStackNavigator({
   },
 });
 
-const ListStackNavigator = createStackNavigator({
-  CardList: {
-    screen: CardList,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Noticias',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-      headerStyle: {
-        backgroundColor: '#f50057',
-        shadowOpacity: 0,
-        elevation: 0,
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-  NewsDetail: {
-    screen: NewsDetail,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Noticia',
-      headerStyle: {
-        backgroundColor: '#f50057',
-        shadowOpacity: 0,
-        elevation: 0,
-      },
-      headerTintColor: '#fff',
-    }),
-  },
-});
+
 
 const DocListStackNavigator = createStackNavigator({
   SimpleList: {
@@ -234,6 +205,8 @@ const DocListStackNavigator = createStackNavigator({
     }),
   },
 });
+
+
 
 const OnboardingStackNavigator = createStackNavigator({
   Onboarding: {
@@ -309,7 +282,7 @@ const DrawerNavigator = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'Cargar denuncia',
       drawerIcon: () => (
-        <FontAwesome5 name="burn" solid size={15} />
+        <FontAwesome5 name="burn" size={15} />
       ),
     },
   },
@@ -319,17 +292,7 @@ const DrawerNavigator = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'Mis denuncias',
       drawerIcon: () => (
-        <FontAwesome5 name="burn" solid size={15} />
-      ),
-    },
-  },
-
-  CardList: {
-    screen: ListStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Noticias',
-      drawerIcon: () => (
-        <FontAwesome5 name="flag" solid size={15} />
+        <FontAwesome5 name="fire-alt" size={15} />
       ),
     },
   },
@@ -339,7 +302,7 @@ const DrawerNavigator = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'Documentos',
       drawerIcon: () => (
-        <FontAwesome5 name="file" solid size={15} />
+        <FontAwesome5 name="file-alt" size={15} />
       ),
     },
   },
@@ -353,23 +316,13 @@ const DrawerNavigator = createDrawerNavigator({
       ),
     },
   },
-  
-  Onboarding: {
-    screen: OnboardingStackNavigator,
-    navigationOptions: {
-      drawerLabel: 'Ayuda',
-      drawerIcon: () => (
-        <FontAwesome5 name="question" solid size={15} />
-      ),
-    },
-  },
 
   TermsAndConditions: {
     screen: TermsStackNavigator,
     navigationOptions: {
       drawerLabel: 'Términos y condiciones',
       drawerIcon: () => (
-        <FontAwesome5 name="question" solid size={15} />
+        <FontAwesome5 name="book" solid size={15} />
       ),
     },
   },
@@ -384,7 +337,7 @@ const DrawerNavigator = createDrawerNavigator({
         <LogoutButton />
       </ScrollView>
       <View>
-        <Image source={require('../../assets/images/fes.jpg')} style={styles.footerLogo}/>
+        <Image source={require('../../assets/images/fes.png')} style={styles.footerLogo}/>
       </View>
     </SafeAreaView>
   ),
@@ -392,12 +345,6 @@ const DrawerNavigator = createDrawerNavigator({
 
 NavigationDrawerStructure.propTypes = {
   navigationProps: PropTypes.object.isRequired,
-};
-
-CardList.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 SimpleList.propTypes = {

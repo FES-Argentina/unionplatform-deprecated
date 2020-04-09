@@ -8,9 +8,35 @@ import {
 import PropTypes from 'prop-types';
 import Field from '../Field';
 import styles from '../styles';
+import { Button } from 'react-native-elements';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { connect } from 'react-redux';
 import { getProblemLabel, getCompanyLabel, getSeniorityLabel } from '../../utils/values';
+import { createPdf } from '../../utils/pdf';
+import Share from 'react-native-share';
+import { processing } from '../../actions';
 
 class ComplaintDetail extends React.Component {
+
+  shareComplaint = async (item) => {
+    const { showProcessing } = this.props;
+    try {
+      showProcessing(true);
+      const file = await createPdf(item);
+      if (file.filePath) {
+        Share.open({
+          title: 'Compartir denuncia',
+          url: `file://${file.filePath}`,
+          subject: 'Mi denuncia en SindicAPP',
+          message: 'Denuncia reportada a través de SindicAPP.',
+        });
+      }
+    } catch (e) {
+      console.warn('ERROR', e);
+    } finally {
+      showProcessing(false);
+    }
+  }
 
 
   render() {
@@ -45,6 +71,18 @@ class ComplaintDetail extends React.Component {
               />
             </View>
           ) : null }
+          <Button
+            title="Compartir denuncia"
+            type="outline"
+            iconRight
+            titleStyle={{ color: '#f50057', marginRight: 15}}
+            onPress={() => this.shareComplaint(item)}
+            icon={
+              <FontAwesome5
+                  name="share" solid size={15}
+              />
+            }
+          />
         </View>
       </ScrollView>
     );
@@ -57,4 +95,13 @@ ComplaintDetail.propTypes = {
   }).isRequired,
 };
 
-export default ComplaintDetail;
+const mapStateToProps = (state) => ({
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  loadComplaints: () => dispatch(getComplaints()),
+  showProcessing: (status) => dispatch(processing(status)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComplaintDetail);

@@ -6,8 +6,12 @@ const styles = StyleSheet.create({
   bars: {
     marginLeft: 15,
   },
+  arrow: {
+    marginLeft: 15,
+    color: 'white',
+  },
   itemPhoto: {
-    height: 200,
+    height: 150,
     width: 'auto',
   },
   footerLogo: {
@@ -15,6 +19,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     resizeMode: 'contain',
     marginTop: 10,
+    marginBottom: 10,
   },
 });
 

@@ -7,12 +7,10 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import SafeAreaViewDecider from '../SafeAreaViewDecider'
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getNew } from '../../actions/news';
 import { Alert } from 'react-native';
-
 import styles from '../styles';
 
 class NewsDetail extends React.Component {
