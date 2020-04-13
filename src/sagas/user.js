@@ -89,8 +89,10 @@ export function* loginFlow() {
 export function* logoutFlow() {
   while (true) {
     yield take(LOGOUT_REQUEST);
+    yield put(processing(true));
     yield call(logout);
     yield put(setLogout());
+    yield put(processing(false));
     yield call(redirectAuth);
   }
 }
