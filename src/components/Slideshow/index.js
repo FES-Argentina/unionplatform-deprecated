@@ -32,6 +32,8 @@ class Slideshow extends PureComponent {
         <SwiperFlatList
           horizontal
           showPagination
+          paginationDefaultColor={'gray'}
+          paginationActiveColor={'darkgray'}
           data={data.slice(0, 5)}
           renderItem={({ item }) => (
             <TouchableHighlight onPress={() => this.itemView(item.id)}>
