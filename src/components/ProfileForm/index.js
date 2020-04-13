@@ -54,7 +54,7 @@ const validationSchema = yup.object().shape({
     .required('Campo requerido'),
   cuit: yup
     .number()
-    .test('test-cuit', 'CUIT no válido', value => cuitValidator(value.toString()) == true )
+    .test('test-cuit', 'CUIT no válido', (value) => value && cuitValidator(value.toString()))
     .min(10, 'El CUIT/CUIL debe tener al menos ${min} caracteres')
     .typeError('El CUIT/CUIL debe estar expresado en números')
     .positive('El CUIT/CUIL debe ser mayor a 0')
