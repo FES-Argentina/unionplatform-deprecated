@@ -66,6 +66,7 @@ export const userFields = {
   field_companies:  {
     fieldName: 'companies',
     externalKey: 'value',
+    cardinality: -1,
   },
   field_tasks:  {
     fieldName: 'tasks',

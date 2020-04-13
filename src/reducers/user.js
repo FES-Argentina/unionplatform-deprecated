@@ -44,7 +44,7 @@ const userReducer = (state = initialState, action) => {
       for (let [key, info] of Object.entries(userFields)) {
         if (data[key]) {
           if (data[key] && data[key].length && data[key][0][info.externalKey]) {
-            if (data[key].length > 1) {
+            if (info.cardinality && info.cardinality !== 1) {
               profile[info.fieldName] = [];
               for (i = 0; i < data[key].length; i++) {
                 profile[info.fieldName][i] = data[key][i][info.externalKey];
