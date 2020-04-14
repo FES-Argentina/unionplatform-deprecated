@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 export const { width, height } = Dimensions.get('window');
-
+const ratio = width/541;
 
 const styles = StyleSheet.create({
   //form
@@ -181,8 +181,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   photoNews: {
-    height: height,
-    width: 'auto',
+
   },
   // onboarding
   photoOnboarding: {
