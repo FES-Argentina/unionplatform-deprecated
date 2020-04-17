@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackHandler } from 'react-native';
+import 'react-native-get-random-values';
 import { WebView } from 'react-native-webview';
 import Url from 'url-parse';
 import Config from 'react-native-config';
