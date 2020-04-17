@@ -8,6 +8,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Forum extends React.Component {
+  handleMessage = (event) => {
+    const { data } = event.nativeEvent;
+    const { user } = this.props;
+
+    if (data === 'GET_CREDENTIALS') {
+      const response = {
+        cookie: user.cookie ? `${user.cookie.name}=${user.cookie.value}` : null,
+      };
+      const responseCode = `
+        window.postMessage(${JSON.stringify(response)}, "*");
+        true;
+      `;
+
+      if (this.webview) {
+        this.webview.injectJavaScript(responseCode);
+      }
+    }
+  }
+
   handleBackButton = () => {
     // FIXME: We should track the webview canGoBack state but 
     // onNavigationStateChange is not being called.
@@ -36,13 +55,15 @@ class Forum extends React.Component {
   }
 
   render() {
-    const uri = new Url(Config.FORUM_URL);
+    const uri = new Url(`${Config.API_URL}/discourse_autologin`);
+
     return (
       <WebView
         ref={(ref) => { this.webview = ref; }}
         source={{ uri: uri.toString() }}
         incognito
         cacheEnabled={false}
+        onMessage={this.handleMessage}
       />
     );
   }
