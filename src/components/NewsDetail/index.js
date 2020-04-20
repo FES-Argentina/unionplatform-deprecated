@@ -21,7 +21,7 @@ class NewsDetail extends React.Component {
 
   render() {
     const { data } = this.props;
-    const width = (Dimensions.get('window').width).toFixed(0);
+    const width = (Dimensions.get('window').width).toFixed(10);
 
     return (
       <ScrollView>
