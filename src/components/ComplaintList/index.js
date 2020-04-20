@@ -14,6 +14,7 @@ import { createPdf } from '../../utils/pdf';
 import Share from 'react-native-share';
 import { processing } from '../../actions';
 import { getProblemLabel } from '../../utils/values';
+import EmptyListMessage from '../EmptyListMessage';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -72,6 +73,7 @@ class ComplaintList extends React.Component {
                 </TouchableHighlight>
               </View>
           )}
+          ListEmptyComponent={<EmptyListMessage text="No hay denuncias..." />}
         />
       </SafeAreaView>
     );
