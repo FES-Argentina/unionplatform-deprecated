@@ -7,6 +7,27 @@ export const { width, height } = Dimensions.get('window');
 const ratio = width/541;
 
 const styles = StyleSheet.create({
+  pagination: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    width,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 7,
+    padding: 10,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    flexDirection: 'column',
+  },
+  containerMarginTop: {
+    marginTop: 30
+  },
+  containerdot: {
+    flex: 1,
+    backgroundColor: 'grey',// <-- use with "dotThemeLight"
+  },
   //form
   formError: {
     color: 'red',

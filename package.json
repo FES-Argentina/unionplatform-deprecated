@@ -44,6 +44,7 @@
     "react-native-maps": "^0.26.1",
     "react-native-multiple-select": "^0.5.5",
     "react-native-onboarding-swiper": "^1.1.0",
+    "react-native-pagination": "^1.5.5",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-scalable-image": "^1.0.0",
