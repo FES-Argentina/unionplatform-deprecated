@@ -1,13 +1,35 @@
 import React from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, Linking } from 'react-native';
 import 'react-native-get-random-values';
 import { WebView } from 'react-native-webview';
 import Url from 'url-parse';
+import Toast from 'react-native-simple-toast';
 import Config from 'react-native-config';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Forum extends React.Component {
+  constructor(props) {
+    super(props);
+    this.forumUrl = new Url(Config.FORUM_URL);
+    this.authUrl = new Url(`${Config.API_URL}/discourse_autologin`);
+  }
+
+  _requestAllowed = (url) => {
+    // Allow internal URLs.
+    if (url.hostname == this.forumUrl.hostname) {
+      return true;
+    }
+
+    // Allow only the API URLs we need to authenticate the user.
+    if (url.hostname == this.authUrl.hostname) {
+      return url.pathname == "/discourse_autologin"
+        || url.pathname == "/discourse_sso";
+    }
+
+    return false;
+  }
+
   handleMessage = (event) => {
     const { data } = event.nativeEvent;
     const { user } = this.props;
@@ -25,6 +47,17 @@ class Forum extends React.Component {
         this.webview.injectJavaScript(responseCode);
       }
     }
+  }
+
+  handleLoadRequest = (event) => {
+    const { url } = event;
+    if (url && this._requestAllowed(new Url(url))) {
+      return true;
+    }
+
+    Linking.openURL(url).catch((err) => Toast.show('No se pudo abrir el enlace.', Toast.LONG));
+
+    return false;
   }
 
   handleBackButton = () => {
@@ -55,15 +88,14 @@ class Forum extends React.Component {
   }
 
   render() {
-    const uri = new Url(`${Config.API_URL}/discourse_autologin`);
-
     return (
       <WebView
         ref={(ref) => { this.webview = ref; }}
-        source={{ uri: uri.toString() }}
+        source={{ uri: this.authUrl.toString() }}
         incognito
         cacheEnabled={false}
         onMessage={this.handleMessage}
+        onShouldStartLoadWithRequest={this.handleLoadRequest}
       />
     );
   }
