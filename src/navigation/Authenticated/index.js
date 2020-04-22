@@ -56,7 +56,7 @@ const TabStackNavigator = createStackNavigator({
   TabFirst: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'Sindicato App',
+      title: 'App sindical',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -69,7 +69,7 @@ const TabStackNavigator = createStackNavigator({
   TabSecond: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'Sindicato App',
+      title: 'App sindical',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -82,7 +82,7 @@ const TabStackNavigator = createStackNavigator({
   TabThird: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'Sindicato App',
+      title: 'App sindical',
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
