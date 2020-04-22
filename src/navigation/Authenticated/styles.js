@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   itemPhoto: {
-    height: 150,
+    height: 200,
     width: 'auto',
   },
   footerLogo: {
