@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  AppRegistry,
   FlatList,
   StyleSheet,
   Text,
@@ -8,8 +7,8 @@ import {
   SafeAreaView,
   TouchableHighlight,
   Image,
+  ActivityIndicator,
 } from 'react-native';
-import Pagination from 'react-native-pagination';
 import _ from 'lodash';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,29 +16,34 @@ import NavigationService from '../../navigation/NavigationService';
 import styles from '../styles';
 import SafeAreaViewDecider from '../SafeAreaViewDecider';
 import EmptyListMessage from '../EmptyListMessage';
-
 import {getDocuments} from '../../actions/documents';
 
 class SimpleList extends React.Component {
   constructor(props) {
     super(props);
+    this.page = 0;
     this.state = {
-      data: this.props.data,
+      loading: false,
+      isRefreshing: false,
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = page => {
     const {loadDocuments} = this.props;
-    loadDocuments();
-    const {data} = this.props;
+    loadDocuments(this.page);
   };
 
   itemView = item => {
     NavigationService.navigate('DocumentDetail', {item});
   };
 
-  onViewableItemsChanged = ({viewableItems, changed}) => {
-    this.setState({viewableItems});
+  handleLoadMore = () => {
+    if (!this.state.loading) {
+      this.page = this.page + 1;
+      const {loadDocuments} = this.props;
+      loadDocuments(this.page);
+      this.setState({isRefreshing: false, loading: false});
+    }
   };
 
   _renderItem = ({item, separators}) => {
@@ -62,7 +66,10 @@ class SimpleList extends React.Component {
       </TouchableHighlight>
     );
   };
+
   render() {
+    const { data } = this.props;
+
     return (
       <SafeAreaView>
         <SafeAreaViewDecider
@@ -71,25 +78,13 @@ class SimpleList extends React.Component {
           backgroundColor="crimson"
         />
         <FlatList
-          ref={r => (this.refs = r)}
-          //horizontal
-          onViewableItemsChanged={this.onViewableItemsChanged}
-          pagingEnabled
-          data={this.state.data}
+          refreshing={this.state.isRefreshing}
+          data={data}
           renderItem={this._renderItem}
-        />
-        <Pagination
-          textStyle={{fontSize: 14}}
-          dotThemeDark
-          paginationStyle={styles.pagination}
-          dotSwapAxis
-          dotEmptyHide
-          dotIconHide
-          startDotIconSize={35}
-          listRef={this.refs}
-          paginationVisibleItems={this.state.viewableItems}
-          paginationItems={this.state.data}
-          paginationItemPadSize={1}
+          keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={this.renderSeparator}
+          onEndReachedThreshold={0.4}
+          onEndReached={this.handleLoadMore.bind(this)}
         />
       </SafeAreaView>
     );
@@ -113,7 +108,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadDocuments: () => dispatch(getDocuments()),
+  loadDocuments: page => dispatch(getDocuments(page)),
 });
 
 export default connect(

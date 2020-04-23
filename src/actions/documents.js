@@ -2,11 +2,13 @@ import {
   GET_DOCUMENTS, GET_DOCUMENTS_SUCCESS, GET_DOCUMENT, GET_DOCUMENT_SUCCESS,
 } from '../constants';
 
-export function getDocuments() {
+export function getDocuments(page) {
   return {
     type: GET_DOCUMENTS,
+    page,
   };
 }
+
 
 export function getDocumentsSuccess(docs) {
   return {

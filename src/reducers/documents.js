@@ -10,7 +10,7 @@ const documentsReducer = (state = initialState, action) => {
     case GET_DOCUMENTS_SUCCESS:
       return {
         ...state,
-        list: action.payload,
+        list: [...state.list, ...action.payload],
       };
 
     case GET_DOCUMENT_SUCCESS:

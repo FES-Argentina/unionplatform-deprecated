@@ -69,13 +69,13 @@ function getTokens() {
   return { authToken, logoutToken };
 }
 
-export function getDocumentsRequest() {
+export function getDocumentsRequest(page) {
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/documents`)
-      .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
+      return api.get(`${Config.API_URL}/documents?page=${page}`)
+        .then((response) => response.data)
+        .catch((error) => {
+          console.log('ERROR', error);
+        });
   });
 }
 
