@@ -1,32 +1,30 @@
 import {
   StyleSheet,
-  Dimensions,
+  Dimensions, PixelRatio
 } from 'react-native';
 
 export const { width, height } = Dimensions.get('window');
 const ratio = width/541;
 
 const styles = StyleSheet.create({
-  pagination: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    width,
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    bottom: 7,
-    padding: 10,
-    flex: 1,
+  photoContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1 / PixelRatio.get(),
     justifyContent: 'center',
-    alignItems: 'flex-end',
-    flexDirection: 'column',
+    alignItems: 'center',
   },
-  containerMarginTop: {
-    marginTop: 30
+  photo: {
+    padding: 20,
+    margin: 15,
+    backgroundColor: 'lightgrey',
+    marginTop: 25,
   },
-  containerdot: {
-    flex: 1,
-    backgroundColor: 'grey',// <-- use with "dotThemeLight"
+  images: {
+    width: 150,
+    height: 150,
+    borderColor: 'black',
+    borderWidth: 1,
+    marginHorizontal: 3,
   },
   //form
   formError: {
