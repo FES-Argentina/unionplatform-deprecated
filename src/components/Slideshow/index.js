@@ -24,6 +24,7 @@ class Slideshow extends PureComponent {
 
   render() {
     const { data } = this.props;
+    let items = (data.length > 5) ? data.slice(0, 5) : data;
 
     return (
       <View>
@@ -34,9 +35,9 @@ class Slideshow extends PureComponent {
           showPagination
           paginationDefaultColor={'gray'}
           paginationActiveColor={'darkgray'}
-          data={data.slice(0, 5)}
+          data={items}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => this.itemView(item.id)}>
+            <TouchableHighlight onPress={() => this.itemView(item)}>
               <View style={styles.slide}>
                 <Image source={{ uri: item.image }} style={styles.itemPhoto}/>
                 <Text style={styles.slideTextTitle} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
