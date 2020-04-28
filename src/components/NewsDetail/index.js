@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Text,
   View,
-  ScrollView, Dimensions,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import SafeAreaViewDecider from '../SafeAreaViewDecider'
@@ -21,7 +22,7 @@ class NewsDetail extends React.Component {
 
   render() {
     const { data } = this.props;
-    const width = (Dimensions.get('window').width).toFixed(10);
+    const width = parseInt(Dimensions.get('window').width);
 
     return (
       <ScrollView>
