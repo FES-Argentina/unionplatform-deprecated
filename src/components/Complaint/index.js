@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -60,11 +60,9 @@ class Complaint extends React.Component {
 
     this.state = {
       photoSource: null,
-      videoSource: null,
     };
 
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
-    this.selectVideoTapped = this.selectVideoTapped.bind(this);
   }
 
   focusNextField = id => {
@@ -73,6 +71,9 @@ class Complaint extends React.Component {
 
   onSubmit = values => {
     const {saveComplaint} = this.props;
+    if( this.state.photoSource ){
+      values['uri'] = this.state.photoSource.uri
+    }
     saveComplaint(values);
   };
 
@@ -104,30 +105,6 @@ class Complaint extends React.Component {
     });
   }
 
-  selectVideoTapped() {
-    const options = {
-      title: 'Video Picker',
-      takePhotoButtonTitle: 'Take Video...',
-      mediaType: 'video',
-      videoQuality: 'medium',
-    };
-
-    ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled video picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        this.setState({
-          videoSource: response.uri,
-        });
-      }
-    });
-  }
 
   render() {
     const {profile} = this.props;
@@ -136,7 +113,7 @@ class Complaint extends React.Component {
         initialValues={profile}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{name: ''}}>
+        initialErrors={{name: '', uri: ''}}>
         {({
           values,
           handleChange,
@@ -263,9 +240,6 @@ class Complaint extends React.Component {
               ref={input => {
                 this.inputs['address'] = input;
               }}
-              onSubmitEditing={() => {
-                this.focusNextField('seniority');
-              }}
               blurOnSubmit={false}
               valid={touched.address && !errors.address}
               error={touched.address && errors.address}
@@ -273,6 +247,21 @@ class Complaint extends React.Component {
             {errors.address && touched.address ? (
               <Text style={styles.formError}>{errors.address}</Text>
             ) : null}
+
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View
+                style={[
+                  styles.photo,
+                  styles.photoContainer,
+                  {marginBottom: 20},
+                ]}>
+                {this.state.photoSource === null ? (
+                  <Text style={styles.media}>Seleccionar foto</Text>
+                ) : (
+                  <Image style={styles.photo} source={this.state.photoSource} />
+                )}
+              </View>
+            </TouchableOpacity>
 
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Select
@@ -341,32 +330,7 @@ class Complaint extends React.Component {
               <Text style={styles.formError}>{errors.description}</Text>
             ) : null}
 
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View
-                style={[
-                  styles.photo,
-                  styles.photoContainer,
-                  {marginBottom: 20},
-                ]}>
-                {this.state.photoSource === null ? (
-                  <Text>Select a Photo</Text>
-                ) : (
-                  <Image style={styles.photo} source={this.state.photoSource} />
-                )}
-              </View>
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.selectVideoTapped.bind(this)}>
-              <View style={[styles.photo, styles.photoContainer]}>
-                <Text>Select a Video</Text>
-              </View>
-            </TouchableOpacity>
-
-            {this.state.videoSource && (
-              <Text style={{margin: 8, textAlign: 'center'}}>
-                {this.state.videoSource}
-              </Text>
-            )}
 
             <Button
               title="Guardar"

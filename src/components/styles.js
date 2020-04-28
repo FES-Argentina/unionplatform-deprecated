@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  media:{
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   photo: {
     padding: 20,
     margin: 15,
