@@ -411,7 +411,16 @@ export function getInformationRequest() {
   });
 }
 
-export function postDeviceToken(token) {
-  // TODO: We still don't have where to post this.
-  console.log('DEVICE TOKEN', token);
+export function postDeviceToken(user, token) {
+  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
+    .setCookie()
+    .setAuthToken()
+    .build();
+  return clearCookies().then(() => {
+    return api.post(`${Config.API_URL}/user/${user}/device_token?_format=hal_json`, `"${token}"`, { headers })
+      .then((response) => response.data)
+      .catch((error) => {
+        console.log('ERROR', error);
+      });
+  });
 }

@@ -33,9 +33,10 @@ export function clearErrors() {
   };
 }
 
-export function postFCMToken(token) {
+export function postFCMToken(user, token) {
   return {
     type: SEND_FCM_TOKEN,
+    user,
     token,
   };
 }

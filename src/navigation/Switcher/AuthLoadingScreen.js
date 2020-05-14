@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text } from 'react-native-elements';
 import { connect } from 'react-redux';
+import messaging from '@react-native-firebase/messaging';
 import Toast from 'react-native-simple-toast';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import { loginStatus, oneTimeLogin } from '../../api';
 import NavigationService from '../NavigationService';
+import { store } from '../../store';
+import { postFCMToken } from '../../actions';
 
 const ROUTES = {
   Authenticated: [],
@@ -19,6 +22,7 @@ class AuthLoadingScreen extends React.Component {
 
   _bootstrapAsync = ({ uid, token, timestamp } = {}) => {
     this._checkStatus().then((status) => {
+      this._setFCMToken(status);
       // If we have an open session we can't show the password reset form.
       if (status && token) {
         this._redirect('Authenticated', 'Ya estás identificadx en la aplicación, cerrá sesión para poder usar el enlace de nueva contraseña.');
@@ -58,6 +62,17 @@ class AuthLoadingScreen extends React.Component {
     }
 
     return current;
+  }
+
+  _setFCMToken = (status) => {
+    const { user } = this.props;
+    if (status) {
+      messaging().getToken()
+        .then((token) => {
+          store.dispatch(postFCMToken(user.id, token))
+        })
+        .catch((error) => console.error(error));
+    }
   }
 
   _checkStatus = () => {

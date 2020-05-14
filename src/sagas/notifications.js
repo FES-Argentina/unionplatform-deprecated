@@ -5,6 +5,6 @@ import { postDeviceToken } from '../api';
 export function* setDeviceToken() {
   while (true) {
     const data = yield take(SEND_FCM_TOKEN);
-    yield call(postDeviceToken, data.token);
+    yield call(postDeviceToken, data.user, data.token);
   }
 }
