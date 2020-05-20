@@ -31,6 +31,7 @@ import {
   updateComplaintRequest,
   changeUserPass,
   getComplaintsRequest,
+  patchComplaintRequest,
 } from '../api';
 import NavigationService from '../navigation/NavigationService';
 import Toast from 'react-native-simple-toast';
@@ -240,13 +241,13 @@ export function* complaintsWatcher() {
 function* setComplaintWorker(values) {
   try {
     yield put(processing(true));
-    const dataNode = yield call(setComplaintRequest, values);
+    const dataPhoto = yield call(setComplaintFileRequest, values);
     let newobject = {}
     newobject['values'] = values
-    newobject['dataNode'] = dataNode
-    const dataPhoto = yield call(setComplaintFileRequest, newobject);
+    newobject['dataPhoto'] = dataPhoto
+    const dataPatch = yield call(patchComplaintRequest, newobject);
 
-    if (dataPhoto) {
+    if (dataPatch) {
       yield put(setComplaintSuccess(values));
       NavigationService.navigate('Loading');
       Toast.show('Tu denuncia fue creada.', Toast.LONG);

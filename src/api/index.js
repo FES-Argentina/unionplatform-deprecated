@@ -277,39 +277,6 @@ function buildHeaders(post = false) {
   return headers;
 }
 
-
-export function setComplaintRequest(values) {
-  const data = {
-    _links: {
-      type: {
-        href: `${Config.API_URL}/rest/type/node/complaints`
-      }
-    },
-    type: [{ target_id: 'complaints' }],
-    title: [{ value: "Complaint PRUEBA" }],
-    field_address_complaint: [{ value: values.address }],
-    field_company_complaint: [{ value: values.company }],
-    field_tasks: [{ value: values.tasks }],
-    field_firstname: [{ value: values.firstname }],
-    field_lastname: [{ value: values.lastname }],
-    field_email: [{ value: values.email }],
-    field_phonenumber: [{ value: values.phonenumber }],
-    field_problem: [{ value: values.problem }],
-    field_seniority: [{ value: values.seniority }],
-    field_description: [{ value: values.description }]
-  };
-
-  const headers = buildHeaders(true);
-  return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/node?_format=json`, data, { headers })
-      .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
-  });
-}
-
-
 /**
  * Returns an object with headers for api requests.
  *
@@ -334,8 +301,8 @@ function buildHeadersPhotoPost(post = false) {
   return headers;
 }
 
-export function setComplaintFileRequest(newobject) {
-  let photo = newobject.values.photo._parts[0][1]
+export function setComplaintFileRequest(values) {
+  let photo = values.photo._parts[0][1]
 
   const data = {
     _links: {
@@ -368,4 +335,43 @@ export function setComplaintFileRequest(newobject) {
         console.log('ERROR', error);
       });
   });
-  }
+}
+
+export function patchComplaintRequest(newobject) {
+  let values = newobject.values
+  let fid = newobject.dataPhoto.fid[0].value
+
+  const data = {
+    _links: {
+      type: {
+        href: `${Config.API_URL}/rest/type/node/complaints`
+      }
+    },
+    type: [{ target_id: 'complaints' }],
+    title: [{ value: "Complaint PRUEBA" }],
+    field_address_complaint: [{ value: values.address }],
+    field_company_complaint: [{ value: values.company }],
+    field_tasks: [{ value: values.tasks }],
+    field_firstname: [{ value: values.firstname }],
+    field_lastname: [{ value: values.lastname }],
+    field_email: [{ value: values.email }],
+    field_phonenumber: [{ value: values.phonenumber }],
+    field_problem: [{ value: values.problem }],
+    field_seniority: [{ value: values.seniority }],
+    field_description: [{ value: values.description }],
+    field_complaint_image: [
+      {
+        target_id: fid,
+      }
+    ]
+}
+
+  const headers = buildHeaders(true);
+  return clearCookies().then(() => {
+    return api.post(`${Config.API_URL}/node?_format=json`, data, { headers })
+      .then((response) => response.data)
+      .catch((error) => {
+        console.log('ERROR', error);
+      });
+  });
+}
