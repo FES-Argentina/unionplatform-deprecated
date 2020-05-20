@@ -60,6 +60,8 @@ class Complaint extends React.Component {
 
     this.state = {
       photoSource: null,
+      photo: null,
+
     };
 
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
@@ -72,10 +74,28 @@ class Complaint extends React.Component {
   onSubmit = values => {
     const {saveComplaint} = this.props;
     if( this.state.photoSource ){
-      values['uri'] = this.state.photoSource.uri
+      let path = this.state.photoSource.uri.replace('file://', '');
+      values['uri'] = path
+
+      let photoname = this.state.photo.photo
+      //create formData
+      let data = new FormData();
+      data.append("photo", {
+        name: photoname.fileName,
+        filemime: "image/png",
+        filename: photoname.fileName,
+        type: photoname.type,
+        uri: photoname.path,
+        dataphoto: photoname.data
+      });
+
+      //console.warn(data)
+      values['photo'] = data
     }
+    //console.warn(values)
     saveComplaint(values);
   };
+
 
   selectPhotoTapped() {
     const options = {
@@ -98,8 +118,11 @@ class Complaint extends React.Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         let source = {uri: response.uri};
+        let photo = {photo: response};
+        //console.warn(photo)
         this.setState({
           photoSource: source,
+          photo: photo
         });
       }
     });

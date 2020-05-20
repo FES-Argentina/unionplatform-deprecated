@@ -3,6 +3,7 @@ import Config from 'react-native-config';
 import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
 import { store } from '../store';
+import Base64 from 'Base64';
 
 const api = axios.create({
   withCredentials: false,
@@ -17,30 +18,7 @@ function clearCookies() {
   });
 }
 
-/**
- * Returns an object with headers for api requests.
- *
- * If post is true build the headers for post request, using
- * application/hal+json and adding the csrf_token.
- */
-function buildHeaders(post = false) {
-  const state = store.getState();
-
-  var headers = {
-    Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
-    'Content-Type': 'application/json',
-  };
-
-  if (post) {
-    headers['Content-Type'] = 'application/hal+json';
-    const { authToken } = getTokens();
-    headers['X-CSRF-Token'] = authToken;
-  }
-
-  return headers;
-}
-
-function sessionToken(){
+export function sessionToken(){
   return api.get(`${Config.API_URL}/session/token`)
   .then((response) => response.data)
   .catch((error) => {
@@ -222,38 +200,6 @@ export function setEnrollmentRequest(values) {
   });
 }
 
-
-export function setComplaintRequest(values) {
-  const data = {
-    _links: {
-      type: {
-        href: `${Config.API_URL}/rest/type/node/complaints`
-      }
-    },
-    type: [{ target_id: 'complaints' }],
-    title: [{ value: "Complaint PRUEBA" }],
-    field_address_complaint: [{ value: values.address }],
-    field_company_complaint: [{ value: values.company }],
-    field_tasks: [{ value: values.tasks }],
-    field_firstname: [{ value: values.firstname }],
-    field_lastname: [{ value: values.lastname }],
-    field_email: [{ value: values.email }],
-    field_phonenumber: [{ value: values.phonenumber }],
-    field_problem: [{ value: values.problem }],
-    field_seniority: [{ value: values.seniority }],
-    field_description: [{ value: values.description }],
-  };
-
-  const headers = buildHeaders(true);
-  return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/node?_format=hal_json`, data, { headers })
-      .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
-  });
-}
-
 export function changeUserPass(id, data) {
   return clearCookies().then(() => {
     return api.put(`${Config.API_URL}/users/${id}`, { pass: data })
@@ -307,3 +253,119 @@ export function setAlertRequest(values) {
       });
   });
 }
+
+/**
+ * Returns an object with headers for api requests.
+ *
+ * If post is true build the headers for post request, using
+ * application/hal+json and adding the csrf_token.
+ */
+function buildHeaders(post = false) {
+  const state = store.getState();
+
+  var headers = {
+    Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
+    'Content-Type': 'application/json',
+  };
+
+  if (post) {
+    headers['Content-Type'] = 'application/hal+json';
+    const { authToken } = getTokens();
+    headers['X-CSRF-Token'] = authToken;
+  }
+
+  return headers;
+}
+
+
+export function setComplaintRequest(values) {
+  const data = {
+    _links: {
+      type: {
+        href: `${Config.API_URL}/rest/type/node/complaints`
+      }
+    },
+    type: [{ target_id: 'complaints' }],
+    title: [{ value: "Complaint PRUEBA" }],
+    field_address_complaint: [{ value: values.address }],
+    field_company_complaint: [{ value: values.company }],
+    field_tasks: [{ value: values.tasks }],
+    field_firstname: [{ value: values.firstname }],
+    field_lastname: [{ value: values.lastname }],
+    field_email: [{ value: values.email }],
+    field_phonenumber: [{ value: values.phonenumber }],
+    field_problem: [{ value: values.problem }],
+    field_seniority: [{ value: values.seniority }],
+    field_description: [{ value: values.description }]
+  };
+
+  const headers = buildHeaders(true);
+  return clearCookies().then(() => {
+    return api.post(`${Config.API_URL}/node?_format=json`, data, { headers })
+      .then((response) => response.data)
+      .catch((error) => {
+        console.log('ERROR', error);
+      });
+  });
+}
+
+
+/**
+ * Returns an object with headers for api requests.
+ *
+ * If post is true build the headers for post request, using
+ * application/octet-stream and adding Content-Disposition.
+ */
+function buildHeadersPhotoPost(post = false) {
+  const state = store.getState();
+
+  var headers = {
+    Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
+    'Content-Type': 'application/octet-stream',
+  };
+
+  if (post) {
+    headers['Content-Type'] = 'application/octet-stream';
+    const { authToken } = getTokens();
+    headers['X-CSRF-Token'] = authToken;
+    headers['Content-Disposition'] = 'file; filename="filename.jpg"';
+  }
+
+  return headers;
+}
+
+export function setComplaintFileRequest(newobject) {
+  let photo = newobject.values.photo._parts[0][1]
+
+  const data = {
+    _links: {
+        type: {
+            href: `${Config.API_URL}/file/upload/node/complaints/field_complaint_image`
+        }
+    },
+    filemime: [
+        {
+            value: "image/jpeg"
+        }
+    ],
+    type: [
+        {
+            target_id: "image"
+        }
+    ],
+    data: [
+        {
+            value: photo.dataphoto
+        } ]
+  }
+  const headers = buildHeadersPhotoPost(true);
+  return clearCookies().then(() => {
+    return api.post(`${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`,
+      data,
+      { headers })
+      .then((response) => response.data)
+      .catch((error) => {
+        console.log('ERROR', error);
+      });
+  });
+  }

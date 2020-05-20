@@ -27,6 +27,8 @@ import {
   getUserRequest,
   setEnrollmentRequest,
   setComplaintRequest,
+  setComplaintFileRequest,
+  updateComplaintRequest,
   changeUserPass,
   getComplaintsRequest,
 } from '../api';
@@ -181,38 +183,6 @@ export function* setEnrollmentWatcher() {
 }
 
 /**
- * SET_COMPLAINT
- */
-function* setComplaintWorker(values) {
-  try {
-    yield put(processing(true));
-    const data = yield call(setComplaintRequest, values);
-    if (data) {
-      yield put(setComplaintSuccess(values));
-      NavigationService.navigate('Loading');
-      Toast.show('Gracias! Tu denuncia fue creada.', Toast.LONG);
-      NavigationService.navigate('ComplaintList');
-    }
-  } catch (e) {
-    console.warn('error setComplaintWorker:', e);
-  }
-  finally {
-    yield put(processing(false));
-  }
-}
-
-export function* setComplaintWatcher() {
-  while (true) {
-    const { data } = yield take(SET_COMPLAINT);
-    try {
-      yield call(setComplaintWorker, data);
-    } catch (e) {
-      console.warn('error setComplaintWatcher:', e);
-    }
-  }
-}
-
-/**
  * CHANGE_USER_PASS_USER
  */
 function* changeUserPassWorker(id, newValues) {
@@ -260,4 +230,43 @@ function* complaintsWorker() {
 
 export function* complaintsWatcher() {
   yield takeLatest(GET_COMPLAINTS, complaintsWorker);
+}
+
+
+
+/**
+ * SET_COMPLAINT
+ */
+function* setComplaintWorker(values) {
+  try {
+    yield put(processing(true));
+    const dataNode = yield call(setComplaintRequest, values);
+    let newobject = {}
+    newobject['values'] = values
+    newobject['dataNode'] = dataNode
+    const dataPhoto = yield call(setComplaintFileRequest, newobject);
+
+    if (dataPhoto) {
+      yield put(setComplaintSuccess(values));
+      NavigationService.navigate('Loading');
+      Toast.show('Tu denuncia fue creada.', Toast.LONG);
+      NavigationService.navigate('ComplaintList');
+    }
+  } catch (e) {
+    console.warn('error setComplaintWorker:', e);
+  }
+  finally {
+    yield put(processing(false));
+  }
+}
+
+export function* setComplaintWatcher() {
+  while (true) {
+    const { data } = yield take(SET_COMPLAINT);
+    try {
+      yield call(setComplaintWorker, data);
+    } catch (e) {
+      console.warn('error setComplaintWatcher:', e);
+    }
+  }
 }
