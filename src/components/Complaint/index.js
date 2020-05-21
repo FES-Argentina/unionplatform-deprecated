@@ -78,21 +78,8 @@ class Complaint extends React.Component {
       values['uri'] = path
 
       let photoname = this.state.photo.photo
-      //create formData
-      let data = new FormData();
-      data.append("photo", {
-        name: photoname.fileName,
-        filemime: "image/png",
-        filename: photoname.fileName,
-        type: photoname.type,
-        uri: photoname.path,
-        dataphoto: photoname.data
-      });
-
-      //console.warn(data)
-      values['photo'] = data
+      values['photo'] = photoname.data
     }
-    //console.warn(values)
     saveComplaint(values);
   };
 

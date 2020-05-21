@@ -302,7 +302,7 @@ function buildHeadersPhotoPost(post = false) {
 }
 
 export function setComplaintFileRequest(values) {
-  let photo = values.photo._parts[0][1]
+  let photo = values.photo
 
   const data = {
     _links: {
@@ -322,7 +322,7 @@ export function setComplaintFileRequest(values) {
     ],
     data: [
         {
-            value: photo.dataphoto
+            value: photo
         } ]
   }
   const headers = buildHeadersPhotoPost(true);
