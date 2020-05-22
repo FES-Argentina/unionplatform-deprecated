@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import messaging from '@react-native-firebase/messaging';
-import { Notifications } from 'react-native-notifications';
+import PushNotification from "react-native-push-notification";
 import App from './App';
 import { name as appName } from './app.json';
 
@@ -20,9 +20,11 @@ const AppWrapper = () => (
 );
 
 messaging().setBackgroundMessageHandler(async (message) => {
-  Notifications.postLocalNotification({
+  PushNotification.localNotification({
     title: message.data.title,
-    body: message.data.body,
+    message: message.data.body,
+    visibility: 'private',
+    largeIcon: '',
   });
 });
 

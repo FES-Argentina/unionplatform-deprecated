@@ -985,6 +985,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.7.tgz#a65ce0702f55cb67fd777995de6fc7b3e5781903"
   integrity sha512-9KbP7LTLFz9dx1heURJbO6nuVMdSjDez8znlrUzaB1nUwKVsTTwlKRuHxGUYIIkReLWrJQeCv9tidy+84z2eCw==
 
+"@react-native-community/push-notification-ios@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.2.0.tgz#3353598450a39c42d079603aad2d1c0f9c2c1729"
+  integrity sha512-B5qPb9P/6vvxGGQDePlK/q6NxoZPWSVFtKCQ9jlboP7gNZmf3AAyBhTzrb++s2NSXXogjkGi6vt9df1ipZiawQ==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-firebase/app-types@6.7.1":
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.7.1.tgz#93497885e6c112203db310636616647c16478da9"
@@ -5791,9 +5798,9 @@ react-native-multiple-select@^0.5.5:
     prop-types "^15.7.2"
 
 react-native-notifications@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-3.1.4.tgz#0b78985bfe23801c05f57031f918a553853c70c4"
-  integrity sha512-aGYczr6yXACYnO5mdzWVAMars4llI9jwWPs4HVj+Pj/wnhX9rXR9dJP++HN5RG0LFh2RI6SYS4dpInKJjSgIew==
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-3.2.2.tgz#d215992b5593ed0afb81276fed8b711cf4db9617"
+  integrity sha512-MZt3Y9vTDQpPWAHOGCgehKn/RwZzJTk2WfKiLV01GU8Rp5I8u68Djum9ogxK9nXkRznkbyifSb+54UPGzqa9DA==
 
 react-native-onboarding-swiper@^1.1.0:
   version "1.1.0"
@@ -5808,6 +5815,13 @@ react-native-picker-select@^7.0.0:
   integrity sha512-SO7b7wHfeM07oVTsLhBlT/VDvMXg2aP0Xy5CA+kL7+oV2Bq6nfKTVjpB2+HLVhFik9i/tlq5ROuGdUrfPhl3rg==
   dependencies:
     lodash.isequal "^4.5.0"
+
+react-native-push-notification@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.5.1.tgz#438dd6b526903e01659f34b1ba5d9f293ac663a1"
+  integrity sha512-F2h4qlEnKzjtqFhtT3To3rUAFuzmfHrFum55yttb40dE0+gMh1Piu0EyebIseKsin6Ia3830tLK/e1Q1kQMMjA==
+  dependencies:
+    "@react-native-community/push-notification-ios" "^1.2.0"
 
 react-native-ratings@^6.3.0:
   version "6.5.0"

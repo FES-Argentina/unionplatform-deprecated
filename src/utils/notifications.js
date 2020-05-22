@@ -1,9 +1,10 @@
-import { Notifications } from 'react-native-notifications';
+import PushNotification from "react-native-push-notification";
 
-export const handleMessage = async (remoteMessage) => {
-  console.log('REMOTE MESSAGE', remoteMessage);
-  Notifications.postLocalNotification({
-    title: remoteMessage.data.title,
-    body: remoteMessage.data.body,
+export const handleMessage = async (message) => {
+  PushNotification.localNotification({
+    title: message.data.title,
+    message: message.data.body,
+    visibility: 'private',
+    largeIcon: '',
   });
 }
