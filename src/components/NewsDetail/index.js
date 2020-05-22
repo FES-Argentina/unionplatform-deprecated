@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   Dimensions,
+  Image
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import SafeAreaViewDecider from '../SafeAreaViewDecider'
@@ -12,28 +13,31 @@ import { connect } from 'react-redux';
 import { getNew } from '../../actions/news';
 import { Alert } from 'react-native';
 import styles from '../styles';
-import Image from 'react-native-scalable-image';
+import ResponsiveImageView from 'react-native-responsive-image-view';
 
 class NewsDetail extends React.Component {
   componentDidMount = () => {
-    const { loadDetail } = this.props;
-    loadDetail(this.props.navigation.state.params.id);
+      const { loadDetail } = this.props;
+      loadDetail(this.props.navigation.state.params.id);
   }
 
   render() {
     const { data } = this.props;
-    const width = parseInt(Dimensions.get('window').width);
 
-    return (
+    return(
       <ScrollView>
         <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
         <View style={styles.containerMargin}>
           <Text style={styles.titleNews}>{data.title}</Text>
           <Text style={styles.summaryText}>{data.summary}</Text>
-          <Image
-              width={width}
-              source={{uri: data.image}}
-          />
+          <ResponsiveImageView source={{ uri: data.image }}>
+            {({ getViewProps, getImageProps }) => (
+              <View {...getViewProps()}>
+                <Image {...getImageProps()} />
+              </View>
+            )}
+          </ResponsiveImageView>
+
           <Text style={styles.newsBody}>{data.body}</Text>
         </View>
       </ScrollView>

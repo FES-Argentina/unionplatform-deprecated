@@ -17,7 +17,6 @@ import Share from 'react-native-share';
 import { processing } from '../../actions';
 
 class ComplaintDetail extends React.Component {
-
   shareComplaint = async (item) => {
     const { showProcessing } = this.props;
     try {
@@ -62,13 +61,16 @@ class ComplaintDetail extends React.Component {
             <Field label="Antigüedad" value={getSeniorityLabel(item.seniority)} />
             <Field label="Tareas" value={item.tasks} />
           </View>
-          {item.photo ? (
+          {item.uri ? (
             <View>
               <Text style={styles.complaintTitles}>Archivos adjuntos</Text>
-              <Image
-                source={{ uri: item.photo }}
-                style={styles.photoNews}
-              />
+                <ResponsiveImageView source={{ uri: item.uri }}>
+                  {({ getViewProps, getImageProps }) => (
+                    <View {...getViewProps()}>
+                      <Image {...getImageProps()} />
+                    </View>
+                  )}
+                </ResponsiveImageView>
             </View>
           ) : null }
           <Button
