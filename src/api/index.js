@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
 import { store } from '../store';
-import Base64 from 'Base64';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const api = axios.create({
   withCredentials: false,
@@ -295,6 +295,7 @@ function buildHeadersPhotoPost(post = false) {
     headers['Content-Type'] = 'application/octet-stream';
     const { authToken } = getTokens();
     headers['X-CSRF-Token'] = authToken;
+    // FIXME: nombre del archivo.
     headers['Content-Disposition'] = 'file; filename="filename.jpg"';
   }
 
@@ -304,43 +305,21 @@ function buildHeadersPhotoPost(post = false) {
 export function setComplaintFileRequest(values) {
   let photo = values.photo
 
-  const data = {
-    _links: {
-        type: {
-            href: `${Config.API_URL}/file/upload/node/complaints/field_complaint_image`
-        }
-    },
-    filemime: [
-        {
-            value: "image/jpeg"
-        }
-    ],
-    type: [
-        {
-            target_id: "image"
-        }
-    ],
-    data: [
-        {
-            value: photo
-        } ]
-  }
   const headers = buildHeadersPhotoPost(true);
+  const uri = `${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`;
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`,
-      data,
-      { headers })
-      .then((response) => response.data)
+    return RNFetchBlob.fetch('POST', uri, headers, RNFetchBlob.wrap(`file://${values.uri}`))
+      .then((response) => {
+        const data = JSON.parse(response.data);
+        return data.fid[0].value;
+      })
       .catch((error) => {
         console.log('ERROR', error);
       });
   });
 }
 
-export function patchComplaintRequest(newobject) {
-  let values = newobject.values
-  let fid = newobject.dataPhoto.fid[0].value
-
+export function patchComplaintRequest(values, fid) {
   const data = {
     _links: {
       type: {
@@ -348,6 +327,7 @@ export function patchComplaintRequest(newobject) {
       }
     },
     type: [{ target_id: 'complaints' }],
+    // FIXME: Título de la denuncia.
     title: [{ value: "Complaint PRUEBA" }],
     field_address_complaint: [{ value: values.address }],
     field_company_complaint: [{ value: values.company }],

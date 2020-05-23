@@ -240,12 +240,10 @@ export function* complaintsWatcher() {
  */
 function* setComplaintWorker(values) {
   try {
+    // FIXME: Allow complaints without an image.
     yield put(processing(true));
-    const dataPhoto = yield call(setComplaintFileRequest, values);
-    let newobject = {}
-    newobject['values'] = values
-    newobject['dataPhoto'] = dataPhoto
-    const dataPatch = yield call(patchComplaintRequest, newobject);
+    const fid = yield call(setComplaintFileRequest, values);
+    const dataPatch = yield call(patchComplaintRequest, values, fid);
 
     if (dataPatch) {
       yield put(setComplaintSuccess(values));

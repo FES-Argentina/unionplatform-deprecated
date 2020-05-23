@@ -92,6 +92,7 @@ class Complaint extends React.Component {
       storageOptions: {
         skipBackup: true,
       },
+      noData: true,
     };
 
     ImagePicker.showImagePicker(options, response => {
