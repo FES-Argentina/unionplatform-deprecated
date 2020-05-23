@@ -8,6 +8,7 @@ import Select from '../form/Select';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {setComplaint} from '../../actions/user';
 import PropTypes from 'prop-types';
+import Toast from 'react-native-simple-toast';
 import styles from '../styles';
 import {
   companies,
@@ -59,66 +60,63 @@ class Complaint extends React.Component {
     this.inputs = {};
 
     this.state = {
-      photoSource: null,
       photo: null,
-
     };
-
-    this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
   }
 
   focusNextField = id => {
     this.inputs[id].focus();
   };
 
-  onSubmit = values => {
-    const {saveComplaint} = this.props;
-    if( this.state.photoSource ){
-      let path = this.state.photoSource.uri.replace('file://', '');
-      values['uri'] = path
-
-      let photoname = this.state.photo.photo
-      values['photo'] = photoname.data
+  onSubmit = (values) => {
+    const { saveComplaint } = this.props;
+    if (this.state.photo) {
+      values['photo'] = this.state.photo;
     }
     saveComplaint(values);
   };
 
 
-  selectPhotoTapped() {
+  selectPhotoTapped = () => {
     const options = {
       quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
+      maxWidth: 2000,
+      maxHeight: 2000,
       storageOptions: {
-        skipBackup: true,
+        privateDirectory: true,
       },
       noData: true,
+      title: 'Adjuntar imagen',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tomar fotografía',
+      chooseFromLibraryButtonTitle: 'Elegir fotografía',
+      mediaType: 'photo',
     };
 
-    ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
+    if (this.state.photo) {
+      options.customButtons = [{ name: 'remove', title: 'Eliminar adjunto' }];
+    }
 
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        let source = {uri: response.uri};
-        let photo = {photo: response};
-        //console.warn(photo)
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.error) {
+        Toast.show('No se pudo abrir el selector de imágenes.', Toast.LONG);
+      } else if (response.customButton && response.customButton == 'remove') {
         this.setState({
-          photoSource: source,
-          photo: photo
+          photo: null
+        });
+      } else if (!response.didCancel) {
+        this.setState({
+          photo: {
+            uri: response.uri,
+            filename: response.fileName,
+          }
         });
       }
     });
   }
 
-
   render() {
-    const {profile} = this.props;
+    const { profile } = this.props;
     return (
       <Formik
         initialValues={profile}
@@ -266,10 +264,10 @@ class Complaint extends React.Component {
                   styles.photoContainer,
                   {marginBottom: 20},
                 ]}>
-                {this.state.photoSource === null ? (
-                  <Text style={styles.media}>Seleccionar foto</Text>
+                {this.state.photo === null ? (
+                  <Text style={styles.media}>Adjuntar imagen</Text>
                 ) : (
-                  <Image style={styles.photo} source={this.state.photoSource} />
+                  <Image style={styles.photo} source={{ uri: this.state.photo.uri }} />
                 )}
               </View>
             </TouchableOpacity>

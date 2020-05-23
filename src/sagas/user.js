@@ -240,19 +240,31 @@ export function* complaintsWatcher() {
  */
 function* setComplaintWorker(values) {
   try {
-    // FIXME: Allow complaints without an image.
     yield put(processing(true));
-    const fid = yield call(setComplaintFileRequest, values);
-    const dataPatch = yield call(patchComplaintRequest, values, fid);
+    let error = false;
+    let fid = null;
+    if (values.photo) {
+      fid = yield call(setComplaintFileRequest, values);
+      if (!fid) {
+        error = true;
+        Toast.show('No se pudo subir la imagen.', Toast.LONG);
+      }
+    } 
 
-    if (dataPatch) {
-      yield put(setComplaintSuccess(values));
-      NavigationService.navigate('Loading');
-      Toast.show('Tu denuncia fue creada.', Toast.LONG);
-      NavigationService.navigate('ComplaintList');
+    if (!error) {
+      const dataPatch = yield call(patchComplaintRequest, values, fid);
+
+      if (dataPatch) {
+        yield put(setComplaintSuccess(values));
+        Toast.show('Tu denuncia fue creada.', Toast.LONG);
+        NavigationService.navigate('ComplaintList');
+      } else {
+        Toast.show('No se pudo crear la denuncia...', Toast.LONG);
+      }
     }
   } catch (e) {
-    console.warn('error setComplaintWorker:', e);
+    Toast.show('No se pudo crear la denuncia...', Toast.LONG);
+    console.error('setComplaintWorker:', e);
   }
   finally {
     yield put(processing(false));

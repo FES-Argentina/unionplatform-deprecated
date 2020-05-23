@@ -278,40 +278,32 @@ function buildHeaders(post = false) {
 }
 
 /**
- * Returns an object with headers for api requests.
- *
- * If post is true build the headers for post request, using
- * application/octet-stream and adding Content-Disposition.
+ * Returns an object with headers for posting an image.
  */
-function buildHeadersPhotoPost(post = false) {
+function buildHeadersPhotoPost(filename) {
   const state = store.getState();
+  const { authToken } = getTokens();
 
-  var headers = {
+  return {
     Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
     'Content-Type': 'application/octet-stream',
+    'X-CSRF-Token': authToken,
+    'Content-Disposition': `file; filename="${filename}"`,
   };
-
-  if (post) {
-    headers['Content-Type'] = 'application/octet-stream';
-    const { authToken } = getTokens();
-    headers['X-CSRF-Token'] = authToken;
-    // FIXME: nombre del archivo.
-    headers['Content-Disposition'] = 'file; filename="filename.jpg"';
-  }
-
-  return headers;
 }
 
 export function setComplaintFileRequest(values) {
-  let photo = values.photo
-
-  const headers = buildHeadersPhotoPost(true);
+  const { photo } = values;
+  const headers = buildHeadersPhotoPost(photo.filename);
   const uri = `${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`;
+
   return clearCookies().then(() => {
-    return RNFetchBlob.fetch('POST', uri, headers, RNFetchBlob.wrap(`file://${values.uri}`))
+    return RNFetchBlob.fetch('POST', uri, headers, RNFetchBlob.wrap(`file://${photo.uri}`))
       .then((response) => {
         const data = JSON.parse(response.data);
-        return data.fid[0].value;
+        if (response.respInfo.status == 201) {
+          return data.fid[0].value;
+        }
       })
       .catch((error) => {
         console.log('ERROR', error);
@@ -339,12 +331,14 @@ export function patchComplaintRequest(values, fid) {
     field_problem: [{ value: values.problem }],
     field_seniority: [{ value: values.seniority }],
     field_description: [{ value: values.description }],
-    field_complaint_image: [
+  }
+  if (fid) {
+    data['field_complaint_image'] = [
       {
         target_id: fid,
       }
-    ]
-}
+    ];
+  }
 
   const headers = buildHeaders(true);
   return clearCookies().then(() => {
