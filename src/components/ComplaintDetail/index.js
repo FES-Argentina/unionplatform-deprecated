@@ -15,6 +15,7 @@ import { getProblemLabel, getCompanyLabel, getSeniorityLabel } from '../../utils
 import { createPdf } from '../../utils/pdf';
 import Share from 'react-native-share';
 import { processing } from '../../actions';
+import ResponsiveImageView from 'react-native-responsive-image-view';
 
 class ComplaintDetail extends React.Component {
   shareComplaint = async (item) => {
