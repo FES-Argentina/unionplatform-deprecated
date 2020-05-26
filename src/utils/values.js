@@ -39,6 +39,10 @@ export const alertTypes = [
     key: 'theft',
   },
   {
+    name: 'Problema con un cliente',
+    key: 'mistreatment',
+  },
+  {
     name: 'Otros',
     key: 'other',
   },
@@ -68,6 +72,18 @@ export const problemTypes = [
   {
     name: 'Me robaron mientras trabajaba',
     key: 'theft',
+  },
+  {
+    name: 'Sufrí acoso laboral',
+    key: 'mobbing',
+  },
+  {
+    name: 'Sufrí acoso sexual',
+    key: 'sexual_harassment',
+  },
+  {
+    name: 'Sufrí maltrato/s',
+    key: 'mistreatment',
   },
   {
     name: 'Otros',
