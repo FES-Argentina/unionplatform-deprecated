@@ -32,6 +32,11 @@ p{
 .legal{
   font-size: 6px; color: 'grey';  line-height: 1.6;
 }
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
 </style>
   <div class="header">
     <img height="50" width="50" src="https://tinyurl.com/stye5bu" />
@@ -85,6 +90,8 @@ p{
       <td>${complaint.tasks}</td>
     </tr>
   </table>
+  <h4 class="mt">Archivos adjuntos</h4>
+  <img class="center" src="${complaint.uri}" />
   <p class="mt legal">Legales:  Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae tempor turpis, sed interdum dolor. Sed sem elit, euismod fringilla dignissim ac, egestas non augue. Vivamus tempus aliquam nibh quis molestie. Sed in neque aliquet, blandit massa quis, pretium dui. Fusce vitae tortor vel nulla vehicula lobortis.
   Vestibulum id pretium urna. Nullam vulputate massa pharetra commodo dignissim. Vestibulum quis mi enim. </p>
 `;
