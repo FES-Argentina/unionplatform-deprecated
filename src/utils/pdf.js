@@ -39,7 +39,7 @@ p{
 }
 </style>
   <div class="header">
-    <img height="50" width="50" src="https://tinyurl.com/stye5bu" />
+    <img height="45" width="45" src="http://www.appsindical.org.ar/themes/custom/app/logo.png" />
     <p class="isotipo">Asociación de Personal de Plataformas</p>
   </div>
   <h4 class="mt">Sistema de Autogestión Electrónico de Denuncias</h4>
@@ -99,10 +99,12 @@ p{
 /**
  * Creates a PDF for complaint.
  */
+
 export const createPdf = async (complaint, images) => {
   complaint.problemLabel = getProblemLabel(complaint.problem);
   complaint.seniorityLabel = getSeniorityLabel(complaint.seniority);
   complaint.companyLabel = getCompanyLabel(complaint.company);
+
   const options = {
     html: complaintHtml(complaint, images),
     fileName: `denuncia-${complaint.id}`,
