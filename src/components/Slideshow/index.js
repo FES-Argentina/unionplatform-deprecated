@@ -37,7 +37,7 @@ class Slideshow extends PureComponent {
           paginationActiveColor={'darkgray'}
           data={items}
           renderItem={({ item }) => (
-            <TouchableHighlight onPress={() => this.itemView(item)}>
+            <TouchableHighlight onPress={() => this.itemView(item.id)}>
               <View style={styles.slide}>
                 <Image source={{ uri: item.image }} style={styles.itemPhoto}/>
                 <Text style={styles.slideTextTitle} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
