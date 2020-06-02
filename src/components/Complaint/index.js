@@ -58,6 +58,7 @@ class Complaint extends React.Component {
   constructor(props) {
     super(props);
     this.inputs = {};
+    this.arrayPhoto = []
 
     this.state = {
       photo: null,
@@ -74,6 +75,10 @@ class Complaint extends React.Component {
       values['photo'] = this.state.photo;
     }
     saveComplaint(values);
+    this.setState({
+      photo: null
+    });
+    this.arrayPhoto = []
   };
 
 
@@ -82,9 +87,6 @@ class Complaint extends React.Component {
       quality: 1.0,
       maxWidth: 2000,
       maxHeight: 2000,
-      storageOptions: {
-        privateDirectory: true,
-      },
       noData: true,
       title: 'Adjuntar imagen',
       cancelButtonTitle: 'Cancelar',
@@ -94,7 +96,7 @@ class Complaint extends React.Component {
     };
 
     if (this.state.photo) {
-      options.customButtons = [{ name: 'remove', title: 'Eliminar adjunto' }];
+      options.customButtons = [{ name: 'remove', title: 'Eliminar adjuntos' }];
     }
 
     ImagePicker.showImagePicker(options, (response) => {
@@ -104,12 +106,15 @@ class Complaint extends React.Component {
         this.setState({
           photo: null
         });
+        this.arrayPhoto = []
       } else if (!response.didCancel) {
+        let data = [{
+          uri: response.uri,
+          filename: response.fileName,
+        }]
+        this.arrayPhoto.push(data)
         this.setState({
-          photo: {
-            uri: response.uri,
-            filename: response.fileName,
-          }
+          photo: this.arrayPhoto
         });
       }
     });
@@ -267,10 +272,44 @@ class Complaint extends React.Component {
                 {this.state.photo === null ? (
                   <Text style={styles.media}>Adjuntar imagen</Text>
                 ) : (
-                  <Image style={styles.photo} source={{ uri: this.state.photo.uri }} />
+                  <Image style={styles.photo} source={{ uri: this.state.photo[0][0].uri }} />
                 )}
               </View>
             </TouchableOpacity>
+
+            {this.state.photo && this.state.photo[0][0] ? (
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <View
+                  style={[
+                    styles.photo,
+                    styles.photoContainer,
+                    {marginBottom: 20},
+                  ]}>
+                  {this.state.photo.length >= 0 && !this.state['photo'][1] ? (
+                    <Text style={styles.media}>Adjuntar otra imagen</Text>
+                  ) : (
+                    <Image style={styles.photo} source={{ uri: this.state['photo'][1][0].uri }} />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ) : null}
+
+            { this.state.photo && this.state['photo'][1] ? (
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <View
+                  style={[
+                    styles.photo,
+                    styles.photoContainer,
+                    {marginBottom: 20},
+                  ]}>
+                  {this.state.photo.length >= 1 && !this.state['photo'][2] ? (
+                    <Text style={styles.media}>Adjuntar otra imagen</Text>
+                  ) : (
+                    <Image style={styles.photo} source={{ uri: this.state['photo'][2][0].uri }} />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ) : null}
 
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Select

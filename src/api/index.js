@@ -293,7 +293,8 @@ function buildHeadersPhotoPost(filename) {
 }
 
 export function setComplaintFileRequest(values) {
-  const { photo } = values;
+  const photo  = values[0];
+
   const headers = buildHeadersPhotoPost(photo.filename);
   const uri = `${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`;
 
@@ -311,7 +312,19 @@ export function setComplaintFileRequest(values) {
   });
 }
 
-export function patchComplaintRequest(values, fid) {
+export function patchComplaintRequest(values, arrayFid) {
+  let multipleFid = []
+  for (var i = 0; i < arrayFid.length; i++) {
+    let target =
+      {
+        target_id: arrayFid[i],
+      }
+
+    console.log('values fid complaint', target)
+    multipleFid.push(target)
+  }
+  console.log('values multipleFid', multipleFid)
+
   const data = {
     _links: {
       type: {
@@ -332,12 +345,8 @@ export function patchComplaintRequest(values, fid) {
     field_seniority: [{ value: values.seniority }],
     field_description: [{ value: values.description }],
   }
-  if (fid) {
-    data['field_complaint_image'] = [
-      {
-        target_id: fid,
-      }
-    ];
+  if (arrayFid) {
+    data['field_complaint_image'] = multipleFid
   }
 
   const headers = buildHeaders(true);

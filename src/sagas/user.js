@@ -243,16 +243,21 @@ function* setComplaintWorker(values) {
     yield put(processing(true));
     let error = false;
     let fid = null;
+    let arrayFid = [];
     if (values.photo) {
-      fid = yield call(setComplaintFileRequest, values);
-      if (!fid) {
+      for (var i = 0; i < values.photo.length; i++) {
+        values.photo[i]
+        fid = yield call(setComplaintFileRequest, values.photo[i]);
+        arrayFid.push(fid)
+      }
+      if (arrayFid.length == 0) {
         error = true;
         Toast.show('No se pudo subir la imagen.', Toast.LONG);
       }
-    } 
+    }
 
     if (!error) {
-      const dataPatch = yield call(patchComplaintRequest, values, fid);
+      const dataPatch = yield call(patchComplaintRequest, values, arrayFid);
 
       if (dataPatch) {
         yield put(setComplaintSuccess(values));
