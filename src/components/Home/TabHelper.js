@@ -10,7 +10,6 @@ import {
 } from 'react-navigation-tabs';
 
 // Import all the screens for Tab
-import HomeScreen from './HomeScreen';
 import CardList from '../CardList';
 import NewsDetail from '../NewsDetail';
 import Alerts from '../Alerts';
