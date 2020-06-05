@@ -22,8 +22,8 @@ class CardList extends React.Component {
     loadDocuments();
   }
 
-  itemView = (id) => {
-    this.props.navigation.navigate("NewsDetail" , {id});
+  itemView = (item) => {
+    this.props.navigation.navigate("NewsDetail" , {item});
   }
 
   render() {
@@ -39,7 +39,7 @@ class CardList extends React.Component {
         style={styles.containerStandar}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableHighlight onPress={() => this.itemView(item.id)}>
+          <TouchableHighlight onPress={() => this.itemView(item)}>
             <View style={styles.itemCardlist}>
               <ImageBackground style={styles.backgroundImage} source={{ uri: item.image }}>
                 <LinearGradient colors={["#ffffff00", "black"]} style={styles.containerOverlay}>

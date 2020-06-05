@@ -16,21 +16,16 @@ import styles from '../styles';
 import ResponsiveImageView from 'react-native-responsive-image-view';
 
 class NewsDetail extends React.Component {
-  componentDidMount = () => {
-      const { loadDetail } = this.props;
-      loadDetail(this.props.navigation.state.params.id);
-  }
-
   render() {
-    const { data } = this.props;
+    const { item } = this.props.navigation.state.params
 
     return(
       <ScrollView>
         <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
         <View style={styles.containerMargin}>
-          <Text style={styles.titleNews}>{data.title}</Text>
-          <Text style={styles.summaryText}>{data.summary}</Text>
-          <ResponsiveImageView source={{ uri: data.image }}>
+          <Text style={styles.titleNews}>{item.title}</Text>
+          <Text style={styles.summaryText}>{item.summary}</Text>
+          <ResponsiveImageView source={{ uri: item.image }}>
             {({ getViewProps, getImageProps }) => (
               <View {...getViewProps()}>
                 <Image {...getImageProps()} />
@@ -38,7 +33,7 @@ class NewsDetail extends React.Component {
             )}
           </ResponsiveImageView>
 
-          <Text style={styles.newsBody}>{data.body}</Text>
+          <Text style={styles.newsBody}>{item.body}</Text>
         </View>
       </ScrollView>
     );
