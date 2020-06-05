@@ -319,12 +319,8 @@ export function patchComplaintRequest(values, arrayFid) {
       {
         target_id: arrayFid[i],
       }
-
-    console.log('values fid complaint', target)
     multipleFid.push(target)
   }
-  console.log('values multipleFid', multipleFid)
-
   const data = {
     _links: {
       type: {
