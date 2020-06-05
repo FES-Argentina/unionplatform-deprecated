@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   Image,
+  FlatList
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Field from '../Field';
@@ -16,6 +17,7 @@ import { createPdf } from '../../utils/pdf';
 import Share from 'react-native-share';
 import { processing } from '../../actions';
 import ResponsiveImageView from 'react-native-responsive-image-view';
+import Config from 'react-native-config';
 
 class ComplaintDetail extends React.Component {
   shareComplaint = async (item) => {
@@ -38,10 +40,14 @@ class ComplaintDetail extends React.Component {
     }
   }
 
-
   render() {
-    const { item } = this.props.navigation.state.params
     const { shareComplaint } = this.props;
+    const { item } = this.props.navigation.state.params
+    let api_uri = []
+    for (var i = 0; i < item.image.length; i++) {
+      let uri = `${Config.API_URL}` + item.image[i];
+      api_uri.push(uri);
+    }
 
     return (
       <ScrollView>
@@ -62,17 +68,23 @@ class ComplaintDetail extends React.Component {
             <Field label="Antigüedad" value={getSeniorityLabel(item.seniority)} />
             <Field label="Tareas" value={item.tasks} />
           </View>
-          {item.uri ? (
-            <View>
-              <Text style={styles.complaintTitles}>Archivos adjuntos</Text>
-                <ResponsiveImageView source={{ uri: item.uri }}>
-                  {({ getViewProps, getImageProps }) => (
-                    <View {...getViewProps()}>
-                      <Image {...getImageProps()} />
-                    </View>
-                  )}
-                </ResponsiveImageView>
-            </View>
+          { api_uri.length ? (
+            <FlatList
+              data={api_uri}
+              keyExtractor={(index) => api_uri[index]}
+              renderItem={({ index }) => (
+                <View>
+                  <Text style={styles.complaintTitles}>Archivo adjunto { index + 1 }</Text>
+                    <ResponsiveImageView source={{ uri: api_uri[index] }}>
+                      {({ getViewProps, getImageProps }) => (
+                        <View {...getViewProps()}>
+                          <Image {...getImageProps()} />
+                        </View>
+                      )}
+                    </ResponsiveImageView>
+                </View>
+              )}
+            />
           ) : null }
           <Button
             title="Compartir denuncia"
