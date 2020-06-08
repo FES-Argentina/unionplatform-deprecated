@@ -5,15 +5,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../../components/Login';
 import ResetPass from '../../components/ResetPass';
 import Slideshow from '../../components/Slideshow';
-import Generic from '../../components/Generic';
 import Onboarding from '../../components/Onboarding';
 import Enrollment from '../../components/Enrollment';
 import NewsDetail from '../../components/NewsDetail';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
-
-
-const JoinPlaceholder = () => (<Generic title="Afiliate" />);
 
 const GuestStackNavigator = createStackNavigator(
   {
