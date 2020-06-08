@@ -262,7 +262,7 @@ function* setComplaintWorker(values) {
       if (dataPatch) {
         yield put(setComplaintSuccess(values));
         Toast.show('Tu denuncia fue creada.', Toast.LONG);
-        NavigationService.navigate('ComplaintList');
+        NavigationService.navigate('ComplaintsInfo');
       } else {
         Toast.show('No se pudo crear la denuncia...', Toast.LONG);
       }
