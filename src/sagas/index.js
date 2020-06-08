@@ -28,6 +28,6 @@ export default function* rootSaga() {
     changeUserPassWatcher(),
     complaintsWatcher(),
     alertsWatcher(),
-    setAlertWatcher(),
+    setAlertWatcher()
   ]);
 }

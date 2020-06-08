@@ -354,3 +354,13 @@ export function patchComplaintRequest(values, arrayFid) {
       });
   });
 }
+
+export function getInformationRequest() {
+  return clearCookies().then(() => {
+      return api.get(`${Config.API_URL}/information`)
+        .then((response) => response.data)
+        .catch((error) => {
+          console.log('ERROR', error);
+        });
+  });
+}

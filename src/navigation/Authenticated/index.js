@@ -34,6 +34,7 @@ import ProfileEdit from '../../components/ProfileEdit';
 import Onboarding from '../../components/Onboarding';
 import ComplaintList from '../../components/ComplaintList';
 import TermsAndConditions from '../../components/TermsAndConditions';
+import Generic from '../../components/Generic';
 
 class NavigationDrawerStructure extends React.Component {
   render() {
@@ -145,7 +146,7 @@ const ComplaintsStackNavigator = createStackNavigator({
       },
       headerTintColor: '#fff',
     }),
-  }
+  },
 });
 
 const ComplaintListStackNavigator = createStackNavigator({
@@ -256,6 +257,22 @@ const TermsStackNavigator = createStackNavigator({
   }
 });
 
+const InfoStackNavigator = createStackNavigator({
+  ComplaintsInfo: {
+    screen: Generic,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Información legal',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f50057',
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+      headerTintColor: '#fff',
+    }),
+  },
+});
+
 const DrawerNavigator = createDrawerNavigator({
   Tabs: {
     screen: TabStackNavigator,
@@ -323,6 +340,16 @@ const DrawerNavigator = createDrawerNavigator({
       drawerLabel: 'Términos y condiciones',
       drawerIcon: () => (
         <FontAwesome5 name="book" solid size={15} />
+      ),
+    },
+  },
+
+  Information: {
+    screen: InfoStackNavigator,
+    navigationOptions: {
+      drawerLabel: 'Información legal',
+      drawerIcon: () => (
+        <FontAwesome5 name="balance-scale" solid size={15} />
       ),
     },
   },

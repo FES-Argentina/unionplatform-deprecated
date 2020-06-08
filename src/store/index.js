@@ -7,6 +7,7 @@ import documentsReducer from '../reducers/documents';
 import userReducer from '../reducers/user';
 import newsReducer from '../reducers/news';
 import alertsReducer from '../reducers/alerts';
+import informationReducer from '../reducers/information';
 import errorReducer from '../reducers/errors';
 import uiReducer from '../reducers/ui';
 import rootSaga from '../sagas';
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   news: newsReducer,
   alerts: alertsReducer,
   ui: uiReducer,
+  information: informationReducer
 });
 
 const persistConfig = {

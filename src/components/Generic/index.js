@@ -1,31 +1,48 @@
 import React from 'react';
 import {
   Text,
-  View,
-  Image,
+  ScrollView
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getInformation } from '../../actions/information';
 import NavigationService from '../../navigation/NavigationService';
-
 import styles from '../styles';
 
 class Generic extends React.Component {
+  componentDidMount = () => {
+    const { loadInformation } = this.props;
+    loadInformation();
+  }
   render() {
-    const { title } = this.props;
+    let info = this.props.information[0]
+
     return (
-      <View style={styles.containerFlex}>
-        <Text>{title}</Text>
-      </View>
+        <ScrollView style={styles.containerMargin}>
+          <Text style={styles.titles}>{info.title}</Text>
+          <Text style={styles.body}>{info.description}</Text>
+        </ScrollView>
     );
   }
 }
 
 Generic.propTypes = {
-  title: PropTypes.string,
+  loadInformation: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 Generic.defaultProps = {
-  title: 'Generic',
+  information: {},
 };
 
-export default Generic;
+const mapStateToProps = (state) => ({
+  information: state.information.information,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadInformation: () => dispatch(getInformation()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Generic);

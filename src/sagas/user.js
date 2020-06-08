@@ -8,6 +8,7 @@ import {
   SET_COMPLAINT,
   CHANGE_USER_PASS,
   GET_COMPLAINTS,
+  GET_INFORMATION,
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
@@ -32,7 +33,9 @@ import {
   changeUserPass,
   getComplaintsRequest,
   patchComplaintRequest,
+  getInformationRequest,
 } from '../api';
+import { getInformationSuccess } from '../actions/information';
 import NavigationService from '../navigation/NavigationService';
 import Toast from 'react-native-simple-toast';
 
@@ -81,6 +84,10 @@ export function* loginFlow() {
       yield put(setAuth(winner.auth));
       const user = yield call(getUserRequest, winner.auth.data.current_user.uid);
       yield put(getUserSuccess(user));
+
+      let information = yield call(getInformationRequest)
+      yield put(getInformationSuccess(information))
+
       yield call(redirectAuth);
     }
   }
