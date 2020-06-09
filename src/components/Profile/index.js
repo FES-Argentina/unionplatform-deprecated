@@ -83,7 +83,7 @@ class Profile extends React.Component {
 
             <Text style={styles.titleNews}>Últimas denuncias</Text>
             {complaints && complaints.length ?
-              complaints.slice(0,2).map((item) => <ComplaintSmall item={item} onShare={this.shareComplaint} />)
+              complaints.slice(0,2).map((item) => <ComplaintSmall complaintId={item.id} onShare={this.shareComplaint} />)
                 : <Text style={styles.bodyDetail}>No hay denuncias</Text>
             }
 
