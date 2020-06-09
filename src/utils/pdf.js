@@ -18,7 +18,7 @@ td, th {
   font-size: 12px;
 }
 p{
-  font-size: 10px;
+  font-size: 12px;
 }
 .header{
   display: flex;
@@ -27,15 +27,13 @@ p{
   width: 70px; text-align: left; font-size: 9px; margin-left: 10px; font-weight: bold;
 }
 .mt{
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .legal{
   font-size: 6px; color: 'grey';  line-height: 1.6;
 }
-.center {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
+.attachment {
+  width: 150px;
 }
 </style>
   <div class="header">
@@ -44,10 +42,10 @@ p{
   </div>
   <h4 class="mt">Sistema de Autogestión Electrónico de Denuncias</h4>
   <p><strong>Denuncia: </strong> ${complaint.problemLabel}</p>
-  <p>${complaint.description}</p>
+  <p><strong>Observaciones: </strong>${complaint.description}</p>
   <table class="mt">
     <tr>
-      <th>Item</th>
+      <th>Denuncia</th>
       <th>Descripcion</th>
     </tr>
     <tr>
@@ -63,7 +61,7 @@ p{
       <td>${complaint.companyLabel}</td>
     </tr>
     <tr>
-      <td>Id</td>
+      <td>Id denuncia</td>
       <td>${complaint.id}</td>
     </tr>
   </table>
@@ -92,10 +90,7 @@ p{
   </table>
   <h4 class="mt">Archivos adjuntos</h4>
   ${complaint.localImages.map((item, i) => `
-   <div class="attachment">
-     <h5>Adjunto ${i + 1}</h5>
-     <img src="file://${item}" />
-   </div>
+     <img style="width: 200px; margin-right: 10px;" src="file://${item}" />
   `.trim()).join('')}
   <p class="mt legal">Legales:  Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae tempor turpis, sed interdum dolor. Sed sem elit, euismod fringilla dignissim ac, egestas non augue. Vivamus tempus aliquam nibh quis molestie. Sed in neque aliquet, blandit massa quis, pretium dui. Fusce vitae tortor vel nulla vehicula lobortis.
   Vestibulum id pretium urna. Nullam vulputate massa pharetra commodo dignissim. Vestibulum quis mi enim. </p>
