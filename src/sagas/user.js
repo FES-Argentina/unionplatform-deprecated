@@ -1,4 +1,4 @@
-import { call, put, race, take, takeLatest, fork } from 'redux-saga/effects';
+import { all, call, put, race, take, takeLatest, fork } from 'redux-saga/effects';
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
@@ -8,6 +8,7 @@ import {
   SET_COMPLAINT,
   CHANGE_USER_PASS,
   GET_COMPLAINTS,
+  GET_COMPLAINT_IMAGES,
   GET_INFORMATION,
 } from '../constants';
 import { requestError, processing } from '../actions';
@@ -19,6 +20,7 @@ import {
   setEnrollmentSuccess,
   setComplaintSuccess,
   getComplaintsSuccess,
+  getComplaintImagesSuccess,
   changeUserPassSuccess,
 } from '../actions/user';
 import {
@@ -33,6 +35,7 @@ import {
   changeUserPass,
   getComplaintsRequest,
   patchComplaintRequest,
+  downloadImage,
   getInformationRequest,
 } from '../api';
 import { getInformationSuccess } from '../actions/information';
@@ -227,7 +230,6 @@ function* complaintsWorker() {
     yield put(processing(true));
     const complaints = yield call(getComplaintsRequest);
 
-    // Dispatch the getComplaints actions to the store.
     yield put(getComplaintsSuccess(complaints));
   } catch (e) {
     console.log('EXCEPTION', e);
@@ -240,7 +242,24 @@ export function* complaintsWatcher() {
   yield takeLatest(GET_COMPLAINTS, complaintsWorker);
 }
 
+function* complaintImagesWorker(complaint) {
+  try {
+    yield put(processing(true));
+    const images = yield all(complaint.image.map((img) => downloadImage(img)));
+    yield put(getComplaintImagesSuccess(complaint.id, images));
+  } catch (e) {
+    console.log('EXCEPTION', e);
+  } finally {
+    yield put(processing(false));
+  }
+}
 
+export function* complaintImagesWatcher() {
+  while (true) {
+    const { complaint } = yield take(GET_COMPLAINT_IMAGES, complaintImagesWorker);
+    yield call(complaintImagesWorker, complaint)
+  }
+}
 
 /**
  * SET_COMPLAINT

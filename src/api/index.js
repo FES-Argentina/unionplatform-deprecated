@@ -2,8 +2,9 @@ import axios from 'axios';
 import Config from 'react-native-config';
 import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
-import { store } from '../store';
 import RNFetchBlob from 'rn-fetch-blob';
+import { v5 as uuid } from 'uuid';
+import { store } from '../store';
 
 const api = axios.create({
   withCredentials: false,
@@ -260,7 +261,7 @@ export function setAlertRequest(values) {
  * If post is true build the headers for post request, using
  * application/hal+json and adding the csrf_token.
  */
-function buildHeaders(post = false) {
+export function buildHeaders(post = false) {
   const state = store.getState();
 
   var headers = {
@@ -352,6 +353,28 @@ export function patchComplaintRequest(values, arrayFid) {
       .catch((error) => {
         console.log('ERROR', error);
       });
+  });
+}
+
+/**
+ * Downloads the image into local cache dir.
+ */
+export function downloadImage(image) {
+  // FIXME: Refactor buildHeaders so we can get only cookie.
+  const headers = {
+    Cookie: buildHeaders().Cookie
+  };
+  const url = `${Config.API_URL}/${image}`;
+
+  return new Promise((resolve, reject) => {
+    const filename = uuid(url, '65b32c6c-ea6a-423c-a6ac-fc4da67441fb');
+    const rnfb = RNFetchBlob.config({
+      path: `${RNFetchBlob.fs.dirs.CacheDir}/${filename}.${image.split('.').pop()}`,
+    });
+
+    rnfb.fetch('GET', url, headers)
+      .then((res) => resolve(res.path()))
+      .catch((err) => reject(err));
   });
 }
 

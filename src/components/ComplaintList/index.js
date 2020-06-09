@@ -29,7 +29,7 @@ class ComplaintList extends React.Component {
   }
 
   itemView = (item) => {
-    NavigationService.navigate('ComplaintDetail', {item} );
+    NavigationService.navigate('ComplaintDetail', {id: item.id} );
   }
 
   shareComplaint = async (item) => {

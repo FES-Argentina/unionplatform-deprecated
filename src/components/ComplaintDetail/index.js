@@ -7,19 +7,29 @@ import {
   FlatList
 } from 'react-native';
 import PropTypes from 'prop-types';
-import Field from '../Field';
-import styles from '../styles';
 import { Button } from 'react-native-elements';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { connect } from 'react-redux';
-import { getProblemLabel, getCompanyLabel, getSeniorityLabel } from '../../utils/values';
-import { createPdf } from '../../utils/pdf';
-import Share from 'react-native-share';
-import { processing } from '../../actions';
 import ResponsiveImageView from 'react-native-responsive-image-view';
-import Config from 'react-native-config';
+import Share from 'react-native-share';
+import {
+  getProblemLabel,
+  getCompanyLabel,
+  getSeniorityLabel
+} from '../../utils/values';
+import Field from '../Field';
+import styles from '../styles';
+import { createPdf } from '../../utils/pdf';
+import { processing } from '../../actions';
+import { getComplaintImages } from '../../actions/user';
 
 class ComplaintDetail extends React.Component {
+
+  componentDidMount() {
+    const { item, downloadImages } = this.props;
+    downloadImages(item);
+  }
+
   shareComplaint = async (item) => {
     const { showProcessing } = this.props;
     try {
@@ -41,13 +51,7 @@ class ComplaintDetail extends React.Component {
   }
 
   render() {
-    const { shareComplaint } = this.props;
-    const { item } = this.props.navigation.state.params
-    let api_uri = []
-    for (var i = 0; i < item.image.length; i++) {
-      let uri = `${Config.API_URL}` + item.image[i];
-      api_uri.push(uri);
-    }
+    const { item } = this.props;
 
     return (
       <ScrollView>
@@ -68,20 +72,20 @@ class ComplaintDetail extends React.Component {
             <Field label="Antigüedad" value={getSeniorityLabel(item.seniority)} />
             <Field label="Tareas" value={item.tasks} />
           </View>
-          { api_uri.length ? (
+          { item.localImages.length ? (
             <FlatList
-              data={api_uri}
-              keyExtractor={(index) => api_uri[index]}
+              data={item.localImages}
+              keyExtractor={(index) => item.localImages[index]}
               renderItem={({ index }) => (
                 <View>
                   <Text style={styles.complaintTitles}>Archivo adjunto { index + 1 }</Text>
-                    <ResponsiveImageView source={{ uri: api_uri[index] }}>
-                      {({ getViewProps, getImageProps }) => (
-                        <View {...getViewProps()}>
-                          <Image {...getImageProps()} />
-                        </View>
-                      )}
-                    </ResponsiveImageView>
+                  <ResponsiveImageView source={{ uri: `file://${item.localImages[index]}` }}>
+                    {({ getViewProps, getImageProps }) => (
+                      <View {...getViewProps()}>
+                        <Image {...getImageProps()} />
+                      </View>
+                    )}
+                  </ResponsiveImageView>
                 </View>
               )}
             />
@@ -110,12 +114,13 @@ ComplaintDetail.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
+  item: state.user.complaints.find((x) => x.id === ownProps.navigation.state.params.id),
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
-  loadComplaints: () => dispatch(getComplaints()),
+  downloadImages: (complaint) => dispatch(getComplaintImages(complaint)),
   showProcessing: (status) => dispatch(processing(status)),
 });
 

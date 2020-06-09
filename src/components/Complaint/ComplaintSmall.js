@@ -9,7 +9,7 @@ import styles from '../styles';
 
 class ComplaintSmall extends React.Component {
   itemView = (item) => {
-    NavigationService.navigate('ComplaintDetail', {item} );
+    NavigationService.navigate('ComplaintDetail', {id: item.id} );
   }
 
   render() {

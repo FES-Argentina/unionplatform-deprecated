@@ -6,6 +6,7 @@ import {
   SET_COMPLAINT_SUCCESS,
   CHANGE_USER_PASS_SUCCESS,
   GET_COMPLAINTS_SUCCESS,
+  GET_COMPLAINT_IMAGES_SUCCESS,
 } from '../constants';
 import { userFields } from '../api/mappings';
 import { defaultProfile } from '../utils/defaults';
@@ -81,7 +82,14 @@ const userReducer = (state = initialState, action) => {
     case GET_COMPLAINTS_SUCCESS:
       return {
         ...state,
-        complaints: action.payload,
+        complaints: action.payload.map((item) => ({ ...item, localImages: [] })),
+      };
+    case GET_COMPLAINT_IMAGES_SUCCESS:
+      const { id, images } = action.payload;
+
+      return {
+        ...state,
+        complaints: state.complaints.map((item) => ((item.id === id) ? {...item, localImages: images} : item)),
       };
     default:
       return state;
