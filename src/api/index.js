@@ -4,7 +4,8 @@ import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
 import RNFetchBlob from 'rn-fetch-blob';
 import { v5 as uuid } from 'uuid';
-import { store } from '../store';
+import Headers from './headers';
+import { getCurrentTokens, getSessionToken } from './session';
 
 const api = axios.create({
   withCredentials: false,
@@ -17,35 +18,6 @@ function clearCookies() {
   return new Promise((success) => {
     RCTNetworking.clearCookies(success);
   });
-}
-
-export function sessionToken(){
-  return api.get(`${Config.API_URL}/session/token`)
-  .then((response) => response.data)
-  .catch((error) => {
-    console.log('ERROR', error);
-  });
-}
-
-function registerBuildHeaders(post = false) {
-  var token = sessionToken();
-  var headers = {
-    'Content-Type': 'application/json',
-  };
-
-  if (post) {
-    headers['Content-Type'] = 'application/hal+json';
-    headers['X-CSRF-Token'] = token;
-
-  }
-
-  return headers;
-}
-
-function getTokens() {
-  const state = store.getState();
-  const { authToken, logoutToken } = state.user;
-  return { authToken, logoutToken };
 }
 
 export function getDocumentsRequest(page) {
@@ -83,8 +55,10 @@ export function login(username, password) {
 
 export function logout() {
   return clearCookies().then(() => {
-    const headers = buildHeaders();
-    const { logoutToken } = getTokens();
+    const headers = new Headers(Headers.types.APPLICATION_JSON)
+      .setCookie()
+      .build();
+    const { logoutToken } = getCurrentTokens();
     return api.post(`${Config.API_URL}/user/logout?_format=json&token=${logoutToken}`, null, { headers })
       .then((response) => response);
   });
@@ -92,7 +66,9 @@ export function logout() {
 
 export function loginStatus() {
   return clearCookies().then(() => {
-    const headers = buildHeaders();
+    const headers = new Headers(Headers.types.APPLICATION_JSON)
+      .setCookie()
+      .build();
     return api.get(`${Config.API_URL}/user/login_status?_format=json`, { headers })
       .then((response) => response.data);
   });
@@ -125,7 +101,10 @@ export function updateUser(id, values) {
     field_companies : values.companies.map((i) => ({ value: i })),
   };
 
-  const headers = buildHeaders(true);
+  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
+    .setCookie()
+    .setAuthToken()
+    .build();
   return clearCookies().then(() => {
     return api.patch(`${Config.API_URL}/user/${id}?_format=hal_json`, data, { headers })
       .then((response) => response.data);
@@ -133,7 +112,7 @@ export function updateUser(id, values) {
 }
 
 export function getUserRequest(id) {
-  const headers = buildHeaders(false);
+  const headers = new Headers(Headers.types.APPLICATION_JSON).setCookie().build();
   return clearCookies().then(() => {
     return api.get(`${Config.API_URL}/user/${id}?_format=json`, { headers })
       .then((response) => response.data)
@@ -191,7 +170,8 @@ export function setEnrollmentRequest(values) {
     field_companies : values.companies.map((i) => ({ value: i })),
   };
 
-  const headers = registerBuildHeaders(true);
+  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
+    .setToken(getSessionToken())
   return clearCookies().then(() => {
     return api.post(`${Config.API_URL}/user/register?_format=hal_json`, data, { headers })
       .then((response) => response.data)
@@ -209,7 +189,9 @@ export function changeUserPass(id, data) {
 }
 
 export function getComplaintsRequest() {
-  const headers = buildHeaders(false);
+  const headers = new Headers(Headers.types.APPLICATION_JSON)
+    .setCookie()
+    .build();
   return clearCookies().then(() => {
     return api.get(`${Config.API_URL}/complaints`, { headers })
       .then((response) => response.data)
@@ -220,7 +202,9 @@ export function getComplaintsRequest() {
 }
 
 export function getAlertsRequest() {
-  const headers = buildHeaders(false);
+  const headers = new Headers(Headers.types.APPLICATION_JSON)
+    .setCookie()
+    .build();
   return clearCookies().then(() => {
     return api.get(`${Config.API_URL}/alerts`, { headers })
       .then((response) => response.data)
@@ -245,7 +229,10 @@ export function setAlertRequest(values) {
     field_location: [{lat: values.location.latitude, lng: values.location.longitude}],
   }
 
-  const headers = buildHeaders(true);
+  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
+    .setCookie()
+    .setAuthToken()
+    .build();
   return clearCookies().then(() => {
     return api.post(`${Config.API_URL}/node?_format=hal_json`, data, { headers })
       .then((response) => response.data)
@@ -255,48 +242,14 @@ export function setAlertRequest(values) {
   });
 }
 
-/**
- * Returns an object with headers for api requests.
- *
- * If post is true build the headers for post request, using
- * application/hal+json and adding the csrf_token.
- */
-export function buildHeaders(post = false) {
-  const state = store.getState();
-
-  var headers = {
-    Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
-    'Content-Type': 'application/json',
-  };
-
-  if (post) {
-    headers['Content-Type'] = 'application/hal+json';
-    const { authToken } = getTokens();
-    headers['X-CSRF-Token'] = authToken;
-  }
-
-  return headers;
-}
-
-/**
- * Returns an object with headers for posting an image.
- */
-function buildHeadersPhotoPost(filename) {
-  const state = store.getState();
-  const { authToken } = getTokens();
-
-  return {
-    Cookie: `${state.user.cookie.name}=${state.user.cookie.value}`,
-    'Content-Type': 'application/octet-stream',
-    'X-CSRF-Token': authToken,
-    'Content-Disposition': `file; filename="${filename}"`,
-  };
-}
-
 export function setComplaintFileRequest(values) {
   const photo  = values[0];
 
-  const headers = buildHeadersPhotoPost(photo.filename);
+  const headers = new Headers(Headers.types.APPLICATION_OCTET_STREAM)
+    .setCookie()
+    .setAuthToken()
+    .setContentDisposition(photo.filename)
+    .build();
   const uri = `${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`;
 
   return clearCookies().then(() => {
@@ -346,7 +299,10 @@ export function patchComplaintRequest(values, arrayFid) {
     data['field_complaint_image'] = multipleFid
   }
 
-  const headers = buildHeaders(true);
+  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
+    .setCookie()
+    .setAuthToken()
+    .build();
   return clearCookies().then(() => {
     return api.post(`${Config.API_URL}/node?_format=json`, data, { headers })
       .then((response) => response.data)
@@ -360,10 +316,7 @@ export function patchComplaintRequest(values, arrayFid) {
  * Downloads the image into local cache dir.
  */
 export function downloadImage(image) {
-  // FIXME: Refactor buildHeaders so we can get only cookie.
-  const headers = {
-    Cookie: buildHeaders().Cookie
-  };
+  const headers = new Headers().setCookie().build();
   const url = `${Config.API_URL}/${image}`;
 
   return new Promise((resolve, reject) => {
