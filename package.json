@@ -71,6 +71,7 @@
     "rn-fetch-blob": "^0.12.0",
     "set-cookie-parser": "^2.4.1",
     "url-parse": "^1.4.7",
+    "uuid": "^8.1.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
