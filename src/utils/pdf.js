@@ -91,7 +91,12 @@ p{
     </tr>
   </table>
   <h4 class="mt">Archivos adjuntos</h4>
-  <img class="center" src="${complaint.uri}" />
+  ${complaint.localImages.map((item, i) => `
+   <div class="attachment">
+     <h5>Adjunto ${i + 1}</h5>
+     <img src="file://${item}" />
+   </div>
+  `.trim()).join('')}
   <p class="mt legal">Legales:  Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam vitae tempor turpis, sed interdum dolor. Sed sem elit, euismod fringilla dignissim ac, egestas non augue. Vivamus tempus aliquam nibh quis molestie. Sed in neque aliquet, blandit massa quis, pretium dui. Fusce vitae tortor vel nulla vehicula lobortis.
   Vestibulum id pretium urna. Nullam vulputate massa pharetra commodo dignissim. Vestibulum quis mi enim. </p>
 `;
