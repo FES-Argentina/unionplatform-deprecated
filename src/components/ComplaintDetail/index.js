@@ -92,13 +92,12 @@ class ComplaintDetail extends React.Component {
           ) : null }
           <Button
             title="Compartir denuncia"
-            type="outline"
             iconRight
-            titleStyle={{ color: '#f50057', marginRight: 15}}
+            titleStyle={{ marginRight: 10}}
             onPress={() => this.shareComplaint(item)}
             icon={
               <FontAwesome5
-                  name="share" solid size={15}
+                  name="share" size={15} color={"white"}
               />
             }
           />
