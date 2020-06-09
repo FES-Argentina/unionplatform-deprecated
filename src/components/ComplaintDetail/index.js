@@ -39,8 +39,8 @@ class ComplaintDetail extends React.Component {
         Share.open({
           title: 'Compartir denuncia',
           url: `file://${file.filePath}`,
-          subject: 'Mi denuncia en SindicAPP',
-          message: 'Denuncia reportada a través de SindicAPP.',
+          subject: 'Mi denuncia en App sindical',
+          message: 'Denuncia reportada a través de App sindical.',
         });
       }
     } catch (e) {
