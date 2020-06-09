@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Text,
-  ScrollView
+  View,
+  FlatList
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,15 +14,25 @@ class Generic extends React.Component {
   componentDidMount = () => {
     const { loadInformation } = this.props;
     loadInformation();
-  }
+  };
+  _renderItem = ({item}) => {
+    return (
+      <View>
+        <Text style={styles.titles}>{item.title}</Text>
+        <Text style={styles.body}>{item.description}</Text>
+      </View>
+    );
+  };
   render() {
-    let info = this.props.information[0]
+    let { information } = this.props
 
     return (
-        <ScrollView style={styles.containerMargin}>
-          <Text style={styles.titles}>{info.title}</Text>
-          <Text style={styles.body}>{info.description}</Text>
-        </ScrollView>
+        <FlatList
+          style={styles.containerMargin}
+          data={information}
+          renderItem={this._renderItem}
+          keyExtractor={(item) => item.id}
+        />
     );
   }
 }
