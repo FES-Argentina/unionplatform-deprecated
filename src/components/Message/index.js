@@ -17,8 +17,7 @@ class Message extends React.Component {
       return (
         <View style={styles.wrapper}>
           <View style={styles.message}>
-            <Text style={styles.formError}>{title}</Text>
-            <Text style={styles.formError}>{message}</Text>
+            <Text style={styles.formError}>Credenciales incorrectas</Text>
           </View>
           <TouchableOpacity style={styles.closeButton} onPress={this.closeMessage}>
             <Icon name="times" size={20} color="#f50057" />
