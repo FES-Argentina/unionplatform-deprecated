@@ -13,7 +13,7 @@ export default class Headers {
   constructor(contentType = false) {
     this.headers = {};
     if (contentType) {
-      this.headers.setContentType(contentType);
+      this.setContentType(contentType);
     }
   }
 
