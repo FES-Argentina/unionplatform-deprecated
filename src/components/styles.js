@@ -30,11 +30,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginHorizontal: 3,
   },
-  //form
+  //form message
   formError: {
-    color: 'red',
+    color: 'black',
     paddingHorizontal: 15,
     marginTop: 5,
+    fontSize: 16,
+  },
+  message: {
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    backgroundColor: '#ffe56450',
+    marginVertical: 15,
+    marginHorizontal: 15,
+    borderLeftColor: '#ffe564',
+    borderLeftWidth: 5,
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 35,
+    top: 35,
   },
   // datepicker
   containerCenter: {
@@ -157,11 +172,6 @@ const styles = StyleSheet.create({
   },
   bodyMargin: {
     fontSize: 14,
-  },
-  closeButton: {
-    position: 'absolute',
-    right: 10,
-    top: 10,
   },
   // generic & loadingIndicator
   containerFlex: {
