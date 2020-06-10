@@ -26,8 +26,8 @@ import { getComplaintImages } from '../../actions/images';
 class ComplaintDetail extends React.Component {
 
   componentDidMount() {
-    const { item, downloadImages } = this.props;
-    downloadImages(item);
+    const { complaint, downloadImages } = this.props;
+    downloadImages(complaint);
   }
 
   shareComplaint = async (item) => {
@@ -51,31 +51,31 @@ class ComplaintDetail extends React.Component {
   }
 
   render() {
-    const { item, imageCache } = this.props;
+    const { complaint, imageCache } = this.props;
 
     return (
       <ScrollView>
         <View style={styles.containerMargin}>
-          <Text style={styles.titleNews}>{getProblemLabel(item.problem)}</Text>
+          <Text style={styles.titleNews}>{getProblemLabel(complaint.problem)}</Text>
           <View>
             <Text style={styles.complaintTitles}>Detalle</Text>
-            <Text style={styles.bodyDetail}>{item.description}</Text>
-            <Field label="Fecha" value={item.date} />
-            <Field label="Dirección" value={item.address} />
-            <Field label="Empresa" value={getCompanyLabel(item.company)} />
-            <Field label="ID de la denuncia" value={item.id} />
+            <Text style={styles.bodyDetail}>{complaint.description}</Text>
+            <Field label="Fecha" value={complaint.date} />
+            <Field label="Dirección" value={complaint.address} />
+            <Field label="Empresa" value={getCompanyLabel(complaint.company)} />
+            <Field label="ID de la denuncia" value={complaint.id} />
           </View>
           <View>
             <Text style={styles.complaintTitles}>Sobre el usuario</Text>
-            <Field label="Nombre y apellido" value={`${item.firstname} ${item.lastname}`} />
-            <Field label="Teléfono" value={item.phonenumber} />
-            <Field label="Antigüedad" value={getSeniorityLabel(item.seniority)} />
-            <Field label="Tareas" value={item.tasks} />
+            <Field label="Nombre y apellido" value={`${complaint.firstname} ${complaint.lastname}`} />
+            <Field label="Teléfono" value={complaint.phonenumber} />
+            <Field label="Antigüedad" value={getSeniorityLabel(complaint.seniority)} />
+            <Field label="Tareas" value={complaint.tasks} />
           </View>
-          { item.image.length ? (
+          { complaint.image.length ? (
             <FlatList
-              data={item.image}
-              keyExtractor={(index) => item.image[index]}
+              data={complaint.image}
+              keyExtractor={(index) => complaint.image[index]}
               renderItem={({ index, item }) => (
                 <View>
                   <Text style={styles.complaintTitles}>Archivo adjunto { index + 1 }</Text>
@@ -94,7 +94,7 @@ class ComplaintDetail extends React.Component {
             title="Compartir denuncia"
             iconRight
             titleStyle={{ marginRight: 10}}
-            onPress={() => this.shareComplaint(item)}
+            onPress={() => this.shareComplaint(complaint)}
             icon={
               <FontAwesome5
                   name="share" size={15} color={"white"}
@@ -114,7 +114,7 @@ ComplaintDetail.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  item: state.user.complaints.find((x) => x.id === ownProps.navigation.state.params.id),
+  complaint: state.user.complaints.find((x) => x.id === ownProps.navigation.state.params.id),
   imageCache: state.image.cache,
 });
 
