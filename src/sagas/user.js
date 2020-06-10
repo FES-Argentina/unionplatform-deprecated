@@ -35,9 +35,9 @@ import {
   changeUserPass,
   getComplaintsRequest,
   patchComplaintRequest,
-  downloadImage,
   getInformationRequest,
 } from '../api';
+import { getLocalImage } from '../utils/images';
 import { getInformationSuccess } from '../actions/information';
 import NavigationService from '../navigation/NavigationService';
 import Toast from 'react-native-simple-toast';
@@ -245,7 +245,7 @@ export function* complaintsWatcher() {
 function* complaintImagesWorker(complaint) {
   try {
     yield put(processing(true));
-    const images = yield all(complaint.image.map((img) => downloadImage(img)));
+    const images = yield all(complaint.image.map((img) => getLocalImage(img)));
     yield put(getComplaintImagesSuccess(complaint.id, images));
   } catch (e) {
     console.log('EXCEPTION', e);

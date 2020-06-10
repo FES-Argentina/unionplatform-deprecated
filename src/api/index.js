@@ -3,7 +3,6 @@ import Config from 'react-native-config';
 import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
 import RNFetchBlob from 'rn-fetch-blob';
-import { v5 as uuid } from 'uuid';
 import Headers from './headers';
 import { getCurrentTokens, getSessionToken } from './session';
 
@@ -313,19 +312,15 @@ export function patchComplaintRequest(values, arrayFid) {
 }
 
 /**
- * Downloads the image into local cache dir.
+ * Downloads the image into local cache dir and returns a Promise that resolves
+ * to the path of the downloaded image.
  */
-export function downloadImage(image) {
+export function downloadImage(url, localPath) {
   const headers = new Headers().setCookie().build();
-  const url = `${Config.API_URL}/${image}`;
 
   return new Promise((resolve, reject) => {
-    const filename = uuid(url, '65b32c6c-ea6a-423c-a6ac-fc4da67441fb');
-    const rnfb = RNFetchBlob.config({
-      path: `${RNFetchBlob.fs.dirs.CacheDir}/${filename}.${image.split('.').pop()}`,
-    });
-
-    rnfb.fetch('GET', url, headers)
+    RNFetchBlob.config({ path: localPath })
+      .fetch('GET', url, headers)
       .then((res) => resolve(res.path()))
       .catch((err) => reject(err));
   });
