@@ -7,6 +7,27 @@ export const { width, height } = Dimensions.get('window');
 const ratio = width/541;
 
 const styles = StyleSheet.create({
+  // information
+  info: {
+    marginHorizontal: 15,
+  },
+  infoTitles: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    borderWidth: 1,
+    borderColor: 'black',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    backgroundColor: 'ghostwhite',
+  },
+  infoBody: {
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: 'black',
+    paddingHorizontal: 15,
+    paddingTop: 15,
+  },
   photoContainer: {
     borderColor: '#9B9B9B',
     borderWidth: 1 / PixelRatio.get(),

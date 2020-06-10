@@ -17,9 +17,9 @@ class Generic extends React.Component {
   };
   _renderItem = ({item}) => {
     return (
-      <View>
-        <Text style={styles.titles}>{item.title}</Text>
-        <Text style={styles.body}>{item.description}</Text>
+      <View style={styles.info}>
+        <Text style={styles.infoTitles}>{item.title}</Text>
+        <Text style={styles.infoBody}>{item.body}</Text>
       </View>
     );
   };
