@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Image,
-  FlatList
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from 'react-native-elements';
@@ -72,24 +71,22 @@ class ComplaintDetail extends React.Component {
             <Field label="Antigüedad" value={getSeniorityLabel(complaint.seniority)} />
             <Field label="Tareas" value={complaint.tasks} />
           </View>
-          { complaint.image.length ? (
-            <FlatList
-              data={complaint.image}
-              keyExtractor={(index) => complaint.image[index]}
-              renderItem={({ index, item }) => (
-                <View>
+          <View>
+            {
+              complaint.image.map((img, index) => (
+                <>
                   <Text style={styles.complaintTitles}>Archivo adjunto { index + 1 }</Text>
-                  <ResponsiveImageView source={{ uri: `file://${imageCache[item]}` }}>
+                  <ResponsiveImageView source={{ uri: `file://${imageCache[img]}` }}>
                     {({ getViewProps, getImageProps }) => (
                       <View {...getViewProps()}>
                         <Image {...getImageProps()} />
                       </View>
                     )}
                   </ResponsiveImageView>
-                </View>
-              )}
-            />
-          ) : null }
+                </>
+              ))
+            }
+          </View>
           <Button
             title="Compartir denuncia"
             iconRight
