@@ -7,7 +7,7 @@ import { getProblemLabel, getCompanyLabel } from '../../utils/values';
 import NavigationService from '../../navigation/NavigationService';
 import Field from '../Field';
 import styles from '../styles';
-import { getComplaintImages } from '../../actions/user';
+import { getComplaintImages } from '../../actions/images';
 
 class ComplaintSmall extends React.Component {
   itemView = (item) => {

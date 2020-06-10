@@ -8,7 +8,6 @@ import {
   SET_COMPLAINT,
   CHANGE_USER_PASS,
   GET_COMPLAINTS,
-  GET_COMPLAINT_IMAGES,
   GET_INFORMATION,
 } from '../constants';
 import { requestError, processing } from '../actions';
@@ -20,7 +19,6 @@ import {
   setEnrollmentSuccess,
   setComplaintSuccess,
   getComplaintsSuccess,
-  getComplaintImagesSuccess,
   changeUserPassSuccess,
 } from '../actions/user';
 import {
@@ -37,7 +35,6 @@ import {
   patchComplaintRequest,
   getInformationRequest,
 } from '../api';
-import { getLocalImage } from '../utils/images';
 import { getInformationSuccess } from '../actions/information';
 import NavigationService from '../navigation/NavigationService';
 import Toast from 'react-native-simple-toast';
@@ -240,25 +237,6 @@ function* complaintsWorker() {
 
 export function* complaintsWatcher() {
   yield takeLatest(GET_COMPLAINTS, complaintsWorker);
-}
-
-function* complaintImagesWorker(complaint) {
-  try {
-    yield put(processing(true));
-    const images = yield all(complaint.image.map((img) => getLocalImage(img)));
-    yield put(getComplaintImagesSuccess(complaint.id, images));
-  } catch (e) {
-    console.log('EXCEPTION', e);
-  } finally {
-    yield put(processing(false));
-  }
-}
-
-export function* complaintImagesWatcher() {
-  while (true) {
-    const { complaint } = yield take(GET_COMPLAINT_IMAGES, complaintImagesWorker);
-    yield call(complaintImagesWorker, complaint)
-  }
 }
 
 /**

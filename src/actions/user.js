@@ -126,19 +126,3 @@ export function getComplaintsSuccess(complaints) {
     payload: complaints,
   };
 }
-
-export function getComplaintImages(complaint) {
-  return {
-    type: GET_COMPLAINT_IMAGES,
-    complaint,
-  };
-}
-
-export function getComplaintImagesSuccess(id, images) {
-  return {
-    type: GET_COMPLAINT_IMAGES_SUCCESS,
-    payload: {
-      id, images
-    }
-  };
-}

@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import documentsReducer from '../reducers/documents';
 import userReducer from '../reducers/user';
+import imageCacheReducer from '../reducers/images';
 import newsReducer from '../reducers/news';
 import alertsReducer from '../reducers/alerts';
 import informationReducer from '../reducers/information';
@@ -17,6 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 const rootReducer = combineReducers({
   documents: documentsReducer,
   user: userReducer,
+  image: imageCacheReducer,
   error: errorReducer,
   news: newsReducer,
   alerts: alertsReducer,
@@ -27,7 +29,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage: SecureStorage,
-  whitelist: ['user'],
+  whitelist: ['user', 'image'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -312,16 +312,17 @@ export function patchComplaintRequest(values, arrayFid) {
 }
 
 /**
- * Downloads the image into local cache dir and returns a Promise that resolves
- * to the path of the downloaded image.
+ * Downloads remoteImage into local cache dir and returns a Promise that resolves
+ * to a 'tuple' with remoteImage and the path of the downloaded image.
  */
-export function downloadImage(url, localPath) {
+export function downloadImage(remoteImage, localPath) {
   const headers = new Headers().setCookie().build();
+  const url = `${Config.API_URL}${remoteImage}`;
 
   return new Promise((resolve, reject) => {
     RNFetchBlob.config({ path: localPath })
       .fetch('GET', url, headers)
-      .then((res) => resolve(res.path()))
+      .then((res) => resolve([remoteImage, res.path()]))
       .catch((err) => reject(err));
   });
 }

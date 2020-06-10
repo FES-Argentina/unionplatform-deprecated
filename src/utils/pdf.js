@@ -4,7 +4,7 @@ import { getCompanyLabel, getProblemLabel, getSeniorityLabel } from './values';
 /**
  * Template for building the html string for a complaint.
  */
-export const complaintHtml = (complaint, images) => `
+export const complaintHtml = (complaint) => `
 <style>
 table {
   font-family: arial, sans-serif;
@@ -100,13 +100,14 @@ p{
  * Creates a PDF for complaint.
  */
 
-export const createPdf = async (complaint, images) => {
+export const createPdf = async (complaint, imageCache) => {
   complaint.problemLabel = getProblemLabel(complaint.problem);
   complaint.seniorityLabel = getSeniorityLabel(complaint.seniority);
   complaint.companyLabel = getCompanyLabel(complaint.company);
+  complaint.localImages = complaint.image.map((i) => imageCache[i]);
 
   const options = {
-    html: complaintHtml(complaint, images),
+    html: complaintHtml(complaint),
     fileName: `denuncia-${complaint.id}`,
   };
 

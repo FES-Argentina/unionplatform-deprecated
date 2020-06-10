@@ -5,13 +5,12 @@ import { downloadImage } from '../api';
 
 /**
  * Ensures the local copy of remoteImage, returns a Promise that resolves to
- * the local path for the image.
+ * a 'tuple' with remoteImage and local path.
  */
 export function getLocalImage(remoteImage) {
-  const url = `${Config.API_URL}${remoteImage}`;
-  const filename = uuid(url, '65b32c6c-ea6a-423c-a6ac-fc4da67441fb');
+  const filename = uuid(remoteImage, '65b32c6c-ea6a-423c-a6ac-fc4da67441fb');
   const path = `${RNFetchBlob.fs.dirs.CacheDir}/${filename}.${remoteImage.split('.').pop()}`;
 
   return RNFetchBlob.fs.exists(path)
-    .then((exists) => (exists) ? Promise.resolve(path) : downloadImage(url, path));
+    .then((exists) => (exists) ? Promise.resolve([remoteImage, path]) : downloadImage(remoteImage, path));
 }

@@ -33,10 +33,10 @@ class ComplaintList extends React.Component {
   }
 
   shareComplaint = async (item) => {
-    const { showProcessing } = this.props;
+    const { showProcessing, imageCache } = this.props;
     try {
       showProcessing(true);
-      const file = await createPdf(item);
+      const file = await createPdf(item, imageCache);
       if (file.filePath) {
         Share.open({
           title: 'Compartir denuncia',
@@ -94,6 +94,7 @@ ComplaintList.defaultProps = {
 
 const mapStateToProps = (state) => ({
   data: state.user.complaints,
+  imageCache: state.image.cache,
 });
 
 const mapDispatchToProps = (dispatch) => ({

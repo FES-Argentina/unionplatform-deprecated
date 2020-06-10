@@ -27,10 +27,10 @@ class Profile extends React.Component {
   }
 
   shareComplaint = async (item) => {
-    const { showProcessing } = this.props;
+    const { showProcessing, imageCache } = this.props;
     try {
       showProcessing(true);
-      const file = await createPdf(item);
+      const file = await createPdf(item, imageCache);
       if (file.filePath) {
         Share.open({
           title: 'Compartir denuncia',
@@ -123,6 +123,7 @@ const mapStateToProps = (state) => ({
   id: state.user.id,
   profile: state.user.profile,
   complaints: state.user.complaints,
+  imageCache: state.image.cache,
 });
 
 const mapDispatchToProps = (dispatch) => ({

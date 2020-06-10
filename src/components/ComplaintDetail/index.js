@@ -21,7 +21,7 @@ import Field from '../Field';
 import styles from '../styles';
 import { createPdf } from '../../utils/pdf';
 import { processing } from '../../actions';
-import { getComplaintImages } from '../../actions/user';
+import { getComplaintImages } from '../../actions/images';
 
 class ComplaintDetail extends React.Component {
 
@@ -31,10 +31,10 @@ class ComplaintDetail extends React.Component {
   }
 
   shareComplaint = async (item) => {
-    const { showProcessing } = this.props;
+    const { showProcessing, imageCache } = this.props;
     try {
       showProcessing(true);
-      const file = await createPdf(item);
+      const file = await createPdf(item, imageCache);
       if (file.filePath) {
         Share.open({
           title: 'Compartir denuncia',
@@ -51,7 +51,7 @@ class ComplaintDetail extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, imageCache } = this.props;
 
     return (
       <ScrollView>
@@ -72,14 +72,14 @@ class ComplaintDetail extends React.Component {
             <Field label="Antigüedad" value={getSeniorityLabel(item.seniority)} />
             <Field label="Tareas" value={item.tasks} />
           </View>
-          { item.localImages.length ? (
+          { item.image.length ? (
             <FlatList
-              data={item.localImages}
-              keyExtractor={(index) => item.localImages[index]}
-              renderItem={({ index }) => (
+              data={item.image}
+              keyExtractor={(index) => item.image[index]}
+              renderItem={({ index, item }) => (
                 <View>
                   <Text style={styles.complaintTitles}>Archivo adjunto { index + 1 }</Text>
-                  <ResponsiveImageView source={{ uri: `file://${item.localImages[index]}` }}>
+                  <ResponsiveImageView source={{ uri: `file://${imageCache[item]}` }}>
                     {({ getViewProps, getImageProps }) => (
                       <View {...getViewProps()}>
                         <Image {...getImageProps()} />
@@ -115,8 +115,8 @@ ComplaintDetail.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   item: state.user.complaints.find((x) => x.id === ownProps.navigation.state.params.id),
+  imageCache: state.image.cache,
 });
-
 
 const mapDispatchToProps = (dispatch) => ({
   downloadImages: (complaint) => dispatch(getComplaintImages(complaint)),
