@@ -33,6 +33,11 @@ class Login extends React.Component {
     this.fields = {};
   }
 
+  componentDidMount = () => {
+    const { dispatch } = this.props;
+    dispatch(clearErrors());
+  }
+
   onSubmit = (values) => {
     const { name, password } = values;
     const { dispatch } = this.props;
