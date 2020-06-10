@@ -1,11 +1,13 @@
 import React from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions, View, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAlerts } from '../../actions/alerts';
 import { getAlertLabel } from '../../utils/values';
 import styles from '../styles';
+import Geolocation from '@react-native-community/geolocation';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const { height, width } = Dimensions.get('window');
 const LATITUDE = -34.606856;
@@ -25,14 +27,36 @@ class Alerts extends React.Component {
   componentDidMount = () => {
     const { loadAlerts } = this.props;
     loadAlerts();
+    Geolocation.getCurrentPosition(info => console.log(info));
   }
-
+  gotToMyLocation = () => {
+    Geolocation.getCurrentPosition(
+      ({ coords }) => {
+          console.log("curent location: ", coords)
+          if (this.map) {
+            console.log("curent location: ", coords)
+            this.map.animateToRegion({
+              latitude: coords.latitude,
+              longitude: coords.longitude,
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA
+            })
+          }
+        },
+        (error) => alert('Error: Are location services on?'),
+        { enableHighAccuracy: true }
+    );
+  }
   render() {
     const { alerts, colours } = this.props;
     return (
       <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
+          ref={(map) => { this.map = map; }}
+          style={{ height: '100%', width: '100%' }}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
           initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
@@ -50,6 +74,16 @@ class Alerts extends React.Component {
             />
           ))}
         </MapView>
+        <TouchableOpacity onPress={this.gotToMyLocation} style={{
+            width: 60, height: 60,
+            position: "absolute", bottom: 20, right: 20, borderRadius: 30, backgroundColor: "crimson"
+          }}>
+            <FontAwesome5
+                name="map-marker-alt" size={25} color={'white'} style={{
+                    position: "absolute", bottom: 17, right: 20
+                  }}
+            />
+      </TouchableOpacity>
       </View>
     );
   }
