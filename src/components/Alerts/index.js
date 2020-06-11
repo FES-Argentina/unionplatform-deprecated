@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { getAlerts } from '../../actions/alerts';
 import { getAlertLabel } from '../../utils/values';
 import styles from '../styles';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const { height, width } = Dimensions.get('window');
@@ -28,6 +28,7 @@ class Alerts extends React.Component {
     const { loadAlerts } = this.props;
     loadAlerts();
   }
+
   gotToMyLocation = () => {
     Geolocation.getCurrentPosition(
       ({ coords }) => {
