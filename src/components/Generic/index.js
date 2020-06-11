@@ -15,7 +15,6 @@ class Generic extends React.Component {
   componentDidMount = () => {
     const { loadInformation } = this.props;
     loadInformation();
-    console.log('info', this.props.information)
   };
   _renderItem = ({item}) => {
     return (
