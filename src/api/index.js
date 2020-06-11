@@ -281,8 +281,6 @@ export function patchComplaintRequest(values, arrayFid) {
       }
     },
     type: [{ target_id: 'complaints' }],
-    // FIXME: Título de la denuncia.
-    title: [{ value: "Complaint PRUEBA" }],
     field_address_complaint: [{ value: values.address }],
     field_company_complaint: [{ value: values.company }],
     field_tasks: [{ value: values.tasks }],
