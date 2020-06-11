@@ -12,6 +12,7 @@ import {
   setComplaintWatcher,
   changeUserPassWatcher,
   complaintsWatcher,
+  informationWatcher
 } from './user';
 
 export default function* rootSaga() {
@@ -30,6 +31,7 @@ export default function* rootSaga() {
     complaintsWatcher(),
     complaintImagesWatcher(),
     alertsWatcher(),
-    setAlertWatcher()
+    setAlertWatcher(),
+    informationWatcher()
   ]);
 }

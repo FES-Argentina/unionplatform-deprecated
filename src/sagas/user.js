@@ -84,10 +84,6 @@ export function* loginFlow() {
       yield put(setAuth(winner.auth));
       const user = yield call(getUserRequest, winner.auth.data.current_user.uid);
       yield put(getUserSuccess(user));
-
-      let information = yield call(getInformationRequest)
-      yield put(getInformationSuccess(information))
-
       yield call(redirectAuth);
     }
   }
@@ -289,4 +285,20 @@ export function* setComplaintWatcher() {
       console.warn('error setComplaintWatcher:', e);
     }
   }
+}
+
+function* informationWorker() {
+  try {
+    yield put(processing(true));
+    let information = yield call(getInformationRequest)
+    yield put(getInformationSuccess(information))
+  } catch (e) {
+    console.log('EXCEPTION', e);
+  } finally {
+    yield put(processing(false));
+  }
+}
+
+export function* informationWatcher() {
+  yield takeLatest(GET_INFORMATION, informationWorker);
 }
