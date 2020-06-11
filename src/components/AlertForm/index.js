@@ -83,7 +83,7 @@ class AlertForm extends React.Component {
               blurOnSubmit={false}
             />
             {errors.description && touched.description ? (
-              <Text style={styles.formError}>{errors.description}</Text>
+              <Text style={styles.formErrorMessage}>{errors.description}</Text>
             ) : null }
             <Button
               title="Guardar"

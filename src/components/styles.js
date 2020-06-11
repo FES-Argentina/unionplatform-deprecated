@@ -58,6 +58,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 16,
   },
+  //form message
+  formErrorMessage: {
+    color: 'red',
+    paddingHorizontal: 15,
+    marginTop: 5,
+    fontSize: 16,
+  },
   message: {
     paddingHorizontal: 15,
     paddingVertical: 15,

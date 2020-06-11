@@ -20,11 +20,12 @@ const validationSchema = yup.object().shape({
   name: yup
     .string()
     .label('Usuarix')
-    .required(),
+    .min(3, 'El nombre de usuarix debe tener más de ${min} caracteres')
+    .required('Campo requerido'),
   password: yup
     .string()
     .label('Contraseña')
-    .required(),
+    .required('Campo requerido'),
 });
 
 class Login extends React.Component {
@@ -106,7 +107,7 @@ class Login extends React.Component {
               blurOnSubmit={false}
             />
             {errors.name && touched.name ? (
-                <Text style={styles.formError}>{errors.name}</Text>
+                <Text style={styles.formErrorMessage}>{errors.name}</Text>
             ) : null }
             <Input
               label="Contraseña"
@@ -136,7 +137,7 @@ class Login extends React.Component {
               returnKeyType="done"
             />
           {errors.password && touched.password ? (
-                <Text style={styles.formError}>{errors.password}</Text>
+                <Text style={styles.formErrorMessage}>{errors.password}</Text>
             ) : null }
             <Button
               title="Enviar"

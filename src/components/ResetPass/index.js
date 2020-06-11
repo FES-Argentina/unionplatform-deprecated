@@ -94,7 +94,7 @@ class ResetPass extends React.Component {
               />
 
               {errors.email && touched.email ? (
-                  <Text style={styles.formError}>{errors.email}</Text>
+                  <Text style={styles.formErrorMessage}>{errors.email}</Text>
               ) : null }
 
               <Input
@@ -125,7 +125,7 @@ class ResetPass extends React.Component {
                 error={touched.password && errors.password}
               />
             {errors.password && touched.password ? (
-                  <Text style={styles.formError}>{errors.password}</Text>
+                  <Text style={styles.formErrorMessage}>{errors.password}</Text>
               ) : null }
 
               <Input
@@ -156,7 +156,7 @@ class ResetPass extends React.Component {
                 error={touched.passwordConfirm && errors.passwordConfirm}
               />
             {errors.passwordConfirm && touched.passwordConfirm ? (
-                  <Text style={styles.formError}>{errors.passwordConfirm}</Text>
+                  <Text style={styles.formErrorMessage}>{errors.passwordConfirm}</Text>
               ) : null }
             <Button
               title="Guardar"

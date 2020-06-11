@@ -161,7 +161,7 @@ class ProfileForm extends React.Component {
                   error={touched.username && errors.username}
                 />
                 {errors.username && touched.username ? (
-                  <Text style={styles.formError}>{errors.username}</Text>
+                  <Text style={styles.formErrorMessage}>{errors.username}</Text>
                 ) : null }
                 <Input
                   label="E-mail"
@@ -188,7 +188,7 @@ class ProfileForm extends React.Component {
                   error={touched.mail && errors.mail}
                 />
                 {errors.mail && touched.mail ? (
-                  <Text style={styles.formError}>{errors.mail}</Text>
+                  <Text style={styles.formErrorMessage}>{errors.mail}</Text>
                 ) : null }
               </>
             ) : null }
@@ -216,7 +216,7 @@ class ProfileForm extends React.Component {
               error={touched.firstname && errors.firstname}
             />
             {errors.firstname && touched.firstname ? (
-              <Text style={styles.formError}>{errors.firstname}</Text>
+              <Text style={styles.formErrorMessage}>{errors.firstname}</Text>
             ) : null }
 
             <Input
@@ -242,7 +242,7 @@ class ProfileForm extends React.Component {
               error={touched.lastname && errors.lastname}
             />
             {errors.lastname && touched.lastname ? (
-              <Text style={styles.formError}>{errors.lastname}</Text>
+              <Text style={styles.formErrorMessage}>{errors.lastname}</Text>
             ) : null }
 
             <Input
@@ -270,7 +270,7 @@ class ProfileForm extends React.Component {
               error={touched.phonenumber && errors.phonenumber}
             />
             {errors.phonenumber && touched.phonenumber ? (
-              <Text style={styles.formError}>{errors.phonenumber}</Text>
+              <Text style={styles.formErrorMessage}>{errors.phonenumber}</Text>
             ) : null }
 
 
@@ -314,7 +314,7 @@ class ProfileForm extends React.Component {
               error={touched.cuit && errors.cuit}
             />
             {errors.cuit && touched.cuit ? (
-              <Text style={styles.formError}>{errors.cuit}</Text>
+              <Text style={styles.formErrorMessage}>{errors.cuit}</Text>
             ) : null }
             <Input
               label="DNI"
@@ -341,7 +341,7 @@ class ProfileForm extends React.Component {
               error={touched.dni && errors.dni}
             />
             {errors.dni && touched.dni ? (
-              <Text style={styles.formError}>{errors.dni}</Text>
+              <Text style={styles.formErrorMessage}>{errors.dni}</Text>
             ) : null }
             <Input
               label="Nacionalidad"
@@ -366,7 +366,7 @@ class ProfileForm extends React.Component {
               error={touched.nationality && errors.nationality}
             />
             {errors.nationality && touched.nationality ? (
-              <Text style={styles.formError}>{errors.nationality}</Text>
+              <Text style={styles.formErrorMessage}>{errors.nationality}</Text>
             ) : null }
             <Input
               label="Dirección"
@@ -391,7 +391,7 @@ class ProfileForm extends React.Component {
               error={touched.address && errors.address}
             />
             {errors.address && touched.address ? (
-              <Text style={styles.formError}>{errors.address}</Text>
+              <Text style={styles.formErrorMessage}>{errors.address}</Text>
             ) : null }
             <Input
               label="Código postal"
@@ -418,7 +418,7 @@ class ProfileForm extends React.Component {
               error={touched.postalcode && errors.postalcode}
             />
             {errors.postalcode && touched.postalcode ? (
-              <Text style={styles.formError}>{errors.postalcode}</Text>
+              <Text style={styles.formErrorMessage}>{errors.postalcode}</Text>
             ) : null }
             <Input
               label="Ciudad"
@@ -443,7 +443,7 @@ class ProfileForm extends React.Component {
               error={touched.city && errors.city}
             />
             {errors.city && touched.city ? (
-              <Text style={styles.formError}>{errors.city}</Text>
+              <Text style={styles.formErrorMessage}>{errors.city}</Text>
             ) : null }
             <Input
               label="Provincia"
@@ -468,7 +468,7 @@ class ProfileForm extends React.Component {
               error={touched.province && errors.province}
             />
             {errors.province && touched.province ? (
-              <Text style={styles.formError}>{errors.province}</Text>
+              <Text style={styles.formErrorMessage}>{errors.province}</Text>
             ) : null }
             <Input
               label="País"
@@ -493,7 +493,7 @@ class ProfileForm extends React.Component {
               error={touched.country && errors.country}
             />
             {errors.country && touched.country ? (
-              <Text style={styles.formError}>{errors.country}</Text>
+              <Text style={styles.formErrorMessage}>{errors.country}</Text>
             ) : null }
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
             <Selector items={companies} name="companies" defaultValue={profile.companies} label="Empresa" setFieldValue={setFieldValue} />
@@ -521,7 +521,7 @@ class ProfileForm extends React.Component {
               error={touched.tasks && errors.tasks}
             />
             {errors.tasks && touched.tasks ? (
-              <Text style={styles.formError}>{errors.tasks}</Text>
+              <Text style={styles.formErrorMessage}>{errors.tasks}</Text>
             ) : null }
 
             <Button

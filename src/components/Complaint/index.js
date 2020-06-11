@@ -162,7 +162,7 @@ class Complaint extends React.Component {
               blurOnSubmit={false}
             />
             {errors.firstname && touched.firstname ? (
-              <Text style={styles.formError}>{errors.firstname}</Text>
+              <Text style={styles.formErrorMessage}>{errors.firstname}</Text>
             ) : null}
 
             <Input
@@ -186,7 +186,7 @@ class Complaint extends React.Component {
               blurOnSubmit={false}
             />
             {errors.lastname && touched.lastname ? (
-              <Text style={styles.formError}>{errors.lastname}</Text>
+              <Text style={styles.formErrorMessage}>{errors.lastname}</Text>
             ) : null}
 
             <Input
@@ -212,7 +212,7 @@ class Complaint extends React.Component {
               blurOnSubmit={false}
             />
             {errors.mail && touched.mail ? (
-              <Text style={styles.formError}>{errors.mail}</Text>
+              <Text style={styles.formErrorMessage}>{errors.mail}</Text>
             ) : null}
 
             <Input
@@ -238,7 +238,7 @@ class Complaint extends React.Component {
               error={touched.phonenumber && errors.phonenumber}
             />
             {errors.phonenumber && touched.phonenumber ? (
-              <Text style={styles.formError}>{errors.phonenumber}</Text>
+              <Text style={styles.formErrorMessage}>{errors.phonenumber}</Text>
             ) : null}
 
             <Input
@@ -259,7 +259,7 @@ class Complaint extends React.Component {
               error={touched.address && errors.address}
             />
             {errors.address && touched.address ? (
-              <Text style={styles.formError}>{errors.address}</Text>
+              <Text style={styles.formErrorMessage}>{errors.address}</Text>
             ) : null}
 
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
@@ -352,7 +352,7 @@ class Complaint extends React.Component {
               blurOnSubmit={false}
             />
             {errors.tasks && touched.tasks ? (
-              <Text style={styles.formError}>{errors.tasks}</Text>
+              <Text style={styles.formErrorMessage}>{errors.tasks}</Text>
             ) : null}
 
             <Input
@@ -375,7 +375,7 @@ class Complaint extends React.Component {
               blurOnSubmit={false}
             />
             {errors.description && touched.description ? (
-              <Text style={styles.formError}>{errors.description}</Text>
+              <Text style={styles.formErrorMessage}>{errors.description}</Text>
             ) : null}
 
 
