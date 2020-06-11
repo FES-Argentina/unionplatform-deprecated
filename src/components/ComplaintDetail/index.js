@@ -20,14 +20,8 @@ import Field from '../Field';
 import styles from '../styles';
 import { createPdf } from '../../utils/pdf';
 import { processing } from '../../actions';
-import { getComplaintImages } from '../../actions/images';
 
 class ComplaintDetail extends React.Component {
-
-  componentDidMount() {
-    const { complaint, downloadImages } = this.props;
-    downloadImages(complaint);
-  }
 
   shareComplaint = async (item) => {
     const { showProcessing, imageCache } = this.props;
@@ -116,7 +110,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  downloadImages: (complaint) => dispatch(getComplaintImages(complaint)),
   showProcessing: (status) => dispatch(processing(status)),
 });
 

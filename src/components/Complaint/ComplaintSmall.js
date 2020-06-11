@@ -7,16 +7,10 @@ import { getProblemLabel, getCompanyLabel } from '../../utils/values';
 import NavigationService from '../../navigation/NavigationService';
 import Field from '../Field';
 import styles from '../styles';
-import { getComplaintImages } from '../../actions/images';
 
 class ComplaintSmall extends React.Component {
   itemView = (item) => {
     NavigationService.navigate('ComplaintDetail', {id: item.id} );
-  }
-
-  componentDidMount() {
-    const { item, downloadImages } = this.props;
-    downloadImages(item);
   }
 
   render() {
@@ -41,8 +35,4 @@ const mapStateToProps = (state, ownProps) => ({
   item: state.user.complaints.find((x) => x.id === ownProps.complaintId),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  downloadImages: (complaint) => dispatch(getComplaintImages(complaint)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ComplaintSmall);
+export default connect(mapStateToProps)(ComplaintSmall);

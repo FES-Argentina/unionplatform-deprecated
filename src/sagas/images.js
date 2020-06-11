@@ -1,14 +1,15 @@
-import { all, call, put, take } from 'redux-saga/effects';
-import { GET_COMPLAINT_IMAGES } from '../constants';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { GET_COMPLAINTS_SUCCESS } from '../constants';
 import { getComplaintImagesSuccess } from '../actions/images';
 import { processing } from '../actions';
 import { getLocalImage } from '../utils/images';
 
-function* complaintImagesWorker(complaint) {
+function* complaintImagesWorker(action) {
   try {
     yield put(processing(true));
-    const images = yield all(complaint.image.map((img) => getLocalImage(img)));
-    yield put(getComplaintImagesSuccess(images));
+    const images = action.payload.map((complaint) => complaint.image).flat();
+    const cache = yield all(images.map((img) => getLocalImage(img)));
+    yield put(getComplaintImagesSuccess(cache));
   } catch (e) {
     console.log('EXCEPTION', e);
   } finally {
@@ -17,8 +18,5 @@ function* complaintImagesWorker(complaint) {
 }
 
 export function* complaintImagesWatcher() {
-  while (true) {
-    const { complaint } = yield take(GET_COMPLAINT_IMAGES, complaintImagesWorker);
-    yield call(complaintImagesWorker, complaint)
-  }
+  yield takeLatest(GET_COMPLAINTS_SUCCESS, complaintImagesWorker);
 }
