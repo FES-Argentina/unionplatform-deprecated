@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getInformation } from '../../actions/information';
 import NavigationService from '../../navigation/NavigationService';
+import EmptyListMessage from '../EmptyListMessage';
 import styles from '../styles';
 
 class Generic extends React.Component {
@@ -32,7 +33,9 @@ class Generic extends React.Component {
           data={information}
           renderItem={this._renderItem}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={<EmptyListMessage text="No hay información cargada." />}
         />
+
     );
   }
 }
@@ -45,7 +48,7 @@ Generic.propTypes = {
 };
 
 Generic.defaultProps = {
-  information: {},
+  information: [],
 };
 
 const mapStateToProps = (state) => ({

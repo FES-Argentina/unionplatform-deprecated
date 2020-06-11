@@ -1,7 +1,7 @@
 import { GET_INFORMATION_SUCCESS } from '../constants';
 
 const initialState = {
-  information: {},
+  information: [],
 };
 
 const informationReducer = (state = initialState, action) => {
