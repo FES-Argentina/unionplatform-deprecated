@@ -27,7 +27,6 @@ class Alerts extends React.Component {
   componentDidMount = () => {
     const { loadAlerts } = this.props;
     loadAlerts();
-    Geolocation.getCurrentPosition(info => console.log(info));
   }
   gotToMyLocation = () => {
     Geolocation.getCurrentPosition(
@@ -35,15 +34,17 @@ class Alerts extends React.Component {
           console.log("curent location: ", coords)
           if (this.map) {
             console.log("curent location: ", coords)
-            this.map.animateToRegion({
-              latitude: coords.latitude,
-              longitude: coords.longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA
-            })
+            let region = {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.001
+          }
+            this.map.animateToRegion(
+              region, 800 )
           }
         },
-        (error) => alert('Error: Are location services on?'),
+        (error) => alert('¿Tenés activados los servicios de ubicación?'),
         { enableHighAccuracy: true }
     );
   }
@@ -57,6 +58,8 @@ class Alerts extends React.Component {
           style={{ height: '100%', width: '100%' }}
           showsUserLocation={true}
           showsMyLocationButton={true}
+          zoomEnabled={true}
+
           initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
