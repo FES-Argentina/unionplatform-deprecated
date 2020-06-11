@@ -30,30 +30,28 @@ class CardList extends React.Component {
     const { data } = this.props;
 
     return (
-      <ScrollView>
+      <>
         <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson"/>
-
-      <FlatGrid
-        itemDimension={300}
-        items={data}
-        style={styles.containerStandar}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableHighlight onPress={() => this.itemView(item)}>
-            <View style={styles.itemCardlist}>
-              <ImageBackground style={styles.backgroundImage} source={{ uri: item.image }}>
-                <LinearGradient colors={["#ffffff00", "black"]} style={styles.containerOverlay}>
-                <Text style={styles.titleCardlist} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
-                <Text style={styles.summaryCardlist} numberOfLines={2} ellipsizeMode={'tail'}>{item.summary}</Text>
-                </LinearGradient>
-              </ImageBackground>
-            </View>
-          </TouchableHighlight>
-        )}
-        ListEmptyComponent={<EmptyListMessage text="No hay noticias..." />}
-      />
-  </ScrollView>
-
+        <FlatGrid
+          itemDimension={300}
+          items={data}
+          style={styles.containerStandar}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableHighlight onPress={() => this.itemView(item)}>
+              <View style={styles.itemCardlist}>
+                <ImageBackground style={styles.backgroundImage} source={{ uri: item.image }}>
+                  <LinearGradient colors={["#ffffff00", "black"]} style={styles.containerOverlay}>
+                  <Text style={styles.titleCardlist} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
+                  <Text style={styles.summaryCardlist} numberOfLines={2} ellipsizeMode={'tail'}>{item.summary}</Text>
+                  </LinearGradient>
+                </ImageBackground>
+              </View>
+            </TouchableHighlight>
+          )}
+          ListEmptyComponent={<EmptyListMessage text="No hay noticias..." />}
+        />
+      </>
     );
   }
 }
