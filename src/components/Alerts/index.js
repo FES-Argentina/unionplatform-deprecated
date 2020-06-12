@@ -1,11 +1,12 @@
 import React from 'react';
-import { Dimensions, View, TouchableOpacity, PermissionsAndroid } from 'react-native';
+import { Dimensions, View, TouchableOpacity, PermissionsAndroid, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Toast from 'react-native-simple-toast';
 import { getAlerts } from '../../actions/alerts';
 import { getAlertLabel } from '../../utils/values';
+import { mapStyle } from '../../utils/defaults';
 import styles from '../styles';
 import Geolocation from 'react-native-geolocation-service';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -84,6 +85,7 @@ class Alerts extends React.Component {
           showsUserLocation={true}
           showsMyLocationButton={true}
           zoomEnabled={true}
+          customMapStyle={mapStyle}
           initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
