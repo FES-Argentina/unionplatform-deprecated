@@ -176,10 +176,7 @@ function postNewUser(values, sessionToken) {
     const headers = new Headers(Headers.types.APPLICATION_HAL_JSON).setToken(sessionToken).build();
 
     return api.post(`${Config.API_URL}/user/register?_format=hal_json`, data, { headers })
-      .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
+      .then((response) => response.data);
   });
 }
 

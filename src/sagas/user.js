@@ -1,4 +1,4 @@
-import { all, call, put, race, take, takeLatest, fork } from 'redux-saga/effects';
+import { all, call, put, race, take, takeLatest } from 'redux-saga/effects';
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
@@ -162,8 +162,8 @@ export function* userWatcher() {
 
 function* setEnrollmentWorker(values) {
   try {
-    yield fork(setEnrollmentRequest, values);
-    yield put(processing(false));
+    yield put(processing(true));
+    yield call(setEnrollmentRequest, values);
     Toast.show('Gracias por registrarte! Vas a recibir un correo cuando tu solicitud sea revisada.', Toast.LONG);
     NavigationService.navigate('Welcome');
   } catch (e) {
