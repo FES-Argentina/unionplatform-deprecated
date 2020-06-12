@@ -7,6 +7,28 @@ export const { width, height } = Dimensions.get('window');
 const ratio = width/541;
 
 const styles = StyleSheet.create({
+  marker: {
+    marginBottom: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderColor: "#eee",
+    borderRadius: 5,
+    elevation: 10,
+  },
+  markerTitle: {
+    color: "#fff",
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginTop: 15,
+    paddingHorizontal: 30,
+    fontSize: 18,
+  },
+  markerDescription: {
+    color: "#fff",
+    marginBottom: 15,
+    paddingHorizontal: 30,
+    fontSize: 16,
+  },
   actionButtonIcon: {
     fontSize: 20,
     height: 22,

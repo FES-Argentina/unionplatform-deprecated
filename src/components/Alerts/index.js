@@ -21,14 +21,14 @@ const LONGITUDE = -58.436293;
 const LATITUDE_DELTA = 0.28;
 const LONGITUDE_DELTA = LATITUDE_DELTA * (width / height);
 const PIN_COLOURS = {
-  accident: "red",
+  accident: "tomato",
   crash: "orange",
-  store: "yellow",
+  store: "gold",
   traffic: "green",
-  theft: "blue",
-  other: "violet",
+  theft: "navy",
+  other: "turquoise",
+  mistreatment: "indigo",
 };
-
 class Alerts extends React.Component {
   componentDidMount = () => {
     const { loadAlerts } = this.props;
@@ -100,7 +100,14 @@ class Alerts extends React.Component {
               description={marker.description}
               flat={true}
               pinColor={colours[marker.type]}
-            />
+            >
+            <MapView.Callout tooltip={true}>
+              <View style={styles.marker, {backgroundColor: colours[marker.type]}} >
+                <Text style={styles.markerTitle}>{getAlertLabel(marker.type)}</Text>
+                <Text style={styles.markerDescription}>{marker.description}</Text>
+              </View>
+            </MapView.Callout>
+          </Marker>
           ))}
         </MapView>
         <ActionButton buttonColor="rgba(231,76,60,1)">
