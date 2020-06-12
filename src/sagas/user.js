@@ -1,4 +1,5 @@
 import { all, call, put, race, take, takeLatest } from 'redux-saga/effects';
+import { Alert } from 'react-native';
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
@@ -164,10 +165,10 @@ function* setEnrollmentWorker(values) {
   try {
     yield put(processing(true));
     yield call(setEnrollmentRequest, values);
-    Toast.show('Gracias por registrarte! Vas a recibir un correo cuando tu solicitud sea revisada.', Toast.LONG);
+    Alert.alert('Gracias por registrarte!', 'Vas a recibir un correo cuando tu solicitud sea revisada.');
     NavigationService.navigate('Welcome');
   } catch (e) {
-    console.warn('error setEnrollmentWorker:', e);
+    Alert.alert('Lo sentimos, ocurrió un error en el registro.', 'Por favor intentá más tarde o ponete en contacto con nosotrxs.');
   }
   finally {
     yield put(processing(false));
