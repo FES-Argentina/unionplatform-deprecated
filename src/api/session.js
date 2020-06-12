@@ -18,15 +18,3 @@ export function getCurrentTokens() {
   const { authToken, logoutToken } = state.user;
   return { authToken, logoutToken };
 }
-
-/**
- * Get a session token from the backend.
- */
-export function getSessionToken(){
-  return api.get(`${Config.API_URL}/session/token`)
-  .then((response) => response.data)
-  .catch((error) => {
-    console.log('ERROR', error);
-  });
-}
-

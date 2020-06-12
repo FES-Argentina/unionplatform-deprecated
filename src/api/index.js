@@ -4,7 +4,7 @@ import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
 import RNFetchBlob from 'rn-fetch-blob';
 import Headers from './headers';
-import { getCurrentTokens, getSessionToken } from './session';
+import { getCurrentTokens } from './session';
 
 const api = axios.create({
   withCredentials: false,
@@ -144,7 +144,10 @@ export function getNewRequest(id) {
   });
 }
 
-export function setEnrollmentRequest(values) {
+/**
+ * Get a session token from the backend.
+ */
+function postNewUser(values, sessionToken) {
   const data = {
     _links: {
       type: {
@@ -169,14 +172,20 @@ export function setEnrollmentRequest(values) {
     field_companies : values.companies.map((i) => ({ value: i })),
   };
 
-  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
-    .setToken(getSessionToken())
   return clearCookies().then(() => {
+    const headers = new Headers(Headers.types.APPLICATION_HAL_JSON).setToken(sessionToken).build();
+
     return api.post(`${Config.API_URL}/user/register?_format=hal_json`, data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
       });
+  });
+}
+
+export function setEnrollmentRequest(values) {
+  return api.get(`${Config.API_URL}/session/token`).then((response) => {
+    return postNewUser(values, response.data)
   });
 }
 
