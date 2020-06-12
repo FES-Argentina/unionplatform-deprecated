@@ -9,6 +9,10 @@ import { getAlertLabel } from '../../utils/values';
 import styles from '../styles';
 import Geolocation from 'react-native-geolocation-service';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import NavigationService from '../../navigation/NavigationService';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const { height, width } = Dimensions.get('window');
 const LATITUDE = -34.606856;
@@ -66,7 +70,9 @@ class Alerts extends React.Component {
       Toast.show('Para mostrar tu ubicación actual necesitamos que aceptes el permiso.');
     }
   }
-
+  addMarker = () => {
+    NavigationService.navigate('AlertForm');
+  }
   render() {
     const { alerts, colours } = this.props;
     return (
@@ -78,7 +84,6 @@ class Alerts extends React.Component {
           showsUserLocation={true}
           showsMyLocationButton={true}
           zoomEnabled={true}
-
           initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
@@ -96,16 +101,14 @@ class Alerts extends React.Component {
             />
           ))}
         </MapView>
-        <TouchableOpacity onPress={this.gotToMyLocation} style={{
-            width: 60, height: 60,
-            position: "absolute", bottom: 20, right: 20, borderRadius: 30, backgroundColor: "crimson"
-          }}>
-            <FontAwesome5
-                name="map-marker-alt" size={25} color={'white'} style={{
-                    position: "absolute", bottom: 17, right: 20
-                  }}
-            />
-      </TouchableOpacity>
+        <ActionButton buttonColor="rgba(231,76,60,1)">
+          <ActionButton.Item buttonColor='crimson' title="Ubicación actual" onPress={() => this.gotToMyLocation()}>
+            <Icon name="my-location" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='crimson' title="Agregar alerta" onPress={() => this.addMarker()}>
+            <IconFontAwesome5 name="map-marker-alt" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
       </View>
     );
   }

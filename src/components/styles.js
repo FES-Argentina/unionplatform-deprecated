@@ -7,6 +7,11 @@ export const { width, height } = Dimensions.get('window');
 const ratio = width/541;
 
 const styles = StyleSheet.create({
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
   // information
   info: {
     marginHorizontal: 15,
