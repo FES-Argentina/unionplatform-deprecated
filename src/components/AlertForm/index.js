@@ -73,7 +73,7 @@ class AlertForm extends React.Component {
               valid={touched.description && !errors.description}
               error={touched.description && errors.description}
               labelStyle={styles.inputslabel}
-              returnKeyType="next"
+              returnKeyType="done"
               ref={(input) => {
                 this.inputs.description = input;
               }}
