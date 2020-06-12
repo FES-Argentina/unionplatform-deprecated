@@ -34,7 +34,7 @@ function* setAlertWorker(values) {
       // TODO: que tenemos que pasarle al setAlertSuccess
       yield put(setAlertSuccess(values));
       NavigationService.navigate('Loading');
-      Toast.show('Gracias! Tu alerta fue cargada.', Toast.LONG);
+      Toast.show('Tu alerta fue cargada.', Toast.LONG);
     }
   } catch (e) {
     console.warn('error setAlertWorker:', e);
