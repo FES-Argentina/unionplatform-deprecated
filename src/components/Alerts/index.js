@@ -102,7 +102,7 @@ class Alerts extends React.Component {
               pinColor={colours[marker.type]}
             >
             <MapView.Callout tooltip={true}>
-              <View style={styles.marker, {backgroundColor: colours[marker.type]}} >
+              <View style={{backgroundColor: colours[marker.type],  maxWidth: width -10, borderRadius: 5}} >
                 <Text style={styles.markerTitle}>{getAlertLabel(marker.type)}</Text>
                 <Text style={styles.markerDescription}>{marker.description}</Text>
               </View>
