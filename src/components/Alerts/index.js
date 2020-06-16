@@ -11,9 +11,7 @@ import styles from '../styles';
 import Geolocation from 'react-native-geolocation-service';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import NavigationService from '../../navigation/NavigationService';
-import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { FloatingAction } from "react-native-floating-action";
 
 const { height, width } = Dimensions.get('window');
 const LATITUDE = -34.606856;
@@ -29,6 +27,23 @@ const PIN_COLOURS = {
   other: "turquoise",
   mistreatment: "indigo",
 };
+const actions = [
+  {
+    text: "Ubicación actual",
+    icon: require('../../assets/images/position.png'),
+    name: "bt_location",
+    position: 2,
+    color: '#f50057'
+  },
+  {
+    text: "Cargar alerta",
+    icon: require('../../assets/images/pin.png'),
+    name: "bt_alert",
+    position: 1,
+    color: '#f50057'
+  }
+];
+
 class Alerts extends React.Component {
   componentDidMount = () => {
     const { loadAlerts } = this.props;
@@ -71,9 +86,16 @@ class Alerts extends React.Component {
       Toast.show('Para mostrar tu ubicación actual necesitamos que aceptes el permiso.');
     }
   }
+
   addMarker = () => {
     NavigationService.navigate('AlertForm');
   }
+
+  floatingButtonEvent = (name) => {
+    if(name == "bt_alert") this.addMarker()
+    if(name == "bt_location") this.gotToMyLocation()
+  }
+
   render() {
     const { alerts, colours } = this.props;
     return (
@@ -110,14 +132,13 @@ class Alerts extends React.Component {
           </Marker>
           ))}
         </MapView>
-        <ActionButton buttonColor="rgba(231,76,60,1)">
-          <ActionButton.Item buttonColor='crimson' title="Ubicación actual" onPress={() => this.gotToMyLocation()}>
-            <Icon name="my-location" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='crimson' title="Agregar alerta" onPress={() => this.addMarker()}>
-            <IconFontAwesome5 name="map-marker-alt" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-        </ActionButton>
+        <FloatingAction
+          color={'#f50057'}
+          actions={actions}
+          onPressItem={name => {
+            this.floatingButtonEvent(name);
+          }}
+        />
       </View>
     );
   }
