@@ -18,10 +18,13 @@ export default class Headers {
   }
 
   /**
-   * Sets the current session cookie.
+   * Sets the Cookie header, if no value is given the current session cookie is
+   * used.
    */
-  setCookie() {
-    const cookie = getCookie();
+  setCookie(cookie) {
+    if (!cookie) {
+      cookie = getCookie();
+    }
     this.headers['Cookie'] = `${cookie.name}=${cookie.value}`;
     return this;
   }

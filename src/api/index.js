@@ -52,6 +52,22 @@ export function login(username, password) {
   });
 }
 
+/**
+ * Perform a one time login using the backend's password reset uri.
+ */
+export function oneTimeLogin(uid, token, timestamp) {
+  return clearCookies().then(() => {
+    return api.post(`${Config.API_URL}/user/reset/${uid}/${timestamp}/${token}/login?_format=json`)
+      .then((response) => {
+        var cookie = SetCookieParser(response.headers['set-cookie'], {decodeValues: true});
+        return {
+          data: response.data,
+          cookie,
+        };
+      });
+  });
+}
+
 export function logout() {
   return clearCookies().then(() => {
     const headers = new Headers(Headers.types.APPLICATION_JSON)
@@ -69,6 +85,33 @@ export function loginStatus() {
       .setCookie()
       .build();
     return api.get(`${Config.API_URL}/user/login_status?_format=json`, { headers })
+      .then((response) => response.data);
+  });
+}
+
+/**
+ * Change user password using a password reset token for validation.
+ */
+export function changePasswordWithToken(password, user) {
+  const data = {
+    _links : {
+      type : {
+        href : `${Config.API_URL}/rest/type/user/user`,
+      },
+    },
+    pass: [{
+      value: password,
+    }],
+  };
+
+  const { id, token, cookie, authToken } = user;
+  const headers = new Headers(Headers.types.APPLICATION_HAL_JSON)
+    .setCookie(cookie)
+    .setToken(authToken)
+    .build();
+
+  return clearCookies().then(() => {
+    return api.patch(`${Config.API_URL}/user/${id}?_format=hal_json&pass-reset-token=${token}`, data, { headers })
       .then((response) => response.data);
   });
 }
@@ -144,9 +187,6 @@ export function getNewRequest(id) {
   });
 }
 
-/**
- * Get a session token from the backend.
- */
 function postNewUser(values, sessionToken) {
   const data = {
     _links: {
