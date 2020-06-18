@@ -2,6 +2,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import AuthLoadingScreen from './AuthLoadingScreen';
 import AuthenticatedNavigation from '../Authenticated';
 import GuestNavigation from '../Guest';
+import ChangePass from '../../components/ChangePass';
 
 const Switcher = createSwitchNavigator({
   Loading: {
@@ -12,6 +13,9 @@ const Switcher = createSwitchNavigator({
   },
   Guest: {
     screen: GuestNavigation,
+  },
+  ResetPass: {
+    screen: ChangePass,
   }
 });
 
