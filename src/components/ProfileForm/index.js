@@ -10,8 +10,9 @@ import DatePicker from 'react-native-date-picker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Selector from '../form/Selector';
+import Dropdown from '../form/Dropdown';
 import styles from '../styles';
-import { companies } from '../../utils/values';
+import { companies, provinces } from '../../utils/values';
 import { defaultProfile } from '../../utils/defaults';
 import cuitValidator from 'cuit-validator';
 
@@ -77,11 +78,6 @@ const validationSchema = yup.object().shape({
     .label('Localidad')
     .min(2, 'La localidad debe tener más de ${min} caracteres')
     .required('Campo requerido'),
-  province: yup
-    .string()
-    .label('Provincia')
-    .min(2, 'La provincia debe tener más de ${min} caracteres')
-    .required('Campo requerido'),
   country: yup
     .string()
     .label('País')
@@ -123,7 +119,6 @@ class ProfileForm extends React.Component {
   render() {
     const { date} = this.state;
     const { profile } = this.props;
-
     return (
       <Formik
         initialValues={profile}
@@ -135,7 +130,6 @@ class ProfileForm extends React.Component {
         }) => (
           <ScrollView>
             <Text style={styles.formTitles}>Sobre vos</Text>
-
             {!profile.username ? (
               <>
                 <Input
@@ -445,31 +439,7 @@ class ProfileForm extends React.Component {
             {errors.city && touched.city ? (
               <Text style={styles.formErrorMessage}>{errors.city}</Text>
             ) : null }
-            <Input
-              label="Provincia"
-              mode="outlined"
-              value={values.province}
-              onChangeText={handleChange('province')}
-              onBlur={handleBlur('province')}
-              placeholder="Ingrese su provincia"
-              labelStyle={styles.inputslabel}
-              leftIcon={(
-                <Icon name="address-card" size={12} color="grey" />
-            )}
-              returnKeyType="next"
-              ref={(input) => {
-                this.inputs.province = input;
-              }}
-              onSubmitEditing={() => {
-                this.focusNextField('country');
-              }}
-              blurOnSubmit={false}
-              valid={touched.province && !errors.province}
-              error={touched.province && errors.province}
-            />
-            {errors.province && touched.province ? (
-              <Text style={styles.formErrorMessage}>{errors.province}</Text>
-            ) : null }
+            <Dropdown items={provinces} label="Provincia" name="province" defaultValue={profile.province} setFieldValue={setFieldValue}/>
             <Input
               label="País"
               mode="outlined"

@@ -14,7 +14,7 @@ import { processing } from '../../actions';
 import NavigationService from '../../navigation/NavigationService';
 import ComplaintSmall from '../Complaint/ComplaintSmall';
 import { createPdf } from '../../utils/pdf';
-import { getCompanyLabel } from '../../utils/values';
+import { getCompanyLabel, getProvinceLabel } from '../../utils/values';
 import Field from '../Field';
 import Address from '../Address';
 import styles from '../styles';
@@ -53,6 +53,7 @@ class Profile extends React.Component {
     const date = moment(new Date(profile.created));
     let birthdate = moment.utc(new Date(profile.birthdate));
     let companies = (profile.companies) ? profile.companies.map(getCompanyLabel).join(', ') : 'N/D';
+    let province = (profile.province) ? getProvinceLabel(profile.province) : '';
 
     return (
         <ScrollView>
@@ -72,7 +73,7 @@ class Profile extends React.Component {
               <Address
                 address={profile.address}
                 city={profile.city}
-                province={profile.province}
+                province={province}
                 postalcode={profile.postalcode}
                 country={profile.country}
               />
