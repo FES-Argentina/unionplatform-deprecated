@@ -7,6 +7,7 @@ import ChangePass from '../../components/ChangePass';
 const Switcher = createSwitchNavigator({
   Loading: {
     screen: AuthLoadingScreen,
+    path: 'user/reset/:uid/:timestamp/:token/login',
   },
   Authenticated: {
     screen: AuthenticatedNavigation,
