@@ -99,6 +99,7 @@ class ProfileForm extends React.Component {
     this.state = {
       date: (profile.birthdate) ? new Date(profile.birthdate) : new Date(1990, 0, 1),
     };
+    console.log(profile)
   }
 
   focusNextField = (id) => {
@@ -430,7 +431,7 @@ class ProfileForm extends React.Component {
                 this.inputs.city = input;
               }}
               onSubmitEditing={() => {
-                this.focusNextField('province');
+                this.focusNextField('country');
               }}
               blurOnSubmit={false}
               valid={touched.city && !errors.city}

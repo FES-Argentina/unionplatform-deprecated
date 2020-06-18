@@ -11,7 +11,6 @@ class Dropdown extends React.Component {
       selectedValue: null || this.props.defaultValue,
     };
     this.props.setFieldValue(this.props.name, this.state.selectedValue);
-    console.log(this.state.selectedValue)
   }
 
   updateValue = async (value) => {
