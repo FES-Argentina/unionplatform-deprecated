@@ -6,6 +6,11 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import { loginStatus, oneTimeLogin } from '../../api';
 import NavigationService from '../NavigationService';
 
+const ROUTES = {
+  Authenticated: [],
+  Guest: ['Login'],
+};
+
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
     const { params } = this.props.navigation.state;
@@ -13,36 +18,46 @@ class AuthLoadingScreen extends React.Component {
   }
 
   _bootstrapAsync = ({ uid, token, timestamp } = {}) => {
-    const { user, navigation } = this.props;
-
-    if (uid && token && timestamp) {
-      // TODO: What if we have a session for a different user?
-      oneTimeLogin(uid, token, timestamp)
-        .then((response) => {
-          const { user: id, pass_reset_token: token, csrf_token: authToken } = response.data;
-          const cookie = response.cookie[0];
-          const params = { id, token, cookie, authToken };
-
-          NavigationService.navigate('ResetPass', params);
-        })
-        .catch((error) => {
-          Toast.show('El enlace de login usado no es válido.', Toast.LONG);
-          this._redirect();
-        });
-    }
-    else {
-      this._redirect();
-    }
+    this._checkStatus().then((status) => {
+      // If we have an open session we can't show the password reset form.
+      if (status && token) {
+        this._redirect('Authenticated', 'Ya estás identificadx en la aplicación, cerrá sesión para poder usar el enlace de nueva contraseña.');
+      }
+      else if (!status && token) {
+        oneTimeLogin(uid, token, timestamp)
+          .then(this._redirectToPasswordForm)
+          .catch((error) => this._redirect('Guest', 'El enlace de login usado no es válido.'));
+      }
+      else {
+        this._redirect(status ? 'Authenticated' : 'Guest');
+      }
+    });
   }
 
-  _redirect = () => {
-    this._checkStatus()
-      .then((status) => {
-        NavigationService.navigate(status ? 'Authenticated' : 'Guest');
-      })
-      .catch((err) => {
-        NavigationService.navigate('Guest');
-      });
+  _redirectToPasswordForm = (response) => {
+    const { user: id, pass_reset_token: token, csrf_token: authToken } = response.data;
+    const cookie = response.cookie[0];
+    const params = { id, token, cookie, authToken };
+    NavigationService.navigate('ResetPass', params);
+  }
+
+  _redirect = (routeName, message) => {
+    if (message) {
+      Toast.show(message, Toast.LONG);
+    }
+    NavigationService.navigate(this._getNextRouteName(routeName));
+  }
+
+  _getNextRouteName = (current) => {
+    const { params } = this.props.navigation.state;
+    if (params && params.routeName) {
+      const nextRoute = ROUTES[current].find(i => i === params.routeName);
+      if (nextRoute) {
+        return nextRoute;
+      }
+    }
+
+    return current;
   }
 
   _checkStatus = () => {

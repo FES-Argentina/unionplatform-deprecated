@@ -8,7 +8,13 @@ function setTopLevelNavigator(navigatorRef) {
   _navigator = navigatorRef;
 }
 
-function navigate(routeName, params) {
+function navigate(routeName, params = {}, auth = false) {
+  // Route through authentication screen.
+  if (auth) {
+    params.routeName = routeName;
+    routeName = 'Loading';
+  }
+
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,
