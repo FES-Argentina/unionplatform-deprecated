@@ -6,17 +6,16 @@ import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import styles from '../styles';
+import { resetUserPass } from '../../actions/user';
 
-import { changeUserPass } from '../../actions/user';
 
 
 const validationSchema = yup.object().shape({
-  currentPassword: yup
-    .string()
-    .label('Contraseña actual')
-    .required('Campo requerido'),
+  // currentPassword: yup
+  //   .string()
+  //   .label('Contraseña actual')
+  //   .required('Campo requerido'),
   password: yup
     .string()
     .label('Contraseña')
@@ -32,6 +31,29 @@ class ChangePass extends React.Component {
   constructor(props) {
     super(props);
     this.inputs = {};
+    this.state = {
+      user: {
+        id: undefined,
+        token: undefined,
+        cookie: undefined,
+        authToken: undefined,
+      },
+    };
+  }
+
+  componentDidMount() {
+    const { params } = this.props.navigation.state;
+    if (params) {
+      const { id, token, cookie, authToken } = params;
+      this.setState({
+        user: {
+          id,
+          token,
+          cookie,
+          authToken,
+        }
+      });
+    }
   }
 
   focusNextField = (id) => {
@@ -39,7 +61,9 @@ class ChangePass extends React.Component {
   }
 
   onSubmit = (values) => {
-    console.log(JSON.stringify(values, null, 2));
+    const { resetPass } = this.props;
+    const { user } = this.state;
+    resetPass(values.password, user)
   }
 
   render() {
@@ -53,6 +77,7 @@ class ChangePass extends React.Component {
           <ScrollView>
             <Text style={styles.formTitles}>Cambiar contraseña</Text>
 
+            {/*
               <Input
                 label="Contraseña actual"
                 mode="outlined"
@@ -78,7 +103,7 @@ class ChangePass extends React.Component {
             {errors.currentPassword && touched.currentPassword ? (
                   <Text style={styles.formErrorMessage}>{errors.currentPassword}</Text>
               ) : null }
-
+        */}
 
               <Input
                 label="Contraseña"
@@ -147,9 +172,7 @@ class ChangePass extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  changePass: (id, newValues) => {
-    dispatch(changeUserPass(id, newValues));
-  },
+  resetPass: (password, credentials) => dispatch(resetUserPass(password, credentials)),
 });
 
 

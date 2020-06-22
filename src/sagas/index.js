@@ -11,6 +11,7 @@ import {
   setEnrollmentWatcher,
   setComplaintWatcher,
   changeUserPassWatcher,
+  resetUserPassWatcher,
   complaintsWatcher,
   informationWatcher
 } from './user';
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     setEnrollmentWatcher(),
     setComplaintWatcher(),
     changeUserPassWatcher(),
+    resetUserPassWatcher(),
     complaintsWatcher(),
     complaintImagesWatcher(),
     alertsWatcher(),

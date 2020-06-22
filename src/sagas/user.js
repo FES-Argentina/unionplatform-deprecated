@@ -10,6 +10,7 @@ import {
   CHANGE_USER_PASS,
   GET_COMPLAINTS,
   GET_INFORMATION,
+  RESET_USER_PASS,
 } from '../constants';
 import { requestError, processing } from '../actions';
 import {
@@ -32,6 +33,7 @@ import {
   setComplaintFileRequest,
   updateComplaintRequest,
   changeUserPass,
+  changePasswordWithToken,
   getComplaintsRequest,
   patchComplaintRequest,
   getInformationRequest,
@@ -194,7 +196,6 @@ function* changeUserPassWorker(id, newValues) {
   try {
     const data = yield call(changeUserPass, id, newValues);
     if (data) {
-      // TODO: que tenemos que pasarle al changeUserPass
       yield put(changeUserPassSuccess(newValues));
       NavigationService.navigate('Login');
     }
@@ -214,6 +215,24 @@ export function* changeUserPassWatcher() {
       console.warn('error changeUserPassWatcher:', e);
     }
   }
+}
+
+function* resetUserPassWorker({ password, credentials }) {
+  try {
+    yield put(processing(true));
+    const response = yield call(changePasswordWithToken, password, credentials);
+    Toast.show('Contraseña cambiada, por favor iniciá sesión.', Toast.LONG);
+    NavigationService.navigate('Login', {}, true);
+  } catch (e) {
+    Alert.alert('Lo sentimos, ocurrió un error', 'Ocurrió un error al cambiar la contraseña. Por favor intentá con un nuevo enlace.');
+    NavigationService.navigate('Loading');
+  } finally {
+    yield put(processing(false));
+  }
+}
+
+export function* resetUserPassWatcher() {
+  yield takeLatest(RESET_USER_PASS, resetUserPassWorker);
 }
 
 /**
