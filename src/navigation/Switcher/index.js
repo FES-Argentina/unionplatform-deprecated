@@ -15,7 +15,7 @@ const Switcher = createSwitchNavigator({
   Guest: {
     screen: GuestNavigation,
   },
-  ResetPass: {
+  ChangePass: {
     screen: ChangePass,
   }
 });

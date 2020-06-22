@@ -1,169 +1,95 @@
 import React from 'react';
 import { ScrollView, Text } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Formik, ErrorMessage } from 'formik';
-import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import { connect } from 'react-redux';
+import { newPassword } from '../../actions/user';
+import { clearErrors } from '../../actions';
 import styles from '../styles';
-
-import { changeUserPass } from '../../actions/user';
+import Message from '../Message';
 
 
 const validationSchema = yup.object().shape({
-  email: yup
+  nameOrEmail: yup
     .string()
-    .label('E-mail')
-    .email("Ingrese un email válido")
-    .required("Campo requerido"),
-  password: yup
-    .string()
-    .label('Contraseña')
-    .required("Campo requerido"),
-  passwordConfirm: yup
-    .string()
-    .label('Confirmar contraseña')
-    .oneOf([yup.ref('password'), null], 'Las contraseñas no coinciden')
+    .label('Usuarix o E-mail')
     .required("Campo requerido"),
 });
 
 class ResetPass extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputs = {};
-  }
-
-  focusNextField = (id) => {
-    this.inputs[id].focus();
-  }
-
   onSubmit = (values) => {
-    const { id } = values;
+    const { requestNewPassword } = this.props;
+    const { nameOrEmail } = values;
+    requestNewPassword(nameOrEmail);
+  }
 
-    const { onchangeUserPass } = this.props;
-    onchangeUserPass(id, values);
+  componentDidMount = () => {
+    const { navigation } = this.props;
+    this.focusSubscription = navigation.addListener('willFocus', this.clearErrors);
+  }
+
+  componentWillUnmount() {
+    this.focusSubscription.remove();
+  }
+
+  clearErrors = () => {
+    const { clearErrorMessage } = this.props;
+    clearErrorMessage();
   }
 
   render() {
-    // FIX: user id value, pass validation
+    const { error } = this.props;
+    const show = error.message ? true : false;
+
     return (
       <Formik
-        initialValues={{
-          email: '', password: '', passwordConfirm: '', id: 'frs',
-        }}
+        initialValues={{ nameOrEmail: '' }}
         validationSchema={validationSchema}
         onSubmit={this.onSubmit}
-        initialErrors={{ name: '' }}
+        initialErrors={{ nameOrEmail: '' }}
       >
-        {({
-          values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur
-        }) => (
+        {({ values, handleChange, submitForm, isValid, errors, touched }) => (
           <ScrollView>
-            <Text style={styles.formTitles}>Cambiar contraseña</Text>
+            <Text style={styles.formTitles}>Solicitar nueva contraseña</Text>
+            <Text style={styles.formText}>
+              Las instrucciones para restablecer la contraseña se enviarán a la
+              dirección de correo electrónico con la que te registraste.
+            </Text>
 
               <Input
-                label="E-mail"
+                label="Usuarix o E-mail"
                 mode="outlined"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                placeholder="E-mail"
+                value={values.nameOrEmail}
+                onChangeText={handleChange('nameOrEmail')}
+                placeholder="Usuarix o E-mail"
                 labelStyle={styles.inputslabel}
                 keyboardType="email-address"
-                valid={touched.email && !errors.email}
-                error={touched.email && errors.email}
-                returnKeyType="next"
+                valid={touched.nameOrEmail && !errors.nameOrEmail}
+                error={touched.nameOrEmail && errors.nameOrEmail}
+                returnKeyType="done"
                 autoCapitalize="none"
-                leftIcon={(
-                  <Icon
-                    name="envelope"
-                    size={12}
-                    color="grey"
-                  />
-                )}
-                returnKeyType="next"
-                ref={ input => {
-                  this.inputs['email'] = input;
-                }}
-                onSubmitEditing={() => {
-                  this.focusNextField('password');
-                }}
+                leftIcon={<Icon name="id-badge" size={12} color="grey" />}
                 blurOnSubmit={false}
+                onSubmitEditing={submitForm}
               />
 
               {errors.email && touched.email ? (
                   <Text style={styles.formErrorMessage}>{errors.email}</Text>
               ) : null }
 
-              <Input
-                label="Contraseña"
-                mode="outlined"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                secureTextEntry
-                placeholder="Ingrese su password"
-                labelStyle={styles.inputslabel}
-                leftIcon={(
-                  <Icon
-                    name="key"
-                    size={12}
-                    color="grey"
-                  />
-                )}
-                returnKeyType="next"
-                ref={ input => {
-                  this.inputs['password'] = input;
-                }}
-                onSubmitEditing={() => {
-                  this.focusNextField('passwordConfirm');
-                }}
-                blurOnSubmit={false}
-                valid={touched.password && !errors.password}
-                error={touched.password && errors.password}
-              />
-            {errors.password && touched.password ? (
-                  <Text style={styles.formErrorMessage}>{errors.password}</Text>
-              ) : null }
-
-              <Input
-                label="Confirmar contraseña"
-                mode="outlined"
-                value={values.passwordConfirm}
-                onChangeText={handleChange('passwordConfirm')}
-                onBlur={handleBlur('passwordConfirm')}
-                secureTextEntry
-                placeholder="Reingrese su password"
-                labelStyle={styles.inputslabel}
-                leftIcon={(
-                  <Icon
-                    name="key"
-                    size={12}
-                    color="grey"
-                  />
-                )}
-                returnKeyType="next"
-                ref={ input => {
-                  this.inputs['passwordConfirm'] = input;
-                }}
-                onSubmitEditing={() => {
-                  submitForm();
-                }}
-                blurOnSubmit={false}
-                valid={touched.passwordConfirm && !errors.passwordConfirm}
-                error={touched.passwordConfirm && errors.passwordConfirm}
-              />
-            {errors.passwordConfirm && touched.passwordConfirm ? (
-                  <Text style={styles.formErrorMessage}>{errors.passwordConfirm}</Text>
-              ) : null }
             <Button
-              title="Guardar"
+              title="Enviar"
               type="outline"
               buttonStyle={styles.submitButton}
               disabled={!isValid}
-              onPress={() => this.onSubmit(values)}
+              onPress={submitForm}
+            />
+            <Message
+              message={error.message}
+              show={show}
+              handleClose={this.clearErrors}
             />
           </ScrollView>
         )}
@@ -172,23 +98,18 @@ class ResetPass extends React.Component {
   }
 }
 
-ResetPass.propTypes = {
-  onchangeUserPass: PropTypes.func.isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-
 const mapDispatchToProps = (dispatch) => ({
-  onchangeUserPass: (id, newValues) => {
-    dispatch(changeUserPass(id, newValues));
+  requestNewPassword: (nameOrEmail) => {
+    dispatch(newPassword(nameOrEmail));
   },
+  clearErrorMessage: () => {
+    dispatch(clearErrors());
+  }
 });
-
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPass);

@@ -21,6 +21,7 @@ const validationSchema = yup.object().shape({
     .string()
     .label('Usuarix')
     .min(3, 'El nombre de usuarix debe tener más de ${min} caracteres')
+    .matches(/^[a-zA-Z0-9_\-]*$/, 'Solo letras, números y guiones.')
     .required('Campo requerido'),
   firstname: yup
     .string()
@@ -144,6 +145,7 @@ class ProfileForm extends React.Component {
                   leftIcon={(
                     <Icon name="user" size={12} color="grey" />
                   )}
+                  autoCapitalize="none"
                   returnKeyType="next"
                   ref={(input) => {
                     this.inputs.username = input;

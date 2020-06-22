@@ -38,7 +38,7 @@ class AuthLoadingScreen extends React.Component {
     const { user: id, pass_reset_token: token, csrf_token: authToken } = response.data;
     const cookie = response.cookie[0];
     const params = { id, token, cookie, authToken };
-    NavigationService.navigate('ResetPass', params);
+    NavigationService.navigate('ChangePass', params);
   }
 
   _redirect = (routeName, message) => {

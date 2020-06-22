@@ -157,6 +157,10 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontWeight: 'bold',
   },
+  formText: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+  },
   formLabel: {
     fontSize: 16,
     alignSelf: 'flex-start',

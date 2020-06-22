@@ -34,6 +34,7 @@ import {
   updateComplaintRequest,
   changeUserPass,
   changePasswordWithToken,
+  requestNewPassword,
   getComplaintsRequest,
   patchComplaintRequest,
   getInformationRequest,
@@ -220,7 +221,7 @@ export function* changeUserPassWatcher() {
 function* resetUserPassWorker({ password, credentials }) {
   try {
     yield put(processing(true));
-    const response = yield call(changePasswordWithToken, password, credentials);
+    yield call(changePasswordWithToken, password, credentials);
     Toast.show('Contraseña cambiada, por favor iniciá sesión.', Toast.LONG);
     NavigationService.navigate('Login', {}, true);
   } catch (e) {
@@ -233,6 +234,23 @@ function* resetUserPassWorker({ password, credentials }) {
 
 export function* resetUserPassWatcher() {
   yield takeLatest(RESET_USER_PASS, resetUserPassWorker);
+}
+
+function* newPasswordWorker({ data }) {
+  try {
+    yield(put(processing(true)));
+    yield call(requestNewPassword, data);
+    Alert.alert('Gracias', 'Recibirás un correo electrónico con instrucciones para cambiar tu contraseña.');
+    NavigationService.navigate('Loading');
+  } catch (error) {
+    yield put(requestError(error));
+  } finally {
+    yield put(processing(false));
+  }
+}
+
+export function* newPasswordWatcher() {
+  yield takeLatest('REQUEST_NEW_PASS', newPasswordWorker);
 }
 
 /**

@@ -98,6 +98,28 @@ export function loginStatus() {
 }
 
 /**
+ * Request a password reset link, which will be sent to the user's email.
+ */
+export function requestNewPassword(value) {
+  const data = {
+    [value.includes('@') ? 'mail' : 'name']: value,
+  };
+  return clearCookies().then(() => {
+    const headers = new Headers(Headers.types.APPLICATION_JSON).build();
+    return api.post(`${Config.API_URL}/user/password?_format=json`, data, { headers })
+      .then((response) => response.data)
+      .catch((error) => {
+        const { response } = error;
+        if (response.status === 400) {
+          return Promise.reject(response.data.message);
+        }
+
+        return Promise.reject(error.message);
+      })
+  });
+}
+
+/**
  * Change user password using a password reset token for validation.
  */
 export function changePasswordWithToken(password, user) {
