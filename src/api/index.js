@@ -48,6 +48,14 @@ export function login(username, password) {
           data: response.data,
           cookie,
         };
+      })
+      .catch((error) => {
+        const { response } = error;
+        if (response.status === 400) {
+          return Promise.reject('Credenciales incorrectas.');
+        }
+        const { data } = response;
+        return Promise.reject(data.message ? data.message : error.message);
       });
   });
 }

@@ -63,7 +63,7 @@ export function* authorize({ username, password }) {
     const result = yield call(login, username, password);
     return result;
   } catch (error) {
-    yield put(requestError(error.message));
+    yield put(requestError(error));
     return false;
   } finally {
     yield put(processing(false));

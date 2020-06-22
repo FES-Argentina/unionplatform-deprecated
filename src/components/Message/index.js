@@ -17,7 +17,7 @@ class Message extends React.Component {
       return (
         <View style={styles.wrapper}>
           <View style={styles.message}>
-            <Text style={styles.formError}>Credenciales incorrectas</Text>
+            <Text style={styles.formError}>{message}</Text>
           </View>
           <TouchableOpacity style={styles.closeButton} onPress={this.closeMessage}>
             <Icon name="times" size={20} color="#f50057" />
@@ -31,15 +31,9 @@ class Message extends React.Component {
 }
 
 Message.propTypes = {
-  title: PropTypes.string.isRequired,
-  message: PropTypes.string,
+  message: PropTypes.string.isRequired,
   show: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
 };
-
-Message.defaultProps = {
-  message: '',
-  show: false,
-}
 
 export default Message;

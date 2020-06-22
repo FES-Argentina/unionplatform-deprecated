@@ -35,6 +35,15 @@ class Login extends React.Component {
   }
 
   componentDidMount = () => {
+    const { navigation } = this.props;
+    this.focusSubscription = navigation.addListener('willFocus', this.clearErrors);
+  }
+
+  componentWillUnmount() {
+    this.focusSubscription.remove();
+  }
+
+  clearErrors = () => {
     const { dispatch } = this.props;
     dispatch(clearErrors());
   }
@@ -45,13 +54,8 @@ class Login extends React.Component {
     dispatch(loginRequest(name, password));
   }
 
-  handleCloseMessage = () => {
-    const { dispatch } = this.props;
-    dispatch(clearErrors());
-  }
-
-  resetPass = (id) => {
-    NavigationService.navigate('ResetPass', { id });
+  resetPass = () => {
+    NavigationService.navigate('ResetPass');
   }
 
   enroll = () => {
@@ -147,22 +151,21 @@ class Login extends React.Component {
               buttonStyle={styles.submitButton}
             />
             <Message
-              title="Error"
               message={error.message}
               show={show}
-              handleClose={this.handleCloseMessage}
+              handleClose={this.clearErrors}
             />
 
             <View style={styles.containers}>
               <Button
                 title="¿Olvidaste tu contraseña?"
                 type="clear"
-                onPress={() => this.resetPass(values.id)}
+                onPress={this.resetPass}
               />
               <Text style={styles.enroll}>Para crear una cuenta nueva</Text>
-              <Text style={styles.enroll}>necesitas estar afiliado</Text>
+              <Text style={styles.enroll}>necesitas estar afiliadx.</Text>
               <Button
-                onPress={() => this.enroll()}
+                onPress={this.enroll}
                 title="AFILIATE"
                 buttonStyle={styles.enrollButton}
                 type="outline"
