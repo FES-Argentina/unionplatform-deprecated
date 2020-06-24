@@ -121,9 +121,7 @@ class PasswordForm extends React.Component {
               ref={(input) => {
                 this.inputs['passwordConfirm'] = input;
               }}
-              onSubmitEditing={() => {
-                submitForm();
-              }}
+              onSubmitEditing={submitForm}
               blurOnSubmit={false}
               valid={touched.passwordConfirm && !errors.passwordConfirm}
               error={touched.passwordConfirm && errors.passwordConfirm}
@@ -138,7 +136,7 @@ class PasswordForm extends React.Component {
               type="outline"
               buttonStyle={styles.submitButton}
               disabled={!isValid}
-              onPress={() => this.onSubmit(values)}
+              onPress={submitForm}
             />
           </ScrollView>
         )}
