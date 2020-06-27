@@ -14,8 +14,8 @@ import styles from './styles';
 
 class Slideshow extends PureComponent {
   componentDidMount = () => {
-    const { loadDocuments } = this.props;
-    loadDocuments();
+    const { getNews } = this.props;
+    getNews();
   }
 
   itemView = (item) => {
@@ -57,7 +57,7 @@ class Slideshow extends PureComponent {
 
 Slideshow.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
-  loadDocuments: PropTypes.func.isRequired,
+  getNews: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocuments: () => dispatch(getNews()),
+  getNews: () => dispatch(getNews()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Slideshow);
