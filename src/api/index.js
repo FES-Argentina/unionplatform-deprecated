@@ -402,12 +402,15 @@ export function downloadImage(remoteImage, localPath) {
 }
 
 export function getInformationRequest() {
+  const headers = new Headers(Headers.types.APPLICATION_JSON)
+    .setCookie()
+    .build();
   return clearCookies().then(() => {
-      return api.get(`${Config.API_URL}/information`)
-        .then((response) => response.data)
-        .catch((error) => {
-          console.log('ERROR', error);
-        });
+    return api.get(`${Config.API_URL}/information`, { headers })
+      .then((response) => response.data)
+      .catch((error) => {
+        console.log('ERROR', error);
+      });
   });
 }
 
