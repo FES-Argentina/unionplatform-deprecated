@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.sindicapp"
+        applicationId "com.unionplatform.appsindical"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

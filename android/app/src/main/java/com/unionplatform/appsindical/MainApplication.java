@@ -1,4 +1,4 @@
-package com.sindicapp;
+package com.unionplatform.appsindical;
 
 import android.app.Application;
 import android.content.Context;
