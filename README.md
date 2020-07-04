@@ -11,7 +11,8 @@ powered backend.  It was developed with the support of [FES Argentina][0] for
 ## API Keys
 
 To build the project you need to define your google maps api key in
-`android/app/src/main/res/values/secrets.xml`.
+`android/app/src/main/res/values/secrets.xml` or
+`android/app/src/VARIANT/res/values/secrets.xml`.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
