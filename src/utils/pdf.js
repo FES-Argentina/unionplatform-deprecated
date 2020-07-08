@@ -37,7 +37,7 @@ p{
 }
 </style>
   <div class="header">
-    <img height="45" width="45" src="http://www.appsindical.org.ar/themes/custom/app/logo.png" />
+    <img height="45" width="45" src="https://api.appsindical.org.ar/files/logo.png" />
     <p class="isotipo">Asociación de Personal de Plataformas</p>
   </div>
   <h4 class="mt">Sistema de Autogestión Electrónico de Denuncias</h4>
