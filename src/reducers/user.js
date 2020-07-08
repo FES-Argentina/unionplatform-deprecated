@@ -3,7 +3,6 @@ import {
   SET_AUTH,
   UPDATE_USER_SUCCESS,
   SET_ENROLLMENT_SUCCESS,
-  SET_COMPLAINT_SUCCESS,
   CHANGE_USER_PASS_SUCCESS,
   GET_COMPLAINTS_SUCCESS,
 } from '../constants';
@@ -67,11 +66,6 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         enrollments: action.payload,
-      };
-    case SET_COMPLAINT_SUCCESS:
-      return {
-        ...state,
-        complaints: action.payload,
       };
     case CHANGE_USER_PASS_SUCCESS:
       return {

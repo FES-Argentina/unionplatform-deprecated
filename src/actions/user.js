@@ -1,6 +1,6 @@
 import {
   LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, GET_USER_SUCCESS, SET_ENROLLMENT, SET_ENROLLMENT_SUCCESS,
-  SET_COMPLAINT, SET_COMPLAINT_SUCCESS, CHANGE_USER_PASS, CHANGE_USER_PASS_SUCCESS, RESET_USER_PASS, REQUEST_NEW_PASS, GET_COMPLAINTS,
+  SET_COMPLAINT, CHANGE_USER_PASS, CHANGE_USER_PASS_SUCCESS, RESET_USER_PASS, REQUEST_NEW_PASS, GET_COMPLAINTS,
   GET_COMPLAINTS_SUCCESS, GET_COMPLAINT_IMAGES_SUCCESS } from '../constants';
 
 export function loginRequest(username, password) {
@@ -89,13 +89,6 @@ export function setComplaint(values) {
   return {
     type: SET_COMPLAINT,
     data: values,
-  };
-}
-
-export function setComplaintSuccess(complaint) {
-  return {
-    type: SET_COMPLAINT_SUCCESS,
-    complaints: complaint,
   };
 }
 

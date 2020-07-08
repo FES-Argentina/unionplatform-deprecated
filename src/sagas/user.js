@@ -19,7 +19,7 @@ import {
   updateUserSuccess,
   getUserSuccess,
   setEnrollmentSuccess,
-  setComplaintSuccess,
+  getComplaints,
   getComplaintsSuccess,
   changeUserPassSuccess,
 } from '../actions/user';
@@ -305,7 +305,7 @@ function* setComplaintWorker(values) {
       const dataPatch = yield call(patchComplaintRequest, values, arrayFid);
 
       if (dataPatch) {
-        yield put(setComplaintSuccess(values));
+        yield put(getComplaints());
         Toast.show('Tu denuncia fue creada.', Toast.LONG);
         NavigationService.navigate('ComplaintsInfo');
       } else {
