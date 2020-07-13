@@ -1,5 +1,9 @@
 export const companies = [
   {
+    name: 'Beat',
+    key: 'beat',
+  },
+  {
     name: 'Cabify',
     key: 'cabify',
   },
@@ -12,8 +16,20 @@ export const companies = [
     key: 'glovo',
   },
   {
+    name: 'PedidosYa',
+    key: 'pedidosya',
+  },
+  {
     name: 'Rappi',
     key: 'rappi',
+  },
+  {
+    name: 'Uber Eats',
+    key: 'uber_eats',
+  },
+  {
+    name: 'Otra',
+    key: 'other',
   },
 ];
 
