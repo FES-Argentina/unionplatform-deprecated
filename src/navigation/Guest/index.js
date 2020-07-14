@@ -34,7 +34,7 @@ const GuestStackNavigator = createStackNavigator(
     Login: {
       screen: Login,
       navigationOptions: {
-        title: 'Login',
+        title: 'Ingresar',
       },
     },
     ResetPass: {
@@ -70,7 +70,7 @@ const GuestStackNavigator = createStackNavigator(
           )}
           { navigation.state.routeName !== 'Login' && (
           <Button
-            title="Login"
+            title="Ingresar"
             onPress={() => { navigation.navigate('Login'); }}
             type="clear"
             titleStyle={{ color: 'white' }}

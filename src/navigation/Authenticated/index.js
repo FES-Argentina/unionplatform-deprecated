@@ -277,7 +277,7 @@ const DrawerNavigator = createDrawerNavigator({
   Tabs: {
     screen: TabStackNavigator,
     navigationOptions: {
-      drawerLabel: 'Home',
+      drawerLabel: 'Inicio',
       drawerIcon: () => (
         <FontAwesome5 name="home" size={15} />
       ),

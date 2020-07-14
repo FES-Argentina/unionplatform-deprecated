@@ -19,7 +19,7 @@ class LogoutButton extends React.Component {
         titleStyle={styles.logout}
         buttonStyle={styles.logoutContainer}
         type="clear"
-        title="Logout"
+        title="Salir"
         icon= {<FontAwesome5 name="sign-out-alt" style={styles.logoutIcon} />}
         onPress={this.signOut}
       />
