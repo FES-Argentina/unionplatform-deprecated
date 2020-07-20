@@ -46,7 +46,7 @@ p{
   <table class="mt">
     <tr>
       <th>Denuncia</th>
-      <th>Descripcion</th>
+      <th>Descripción</th>
     </tr>
     <tr>
       <td>Fecha</td>
@@ -69,7 +69,7 @@ p{
   <table>
     <tr>
       <th>Item</th>
-      <th>Descripcion</th>
+      <th>Descripción</th>
     </tr>
     <tr>
       <td>Nombre y apellido</td>

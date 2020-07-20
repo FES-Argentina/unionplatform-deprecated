@@ -13,7 +13,7 @@ import { companies, alertTypes } from '../../utils/values';
 const validationSchema = yup.object().shape({
   description: yup
     .string()
-    .label('Descripcion')
+    .label('Descripción')
     .min(2, 'La descripción debe tener más de ${min} caracteres')
     .required('Campo requerido'),
   location: yup
@@ -64,12 +64,12 @@ class AlertForm extends React.Component {
             <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
 
             <Input
-              label="Descripcion"
+              label="Descripción"
               mode="outlined"
               value={values.description}
               onChangeText={handleChange('description')}
               onBlur={handleBlur('description')}
-              placeholder="Descripcion de la alerta"
+              placeholder="Descripción de la alerta"
               valid={touched.description && !errors.description}
               error={touched.description && errors.description}
               labelStyle={styles.inputslabel}
