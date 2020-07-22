@@ -174,6 +174,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingVertical: 5,
   },
+  checkboxesContainer: {
+    marginLeft: 20,
+  },
   // login
   containers: {
     flex: 1,
