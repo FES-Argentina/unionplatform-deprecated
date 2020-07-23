@@ -5790,13 +5790,6 @@ react-native-maps@^0.26.1:
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.26.1.tgz#6ec316259b38d259c8974448d894bd7a23101da4"
   integrity sha512-p4VTB8YB5ZmOmDRCUpoHZkm05amZwhIo04AJMBbB9+JAR2PNNfpo0vceoWX0Mag4wnePkdzPomeWMplr/wimTg==
 
-react-native-multiple-select@^0.5.5:
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/react-native-multiple-select/-/react-native-multiple-select-0.5.5.tgz#5bafdd3e66a42dbb600da7ebf0bd8a46a0437012"
-  integrity sha512-mkBqv6spOWrq3RBANnwfRHLqGITW99xpNZL07tMW4XXeEtOXSCgvjML+z0RIeOJKUUtbqCZA3cFigS5hSfCENQ==
-  dependencies:
-    prop-types "^15.7.2"
-
 react-native-notifications@^3.1.4:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-3.2.2.tgz#d215992b5593ed0afb81276fed8b711cf4db9617"
