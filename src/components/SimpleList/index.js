@@ -9,7 +9,6 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import _ from 'lodash';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import NavigationService from '../../navigation/NavigationService';
