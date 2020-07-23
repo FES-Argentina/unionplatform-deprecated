@@ -5,7 +5,6 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import MapPicker from 'react-native-map-picker';
-import Select from '../form/Select';
 import Options from '../form/Options';
 import { setAlert } from '../../actions/alerts';
 import styles from '../styles';
@@ -62,7 +61,13 @@ class AlertForm extends React.Component {
                 minZoomLevel={0}
               />
             </View>
-            <Select options={alertTypes} name="type" label="Tipo de alerta" setFieldValue={setFieldValue} />
+            <Options
+              label="Tipo de alerta"
+              items={alertTypes}
+              defaultValue={[alertTypes[0].key]}
+              onChange={(v) => setFieldValue('type', v[0])}
+              multiple={false}
+            />
             <Options
               label="Empresa"
               items={companies.filter((i) => profile.companies.includes(i.key))}
