@@ -5,6 +5,7 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import {Button, Input, CheckBox} from 'react-native-elements';
 import Select from '../form/Select';
+import Options from '../form/Options';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {setComplaint} from '../../actions/user';
 import PropTypes from 'prop-types';
@@ -318,11 +319,12 @@ class Complaint extends React.Component {
               label="Antigüedad"
               setFieldValue={setFieldValue}
             />
-            <Select
-              options={companies}
-              name="company"
+            <Options
               label="Empresa"
-              setFieldValue={setFieldValue}
+              items={companies.filter((i) => profile.companies.includes(i.key))}
+              onChange={(v) => setFieldValue('company', v[0])}
+              defaultValue={profile.companies.length == 1 ? profile.companies : []}
+              multiple={false}
             />
             <Select
               options={problemTypes}
