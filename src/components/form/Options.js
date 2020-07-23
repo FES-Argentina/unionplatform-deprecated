@@ -13,8 +13,13 @@ class Options extends React.Component {
 
   updateValue = (key) => {
     let { value } = this.state;
-    const { onChange } = this.props;
-    value = (value.includes(key)) ? value.filter((i) => i != key) : value.concat(key);
+    const { multiple, onChange } = this.props;
+    if (multiple) {
+      value = (value.includes(key)) ? value.filter((i) => i != key) : value.concat(key);
+    }
+    else {
+      value = [key];
+    }
     this.setState({ value });
     if (onChange) {
       onChange(value.sort());
@@ -22,7 +27,11 @@ class Options extends React.Component {
   }
 
   render() {
-    const { label, items } = this.props;
+    const { label, items, multiple } = this.props;
+    const icons = {
+      checked: multiple ? 'check-square' : 'circle',
+      unchecked: multiple ? 'square-o' : 'circle-o',
+    };
     return (
       <View>
         <Text style={styles.formLabel}>{label}</Text>
@@ -31,9 +40,9 @@ class Options extends React.Component {
             items.map((item) => (
               <CheckBox
                 iconType="font-awesome"
-                checkedIcon="check-square"
+                checkedIcon={icons.checked}
                 checkedColor="#f50057"
-                uncheckedIcon="square"
+                uncheckedIcon={icons.unchecked}
                 key={item.key}
                 title={item.name}
                 checked={this.state.value.includes(item.key)}
@@ -58,10 +67,12 @@ Options.propTypes = {
   })).isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  multiple: PropTypes.boolean,
 };
 
 Options.defaultProps = {
   defaultValue: [],
+  multiple: true,
 };
 
 export default Options;
