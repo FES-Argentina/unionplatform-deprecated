@@ -18,6 +18,8 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 
 export const SET_AUTH = 'SET_AUTH';
 
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
+
 export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 

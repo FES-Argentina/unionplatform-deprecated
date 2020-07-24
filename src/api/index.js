@@ -4,11 +4,36 @@ import SetCookieParser from 'set-cookie-parser';
 import RCTNetworking from 'react-native/Libraries/Network/RCTNetworking';
 import RNFetchBlob from 'rn-fetch-blob';
 import Headers from './headers';
-import { getCurrentTokens } from './session';
+import { getCurrentTokens, newAuthToken } from './session';
 
 const api = axios.create({
   withCredentials: false,
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const { response } = error;
+
+    if (error.response.status === 403 && response.data.message === 'X-CSRF-Token request header is invalid') {
+      return newAuthToken().then((token) => {
+        const { config } = error;
+        config.headers['X-CSRF-Token'] = token;
+
+        return new Promise((resolve, reject) => {
+          api.request(config)
+            .then((response) => {
+              resolve(response);
+            })
+            .catch((error) => {
+              reject(error);
+            })
+        });
+      });
+    }
+
+    return Promise.reject(error);
+  });
 
 /**
  * Delete cookies.
