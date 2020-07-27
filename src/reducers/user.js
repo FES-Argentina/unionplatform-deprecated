@@ -1,6 +1,7 @@
 import {
   GET_USER_SUCCESS,
   SET_AUTH,
+  SET_AUTH_TOKEN,
   UPDATE_USER_SUCCESS,
   SET_ENROLLMENT_SUCCESS,
   CHANGE_USER_PASS_SUCCESS,
@@ -30,6 +31,11 @@ const userReducer = (state = initialState, action) => {
         cookie: action.cookie,
         id: action.current_user ? action.current_user.id : null,
         profile: defaultProfile,
+      };
+    case SET_AUTH_TOKEN:
+      return {
+        ...state,
+        authToken: action.authToken,
       };
     case UPDATE_USER_SUCCESS:
       return {
