@@ -1,7 +1,7 @@
 import {
-  LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, GET_USER_SUCCESS, SET_ENROLLMENT, SET_ENROLLMENT_SUCCESS,
+  LOGIN_REQUEST, LOGOUT_REQUEST, SET_AUTH, SET_AUTH_TOKEN, UPDATE_USER, UPDATE_USER_SUCCESS, GET_USER, GET_USER_SUCCESS, SET_ENROLLMENT, SET_ENROLLMENT_SUCCESS,
   SET_COMPLAINT, CHANGE_USER_PASS, CHANGE_USER_PASS_SUCCESS, RESET_USER_PASS, REQUEST_NEW_PASS, GET_COMPLAINTS,
-  GET_COMPLAINTS_SUCCESS, GET_COMPLAINT_IMAGES_SUCCESS } from '../constants';
+  GET_COMPLAINTS_SUCCESS } from '../constants';
 
 export function loginRequest(username, password) {
   return {
@@ -28,6 +28,13 @@ export function setAuth(response) {
       username: response.data.current_user.name,
       id: response.data.current_user.uid,
     },
+  };
+}
+
+export function setAuthToken(authToken) {
+  return {
+    type: SET_AUTH_TOKEN,
+    authToken,
   };
 }
 
