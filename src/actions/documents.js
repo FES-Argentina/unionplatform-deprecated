@@ -1,16 +1,17 @@
 import { GET_DOCUMENTS, GET_DOCUMENTS_SUCCESS } from '../constants';
 
-export function getDocuments(page) {
+export function getDocuments(offset) {
   return {
     type: GET_DOCUMENTS,
-    page,
+    offset,
   };
 }
 
 
-export function getDocumentsSuccess(docs) {
+export function getDocumentsSuccess(docs, offset) {
   return {
     type: GET_DOCUMENTS_SUCCESS,
     payload: docs,
+    offset,
   };
 }

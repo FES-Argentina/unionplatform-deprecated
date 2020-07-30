@@ -45,9 +45,9 @@ function clearCookies() {
   });
 }
 
-export function getDocumentsRequest(page) {
+export function getDocumentsRequest(offset) {
   return clearCookies().then(() => {
-      return api.get(`/documents?page=${page}`)
+      return api.get(`/documents?offset=${offset}`)
         .then((response) => response.data)
         .catch((error) => {
           console.log('ERROR', error);

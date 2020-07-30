@@ -1,89 +1,69 @@
 import React, {Component} from 'react';
 import {
+  ActivityIndicator,
   FlatList,
+  Image,
+  RefreshControl,
+  SafeAreaView,
   StyleSheet,
   Text,
-  View,
-  SafeAreaView,
   TouchableHighlight,
-  Image,
-  ActivityIndicator,
+  View,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import NavigationService from '../../navigation/NavigationService';
 import styles from '../styles';
 import SafeAreaViewDecider from '../SafeAreaViewDecider';
 import EmptyListMessage from '../EmptyListMessage';
-import {getDocuments} from '../../actions/documents';
+import { getDocuments } from '../../actions/documents';
 
 class SimpleList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.page = 0;
-    this.state = {
-      loading: false,
-      isRefreshing: false,
-    };
-  }
-
-  componentDidMount = page => {
-    const {loadDocuments} = this.props;
-    loadDocuments(this.page);
+  componentDidMount() {
+    const { loadDocuments } = this.props;
+    loadDocuments();
   };
+
+  _loadOlder = () => {
+    const { loading, data, loadDocuments } = this.props;
+    if (!loading) {
+      const offset = data.length;
+      loadDocuments(offset);
+    }
+  }
 
   itemView = item => {
     NavigationService.navigate('DocumentDetail', {item});
   };
 
-  handleLoadMore = () => {
-    if (!this.state.loading) {
-      this.page = this.page + 1;
-      const {loadDocuments} = this.props;
-      loadDocuments(this.page);
-      this.setState({isRefreshing: false, loading: false});
-    }
-  };
-
-  _renderItem = ({item, separators}) => {
-    return (
-      <TouchableHighlight
-        onPress={() => this.itemView(item)}
-        onShowUnderlay={separators.highlight}
-        onHideUnderlay={separators.unhighlight}>
-        <View style={styles.itemList}>
-          <Text
-            style={styles.titleList}
-            numberOfLines={2}
-            ellipsizeMode={'tail'}>
-            {item.title}
-          </Text>
-          {item.image && (
-            <Image source={{uri: item.image}} style={styles.imagesList} />
-          )}
-        </View>
-      </TouchableHighlight>
-    );
-  };
-
   render() {
-    const { data } = this.props;
+    const { data, loading, loadDocuments } = this.props;
 
     return (
       <SafeAreaView>
-        <SafeAreaViewDecider
-          statusBarHiddenForNotch={true}
-          statusBarHiddenForNonNotch={false}
-          backgroundColor="crimson"
-        />
+        <SafeAreaViewDecider statusBarHiddenForNotch={true} statusBarHiddenForNonNotch={false} backgroundColor="crimson" />
         <FlatList
-          refreshing={this.state.isRefreshing}
           data={data}
-          renderItem={this._renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={this.renderSeparator}
-          onEndReachedThreshold={0.4}
-          onEndReached={this.handleLoadMore.bind(this)}
+          renderItem={({item, separators}) => (
+            <TouchableHighlight
+              onPress={() => this.itemView(item)}
+              onShowUnderlay={separators.highlight}
+              onHideUnderlay={separators.unhighlight}>
+              <View style={styles.itemList}>
+                <Text style={styles.titleList} numberOfLines={2} ellipsizeMode={'tail'}>{item.title}</Text>
+              </View>
+            </TouchableHighlight>
+          )}
+          keyExtractor={(item) => item.id}
+          onEndReachedThreshold={0.1}
+          onEndReached={this._loadOlder}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={loadDocuments}
+              colors={['#f50057']}
+            />
+          }
         />
       </SafeAreaView>
     );
@@ -92,7 +72,6 @@ class SimpleList extends React.Component {
 
 SimpleList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
-  loadDocuments: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
@@ -104,13 +83,11 @@ SimpleList.defaultProps = {
 
 const mapStateToProps = state => ({
   data: state.documents.list,
+  loading: state.documents.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadDocuments: page => dispatch(getDocuments(page)),
+  loadDocuments: (offset = 0) => dispatch(getDocuments(offset)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SimpleList);
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleList);
