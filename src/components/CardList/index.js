@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  Text,
-  View,
   ImageBackground,
+  RefreshControl,
+  ScrollView,
+  Text,
   TouchableHighlight,
-  ScrollView
+  View,
 } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import PropTypes from 'prop-types';
@@ -35,7 +36,7 @@ class CardList extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, loading, loadNews } = this.props;
 
     return (
       <>
@@ -60,6 +61,13 @@ class CardList extends React.Component {
           ListEmptyComponent={<EmptyListMessage text="No hay noticias..." />}
           onEndReachedThreshold={0.1}
           onEndReached={this._loadOlder}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={loadNews}
+              colors={['#f50057']}
+            />
+          }
         />
       </>
     );
