@@ -1,8 +1,7 @@
-import { GET_DOCUMENTS_SUCCESS, GET_DOCUMENT_SUCCESS } from '../constants';
+import { GET_DOCUMENTS_SUCCESS } from '../constants';
 
 const initialState = {
   list: [],
-  item: {},
 };
 
 const documentsReducer = (state = initialState, action) => {
@@ -11,12 +10,6 @@ const documentsReducer = (state = initialState, action) => {
       return {
         ...state,
         list: [...state.list, ...action.payload],
-      };
-
-    case GET_DOCUMENT_SUCCESS:
-      return {
-        ...state,
-        item: action.payload,
       };
 
     default:

@@ -54,16 +54,6 @@ export function getDocumentsRequest(page) {
   });
 }
 
-export function getDocumentRequest(id) {
-  return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/documents/${id}`)
-      .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
-  });
-}
-
 export function login(username, password) {
   return clearCookies().then(() => {
     return api.post(`${Config.API_URL}/user/login?_format=json`, { name: username, pass: password })
@@ -223,19 +213,6 @@ export function getNewsRequest() {
   return clearCookies().then(() => {
     return api.get(`${Config.API_URL}/news`)
       .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
-  });
-}
-
-export function getNewRequest(id) {
-  return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/news/${id}`)
-      .then((response) => {
-        const [item] = response.data;
-        return item;
-      })
       .catch((error) => {
         console.log('ERROR', error);
       });

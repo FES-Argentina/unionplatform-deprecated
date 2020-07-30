@@ -1,8 +1,7 @@
-import { GET_NEWS_SUCCESS, GET_NEW_SUCCESS } from '../constants';
+import { GET_NEWS_SUCCESS } from '../constants';
 
 const initialState = {
   list: [],
-  item: {},
 };
 
 const newsReducer = (state = initialState, action) => {
@@ -11,12 +10,6 @@ const newsReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload,
-      };
-
-    case GET_NEW_SUCCESS:
-      return {
-        ...state,
-        item: action.payload,
       };
 
     default:

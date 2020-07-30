@@ -1,11 +1,8 @@
-import {
-  call, put, takeLatest, take,
-} from 'redux-saga/effects';
-
-import { GET_NEWS, GET_NEW } from '../constants';
+import { call, put, takeLatest, take } from 'redux-saga/effects';
+import { GET_NEWS } from '../constants';
 import { processing } from '../actions';
-import { getNewsSuccess, getNewSuccess } from '../actions/news';
-import { getNewsRequest, getNewRequest } from '../api';
+import { getNewsSuccess } from '../actions/news';
+import { getNewsRequest } from '../api';
 
 function* newsWorker() {
   try {
@@ -23,20 +20,4 @@ function* newsWorker() {
 
 export function* newsWatcher() {
   yield takeLatest(GET_NEWS, newsWorker);
-}
-
-export function* newWatcher() {
-  while (true) {
-    const { id } = yield take(GET_NEW);
-
-    try {
-      yield put(processing(true));
-      const newItem = yield call(getNewRequest, id);
-      yield put(getNewSuccess(newItem));
-    } catch (e) {
-      console.log('EXCEPTION', e);
-    } finally {
-      yield put(processing(false));
-    }
-  }
 }
