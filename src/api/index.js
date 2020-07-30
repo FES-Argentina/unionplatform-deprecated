@@ -209,9 +209,9 @@ export function getUserRequest(id) {
   });
 }
 
-export function getNewsRequest() {
+export function getNewsRequest(offset) {
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/news`)
+    return api.get(`${Config.API_URL}/news?offset=${offset}`)
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
