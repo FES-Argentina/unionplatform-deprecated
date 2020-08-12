@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "sindicapp.app"
-               BlueprintName = "sindicapp"
-               ReferencedContainer = "container:sindicapp.xcodeproj">
+               BuildableName = "unionplatform.app"
+               BlueprintName = "unionplatform"
+               ReferencedContainer = "container:unionplatform.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "sindicappTests.xctest"
-               BlueprintName = "sindicappTests"
-               ReferencedContainer = "container:sindicapp.xcodeproj">
+               BuildableName = "unionplatformTests.xctest"
+               BlueprintName = "unionplatformTests"
+               ReferencedContainer = "container:unionplatform.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "sindicappTests.xctest"
-               BlueprintName = "sindicappTests"
-               ReferencedContainer = "container:sindicapp.xcodeproj">
+               BuildableName = "unionplatformTests.xctest"
+               BlueprintName = "unionplatformTests"
+               ReferencedContainer = "container:unionplatform.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "sindicapp.app"
-            BlueprintName = "sindicapp"
-            ReferencedContainer = "container:sindicapp.xcodeproj">
+            BuildableName = "unionplatform.app"
+            BlueprintName = "unionplatform"
+            ReferencedContainer = "container:unionplatform.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "sindicapp.app"
-            BlueprintName = "sindicapp"
-            ReferencedContainer = "container:sindicapp.xcodeproj">
+            BuildableName = "unionplatform.app"
+            BlueprintName = "unionplatform"
+            ReferencedContainer = "container:unionplatform.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "sindicapp.app"
-            BlueprintName = "sindicapp"
-            ReferencedContainer = "container:sindicapp.xcodeproj">
+            BuildableName = "unionplatform.app"
+            BlueprintName = "unionplatform"
+            ReferencedContainer = "container:unionplatform.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

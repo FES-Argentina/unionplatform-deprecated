@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.unionplatform.appsindical"
+        applicationId "com.unionplatform"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5
