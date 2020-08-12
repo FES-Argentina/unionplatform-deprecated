@@ -1,5 +1,6 @@
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { getCompanyLabel, getProblemLabel, getSeniorityLabel } from './values';
+import { displayName } from '../../app.json';
 
 /**
  * Template for building the html string for a complaint.
@@ -38,7 +39,7 @@ p{
 </style>
   <div class="header">
     <img height="45" width="45" src="file:///android_asset/logo.png" />
-    <p class="isotipo">Asociación de Personal de Plataformas</p>
+    <p class="isotipo">${displayName}</p>
   </div>
   <h4 class="mt">Sistema de Autogestión Electrónico de Denuncias</h4>
   <p><strong>Denuncia: </strong> ${complaint.problemLabel}</p>

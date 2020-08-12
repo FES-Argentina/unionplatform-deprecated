@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { loginRequest } from '../../actions/user';
 import { clearErrors } from '../../actions';
 import NavigationService from '../../navigation/NavigationService';
+import { displayName } from '../../../app.json';
 
 import styles from '../styles';
 
@@ -81,7 +82,7 @@ class Login extends React.Component {
           values, handleChange, isValid, setFieldValue, submitForm, errors, touched, handleBlur, handleSubmit
         }) => (
           <ScrollView>
-            <Text style={styles.presentation}>Sindicato APP</Text>
+            <Text style={styles.presentation}>{displayName}</Text>
             <Input
               label="Usuarix"
               mode="outlined"

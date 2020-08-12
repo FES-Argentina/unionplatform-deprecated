@@ -35,6 +35,7 @@ import Onboarding from '../../components/Onboarding';
 import ComplaintList from '../../components/ComplaintList';
 import TermsAndConditions from '../../components/TermsAndConditions';
 import Generic from '../../components/Generic';
+import { displayName } from '../../../app.json';
 
 class NavigationDrawerStructure extends React.Component {
   render() {
@@ -57,7 +58,7 @@ const TabStackNavigator = createStackNavigator({
   TabFirst: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'App sindical',
+      title: displayName,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -70,7 +71,7 @@ const TabStackNavigator = createStackNavigator({
   TabSecond: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'App sindical',
+      title: displayName,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
@@ -83,7 +84,7 @@ const TabStackNavigator = createStackNavigator({
   TabThird: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'App sindical',
+      title: displayName,
       headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#f50057',
