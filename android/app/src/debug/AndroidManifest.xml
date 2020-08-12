@@ -10,7 +10,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" />
-                <data android:host="192.168.1.120" android:port="9988" android:pathPrefix="/user/reset" />
+                <data android:host="@string/app_host" android:port="9988" android:pathPrefix="/user/reset" />
             </intent-filter>
         </activity>
     </application>
