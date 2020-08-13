@@ -359,7 +359,7 @@ const DrawerNavigator = createDrawerNavigator({
 {
   contentComponent: (props) => (
     <SafeAreaView forceInset={{ horizontal: 'never' }} style={{ flex: 1 }}>
-      <Image source={require('../../assets/images/app.jpg')} style={styles.itemPhoto}/>
+      <Image source={require('../../assets/images/header.jpg')} style={styles.itemPhoto}/>
       <ScrollView>
         <DrawerItems {...props} />
         <LogoutButton />
