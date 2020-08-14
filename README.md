@@ -56,5 +56,26 @@ If you want to build the app with different branding you should make some change
 * Replace `src/assets/images/header.jpg` (this is used as the header for drawer navigation).
 * Replace `android/app/src/main/res/drawable-xhdpi/launch_screen.png` (this is used as the splash screen while loading the app).
 
+## License
+
+A _Trade Union Collaboration License_ was specially developed for this app with
+the support of the Observatorio de Derecho Informático de la Argentina - ODIA
+to ensure the freedom and correct use of this software, being free to share,
+copy, distribute, execute and publicly communicate the work, under the following
+conditions:
+
+* **Attribution** - You must acknowledge the credit to the work in the manner
+specified by the licensors (but not in a way that suggests that it has their
+support or that they support your use of the work).
+* **Share under the same license** - If you alter or transform this work, or
+generate a derivative work, you can only distribute it under a license identical
+to this one.
+* **Trade Union** - Those who want to use this tool must be unions, with or without
+trade union status, as well as organizations dedicated to the collective defense
+of labor rights, who carry out their tasks within a framework of strict
+compliance with the rights provided by ILO convention No. 111, the Universal
+Declaration of Human Rights and the International Covenant on Civil and Political
+Rights.
+
 [0]: https://www.fes-argentina.org
 [1]: https://gitlab.com/gcoop-libre/unionplatform_backend
