@@ -15,6 +15,7 @@ import Share from 'react-native-share';
 import { processing } from '../../actions';
 import { getProblemLabel } from '../../utils/values';
 import EmptyListMessage from '../EmptyListMessage';
+import { displayName } from '../../../app.json';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -41,8 +42,8 @@ class ComplaintList extends React.Component {
         Share.open({
           title: 'Compartir denuncia',
           url: `file://${file.filePath}`,
-          subject: 'Mi denuncia en SindicAPP',
-          message: 'Denuncia reportada a través de SindicAPP.',
+          subject: `Mi denuncia en ${displayName}`,
+          message: `Denuncia reportada a través de ${displayName}.`,
         });
       }
     } catch (e) {

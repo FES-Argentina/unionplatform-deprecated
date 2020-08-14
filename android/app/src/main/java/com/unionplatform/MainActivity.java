@@ -1,4 +1,4 @@
-package com.unionplatform.appsindical;
+package com.unionplatform;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
@@ -20,7 +20,7 @@ public class MainActivity extends ReactActivity {
   }   
   @Override
   protected String getMainComponentName() {
-    return "appsindical";
+    return "unionplatform";
   }
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
