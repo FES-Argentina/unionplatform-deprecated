@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-date-picker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Selector from '../form/Selector';
+import Options from '../form/Options';
 import Dropdown from '../form/Dropdown';
 import styles from '../styles';
 import { companies, provinces } from '../../utils/values';
@@ -468,7 +468,12 @@ class ProfileForm extends React.Component {
               <Text style={styles.formErrorMessage}>{errors.country}</Text>
             ) : null }
             <Text style={styles.formTitles}>Sobre tu trabajo</Text>
-            <Selector items={companies} name="companies" defaultValue={profile.companies} label="Empresa" setFieldValue={setFieldValue} />
+            <Options
+              label="Empresa(s)"
+              items={companies}
+              defaultValue={profile.companies}
+              onChange={(v) => setFieldValue('companies', v)}
+            />
             <Text style={styles.bodyDetail}>Elegí al menos una opción</Text>
             <Input
               label="Tareas"

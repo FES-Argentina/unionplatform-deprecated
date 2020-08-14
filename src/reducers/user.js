@@ -16,7 +16,6 @@ const initialState = {
   cookie: null,
   id: null,
   profile: defaultProfile,
-  item: {},
   enrollments: [],
   complaints: [],
 };

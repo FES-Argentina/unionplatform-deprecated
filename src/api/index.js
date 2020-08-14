@@ -7,6 +7,7 @@ import Headers from './headers';
 import { getCurrentTokens, newAuthToken } from './session';
 
 const api = axios.create({
+  baseURL: Config.API_URL,
   withCredentials: false,
 });
 
@@ -44,9 +45,9 @@ function clearCookies() {
   });
 }
 
-export function getDocumentsRequest(page) {
+export function getDocumentsRequest(offset) {
   return clearCookies().then(() => {
-      return api.get(`${Config.API_URL}/documents?page=${page}`)
+      return api.get(`/documents?offset=${offset}`)
         .then((response) => response.data)
         .catch((error) => {
           console.log('ERROR', error);
@@ -54,19 +55,9 @@ export function getDocumentsRequest(page) {
   });
 }
 
-export function getDocumentRequest(id) {
-  return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/documents/${id}`)
-      .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
-  });
-}
-
 export function login(username, password) {
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/user/login?_format=json`, { name: username, pass: password })
+    return api.post('/user/login?_format=json', { name: username, pass: password })
       .then((response) => {
         var cookie = SetCookieParser(response.headers['set-cookie'], {decodeValues: true});
         return {
@@ -90,7 +81,7 @@ export function login(username, password) {
  */
 export function oneTimeLogin(uid, token, timestamp) {
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/user/reset/${uid}/${timestamp}/${token}/login?_format=json`)
+    return api.post(`/user/reset/${uid}/${timestamp}/${token}/login?_format=json`)
       .then((response) => {
         var cookie = SetCookieParser(response.headers['set-cookie'], {decodeValues: true});
         return {
@@ -107,7 +98,7 @@ export function logout() {
       .setCookie()
       .build();
     const { logoutToken } = getCurrentTokens();
-    return api.post(`${Config.API_URL}/user/logout?_format=json&token=${logoutToken}`, null, { headers })
+    return api.post(`/user/logout?_format=json&token=${logoutToken}`, null, { headers })
       .then((response) => response);
   });
 }
@@ -117,7 +108,7 @@ export function loginStatus() {
     const headers = new Headers(Headers.types.APPLICATION_JSON)
       .setCookie()
       .build();
-    return api.get(`${Config.API_URL}/user/login_status?_format=json`, { headers })
+    return api.get('/user/login_status?_format=json', { headers })
       .then((response) => response.data);
   });
 }
@@ -131,7 +122,7 @@ export function requestNewPassword(value) {
   };
   return clearCookies().then(() => {
     const headers = new Headers(Headers.types.APPLICATION_JSON).build();
-    return api.post(`${Config.API_URL}/user/password?_format=json`, data, { headers })
+    return api.post('/user/password?_format=json', data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         const { response } = error;
@@ -166,7 +157,7 @@ export function changePasswordWithToken(password, user) {
     .build();
 
   return clearCookies().then(() => {
-    return api.patch(`${Config.API_URL}/user/${id}?_format=hal_json&pass-reset-token=${token}`, data, { headers })
+    return api.patch(`/user/${id}?_format=hal_json&pass-reset-token=${token}`, data, { headers })
       .then((response) => response.data);
   });
 }
@@ -203,7 +194,7 @@ export function updateUser(id, values) {
     .setAuthToken()
     .build();
   return clearCookies().then(() => {
-    return api.patch(`${Config.API_URL}/user/${id}?_format=hal_json`, data, { headers })
+    return api.patch(`/user/${id}?_format=hal_json`, data, { headers })
       .then((response) => response.data);
   });
 }
@@ -211,7 +202,7 @@ export function updateUser(id, values) {
 export function getUserRequest(id) {
   const headers = new Headers(Headers.types.APPLICATION_JSON).setCookie().build();
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/user/${id}?_format=json`, { headers })
+    return api.get(`/user/${id}?_format=json`, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -219,23 +210,10 @@ export function getUserRequest(id) {
   });
 }
 
-export function getNewsRequest() {
+export function getNewsRequest(offset) {
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/news`)
+    return api.get(`/news?offset=${offset}`)
       .then((response) => response.data)
-      .catch((error) => {
-        console.log('ERROR', error);
-      });
-  });
-}
-
-export function getNewRequest(id) {
-  return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/news/${id}`)
-      .then((response) => {
-        const [item] = response.data;
-        return item;
-      })
       .catch((error) => {
         console.log('ERROR', error);
       });
@@ -270,20 +248,20 @@ function postNewUser(values, sessionToken) {
   return clearCookies().then(() => {
     const headers = new Headers(Headers.types.APPLICATION_HAL_JSON).setToken(sessionToken).build();
 
-    return api.post(`${Config.API_URL}/user/register?_format=hal_json`, data, { headers })
+    return api.post('/user/register?_format=hal_json', data, { headers })
       .then((response) => response.data);
   });
 }
 
 export function setEnrollmentRequest(values) {
-  return api.get(`${Config.API_URL}/session/token`).then((response) => {
+  return api.get('/session/token').then((response) => {
     return postNewUser(values, response.data)
   });
 }
 
 export function changeUserPass(id, data) {
   return clearCookies().then(() => {
-    return api.put(`${Config.API_URL}/users/${id}`, { pass: data })
+    return api.put(`/users/${id}`, { pass: data })
       .then((response) => response.data);
   });
 }
@@ -293,7 +271,7 @@ export function getComplaintsRequest() {
     .setCookie()
     .build();
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/complaints`, { headers })
+    return api.get('/complaints', { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -306,7 +284,7 @@ export function getAlertsRequest() {
     .setCookie()
     .build();
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/alerts`, { headers })
+    return api.get('/alerts', { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -334,7 +312,7 @@ export function setAlertRequest(values) {
     .setAuthToken()
     .build();
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/node?_format=hal_json`, data, { headers })
+    return api.post('/node?_format=hal_json', data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -350,7 +328,7 @@ export function setComplaintFileRequest(values) {
     .setAuthToken()
     .setContentDisposition(photo.filename)
     .build();
-  const uri = `${Config.API_URL}/file/upload/node/complaints/field_complaint_image?_format=json`;
+  const uri = '/file/upload/node/complaints/field_complaint_image?_format=json';
 
   return clearCookies().then(() => {
     return RNFetchBlob.fetch('POST', uri, headers, RNFetchBlob.wrap(`file://${photo.uri}`))
@@ -402,7 +380,7 @@ export function patchComplaintRequest(values, arrayFid) {
     .setAuthToken()
     .build();
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/node?_format=json`, data, { headers })
+    return api.post('/node?_format=json', data, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -431,7 +409,7 @@ export function getInformationRequest() {
     .setCookie()
     .build();
   return clearCookies().then(() => {
-    return api.get(`${Config.API_URL}/information`, { headers })
+    return api.get('/information', { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);
@@ -445,7 +423,7 @@ export function postDeviceToken(user, token) {
     .setAuthToken()
     .build();
   return clearCookies().then(() => {
-    return api.post(`${Config.API_URL}/user/${user}/device_token?_format=hal_json`, `"${token}"`, { headers })
+    return api.post(`/user/${user}/device_token?_format=hal_json`, `"${token}"`, { headers })
       .then((response) => response.data)
       .catch((error) => {
         console.log('ERROR', error);

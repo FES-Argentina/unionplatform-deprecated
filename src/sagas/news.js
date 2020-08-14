@@ -1,42 +1,18 @@
-import {
-  call, put, takeLatest, take,
-} from 'redux-saga/effects';
-
-import { GET_NEWS, GET_NEW } from '../constants';
+import { call, put, takeLatest, take } from 'redux-saga/effects';
+import Toast from 'react-native-simple-toast';
+import { GET_NEWS } from '../constants';
 import { processing } from '../actions';
-import { getNewsSuccess, getNewSuccess } from '../actions/news';
-import { getNewsRequest, getNewRequest } from '../api';
-
-function* newsWorker() {
-  try {
-    yield put(processing(true));
-    const news = yield call(getNewsRequest);
-
-    // Dispatch the getNews actions to the store.
-    yield put(getNewsSuccess(news));
-  } catch (e) {
-    console.log('EXCEPTION', e);
-  } finally {
-    yield put(processing(false));
-  }
-}
+import { getNewsSuccess } from '../actions/news';
+import { getNewsRequest } from '../api';
 
 export function* newsWatcher() {
-  yield takeLatest(GET_NEWS, newsWorker);
-}
-
-export function* newWatcher() {
   while (true) {
-    const { id } = yield take(GET_NEW);
-
+    const { offset } = yield take(GET_NEWS);
     try {
-      yield put(processing(true));
-      const newItem = yield call(getNewRequest, id);
-      yield put(getNewSuccess(newItem));
+      const news = yield call(getNewsRequest, offset);
+      yield put(getNewsSuccess(news, offset));
     } catch (e) {
-      console.log('EXCEPTION', e);
-    } finally {
-      yield put(processing(false));
+      Toast.show('No se pudieron cargar las noticias.', Toast.LONG);
     }
   }
 }

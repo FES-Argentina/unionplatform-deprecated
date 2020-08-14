@@ -1,22 +1,24 @@
-import { GET_DOCUMENTS_SUCCESS, GET_DOCUMENT_SUCCESS } from '../constants';
+import { GET_DOCUMENTS, GET_DOCUMENTS_SUCCESS } from '../constants';
 
 const initialState = {
   list: [],
-  item: {},
+  loading: false,
 };
 
 const documentsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DOCUMENTS_SUCCESS:
+    case GET_DOCUMENTS:
       return {
         ...state,
-        list: [...state.list, ...action.payload],
+        loading: true,
       };
 
-    case GET_DOCUMENT_SUCCESS:
+    case GET_DOCUMENTS_SUCCESS:
+      const { payload, offset } = action;
       return {
         ...state,
-        item: action.payload,
+        list: offset > 0 ? [...state.list, ...payload] : payload,
+        loading: false,
       };
 
     default:

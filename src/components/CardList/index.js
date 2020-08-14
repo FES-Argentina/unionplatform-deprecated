@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  Text,
-  View,
   ImageBackground,
+  RefreshControl,
+  ScrollView,
+  Text,
   TouchableHighlight,
-  ScrollView
+  View,
 } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import PropTypes from 'prop-types';
@@ -18,16 +19,24 @@ import styles from '../styles';
 
 class CardList extends React.Component {
   componentDidMount = () => {
-    const { loadDocuments } = this.props;
-    loadDocuments();
+    const { loadNews } = this.props;
+    loadNews();
   }
 
   itemView = (item) => {
     this.props.navigation.navigate("NewsDetail" , {item});
   }
 
+  _loadOlder = () => {
+    const { loadNews, loading, data } = this.props;
+    if (!loading) {
+      const offset = data.length;
+      loadNews(offset);
+    }
+  }
+
   render() {
-    const { data } = this.props;
+    const { data, loading, loadNews } = this.props;
 
     return (
       <>
@@ -50,6 +59,15 @@ class CardList extends React.Component {
             </TouchableHighlight>
           )}
           ListEmptyComponent={<EmptyListMessage text="No hay noticias..." />}
+          onEndReachedThreshold={0.1}
+          onEndReached={this._loadOlder}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={loadNews}
+              colors={['#f50057']}
+            />
+          }
         />
       </>
     );
@@ -58,7 +76,6 @@ class CardList extends React.Component {
 
 CardList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
-  loadDocuments: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
@@ -70,10 +87,11 @@ CardList.defaultProps = {
 
 const mapStateToProps = (state) => ({
   data: state.news.list,
+  loading: state.news.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocuments: () => dispatch(getNews()),
+  loadNews: (offset = 0) => dispatch(getNews(offset)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardList);

@@ -1,22 +1,24 @@
-import { GET_NEWS_SUCCESS, GET_NEW_SUCCESS } from '../constants';
+import { GET_NEWS, GET_NEWS_SUCCESS } from '../constants';
 
 const initialState = {
   list: [],
-  item: {},
+  loading: false,
 };
 
 const newsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_NEWS_SUCCESS:
+    case GET_NEWS:
       return {
         ...state,
-        list: action.payload,
+        loading: true,
       };
 
-    case GET_NEW_SUCCESS:
+    case GET_NEWS_SUCCESS:
+      const { payload, offset } = action;
       return {
         ...state,
-        item: action.payload,
+        list: offset > 0 ? [...state.list, ...payload] : payload,
+        loading: false,
       };
 
     default:

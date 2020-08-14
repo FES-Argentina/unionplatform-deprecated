@@ -10,7 +10,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-                <data android:host="api-stg.appsindical.org.ar" android:pathPrefix="/user/reset" />
+                <data android:host="@string/app_host" android:pathPrefix="/user/reset" />
             </intent-filter>
         </activity>
     </application>

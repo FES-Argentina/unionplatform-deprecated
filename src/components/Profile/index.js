@@ -18,6 +18,7 @@ import { getCompanyLabel, getProvinceLabel } from '../../utils/values';
 import Field from '../Field';
 import Address from '../Address';
 import styles from '../styles';
+import { displayName } from '../../../app.json';
 
 class Profile extends React.Component {
   componentDidMount = () => {
@@ -35,8 +36,8 @@ class Profile extends React.Component {
         Share.open({
           title: 'Compartir denuncia',
           url: `file://${file.filePath}`,
-          subject: 'Mi denuncia en SindicAPP',
-          message: 'Denuncia reportada a través de SindicAPP.',
+          subject: `Mi denuncia en ${displayName}`,
+          message: `Denuncia reportada a través de ${displayName}.`,
         });
       }
     } catch (e) {

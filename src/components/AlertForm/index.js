@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Button, Input } from 'react-native-elements';
 import MapPicker from 'react-native-map-picker';
-import Select from '../form/Select';
+import Options from '../form/Options';
 import { setAlert } from '../../actions/alerts';
 import styles from '../styles';
 import { companies, alertTypes } from '../../utils/values';
@@ -13,7 +13,7 @@ import { companies, alertTypes } from '../../utils/values';
 const validationSchema = yup.object().shape({
   description: yup
     .string()
-    .label('Descripcion')
+    .label('Descripción')
     .min(2, 'La descripción debe tener más de ${min} caracteres')
     .required('Campo requerido'),
   location: yup
@@ -40,6 +40,7 @@ class AlertForm extends React.Component {
 
 
   render() {
+    const { profile } = this.props;
     return (
       <Formik
         initialValues={{ description: '' }}
@@ -60,16 +61,28 @@ class AlertForm extends React.Component {
                 minZoomLevel={0}
               />
             </View>
-            <Select options={alertTypes} name="type" label="Tipo de alerta" setFieldValue={setFieldValue} />
-            <Select options={companies} name="company" label="Empresa" setFieldValue={setFieldValue} />
+            <Options
+              label="Tipo de alerta"
+              items={alertTypes}
+              defaultValue={[alertTypes[0].key]}
+              onChange={(v) => setFieldValue('type', v[0])}
+              multiple={false}
+            />
+            <Options
+              label="Empresa"
+              items={companies.filter((i) => profile.companies.includes(i.key))}
+              onChange={(v) => setFieldValue('company', v[0])}
+              defaultValue={profile.companies.length == 1 ? profile.companies : []}
+              multiple={false}
+            />
 
             <Input
-              label="Descripcion"
+              label="Descripción"
               mode="outlined"
               value={values.description}
               onChangeText={handleChange('description')}
               onBlur={handleBlur('description')}
-              placeholder="Descripcion de la alerta"
+              placeholder="Descripción de la alerta"
               valid={touched.description && !errors.description}
               error={touched.description && errors.description}
               labelStyle={styles.inputslabel}
@@ -100,7 +113,7 @@ class AlertForm extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  profile: state.user.profile,
 });
 
 const mapDispatchToProps = (dispatch) => ({
