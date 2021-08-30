@@ -1,4 +1,6 @@
-# Union Platform
+# This repo is deprecated. We are currently working on the new version of this application.
+
+## Union Platform
 
 > An application to improve the communication between labor unions and its members.
 
@@ -7,7 +9,7 @@ unions and its members. It allows users to share news and documents, enroll
 through the app and upload complaints and georeferenced alerts using a drupal
 powered [backend][1]. It was developed with the support of [FES Argentina][0].
 
-## Build
+### Build
 
 The app has been tested on android.
 
@@ -43,7 +45,7 @@ or
 $ ENVFILE=.env.staging yarn react-native run-android --variant=releaseStg
 ```
 
-## Branding
+### Branding
 
 If you want to build the app with different branding you should make some changes
 (this list may be incomplete, feel free to add to it).
@@ -56,7 +58,7 @@ If you want to build the app with different branding you should make some change
 * Replace `src/assets/images/header.jpg` (this is used as the header for drawer navigation).
 * Replace `android/app/src/main/res/drawable-xhdpi/launch_screen.png` (this is used as the splash screen while loading the app).
 
-## License
+### License
 
 A _Trade Union Collaboration License_ was specially developed for this app with
 the support of the Observatorio de Derecho Informático de la Argentina - ODIA
