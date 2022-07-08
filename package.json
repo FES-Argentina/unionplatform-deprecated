@@ -16,7 +16,7 @@
     "axios": "^0.21.1",
     "cuit-validator": "^1.0.0",
     "formik": "^2.0.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "patch-package": "^6.2.2",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
